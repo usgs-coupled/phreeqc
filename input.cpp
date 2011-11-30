@@ -223,7 +223,7 @@ get_line(void)
 		}
 		return (return_value);
 	}
-	next_keyword = KEY_END;
+	next_keyword = Keywords::KEY_END;
 	return EOF;
 
 }

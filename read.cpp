@@ -17,12 +17,12 @@ read_input(void)
 
 	parse_error = 0;
 	input_error = 0;
-	next_keyword = Phreeqc::KEY_NONE;
+	next_keyword = Keywords::KEY_NONE;
 	count_warnings = 0;
 /*
  *  Initialize keyword counters
  */
-	for (i = 0; i < Phreeqc::KEY_COUNT_KEYWORDS; i++)
+	for (i = 0; i < Keywords::KEY_COUNT_KEYWORDS; i++)
 	{
 		keycount[i] = 0;
 	}
@@ -79,19 +79,19 @@ read_input(void)
 	{
 		if (next_keyword > 0)
 		{
-			if (next_keyword != KEY_DATABASE && !reading_database())
+			if (next_keyword != Keywords::KEY_DATABASE && !reading_database())
 			{
 				first_read_input = FALSE;
 			}
 		}
 		// mark keyword read
-		if (next_keyword > 0 && next_keyword < KEY_COUNT_KEYWORDS)
+		if (next_keyword > 0 && next_keyword < Keywords::KEY_COUNT_KEYWORDS)
 		{
 			keycount[next_keyword]++;
 		}
 		switch (next_keyword)
 		{
-		case KEY_NONE:				/* Have not read line with keyword */
+		case Keywords::KEY_NONE:				/* Have not read line with keyword */
 			sprintf(error_string, "Unknown input, no keyword has been specified.");
 			warning_msg(error_string);
 			while ((j =	check_line("No keyword", FALSE, TRUE, TRUE, TRUE)) != KEYWORD && j != EOF)
@@ -99,103 +99,103 @@ read_input(void)
 				warning_msg(error_string);
 			}
 			break;
-		case KEY_END:
+		case Keywords::KEY_END:
 			goto END_OF_SIMULATION_INPUT;
-		case KEY_SOLUTION_SPECIES:				/* Read aqueous model */
+		case Keywords::KEY_SOLUTION_SPECIES:				/* Read aqueous model */
 			read_species();
 			break;
-		case KEY_SOLUTION_MASTER_SPECIES:		/* Read master species */
+		case Keywords::KEY_SOLUTION_MASTER_SPECIES:		/* Read master species */
 			read_master_species();
 			break;
-		case KEY_SOLUTION:				/* Read solution data */
+		case Keywords::KEY_SOLUTION:				/* Read solution data */
 			read_solution();
 			solution_sort();
 			break;
-		case KEY_PHASES:
+		case Keywords::KEY_PHASES:
 			read_phases();
 			break;
-		case KEY_EQUILIBRIUM_PHASES:
+		case Keywords::KEY_EQUILIBRIUM_PHASES:
 			read_pure_phases();
 			break;
-		case KEY_REACTION:
+		case Keywords::KEY_REACTION:
 			read_reaction();
 			break;
-		case KEY_MIX:
+		case Keywords::KEY_MIX:
 			read_mix();
 			break;
-		case KEY_USE:
+		case Keywords::KEY_USE:
 			read_use();
 			break;
-		case KEY_SAVE:
+		case Keywords::KEY_SAVE:
 			read_save();
 			break;
-		case KEY_EXCHANGE_SPECIES:
+		case Keywords::KEY_EXCHANGE_SPECIES:
 			read_exchange_species();
 			break;
-		case KEY_EXCHANGE_MASTER_SPECIES:
+		case Keywords::KEY_EXCHANGE_MASTER_SPECIES:
 			read_exchange_master_species();
 			break;
-		case KEY_EXCHANGE:
+		case Keywords::KEY_EXCHANGE:
 			read_exchange();
 			break;
-		case KEY_SURFACE_SPECIES:
+		case Keywords::KEY_SURFACE_SPECIES:
 			read_surface_species();
 			break;
-		case KEY_SURFACE_MASTER_SPECIES:
+		case Keywords::KEY_SURFACE_MASTER_SPECIES:
 			read_surface_master_species();
 			break;
-		case KEY_SURFACE:
+		case Keywords::KEY_SURFACE:
 			read_surf();
 			break;
-		case KEY_REACTION_TEMPERATURE:
+		case Keywords::KEY_REACTION_TEMPERATURE:
 			read_temperature();
 			break;
-		case KEY_INVERSE_MODELING:
+		case Keywords::KEY_INVERSE_MODELING:
 			read_inverse();
 			break;
-		case KEY_GAS_PHASE:
+		case Keywords::KEY_GAS_PHASE:
 			read_gas_phase();
 			break;
-		case KEY_TRANSPORT:
+		case Keywords::KEY_TRANSPORT:
 			read_transport();
 			break;
-		case KEY_KNOBS:
+		case Keywords::KEY_KNOBS:
 			read_debug();
 			break;
-		case KEY_SELECTED_OUTPUT:
+		case Keywords::KEY_SELECTED_OUTPUT:
 			read_selected_output();
 			break;
-		case KEY_PRINT:
+		case Keywords::KEY_PRINT:
 			read_print();
 			break;
-		case KEY_TITLE:
+		case Keywords::KEY_TITLE:
 			read_title();
 			break;
-		case KEY_ADVECTION:
+		case Keywords::KEY_ADVECTION:
 			read_advection();
 			break;
-		case KEY_KINETICS:
+		case Keywords::KEY_KINETICS:
 			read_kinetics();
 			break;
-		case KEY_INCREMENTAL_REACTIONS:
+		case Keywords::KEY_INCREMENTAL_REACTIONS:
 			read_incremental_reactions();
 			break;
-		case KEY_RATES:
+		case Keywords::KEY_RATES:
 			read_rates();
 			break;
-		case KEY_SOLUTION_SPREAD:
+		case Keywords::KEY_SOLUTION_SPREAD:
 			read_solution_spread();
 			break;
-		case KEY_USER_PRINT:
+		case Keywords::KEY_USER_PRINT:
 			read_user_print();
 			break;
-		case KEY_USER_PUNCH:
+		case Keywords::KEY_USER_PUNCH:
 			read_user_punch();
 			break;
-		case KEY_SOLID_SOLUTIONS:
+		case Keywords::KEY_SOLID_SOLUTIONS:
 			read_solid_solutions();
 			break;
-		case KEY_USER_GRAPH:
+		case Keywords::KEY_USER_GRAPH:
 #if defined PHREEQ98 
 			read_user_graph();
 #elif defined MULTICHART
@@ -211,10 +211,10 @@ read_input(void)
 			}
 #endif
 			break;
-		case KEY_LLNL_AQUEOUS_MODEL_PARAMETERS:
+		case Keywords::KEY_LLNL_AQUEOUS_MODEL_PARAMETERS:
 			read_llnl_aqueous_model_parameters();
 			break;
-		case KEY_DATABASE:
+		case Keywords::KEY_DATABASE:
 			if (reading_database())
 			{
 				/* warning_msg("DATABASE is ignored in the database file."); */
@@ -243,108 +243,108 @@ read_input(void)
 			}
 			j = check_line("Reading after DATABASE", FALSE, TRUE, TRUE, TRUE);
 			break;
-		case KEY_NAMED_EXPRESSIONS:
+		case Keywords::KEY_NAMED_EXPRESSIONS:
 			read_named_logk();
 			break;
-		case KEY_ISOTOPES:
+		case Keywords::KEY_ISOTOPES:
 			read_isotopes();
 			break;
-		case KEY_CALCULATE_VALUES:
+		case Keywords::KEY_CALCULATE_VALUES:
 			read_calculate_values();
 			break;
-		case KEY_ISOTOPE_RATIOS:
+		case Keywords::KEY_ISOTOPE_RATIOS:
 			read_isotope_ratios();
 			break;
-		case KEY_ISOTOPE_ALPHAS:
+		case Keywords::KEY_ISOTOPE_ALPHAS:
 			read_isotope_alphas();
 			break;
-		case KEY_COPY:
+		case Keywords::KEY_COPY:
 			read_copy();
 			break;
-		case KEY_PITZER:
+		case Keywords::KEY_PITZER:
 			read_pitzer();
 			break;
-		case KEY_SIT:
+		case Keywords::KEY_SIT:
 			read_sit();
 			break;
-		case KEY_SOLUTION_RAW:		
+		case Keywords::KEY_SOLUTION_RAW:		
 			read_solution_raw();
 			break;
-		case KEY_EXCHANGE_RAW:		
+		case Keywords::KEY_EXCHANGE_RAW:		
 			read_exchange_raw();
 			break;
-		case KEY_SURFACE_RAW:		
+		case Keywords::KEY_SURFACE_RAW:		
 			read_surface_raw();
 			break;
-		case KEY_EQUILIBRIUM_PHASES_RAW:		
+		case Keywords::KEY_EQUILIBRIUM_PHASES_RAW:		
 			read_equilibrium_phases_raw();
 			break;
-		case KEY_KINETICS_RAW:
+		case Keywords::KEY_KINETICS_RAW:
 			read_kinetics_raw();
 			break;
-		case KEY_SOLID_SOLUTIONS_RAW:
+		case Keywords::KEY_SOLID_SOLUTIONS_RAW:
 			read_solid_solutions_raw();
 			break;
-		case KEY_GAS_PHASE_RAW:		
+		case Keywords::KEY_GAS_PHASE_RAW:		
 			read_gas_phase_raw();
 			break;
-		case KEY_REACTION_RAW:		
+		case Keywords::KEY_REACTION_RAW:		
 			read_reaction_raw();
 			break;
-		case KEY_MIX_RAW:		
+		case Keywords::KEY_MIX_RAW:		
 			read_mix_raw();
 			break;
-		case KEY_REACTION_TEMPERATURE_RAW:
+		case Keywords::KEY_REACTION_TEMPERATURE_RAW:
 			read_temperature_raw();
 			break;
-		case KEY_DUMP:		
+		case Keywords::KEY_DUMP:		
 			read_dump();
 			break;
-		case KEY_SOLUTION_MODIFY:
+		case Keywords::KEY_SOLUTION_MODIFY:
 			read_solution_modify();
 			break;
-		case KEY_EQUILIBRIUM_PHASES_MODIFY:
+		case Keywords::KEY_EQUILIBRIUM_PHASES_MODIFY:
 			read_equilibrium_phases_modify();
 			break;
-		case KEY_EXCHANGE_MODIFY:
+		case Keywords::KEY_EXCHANGE_MODIFY:
 			read_exchange_modify();
 			break;
-		case KEY_SURFACE_MODIFY:
+		case Keywords::KEY_SURFACE_MODIFY:
 			read_surface_modify();
 			break;
-		case KEY_SOLID_SOLUTIONS_MODIFY:
+		case Keywords::KEY_SOLID_SOLUTIONS_MODIFY:
 			read_solid_solutions_modify();
 			break;
-		case KEY_GAS_PHASE_MODIFY:
+		case Keywords::KEY_GAS_PHASE_MODIFY:
 			read_gas_phase_modify();
 			break;
-		case KEY_KINETICS_MODIFY:
+		case Keywords::KEY_KINETICS_MODIFY:
 			read_kinetics_modify();
 			break;
-		case KEY_DELETE:
+		case Keywords::KEY_DELETE:
 			read_delete();
 			break;
-		case KEY_RUN_CELLS:
+		case Keywords::KEY_RUN_CELLS:
 			read_run_cells();
 			break;
-		case KEY_REACTION_MODIFY:
+		case Keywords::KEY_REACTION_MODIFY:
 			read_reaction_modify();
 			break;
 		//case LAST_C_KEYWORD + 22:		//reaction_temperature_modify
 		//	keyword[LAST_C_KEYWORD + 22].keycount++;
 		//	read_reaction_temperature_modify();
 		//	break;
-		case KEY_SOLID_SOLUTION_MODIFY:
+		case Keywords::KEY_SOLID_SOLUTION_MODIFY:
 			read_solid_solutions_modify();
 			break;
 #ifdef SKIP
-		case KEY_REACTION_PRESSURES:
+		case Keywords::KEY_REACTION_PRESSURES:
 			read_reaction_pressure();
 			break;
-		case KEY_REACTION_PRESSURE_RAW:
+		case Keywords::KEY_REACTION_PRESSURE_RAW:
 			read_reaction_pressure_raw();
 			break;
-		//case KEY_REACTION_PRESSURE_MODIFY:
+		//case Keywords::KEY_REACTION_PRESSURE_MODIFY:
 		//	read_reaction_pressure_modify();
 		//	break;
 #endif
@@ -3750,7 +3750,7 @@ read_number_description(char *ptr, int *n_user,
 			{
 				if (next_keyword >= 0)
 				{
-					sprintf(error_string, "Reading number range for %s.", Keyword_name_search(next_keyword).c_str());
+					sprintf(error_string, "Reading number range for %s.", Keywords::Keyword_name_search(next_keyword).c_str());
 				}
 				else
 				{
@@ -3768,7 +3768,7 @@ read_number_description(char *ptr, int *n_user,
 			{
 				if (next_keyword >= 0)
 				{
-					sprintf(error_string, "Reading number range for %s.", Keyword_name_search(next_keyword).c_str());
+					sprintf(error_string, "Reading number range for %s.", Keywords::Keyword_name_search(next_keyword).c_str());
 				}
 				else
 				{
@@ -4707,32 +4707,32 @@ read_save(void)
 
 	switch (next_keyword)
 	{
-	case KEY_SOLUTION:								/* Solution */
+	case Keywords::KEY_SOLUTION:								/* Solution */
 		save.solution = TRUE;
 		save.n_solution_user = n_user;
 		save.n_solution_user_end = n_user_end;
 		break;
-	case KEY_EQUILIBRIUM_PHASES:					/* Pure phases */
+	case Keywords::KEY_EQUILIBRIUM_PHASES:					/* Pure phases */
 		save.pp_assemblage = TRUE;
 		save.n_pp_assemblage_user = n_user;
 		save.n_pp_assemblage_user_end = n_user_end;
 		break;
-	case KEY_EXCHANGE:								/* exchange */
+	case Keywords::KEY_EXCHANGE:								/* exchange */
 		save.exchange = TRUE;
 		save.n_exchange_user = n_user;
 		save.n_exchange_user_end = n_user_end;
 		break;
-	case KEY_SURFACE:								/* surface */
+	case Keywords::KEY_SURFACE:								/* surface */
 		save.surface = TRUE;
 		save.n_surface_user = n_user;
 		save.n_surface_user_end = n_user_end;
 		break;
-	case KEY_GAS_PHASE:								/* gas_phase */
+	case Keywords::KEY_GAS_PHASE:								/* gas_phase */
 		save.gas_phase = TRUE;
 		save.n_gas_phase_user = n_user;
 		save.n_gas_phase_user_end = n_user_end;
 		break;
-	case KEY_SOLID_SOLUTIONS:						/* solid_solutions */
+	case Keywords::KEY_SOLID_SOLUTIONS:						/* solid_solutions */
 		save.s_s_assemblage = TRUE;
 		save.n_s_s_assemblage_user = n_user;
 		save.n_s_s_assemblage_user_end = n_user_end;
@@ -6070,17 +6070,17 @@ read_use(void)
  */
 	copy_token(token, &ptr, &l);
 	check_key(token);
-	if (next_keyword != KEY_SOLUTION				&&
-		next_keyword != KEY_MIX						&&
-		next_keyword != KEY_KINETICS				&&
-		next_keyword != KEY_REACTION				&&
-		next_keyword != KEY_REACTION_TEMPERATURE	&&
-		next_keyword != KEY_REACTION_PRESSURE		&&
-		next_keyword != KEY_EQUILIBRIUM_PHASES		&&
-		next_keyword != KEY_EXCHANGE				&&
-		next_keyword != KEY_SURFACE					&&
-		next_keyword != KEY_GAS_PHASE				&&
-		next_keyword != KEY_SOLID_SOLUTIONS)
+	if (next_keyword != Keywords::KEY_SOLUTION				&&
+		next_keyword != Keywords::KEY_MIX						&&
+		next_keyword != Keywords::KEY_KINETICS				&&
+		next_keyword != Keywords::KEY_REACTION				&&
+		next_keyword != Keywords::KEY_REACTION_TEMPERATURE	&&
+		next_keyword != Keywords::KEY_REACTION_PRESSURE		&&
+		next_keyword != Keywords::KEY_EQUILIBRIUM_PHASES		&&
+		next_keyword != Keywords::KEY_EXCHANGE				&&
+		next_keyword != Keywords::KEY_SURFACE					&&
+		next_keyword != Keywords::KEY_GAS_PHASE				&&
+		next_keyword != Keywords::KEY_SOLID_SOLUTIONS)
 	{
 		input_error++;
 		error_msg("Unknown item in USE keyword", CONTINUE);
@@ -6136,7 +6136,7 @@ read_use(void)
 	}
 	switch (next_keyword)
 	{
-	case KEY_SOLUTION:					/* Solution */
+	case Keywords::KEY_SOLUTION:					/* Solution */
 		use.n_solution_user = n_user;
 		if (n_user >= 0)
 		{
@@ -6147,7 +6147,7 @@ read_use(void)
 			use.solution_in = FALSE;
 		}
 		break;
-	case KEY_EQUILIBRIUM_PHASES:					/* Pure phases */
+	case Keywords::KEY_EQUILIBRIUM_PHASES:					/* Pure phases */
 		use.n_pp_assemblage_user = n_user;
 		if (n_user >= 0)
 		{
@@ -6158,7 +6158,7 @@ read_use(void)
 			use.pp_assemblage_in = FALSE;
 		}
 		break;
-	case KEY_REACTION:					/* Reaction */
+	case Keywords::KEY_REACTION:					/* Reaction */
 		use.n_irrev_user = n_user;
 		if (n_user >= 0)
 		{
@@ -6169,7 +6169,7 @@ read_use(void)
 			use.irrev_in = FALSE;
 		}
 		break;
-	case KEY_MIX:					/* Mix */
+	case Keywords::KEY_MIX:					/* Mix */
 		use.n_mix_user = n_user;
 		if (n_user >= 0)
 		{
@@ -6180,7 +6180,7 @@ read_use(void)
 			use.mix_in = FALSE;
 		}
 		break;
-	case KEY_EXCHANGE:					/* Ex */
+	case Keywords::KEY_EXCHANGE:					/* Ex */
 		use.n_exchange_user = n_user;
 		if (n_user >= 0)
 		{
@@ -6191,7 +6191,7 @@ read_use(void)
 			use.exchange_in = FALSE;
 		}
 		break;
-	case KEY_SURFACE:					/* Surface */
+	case Keywords::KEY_SURFACE:					/* Surface */
 		use.n_surface_user = n_user;
 		if (n_user >= 0)
 		{
@@ -6202,7 +6202,7 @@ read_use(void)
 			use.surface_in = FALSE;
 		}
 		break;
-	case KEY_REACTION_TEMPERATURE:					/* Temperature */
+	case Keywords::KEY_REACTION_TEMPERATURE:					/* Temperature */
 		use.n_temperature_user = n_user;
 		if (n_user >= 0)
 		{
@@ -6213,7 +6213,7 @@ read_use(void)
 			use.temperature_in = FALSE;
 		}
 		break;
-	case KEY_GAS_PHASE:					/* Gas */
+	case Keywords::KEY_GAS_PHASE:					/* Gas */
 		use.n_gas_phase_user = n_user;
 		if (n_user >= 0)
 		{
@@ -6224,7 +6224,7 @@ read_use(void)
 			use.gas_phase_in = FALSE;
 		}
 		break;
-	case KEY_KINETICS:					/* Kinetics */
+	case Keywords::KEY_KINETICS:					/* Kinetics */
 		use.n_kinetics_user = n_user;
 		if (n_user >= 0)
 		{
@@ -6235,7 +6235,7 @@ read_use(void)
 			use.kinetics_in = FALSE;
 		}
 		break;
-	case KEY_SOLID_SOLUTIONS:					/* solid_solutions */
+	case Keywords::KEY_SOLID_SOLUTIONS:					/* solid_solutions */
 		use.n_s_s_assemblage_user = n_user;
 		if (n_user >= 0)
 		{
@@ -8424,7 +8424,7 @@ check_key(char *str)
 	str_tolower(token);
 	std::string key(token);
 
-	next_keyword = Keyword_search(key);
+	next_keyword = Keywords::Keyword_search(key);
 
 	if (next_keyword > 0)
 	{
@@ -10503,20 +10503,20 @@ read_copy(void)
 
 	switch (next_keyword)
 	{
-	case KEY_NONE:					/* Have not read line with keyword */
+	case Keywords::KEY_NONE:					/* Have not read line with keyword */
 		strcpy(nonkeyword, token);
 		break;
-	case KEY_SOLUTION:					/* Solution */
-	case KEY_EQUILIBRIUM_PHASES:		/* Pure phases */
-	case KEY_REACTION:					/* Reaction */
-	case KEY_MIX:						/* Mix */
-	case KEY_EXCHANGE:					/* Ex */
-	case KEY_SURFACE:					/* Surface */
-	case KEY_REACTION_TEMPERATURE:		/* Temperature */
-	case KEY_REACTION_PRESSURE:			/* Pressure */
-	case KEY_GAS_PHASE:					/* Gas */
-	case KEY_KINETICS:					/* Kinetics */
-	case KEY_SOLID_SOLUTIONS:			/* solid_solutions */
+	case Keywords::KEY_SOLUTION:				/* Solution */
+	case Keywords::KEY_EQUILIBRIUM_PHASES:		/* Pure phases */
+	case Keywords::KEY_REACTION:				/* Reaction */
+	case Keywords::KEY_MIX:						/* Mix */
+	case Keywords::KEY_EXCHANGE:				/* Ex */
+	case Keywords::KEY_SURFACE:					/* Surface */
+	case Keywords::KEY_REACTION_TEMPERATURE:	/* Temperature */
+	case Keywords::KEY_REACTION_PRESSURE:		/* Pressure */
+	case Keywords::KEY_GAS_PHASE:				/* Gas */
+	case Keywords::KEY_KINETICS:				/* Kinetics */
+	case Keywords::KEY_SOLID_SOLUTIONS:			/* solid_solutions */
 		break;
 	default:
 		input_error++;
@@ -10594,7 +10594,7 @@ read_copy(void)
 
 	switch (next_keyword)
 	{
-	case KEY_NONE:
+	case Keywords::KEY_NONE:
 		str_tolower(nonkeyword);
 		if (strstr(nonkeyword, "cell") != nonkeyword)
 		{
@@ -10614,34 +10614,34 @@ read_copy(void)
 		copier_add(&copy_kinetics, n_user, n_user_start, n_user_end);
 		copier_add(&copy_s_s_assemblage, n_user, n_user_start, n_user_end);
 		break;
-	case KEY_SOLUTION:								/* Solution */
+	case Keywords::KEY_SOLUTION:								/* Solution */
 		copier_add(&copy_solution, n_user, n_user_start, n_user_end);
 		break;
-	case KEY_EQUILIBRIUM_PHASES:					/* Pure phases */
+	case Keywords::KEY_EQUILIBRIUM_PHASES:					/* Pure phases */
 		copier_add(&copy_pp_assemblage, n_user, n_user_start, n_user_end);
 		break;
-	case KEY_REACTION:								/* Reaction */
+	case Keywords::KEY_REACTION:								/* Reaction */
 		copier_add(&copy_irrev, n_user, n_user_start, n_user_end);
 		break;
-	case KEY_MIX:									/* Mix */
+	case Keywords::KEY_MIX:									/* Mix */
 		copier_add(&copy_mix, n_user, n_user_start, n_user_end);
 		break;
-	case KEY_EXCHANGE:								/* Ex */
+	case Keywords::KEY_EXCHANGE:								/* Ex */
 		copier_add(&copy_exchange, n_user, n_user_start, n_user_end);
 		break;
-	case KEY_SURFACE:								/* Surface */
+	case Keywords::KEY_SURFACE:								/* Surface */
 		copier_add(&copy_surface, n_user, n_user_start, n_user_end);
 		break;
-	case KEY_REACTION_TEMPERATURE:					/* Temperature */
+	case Keywords::KEY_REACTION_TEMPERATURE:					/* Temperature */
 		copier_add(&copy_temperature, n_user, n_user_start, n_user_end);
 		break;
-	case KEY_GAS_PHASE:								/* Gas */
+	case Keywords::KEY_GAS_PHASE:								/* Gas */
 		copier_add(&copy_gas_phase, n_user, n_user_start, n_user_end);
 		break;
-	case KEY_KINETICS:								/* Kinetics */
+	case Keywords::KEY_KINETICS:								/* Kinetics */
 		copier_add(&copy_kinetics, n_user, n_user_start, n_user_end);
 		break;
-	case KEY_SOLID_SOLUTIONS:						/* solid_solutions */
+	case Keywords::KEY_SOLID_SOLUTIONS:						/* solid_solutions */
 		copier_add(&copy_s_s_assemblage, n_user, n_user_start, n_user_end);
 		break;
 	default:
