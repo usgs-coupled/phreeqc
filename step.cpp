@@ -103,6 +103,14 @@ step(LDBLE step_fraction)
 		tc_x = cell_data[cell - 1].temp;
 	}
 /*
+ *   Pressure
+ */
+	if (use.pressure_ptr != NULL)
+	{
+		cxxPressure *p_ptr = (cxxPressure *) use.pressure_ptr;
+		patm_x = p_ptr->Pressure_for_step(step_number);
+	}
+/*
  *   Pure phases and solid solutions are added to avoid
  *   zero or negative concentrations
  */

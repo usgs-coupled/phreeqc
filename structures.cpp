@@ -1,3 +1,4 @@
+#include "Utils.h"
 #include "Phreeqc.h"
 #include <iostream>
 
@@ -9216,6 +9217,14 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 		{
 			cxxTemperature entity(struct_entity, sb.Get_io());
 			sb.Set_Temperature(use_ptr->n_temperature_user, &entity);
+		}
+	}
+	if (use_ptr->pressure_in == TRUE)
+	{
+		cxxPressure *entity = Utilities::Reactant_find(Reaction_pressure_map, use_ptr->n_pressure_user);
+		if (entity != NULL)
+		{
+			sb.Set_Pressure(use_ptr->n_pressure_user, entity);
 		}
 	}
 }

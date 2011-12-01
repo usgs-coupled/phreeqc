@@ -1,3 +1,4 @@
+#include "Utils.h"
 #include "Phreeqc.h"
 #include "phqalloc.h"
 
@@ -1659,6 +1660,19 @@ set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 		use.temperature_in = FALSE;
 	}
 /*
+ *   Find pressure
+ */
+	use.pressure_ptr = Utilities::Reactant_find(Reaction_pressure_map, i);
+	if (use.pressure_ptr != NULL)
+	{
+		use.pressure_in = TRUE;
+		use.n_pressure_user = i;
+	}
+	else
+	{
+		use.pressure_in = FALSE;
+	}
+/*
  *   Find gas
  */
 	use.gas_phase_ptr = gas_phase_bsearch(i, &use.n_gas_phase);
@@ -1815,6 +1829,18 @@ set_reaction(int i, int use_mix, int use_kinetics)
 		if (use.temperature_ptr == NULL)
 		{
 			sprintf(error_string, "TEMPERATURE %d not found.", i);
+			error_msg(error_string, STOP);
+		}
+	}
+/*
+ *   Find pressure
+ */
+	if (use.pressure_in == TRUE)
+	{
+		use.pressure_ptr = Utilities::Reactant_find(Reaction_pressure_map, i);
+		if (use.pressure_ptr == NULL)
+		{
+			sprintf(error_string, "pressure %d not found.", i);
 			error_msg(error_string, STOP);
 		}
 	}
@@ -2415,6 +2441,19 @@ set_advection(int i, int use_mix, int use_kinetics, int nsaver)
 	else
 	{
 		use.temperature_in = FALSE;
+	}
+/*
+ *   Find pressure
+ */
+	use.pressure_ptr = Utilities::Reactant_find(Reaction_pressure_map, i);
+	if (use.pressure_ptr != NULL)
+	{
+		use.pressure_in = TRUE;
+		use.n_pressure_user = i;
+	}
+	else
+	{
+		use.pressure_in = FALSE;
 	}
 /*
  *   Find gas

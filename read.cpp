@@ -48,6 +48,8 @@ read_input(void)
 	use.surface_ptr = NULL;
 	use.temperature_in = FALSE;
 	use.temperature_ptr = NULL;
+	use.pressure_in = FALSE;
+	use.pressure_ptr = NULL;
 	use.gas_phase_in = FALSE;
 	use.gas_phase_ptr = NULL;
 	use.s_s_assemblage_in = FALSE;
@@ -6213,6 +6215,17 @@ read_use(void)
 		else
 		{
 			use.temperature_in = FALSE;
+		}
+		break;
+	case Keywords::KEY_REACTION_PRESSURE:					/* pressure */
+		use.n_pressure_user = n_user;
+		if (n_user >= 0)
+		{
+			use.pressure_in = TRUE;
+		}
+		else
+		{
+			use.pressure_in = FALSE;
 		}
 		break;
 	case Keywords::KEY_GAS_PHASE:					/* Gas */

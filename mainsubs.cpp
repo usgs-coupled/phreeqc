@@ -1,4 +1,5 @@
 #include <time.h>
+#include "Utils.h"
 #include "Phreeqc.h"
 #include "phqalloc.h"
 #include "PBasic.h"
@@ -799,6 +800,7 @@ set_use(void)
 	use.kinetics_ptr = NULL;
 	use.surface_ptr = NULL;
 	use.temperature_ptr = NULL;
+	use.pressure_ptr = NULL;
 	use.gas_phase_ptr = NULL;
 	use.s_s_assemblage_ptr = NULL;
 
@@ -816,6 +818,7 @@ set_use(void)
 		use.kinetics_in == FALSE &&
 		use.surface_in == FALSE &&
 		use.temperature_in == FALSE &&
+		use.pressure_in == FALSE &&
 		use.gas_phase_in == FALSE && use.s_s_assemblage_in == FALSE)
 	{
 		return (FALSE);
@@ -960,6 +963,22 @@ set_use(void)
 	else
 	{
 		use.temperature_ptr = NULL;
+	}
+/*
+ *   Find pressure
+ */
+	if (use.pressure_in == TRUE)
+	{
+		use.pressure_ptr =	Utilities::Reactant_find(Reaction_pressure_map, use.n_pressure_user);
+		if (use.pressure_ptr == NULL)
+		{
+			sprintf(error_string, "pressure %d not found.",	use.n_pressure_user);
+			error_msg(error_string, STOP);
+		}
+	}
+	else
+	{
+		use.pressure_ptr = NULL;
 	}
 /*
  *   Find gas
@@ -1413,6 +1432,14 @@ reactions(void)
 	{
 		if (abs(use.temperature_ptr->count_t) > count_steps)
 			count_steps = abs(use.temperature_ptr->count_t);
+	}
+	if (use.pressure_in == TRUE && use.pressure_ptr != NULL)
+	{
+		int count = ((cxxPressure *) use.pressure_ptr)->Get_count();
+		if (count > count_steps)
+		{
+			count_steps = count;
+		}
 	}
 	count_total_steps = count_steps;
 /*
@@ -2823,6 +2850,10 @@ copy_use(int i)
 	{
 		temperature_duplicate(use.n_temperature_user, i);
 	}
+	if (use.pressure_in == TRUE)
+	{
+		Utilities::Reactant_copy(Reaction_pressure_map, use.n_pressure_user, i);
+	}
 /*
  *   Find gas
  */
@@ -3519,6 +3550,10 @@ use_init(void)
 	use.n_temperature_user= -1;
 	use.n_temperature= -1;
 	use.temperature_ptr = NULL;
+
+	use.pressure_in = FALSE;
+	use.n_pressure_user= -1;
+	use.pressure_ptr = NULL;
 
 	use.inverse_in = FALSE;
 	use.n_inverse_user= -1;

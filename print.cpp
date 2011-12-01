@@ -1,3 +1,4 @@
+#include "Utils.h"
 #include "Phreeqc.h"
 #include "phqalloc.h"
 #include <stdarg.h>
@@ -2312,6 +2313,12 @@ print_using(void)
 		temperature_ptr = temperature_bsearch(use.n_temperature_user, &n);
 		output_msg(sformatf("Using temperature %d.\t%s\n",
 				   use.n_temperature_user, temperature_ptr->description));
+	}
+	if (use.pressure_in == TRUE)
+	{
+		cxxPressure *pressure_ptr = Utilities::Reactant_find(Reaction_pressure_map, use.n_pressure_user);
+		output_msg(sformatf("Using pressure %d.\t%s\n",
+				   use.n_pressure_user, pressure_ptr->Get_description().c_str()));
 	}
 	if (use.irrev_in == TRUE)
 	{
