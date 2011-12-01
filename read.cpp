@@ -1,6 +1,8 @@
 #include <complex>
 #include <assert.h>
 #include <time.h>
+
+#include "Utils.h"	
 #include "Phreeqc.h"
 #include "phqalloc.h"
 #include "Pressure.h"
@@ -64,8 +66,7 @@ read_input(void)
 	save.s_s_assemblage = FALSE;
 	title_x = (char *) free_check_null(title_x);
 
-	while ((i =
-			check_line("Subroutine Read", FALSE, TRUE, TRUE, TRUE)) != KEYWORD)
+	while ((i =	check_line("Subroutine Read", FALSE, TRUE, TRUE, TRUE)) != KEYWORD)
 	{
 		/* empty, eof, keyword, print */
 
@@ -341,10 +342,10 @@ read_input(void)
 		case Keywords::KEY_REACTION_PRESSURE:
 			read_reaction_pressure();
 			break;
-#ifdef SKIP
 		case Keywords::KEY_REACTION_PRESSURE_RAW:
 			read_reaction_pressure_raw();
 			break;
+#ifdef SKIP
 		//case Keywords::KEY_REACTION_PRESSURE_MODIFY:
 		//	read_reaction_pressure_modify();
 		//	break;
@@ -8423,11 +8424,18 @@ check_key(const char *str)
 	token1 = string_duplicate(str);
 
 	ptr = token1;
-	copy_token(token, &ptr, &l);
+	int j = copy_token(token, &ptr, &l);
 	str_tolower(token);
 	std::string key(token);
 
-	next_keyword = Keywords::Keyword_search(key);
+	if (j == EMPTY)
+	{
+		next_keyword = Keywords::KEY_END;
+	}
+	else
+	{
+		next_keyword = Keywords::Keyword_search(key);
+	}
 
 	free_check_null(token1);
 	if (next_keyword > 0)
@@ -10663,7 +10671,7 @@ read_reaction_pressure(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *      Reads USER_GRAPH_DATA_BLOCK data block
+ *      Reads REACTION_PRESSURE data block
  *
  *      Arguments:
  *         none
@@ -10677,16 +10685,117 @@ read_reaction_pressure(void)
  */
 	int return_value;
 	assert(!reading_database());
+
+	// Make instance, set n_user, n_user_end, description
+	cxxPressure atm(this->phrq_io);
+	char *ptr = line;
+	char *description;
+	int n_user, n_user_end;
+	read_number_description(ptr, &n_user, &n_user_end, &description);
+	atm.Set_n_user(n_user);
+	atm.Set_n_user_end(n_user);
+	atm.Set_description(description);
+	free_check_null(description);
+
 	/*
 	 *  Make parser
 	 */
 	CParser parser(*get_istream(), this->phrq_io);
-
 	if (pr.echo_input == FALSE) parser.set_echo_file(CParser::EO_NONE);
+	atm.read(parser);
+	if (atm.Get_base_error_count() == 0)
+	{
+		Reaction_pressure_map[n_user] = atm;
+	}
+
+	if (use.pressure_in == FALSE)
+	{
+		use.pressure_in = TRUE;
+		use.n_pressure_user = atm.Get_n_user();
+	}
+
+	// Make copies if necessary
+	if (n_user_end > n_user)
+	{
+		int i;
+		for (i = n_user + 1; i <= n_user_end; i++)
+		{
+			Utilities::Reactant_copy(Reaction_pressure_map, n_user, i);
+		}
+	}
+
+	//int i;
+	//for (i = 1; i <= 4; i++)
+	//{
+	//	cxxPressure * p = Utilities::Reactant_find(Reaction_pressure_map, i);
+	//	if (p == NULL)
+	//	{
+	//		std::cerr << "***Not found " << i << std::endl;
+	//		
+	//	}
+	//	else
+	//	{
+	//		p->dump_raw(std::cerr, 0);
+	//	}
+	//}
+
+	// check_key sets next_keyword
+	return_value = check_key(parser.line().c_str());
+
+	return (return_value);
+}
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+read_reaction_pressure_raw(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Reads REACTION_PRESSURE_RAW data block
+ *
+ *      Arguments:
+ *         none
+ *
+ *      Returns:
+ *         KEYWORD if keyword encountered, input_error may be incremented if
+ *                    a keyword is encountered in an unexpected position
+ *         EOF     if eof encountered while reading mass balance concentrations
+ *         ERROR   if error occurred reading data
+ *
+ */
+	int return_value;
+	assert(!reading_database());
 
 	cxxPressure atm(this->phrq_io);
-	atm.read(parser);
+	char *ptr = line;
+	char *description;
+	int n_user, n_user_end;
+	read_number_description(ptr, &n_user, &n_user_end, &description);
+	atm.Set_n_user(n_user);
+	atm.Set_n_user_end(n_user);
+	atm.Set_description(description);
+	free_check_null(description);
+	/*
+	 *  Make parser
+	 */
+	CParser parser(*get_istream(), this->phrq_io);
+	if (pr.echo_input == FALSE) parser.set_echo_file(CParser::EO_NONE);
+	atm.read_raw(parser);
 
+	// Store
+	if (atm.Get_base_error_count() == 0)
+	{
+		Reaction_pressure_map[n_user] = atm;
+	}
+
+	// Make copies if necessary
+	if (n_user_end > n_user)
+	{
+		int i;
+		for (i = n_user + 1; i <= n_user_end; i++)
+		{
+			Utilities::Reactant_copy(Reaction_pressure_map, n_user, i);
+		}
+	}
 	// check_key sets next_keyword
 	return_value = check_key(parser.line().c_str());
 
