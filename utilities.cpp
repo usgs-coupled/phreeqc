@@ -1685,9 +1685,10 @@ get_istream()
 	}
 }
 void Phreeqc::
-push_istream(std::istream * cookie)
+push_istream(std::istream * cookie, bool auto_delete)
 {
 	istream_list.push_front(cookie);
+	delete_istream_list.push_front(auto_delete);
 }
 void Phreeqc::
 clear_istream(void)
@@ -1702,7 +1703,11 @@ pop_istream()
 {
 	if (istream_list.size() > 0)
 	{
-		delete istream_list.front();
+		if (delete_istream_list.front())
+		{
+			delete istream_list.front();
+		}
 		istream_list.pop_front();
+		delete_istream_list.pop_front();
 	}
 }

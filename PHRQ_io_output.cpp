@@ -26,7 +26,7 @@ void Phreeqc::
 screen_msg(const char *err_str)
 /* ---------------------------------------------------------------------- */
 {
-	fprintf(stderr, "%s", err_str);
+	if (phrq_io) phrq_io->screen_msg(err_str);
 }
 /* ---------------------------------------------------------------------- */
 void Phreeqc::
@@ -35,7 +35,7 @@ echo_msg(const char *str)
 {
 	if (pr.echo_input == TRUE)
 	{
-		if (phrq_io) phrq_io->output_msg(str);
+		if (phrq_io) phrq_io->echo_msg(str);
 	}
 }
 
@@ -147,7 +147,10 @@ fpunchf_user(int user_index, const char *format, char * d)
 int Phreeqc::
 fpunchf_end_row(const char *format)
 {
-	//NOOP for Phreeqc
+	if (phrq_io) 
+	{
+		phrq_io->fpunchf_end_row(format);
+	}
 	return OK;
 }
 /* ---------------------------------------------------------------------- */
@@ -354,10 +357,8 @@ process_file_names(int argc, char *argv[], std::istream **db_cookie,
 		hdestroy_multi(strings_hash_table);
 		strings_hash_table = NULL;
 
-		db_stream = new std::ifstream(db_file, std::ifstream::in);
-		in_stream = new std::ifstream(in_file, std::ifstream::in);
-		*db_cookie = db_stream;
-		*input_cookie = in_stream;
+		*db_cookie = new std::ifstream(db_file, std::ifstream::in);
+		*input_cookie = new std::ifstream(in_file, std::ifstream::in);
 	}
 	catch (PhreeqcStop e)
 	{
@@ -472,8 +473,8 @@ error_msg(const char *err_str, bool stop)
 		phrq_io->output_msg(msg.str().c_str());
 		phrq_io->log_msg(msg.str().c_str());
 
-		phrq_io->error_msg("\n");
-		phrq_io->error_msg(msg.str().c_str(), stop!=0);
+// COMMENT: {11/23/2011 3:51:53 PM}		phrq_io->error_msg("\n");
+		phrq_io->error_msg(msg.str().c_str(), stop);
 	}
 
 	if (stop)
