@@ -6075,14 +6075,14 @@ read_use(void)
 	copy_token(token, &ptr, &l);
 	check_key(token);
 	if (next_keyword != Keywords::KEY_SOLUTION				&&
-		next_keyword != Keywords::KEY_MIX						&&
+		next_keyword != Keywords::KEY_MIX					&&
 		next_keyword != Keywords::KEY_KINETICS				&&
 		next_keyword != Keywords::KEY_REACTION				&&
 		next_keyword != Keywords::KEY_REACTION_TEMPERATURE	&&
 		next_keyword != Keywords::KEY_REACTION_PRESSURE		&&
-		next_keyword != Keywords::KEY_EQUILIBRIUM_PHASES		&&
+		next_keyword != Keywords::KEY_EQUILIBRIUM_PHASES	&&
 		next_keyword != Keywords::KEY_EXCHANGE				&&
-		next_keyword != Keywords::KEY_SURFACE					&&
+		next_keyword != Keywords::KEY_SURFACE				&&
 		next_keyword != Keywords::KEY_GAS_PHASE				&&
 		next_keyword != Keywords::KEY_SOLID_SOLUTIONS)
 	{
@@ -10635,6 +10635,7 @@ read_copy(void)
 		copier_add(&copy_exchange, n_user, n_user_start, n_user_end);
 		copier_add(&copy_surface, n_user, n_user_start, n_user_end);
 		copier_add(&copy_temperature, n_user, n_user_start, n_user_end);
+		copier_add(&copy_pressure, n_user, n_user_start, n_user_end);
 		copier_add(&copy_gas_phase, n_user, n_user_start, n_user_end);
 		copier_add(&copy_kinetics, n_user, n_user_start, n_user_end);
 		copier_add(&copy_s_s_assemblage, n_user, n_user_start, n_user_end);
@@ -10648,17 +10649,20 @@ read_copy(void)
 	case Keywords::KEY_REACTION:								/* Reaction */
 		copier_add(&copy_irrev, n_user, n_user_start, n_user_end);
 		break;
-	case Keywords::KEY_MIX:									/* Mix */
+	case Keywords::KEY_MIX:										/* Mix */
 		copier_add(&copy_mix, n_user, n_user_start, n_user_end);
 		break;
 	case Keywords::KEY_EXCHANGE:								/* Ex */
 		copier_add(&copy_exchange, n_user, n_user_start, n_user_end);
 		break;
-	case Keywords::KEY_SURFACE:								/* Surface */
+	case Keywords::KEY_SURFACE:									/* Surface */
 		copier_add(&copy_surface, n_user, n_user_start, n_user_end);
 		break;
 	case Keywords::KEY_REACTION_TEMPERATURE:					/* Temperature */
 		copier_add(&copy_temperature, n_user, n_user_start, n_user_end);
+		break;
+	case Keywords::KEY_REACTION_PRESSURE:						/* Pressure */
+		copier_add(&copy_pressure, n_user, n_user_start, n_user_end);
 		break;
 	case Keywords::KEY_GAS_PHASE:								/* Gas */
 		copier_add(&copy_gas_phase, n_user, n_user_start, n_user_end);
@@ -10666,7 +10670,7 @@ read_copy(void)
 	case Keywords::KEY_KINETICS:								/* Kinetics */
 		copier_add(&copy_kinetics, n_user, n_user_start, n_user_end);
 		break;
-	case Keywords::KEY_SOLID_SOLUTIONS:						/* solid_solutions */
+	case Keywords::KEY_SOLID_SOLUTIONS:							/* solid_solutions */
 		copier_add(&copy_s_s_assemblage, n_user, n_user_start, n_user_end);
 		break;
 	default:
@@ -10754,6 +10758,8 @@ read_reaction_pressure(void)
 
 	// check_key sets next_keyword
 	return_value = check_key(parser.line().c_str());
+	strcpy(line, parser.line().c_str());
+	strcpy(line_save, parser.line_save().c_str());
 
 	return (return_value);
 }
@@ -10811,6 +10817,8 @@ read_reaction_pressure_raw(void)
 	}
 	// check_key sets next_keyword
 	return_value = check_key(parser.line().c_str());
+	strcpy(line, parser.line().c_str());
+	strcpy(line_save, parser.line_save().c_str());
 
 	return (return_value);
 }

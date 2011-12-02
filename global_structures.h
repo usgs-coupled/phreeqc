@@ -569,7 +569,6 @@ struct Use
 
 	int pressure_in;
 	int n_pressure_user;
-	//int n_pressure;
 	void *pressure_ptr;
 
 	int temperature_in;

@@ -258,6 +258,7 @@ clean_up(void)
 	copier_free(&copy_mix);
 	copier_free(&copy_irrev);
 	copier_free(&copy_temperature);
+	copier_free(&copy_pressure);
 
 #if defined PHREEQ98 
 	rate_free(user_graph);

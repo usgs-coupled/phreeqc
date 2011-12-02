@@ -578,6 +578,7 @@ initialize(void)
 	copier_init(&copy_mix);
 	copier_init(&copy_irrev);
 	copier_init(&copy_temperature);
+	copier_init(&copy_pressure);
 
 	set_forward_output_to_log(FALSE);
 	simulation = 0;
@@ -3190,6 +3191,30 @@ copy_entities(void)
 			}
 		}
 	}
+	if (copy_pressure.count > 0)
+	{
+		for (j = 0; j < copy_pressure.count; j++)
+		{
+			if (Utilities::Reactant_find(Reaction_pressure_map, copy_pressure.n_user[j]) != NULL)
+			{
+				for (i = copy_pressure.start[j]; i <= copy_pressure.end[j]; i++)
+				{
+					if (i != copy_pressure.n_user[j]) 
+					{
+						Utilities::Reactant_copy(Reaction_pressure_map, copy_pressure.n_user[j], i);
+					}
+				}
+			}
+			else
+			{
+				if (verbose == TRUE)
+				{
+					warning_msg("pressure to copy not found.");
+					return_value = ERROR;
+				}
+			}
+		}
+	}
 	if (copy_gas_phase.count > 0)
 	{
 		for (j = 0; j < copy_gas_phase.count; j++)
@@ -3274,6 +3299,7 @@ copy_entities(void)
 	copy_mix.count = 0;
 	copy_irrev.count = 0;
 	copy_temperature.count = 0;
+	copy_pressure.count = 0;
 	new_copy = FALSE;
 	return (OK);
 }
