@@ -474,6 +474,10 @@ error_msg(const char *err_str, bool stop)
 		phrq_io->log_msg(msg.str().c_str());
 
 // COMMENT: {11/23/2011 3:51:53 PM}		phrq_io->error_msg("\n");
+		if (status_on)
+		{
+			phrq_io->screen_msg("\n");
+		}
 		phrq_io->error_msg(msg.str().c_str(), stop);
 	}
 

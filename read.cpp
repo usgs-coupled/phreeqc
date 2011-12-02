@@ -10741,27 +10741,7 @@ read_reaction_pressure(void)
 		}
 	}
 
-	//int i;
-	//for (i = 1; i <= 4; i++)
-	//{
-	//	cxxPressure * p = Utilities::Reactant_find(Reaction_pressure_map, i);
-	//	if (p == NULL)
-	//	{
-	//		std::cerr << "***Not found " << i << std::endl;
-	//		
-	//	}
-	//	else
-	//	{
-	//		p->dump_raw(std::cerr, 0);
-	//	}
-	//}
-
-	// check_key sets next_keyword
-	return_value = check_key(parser.line().c_str());
-	strcpy(line, parser.line().c_str());
-	strcpy(line_save, parser.line_save().c_str());
-
-	return (return_value);
+	return cleanup_after_parser(parser);
 }
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -10781,7 +10761,6 @@ read_reaction_pressure_raw(void)
  *         ERROR   if error occurred reading data
  *
  */
-	int return_value;
 	assert(!reading_database());
 
 	cxxPressure atm(this->phrq_io);
@@ -10815,10 +10794,32 @@ read_reaction_pressure_raw(void)
 			Utilities::Reactant_copy(Reaction_pressure_map, n_user, i);
 		}
 	}
+
+	return cleanup_after_parser(parser);
+}
+int Phreeqc::
+cleanup_after_parser(CParser &parser)
+{
 	// check_key sets next_keyword
-	return_value = check_key(parser.line().c_str());
+	int return_value = check_key(parser.line().c_str());
+
+	// copy parser line to line and line_save
+	// make sure there is enough space
+	size_t l1 = strlen(parser.line().c_str()) + 1;
+	size_t l2 = strlen(parser.line_save().c_str()) + 1;
+	size_t l = (l1 > l2) ? l1 : l2;
+	if (l >= max_line)
+	{
+		max_line = l * 2;
+		line_save =	(char *) PHRQ_realloc(line_save,
+			(size_t) max_line * sizeof(char));
+		if (line_save == NULL)
+			malloc_error();
+		line = (char *) PHRQ_realloc(line, (size_t) max_line * sizeof(char));
+		if (line == NULL)
+			malloc_error();
+	}
 	strcpy(line, parser.line().c_str());
 	strcpy(line_save, parser.line_save().c_str());
-
-	return (return_value);
+	return return_value;
 }
