@@ -1094,6 +1094,7 @@ add_gas_phase(struct gas_phase *gas_phase_ptr)
 	}
 	if (use.gas_phase_ptr->type == PRESSURE && fabs(use.gas_phase_ptr->total_p - patm_x) > 0.01)
 	{
+		same_pressure = FALSE;
 		patm_x = use.gas_phase_ptr->total_p;
 		k_temp(tc_x, patm_x);
 	}

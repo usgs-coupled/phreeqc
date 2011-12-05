@@ -2413,6 +2413,7 @@ calc_gas_pressures(void)
 			use.gas_phase_ptr->total_moles = 0;
 			if (fabs(use.gas_phase_ptr->total_p - patm_x) > 0.01)
 			{
+				same_pressure = FALSE;
 				patm_x = use.gas_phase_ptr->total_p;
 				k_temp(tc_x, patm_x);
 			}
@@ -2480,6 +2481,7 @@ calc_gas_pressures(void)
 		 */
 		if (fabs(use.gas_phase_ptr->total_p - patm_x) > 0.01)
 		{
+			same_pressure = FALSE;
 			patm_x = use.gas_phase_ptr->total_p;
 			k_temp(tc_x, patm_x);
 		}
