@@ -10700,7 +10700,6 @@ read_reaction_pressure(void)
  *         ERROR   if error occurred reading data
  *
  */
-	int return_value;
 	assert(!reading_database());
 
 	// Make instance, set n_user, n_user_end, description
