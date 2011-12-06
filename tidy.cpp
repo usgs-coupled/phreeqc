@@ -578,7 +578,10 @@ select_log_k_expression(LDBLE * source_k, LDBLE * target_k)
 			target_k[j] = 0.0;
 		}
 	}
-	target_k[delta_v] = source_k[delta_v];
+	for (j = delta_v; j < MAX_LOG_K_INDICES; j++)
+	{
+		target_k[j] = source_k[j];
+	}
 	return (OK);
 }
 
@@ -659,7 +662,10 @@ add_other_logk(LDBLE * source_k, int count_add_logk,
 			source_k[logK_T0] += logk_ptr->log_k[logK_T0] * coef;
 			source_k[delta_h] += logk_ptr->log_k[delta_h] * coef;
 		}
-		source_k[delta_v] += logk_ptr->log_k[delta_v] * coef;
+		for (j = delta_v; j < MAX_LOG_K_INDICES; j++)
+		{
+			source_k[j] += logk_ptr->log_k[j] * coef;
+		}
 	}
 	return (OK);
 }

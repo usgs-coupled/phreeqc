@@ -4919,7 +4919,7 @@ numerical_jacobian(void)
 	{
 		base[i] = residual[i];
 	}
-	d = 1e-6;
+	d = 0.0001;
 	d1 = d * log(10.0);
 	d2 = 0;
 	for (i = 0; i < count_unknowns; i++)

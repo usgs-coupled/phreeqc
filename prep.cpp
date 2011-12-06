@@ -5238,9 +5238,7 @@ k_calc(LDBLE * l_logk, LDBLE tempk, LDBLE presPa)
 	 *   Returns calculated log k.
 	 *
 	 *   Note: The molar volume is stored in cm3 so the delta_v term is multiplied 
-	 *   by 1E-6 to convert it in SI. Another 1E3 factor is needed to convert the 
-	 *   universal gas constant in SI (from kJ/(mol*K) to J/(mol*K).
-	 *   These two conversion factors are lumped in the 1E-9 factor used below.
+	 *   by 1E-3 to convert it in L.
 	 */
 
 	/* Molar energy */
@@ -5250,15 +5248,20 @@ k_calc(LDBLE * l_logk, LDBLE tempk, LDBLE presPa)
 	LDBLE delta_p = (presPa - REF_PRES_PASCAL) / PASCAL_PER_ATM;
 
 	/* Calculate new log k value for this temperature and pressure */
-	return	l_logk[logK_T0] 
-			- l_logk[delta_h] * (298.15 - tempk) / (LOG_10 * me * 298.15)
-			+ l_logk[T_A1]
-			+ l_logk[T_A2] * tempk
-			+ l_logk[T_A3] / tempk
-			+ l_logk[T_A4] * log10(tempk)
-			+ l_logk[T_A5] / (tempk * tempk)
-			+ l_logk[T_A6] * tempk * tempk
-			- l_logk[delta_v] * 1E-3 * delta_p / (LOG_10 * tempk * R_LITER_ATM);
+	LDBLE lk = l_logk[logK_T0] 
+		- l_logk[delta_h] * (298.15 - tempk) / (LOG_10 * me * 298.15)
+		+ l_logk[T_A1]
+		+ l_logk[T_A2] * tempk
+		+ l_logk[T_A3] / tempk
+		+ l_logk[T_A4] * log10(tempk)
+		+ l_logk[T_A5] / (tempk * tempk)
+		+ l_logk[T_A6] * tempk * tempk;
+	if (delta_p > 1)
+		lk -= (l_logk[delta_v]
+			+  l_logk[delta_v1] * delta_p
+			+  l_logk[delta_v2] * tempk 
+			+  l_logk[delta_v3] * tempk / delta_p) * 1E-3 * delta_p / (LOG_10 * tempk * R_LITER_ATM);
+	return lk;
 }
 
 /* ---------------------------------------------------------------------- */

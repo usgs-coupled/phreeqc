@@ -3056,8 +3056,8 @@ read_delta_v_only(char *ptr, LDBLE * delta_v, DELTA_V_UNIT * units)
 	{
 		delta_v[j] = 0.0;
 	}
-	j = sscanf(ptr, SCANFORMAT/* SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT*/,
-		&(delta_v[0])/*, &(delta_v[1]), &(delta_v[2]), &(delta_v[3]),
+	j = sscanf(ptr, SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT /*SCANFORMAT SCANFORMAT SCANFORMAT SCANFORMAT*/,
+		&(delta_v[0]), &(delta_v[1]), &(delta_v[2]), &(delta_v[3])/*,
 		&(delta_v[4]), &(delta_v[5]), &(delta_v[6]), &(delta_v[7])*/);
 	if (j < 1)
 	{
@@ -3070,9 +3070,12 @@ read_delta_v_only(char *ptr, LDBLE * delta_v, DELTA_V_UNIT * units)
 	*   Read delta V units
 	*/
 	*units = cm3_per_mol;
-	j = copy_token(token, &ptr, &l);
-	j = copy_token(token, &ptr, &l);
-
+	do
+	{
+		j = copy_token(token, &ptr, &l);
+	} while (j == DIGIT); 
+	//j = copy_token(token, &ptr, &l);
+	//j = copy_token(token, &ptr, &l);
 	if (j == EMPTY)
 	{
 		return (OK);

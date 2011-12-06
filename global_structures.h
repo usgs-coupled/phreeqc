@@ -175,6 +175,9 @@ typedef enum {
 	T_A5,
 	  T_A6,
 	delta_v,			/* molar volume */
+	delta_v1,   /* coef * P */
+	delta_v2,   /* coef * T */
+	delta_v3,  /* coef * T / P*/
 	MAX_LOG_K_INDICES	/* Keep this definition at the end of the enum */
 } LOG_K_INDICES;
 /* HSEARCH(3C) */
