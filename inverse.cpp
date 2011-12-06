@@ -2062,7 +2062,7 @@ print_model(struct inverse *inv_ptr)
 /*
  *   Flush buffer after each model
  */
-	output_fflush();
+	output_flush();
 	return (OK);
 }
 
@@ -2137,7 +2137,7 @@ punch_model_heading(struct inverse *inv_ptr)
 /*
  *   Flush buffer after each model
  */
-	punch_fflush();
+	punch_flush();
 	return (OK);
 }
 
@@ -2228,7 +2228,7 @@ punch_model(struct inverse *inv_ptr)
 /*
  *   Flush buffer after each model
  */
-	punch_fflush();
+	punch_flush();
 	return (OK);
 }
 
@@ -4368,11 +4368,11 @@ dump_netpath_pat(struct inverse *inv_ptr)
 		pr.all = FALSE;
 		temp_punch = pr.punch;
 		pr.punch = FALSE;
-		phrq_io->Set_punch_file_on(false);
+		phrq_io->Set_punch_on(false);
 		initial_solutions(FALSE);
 		pr.all = temp;
 		pr.punch = temp_punch;
-		phrq_io->Set_punch_file_on(pr.punch == TRUE);
+		phrq_io->Set_punch_on(pr.punch == TRUE);
 		solution_ptr = solution_bsearch(-7, &j, TRUE);
 
 		/* Header */

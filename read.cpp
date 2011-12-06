@@ -8147,7 +8147,7 @@ read_debug(void)
 				pr.logfile = FALSE;
 				warning_msg("PHREEQC log file is disabled in PHAST");
 			}
-			phrq_io->Set_log_file_on(pr.logfile == TRUE);
+			phrq_io->Set_log_on(pr.logfile == TRUE);
 			break;
 		case 12:				/* debug_diffuse_layer */
 			debug_diffuse_layer = get_true_false(next_char, TRUE);
@@ -8339,7 +8339,7 @@ read_print(void)
 			break;
 		case 13:				/* selected_output */
 			pr.punch = get_true_false(next_char, TRUE);
-			phrq_io->Set_punch_file_on(pr.punch == TRUE);
+			phrq_io->Set_punch_on(pr.punch == TRUE);
 			break;
 		case 19:				/* status */
 			pr.status = get_true_false(next_char, TRUE);
@@ -8360,7 +8360,7 @@ read_print(void)
 			break;
 		case 22:				/* dump */
 			pr.dump = get_true_false(next_char, TRUE);
-			phrq_io->Set_dump_file_on(pr.dump == TRUE);
+			phrq_io->Set_dump_on(pr.dump == TRUE);
 			break;
 		case 23:				/* user_print */
 		case 24:				/* user_pr */
@@ -10810,7 +10810,7 @@ cleanup_after_parser(CParser &parser)
 	size_t l1 = strlen(parser.line().c_str()) + 1;
 	size_t l2 = strlen(parser.line_save().c_str()) + 1;
 	size_t l = (l1 > l2) ? l1 : l2;
-	if (l >= max_line)
+	if (l >= (size_t) max_line)
 	{
 		max_line = l * 2;
 		line_save =	(char *) PHRQ_realloc(line_save,

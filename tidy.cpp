@@ -1920,7 +1920,7 @@ tidy_punch(void)
 	{
 		punch_save = pr.punch;
 		pr.punch = TRUE;
-		phrq_io->Set_punch_file_on(true);
+		phrq_io->Set_punch_on(true);
 
 		/* constant stuff, sim, pH, etc. */
 
@@ -2147,7 +2147,7 @@ tidy_punch(void)
 
 		punch.new_def = FALSE;
 		pr.punch = punch_save;
-		phrq_io->Set_punch_file_on(pr.punch == TRUE);
+		phrq_io->Set_punch_on(pr.punch == TRUE);
 	}
 	return (OK);
 }

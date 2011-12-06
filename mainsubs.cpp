@@ -514,14 +514,17 @@ initialize(void)
 	pr.isotope_alphas = TRUE;
 	pr.hdf = FALSE;
 	pr.alkalinity = FALSE;
+#ifdef SKIP
 	if (phrq_io)
 	{
-		phrq_io->Set_dump_file_on(true);
-		phrq_io->Set_log_file_on(false);
-		phrq_io->Set_punch_file_on(true);
-		phrq_io->Set_error_file_on (true);
-		phrq_io->Set_output_file_on(true);
+		phrq_io->Set_dump_on(true);
+		phrq_io->Set_log_on(false);
+		phrq_io->Set_punch_on(true);
+		phrq_io->Set_error_on (true);
+		phrq_io->Set_output_on(true);
+		phrq_io->Set_screen_on(true);
 	}
+#endif
 	species_list = NULL;
 
 	user_database = NULL;
@@ -2631,126 +2634,6 @@ xsurface_save(int n_user)
 	use.surface_ptr = NULL;
 	return (OK);
 }
-
-/* ---------------------------------------------------------------------- */
-FILE * Phreeqc::
-file_open(char *query, char *default_name, const char *status, int batch)
-/* ---------------------------------------------------------------------- */
-{
-	char name[MAX_LENGTH], answer[MAX_LENGTH];
-	FILE *new_file;
-	int l;
-
-#ifdef PHREEQ98
-	strcpy(name, default_name);
-	if (status[0] == 'r')
-	{
-		new_file = fopen(name, "r");
-	}
-	else if (status[0] == 'w')
-	{
-		new_file = fopen(name, "w");
-	}
-	if (new_file == NULL)
-	{
-		sprintf(error_string, "Can't open file, %s.", name);
-		error_msg(error_string, STOP);
-	}
-
-	return (new_file);
-#endif
-
-	for (;;)
-	{
-/*
- *   Get file name
- */
-		strcpy(name, default_name);
-		if (batch == FALSE)
-		{
-			screen_msg(sformatf("%s\n", query));;
-			if (default_name[0] != '\0')
-			{
-				screen_msg(sformatf("Default: %s\n", default_name));
-			}
-			fgets(name, MAX_LENGTH, stdin);
-			l = (int) strlen(name);
-			name[l - 1] = '\0';
-			if (name[0] == '\0')
-			{
-				strcpy(name, default_name);
-			}
-		}
-/*
- *   Open existing file to read
- */
-		if (status[0] == 'r')
-		{
-			if ((new_file = fopen(name, "r")) == NULL)
-			{
-				sprintf(error_string, "Can't open file, %s.", name);
-				screen_msg(sformatf("\nERROR: %s\n", error_string));
-				batch = FALSE;
-				continue;
-			}
-			break;
-/*
- *   Open file to write, no check
- */
-		}
-		else if (status[0] == 'w')
-		{
-			if ((new_file = fopen(name, "w")) == NULL)
-			{
-				sprintf(error_string, "Error opening file, %s.", name);
-				screen_msg(sformatf("\nERROR: %s\n", error_string));
-				fflush(stderr);
-				batch = FALSE;
-				continue;
-			}
-			break;
-/*
- *   Open file to write, check for existence
- */
-		}
-		else if (status[0] == 'c')
-		{
-			for (;;)
-			{
-				if ((new_file = fopen(name, "r")) != NULL)
-				{
-					fclose(new_file);
-					screen_msg(sformatf(
-							   "Warning: File already exists, %s.\n"
-							   "Enter new file name or <Enter> to overwrite:",
-							   name));
-					fgets(answer, MAX_LENGTH, stdin);
-/*	  l = (int) strlen (answer);*/
-					replace("\n", "\0", answer);
-/*	  answer[l - 1] = '\0';*/
-					if (answer[0] != '\0')
-					{
-						strcpy(name, answer);
-						continue;
-					}
-				}
-				break;
-			}
-			if ((new_file = fopen(name, "w")) == NULL)
-			{
-				sprintf(error_string, "Error opening file, %s.", name);
-				screen_msg(sformatf("\nERROR: %s\n", error_string));
-				fflush(stderr);
-				batch = FALSE;
-				continue;
-			}
-			break;
-		}
-	}
-	strncpy(default_name, name, MAX_LENGTH);
-	return (new_file);
-}
-
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 copy_use(int i)
