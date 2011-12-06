@@ -1669,7 +1669,10 @@ int Phreeqc::
 get_input_errors()
 {
 	int total_errors = input_error;
-	total_errors += phrq_io->Get_io_error_count();
+	if (phrq_io)
+	{
+		total_errors += phrq_io->Get_io_error_count();
+	}
 	return total_errors;
 }
 std::istream * Phreeqc::

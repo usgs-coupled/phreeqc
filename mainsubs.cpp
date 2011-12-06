@@ -514,11 +514,14 @@ initialize(void)
 	pr.isotope_alphas = TRUE;
 	pr.hdf = FALSE;
 	pr.alkalinity = FALSE;
-	phrq_io->Set_dump_file_on(true);
-	phrq_io->Set_log_file_on(false);
-	phrq_io->Set_punch_file_on(true);
-	phrq_io->Set_error_file_on (true);
-	phrq_io->Set_output_file_on(true);
+	if (phrq_io)
+	{
+		phrq_io->Set_dump_file_on(true);
+		phrq_io->Set_log_file_on(false);
+		phrq_io->Set_punch_file_on(true);
+		phrq_io->Set_error_file_on (true);
+		phrq_io->Set_output_file_on(true);
+	}
 	species_list = NULL;
 
 	user_database = NULL;

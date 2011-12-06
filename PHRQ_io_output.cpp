@@ -198,10 +198,6 @@ process_file_names(int argc, char *argv[], std::istream **db_cookie,
 				phrq_io->error_open(NULL);
 			}
 		}
-		else 
-		{
-			std::cerr << "No PHRQ_io output handler defined in process_file_names" << std::endl;
-		}
 
 		/*
 		*   Open user-input file
