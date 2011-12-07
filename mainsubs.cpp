@@ -2737,6 +2737,9 @@ copy_use(int i)
 	{
 		temperature_duplicate(use.n_temperature_user, i);
 	}
+/*
+ *   Find pressure
+ */
 	if (use.pressure_in == TRUE)
 	{
 		Utilities::Reactant_copy(Reaction_pressure_map, use.n_pressure_user, i);
