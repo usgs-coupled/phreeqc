@@ -1671,10 +1671,9 @@ int Phreeqc::
 get_input_errors()
 /* ---------------------------------------------------------------------- */
 {
-	int total_errors = input_error;
-	if (phrq_io)
+	if (input_error == 0)
 	{
-		total_errors += phrq_io->Get_io_error_count();
+		return phrq_io->Get_io_error_count();
 	}
-	return total_errors;
+	return input_error;
 }
