@@ -1665,8 +1665,11 @@ zero_double(LDBLE * target, int n)
 	memcpy((void *) target, (void *) zeros, (size_t) (n * sizeof(LDBLE)));
 	return;
 }
+
+/* ---------------------------------------------------------------------- */
 int Phreeqc::
 get_input_errors()
+/* ---------------------------------------------------------------------- */
 {
 	int total_errors = input_error;
 	if (phrq_io)
@@ -1674,43 +1677,4 @@ get_input_errors()
 		total_errors += phrq_io->Get_io_error_count();
 	}
 	return total_errors;
-}
-std::istream * Phreeqc::
-get_istream()
-{
-	if (istream_list.size() > 0)
-	{
-		return istream_list.front();
-	}
-	else
-	{
-		return NULL;
-	}
-}
-void Phreeqc::
-push_istream(std::istream * cookie, bool auto_delete)
-{
-	istream_list.push_front(cookie);
-	delete_istream_list.push_front(auto_delete);
-}
-void Phreeqc::
-clear_istream(void)
-{
-	while (istream_list.size() > 0)
-	{
-		pop_istream();
-	}
-}
-void Phreeqc::
-pop_istream()
-{
-	if (istream_list.size() > 0)
-	{
-		if (delete_istream_list.front())
-		{
-			delete istream_list.front();
-		}
-		istream_list.pop_front();
-		delete_istream_list.pop_front();
-	}
 }

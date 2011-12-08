@@ -10719,7 +10719,7 @@ read_reaction_pressure(void)
 	/*
 	 *  Make parser
 	 */
-	CParser parser(*get_istream(), this->phrq_io);
+	CParser parser(*phrq_io->get_istream(), this->phrq_io);
 	if (pr.echo_input == FALSE) parser.set_echo_file(CParser::EO_NONE);
 	atm.read(parser);
 	if (atm.Get_base_error_count() == 0)
@@ -10777,7 +10777,7 @@ read_reaction_pressure_raw(void)
 	/*
 	 *  Make parser
 	 */
-	CParser parser(*get_istream(), this->phrq_io);
+	CParser parser(*phrq_io->get_istream(), this->phrq_io);
 	if (pr.echo_input == FALSE) parser.set_echo_file(CParser::EO_NONE);
 	atm.read_raw(parser);
 

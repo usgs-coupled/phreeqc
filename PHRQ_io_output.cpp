@@ -147,217 +147,7 @@ fpunchf_end_row(const char *format)
 	}
 	return OK;
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-process_file_names(int argc, char *argv[], std::istream **db_cookie,
-				   std::istream **input_cookie, int log)
-/* ---------------------------------------------------------------------- */
-{
-	int l;
-	char token[2 * MAX_LENGTH], default_name[2 * MAX_LENGTH];
-	char query[2 * MAX_LENGTH];
-	char in_file[2 * MAX_LENGTH], out_file[2 * MAX_LENGTH], db_file[2 * MAX_LENGTH];
-	char *env_ptr;
-	char *ptr;
-/*
- *   Prepare error handling
- */
-	try {
-		if (phrq_io == NULL) 
-		{
-			std::cerr << "No PHRQ_io output handler defined in process_file_names" << std::endl;
-		}
-/*
- *   Prep for get_line
- */
-		max_line = MAX_LINE;
-		space((void **) ((void *) &line), INIT, &max_line, sizeof(char));
-		space((void **) ((void *) &line_save), INIT, &max_line, sizeof(char));
-		hcreate_multi(5, &strings_hash_table);
-/*
- *   Open file for error output
- */
-		if (phrq_io)
-		{
-			if (argc > 4)
-			{
-				if (!phrq_io->error_open(argv[4]))
-				{
-					sprintf(error_string, "Error opening file, %s.", argv[4]);
-					warning_msg(error_string);
-				}
-			}
-			else
-			{
-				phrq_io->error_open(NULL);
-			}
-		}
 
-		/*
-		*   Open user-input file
-		*/
-		strcpy(query, "Name of input file?");
-		FILE * local_input_file = NULL;
-		if (argc <= 1)
-		{
-			default_name[0] = '\0';
-			local_input_file = file_open(query, default_name, "r", FALSE);
-		}
-		else
-		{
-			strcpy(default_name, argv[1]);
-			local_input_file = file_open(query, default_name, "r", TRUE);
-		}
-		if (phrq_io) phrq_io->Set_input_file(local_input_file);
-		screen_msg(sformatf("Input file: %s\n\n", default_name));
-		strcpy(in_file, default_name);
-		/*
-		*   Open file for output
-		*/
-		strcpy(query, "Name of output file?");
-
-		ptr = default_name;
-		copy_token(token, &ptr, &l);
-		strcat(token, ".out");
-		FILE * local_output_file;
-		if (argc <= 1)
-		{
-			local_output_file = file_open(query, token, "w", FALSE);
-		}
-		else if (argc == 2)
-		{
-			local_output_file = file_open(query, token, "w", TRUE);
-		}
-		else if (argc >= 3)
-		{
-			strcpy(token, argv[2]);
-			local_output_file = file_open(query, token, "w", TRUE);
-		}
-		if (phrq_io) phrq_io->Set_output_file(local_output_file);
-		screen_msg(sformatf("Output file: %s\n\n", token));
-		strcpy(out_file, token);
-/*
- *   Open file for errors
- */
-		if (log == TRUE)
-		{
-			if (phrq_io)
-			{
-				if (!phrq_io->log_open("phreeqc.log"))
-				{
-					error_msg("Can't open log file, phreeqc.log.", STOP);
-				}
-			}
-		}
-	/*
-	 *  Read input file for DATABASE keyword
-	 */
-		std::ifstream * temp_input = new std::ifstream(in_file, std::ifstream::in);
-		push_istream(temp_input);
-		if (get_line() == KEYWORD)
-		{
-			ptr = line;
-			copy_token(token, &ptr, &l);
-			if (strcmp_nocase(token, "database") == 0)
-			{
-#ifdef PHREEQ98
-				user_database = string_duplicate(prefix_database_dir(ptr));
-#else
-				user_database = string_duplicate(ptr);
-#endif
-				if (string_trim(user_database) == EMPTY)
-				{
-					warning_msg("DATABASE file name is missing; default database will be used.");
-					user_database = (char *) free_check_null(user_database);
-				}
-			}
-		}
-		if (phrq_io) phrq_io->close_input();
-
-		pop_istream();
-
-		if ((local_input_file = fopen(in_file, "r")) == NULL)
-		{;
-		error_msg("Can't reopen input file.", STOP);
-		}
-		else
-		{
-			if (phrq_io) phrq_io->Set_input_file(local_input_file);
-		}
-		/*
-		*   Open data base
-		*/
-		strcpy(query, "Name of database file?");
-		env_ptr = getenv("PHREEQC_DATABASE");
-		if (user_database != NULL)
-		{
-			strcpy(token, user_database);
-		}
-		else if (env_ptr != NULL)
-		{
-			strcpy(token, env_ptr);
-		}
-		else
-		{
-			strcpy(token, default_data_base);
-		}
-
-		FILE * local_database_file;
-		if (argc <= 1)
-		{
-			local_database_file = file_open(query, token, "r", FALSE);
-		}
-		else if (argc < 4)
-		{
-			local_database_file = file_open(query, token, "r", TRUE);
-		}
-		else if (argc >= 4)
-		{
-			if (user_database == NULL)
-			{
-				strcpy(token, argv[3]);
-			}
-			else
-			{
-#ifndef PHREEQCI_GUI
-				warning_msg
-					("Database file from DATABASE keyword is used; command line argument ignored.");
-#endif
-			}
-			local_database_file = file_open(query, token, "r", TRUE);
-		}
-		if (local_database_file != NULL)
-		{
-			if (phrq_io) phrq_io->Set_database_file(local_database_file);
-		}
-		screen_msg(sformatf("Database file: %s\n\n", token));
-		strcpy(db_file, token);
-
-		output_msg(sformatf("   Input file: %s\n", in_file));
-		output_msg(sformatf("  Output file: %s\n", out_file));
-		output_msg(sformatf("Database file: %s\n\n", token));
-		/*
-		*   local cleanup
-		*/
-		user_database = (char *) free_check_null(user_database);
-		line = (char *) free_check_null(line);
-		line_save = (char *) free_check_null(line_save);
-
-		free_hash_strings(strings_hash_table);
-		hdestroy_multi(strings_hash_table);
-		strings_hash_table = NULL;
-
-		*db_cookie = new std::ifstream(db_file, std::ifstream::in);
-		*input_cookie = new std::ifstream(in_file, std::ifstream::in);
-	}
-	catch (PhreeqcStop e)
-	{
-		return get_input_errors();
-	}
-	return 0;
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 process_file_names(int argc, char *argv[], std::istream **db_cookie,
@@ -461,7 +251,7 @@ process_file_names(int argc, char *argv[], std::istream **db_cookie,
  */
 		if (local_input_stream->is_open())
 		{
-			push_istream(local_input_stream);
+			phrq_io->push_istream(local_input_stream);
 			if (get_line() == KEYWORD)
 			{
 				ptr = line;
@@ -480,7 +270,7 @@ process_file_names(int argc, char *argv[], std::istream **db_cookie,
 					}
 				}
 			}
-			pop_istream();
+			phrq_io->pop_istream();
 		}
 		else
 		{
@@ -489,21 +279,6 @@ process_file_names(int argc, char *argv[], std::istream **db_cookie,
 			error_msg(error_string, STOP);
 		}
 		
-
-#ifdef SKIP
-/*
- *  Open input file
- */
-		local_input_ostream = new std::ifstream(in_file, std::ifstream::in);
-		if (local_input_ostream == NULL)
-		{
-			error_msg("Can't reopen input file.", STOP);
-		}
-		//else
-		//{
-		//	if (phrq_io) phrq_io->Set_input_file(local_input_file);
-		//}
-#endif
 /*
  *   Open data base
  */
@@ -568,8 +343,8 @@ process_file_names(int argc, char *argv[], std::istream **db_cookie,
 		hdestroy_multi(strings_hash_table);
 		strings_hash_table = NULL;
 
-		*db_cookie = new std::ifstream(db_file, std::ifstream::in);
-		*input_cookie = new std::ifstream(in_file, std::ifstream::in);
+		*db_cookie = new std::ifstream(db_file, std::ios_base::in);
+		*input_cookie = new std::ifstream(in_file, std::ios_base::in);
 	}
 	catch (PhreeqcStop e)
 	{

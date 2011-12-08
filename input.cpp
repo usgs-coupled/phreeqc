@@ -28,7 +28,7 @@ check_line(const char *string, int allow_empty, int allow_eof,
 /* ---------------------------------------------------------------------- */
 {
 	//assert(get_istream() != NULL);
-	if (get_istream() == NULL)
+	if (phrq_io->get_istream() == NULL)
 		return EOF;
 	if (reading_database())
 		print = FALSE;
@@ -123,7 +123,7 @@ get_line(void)
 	// loop for include files
 	for (;;)
 	{
-		cookie = get_istream();
+		cookie = phrq_io->get_istream();
 		if (cookie == NULL)
 		{
 			break;
@@ -143,7 +143,7 @@ get_line(void)
 			if (get_logical_line(cookie, &l) == EOF)
 			{
 					//pop next file
-					pop_istream();
+					phrq_io->pop_istream();
 					continue_loop = true;
 					break;
 			}
@@ -210,14 +210,14 @@ get_line(void)
 			
 			if (string_trim(file_name) != EMPTY)
 			{
-				std::ifstream *next_stream = new std::ifstream(file_name, std::ifstream::in);
+				std::ifstream *next_stream = new std::ifstream(file_name, std::ios_base::in);
 				if (!next_stream->is_open())
 				{
 					// error opening file
 					sprintf(error_string, "Could not open include file %s", file_name);
 					error_msg(error_string, STOP);
 				}
-				push_istream(next_stream);
+				phrq_io->push_istream(next_stream);
 				continue;
 			}
 		}
