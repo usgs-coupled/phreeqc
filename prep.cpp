@@ -366,7 +366,7 @@ quick_setup(void)
 	save_model();
 	return (OK);
 }
-
+#if !defined(REVISED_GASES)
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 build_gas_phase(void)
@@ -640,7 +640,7 @@ build_gas_phase(void)
 	}
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 build_s_s_assemblage(void)
@@ -3167,7 +3167,7 @@ setup_exchange(void)
 	}
 	return (OK);
 }
-
+#if !defined(REVISED_GASES)
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 setup_gas_phase(void)
@@ -3198,7 +3198,7 @@ setup_gas_phase(void)
 	count_unknowns++;
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 setup_s_s_assemblage(void)
@@ -4544,7 +4544,11 @@ setup_unknowns(void)
  */
 	if (use.gas_phase_ptr != NULL)
 	{
+#if defined(REVISED_GASES)
+		max_unknowns += use.gas_phase_ptr->count_comps;
+#else
 		max_unknowns++;
+#endif
 	}
 /*
  *   Count solid solutions

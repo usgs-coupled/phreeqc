@@ -89,6 +89,9 @@
 #define GAS_MOLES 24
 #define S_S_MOLES 25
 #define PITZER_GAMMA 26
+#if defined(REVISED_GASES)
+#define GAS_PRESSURE 27
+#endif
 /* state */
 #define INITIALIZE	       0
 #define INITIAL_SOLUTION   1
@@ -1183,6 +1186,8 @@ struct unknown
 	LDBLE mass_water;
 	int dissolve_only;
 	LDBLE inert_moles;
+	LDBLE V_m;
+	LDBLE pressure;
 };
 
 /*----------------------------------------------------------------------

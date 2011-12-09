@@ -4587,7 +4587,7 @@ read_reaction_steps(struct irrev *irrev_ptr)
 				count_steps++;
 				irrev_ptr->steps =
 					(LDBLE *) PHRQ_realloc(irrev_ptr->steps,
-										   (size_t) count_steps *
+										   (size_t) abs(count_steps) *
 										   sizeof(LDBLE));
 				if (irrev_ptr->steps == NULL)
 					malloc_error();

@@ -121,6 +121,7 @@ model(void)
  */
 			if (state >= REACTION && numerical_deriv)
 			{
+				jacobian_sums();
 				numerical_jacobian();
 			}
 			else
@@ -508,6 +509,19 @@ check_residuals(void)
 				error_msg(error_string, CONTINUE);
 			}
 		}
+#if defined(REVISED_GASES)
+		else if (x[i]->type == GAS_PRESSURE)
+		{
+			if (residual[i] >= epsilon
+				|| residual[i] <= -epsilon)
+			{
+				sprintf(error_string, "%20s Pressure has not converged. "
+						"\tResidual: %e\n", x[i]->description,
+						(double) residual[i]);
+				error_msg(error_string, CONTINUE);
+			}
+		}
+#endif
 		else if (x[i]->type == PITZER_GAMMA)
 		{
 			if (fabs(residual[i]) > epsilon)
@@ -1193,6 +1207,25 @@ ineq(int in_kode)
 				res[l_count_rows] = 0.0;
 			}
 			l_count_rows++;
+#if defined(REVISED_GASES)
+/*
+ *   Gas pressure
+ */
+		}
+		else if (x[i]->type == GAS_PRESSURE)
+		{
+			memcpy((void *) &(ineq_array[l_count_rows * max_column_count]),
+				   (void *) &(array[i * (count_unknowns + 1)]),
+				   (size_t) (count_unknowns + 1) * sizeof(LDBLE));
+			back_eq[l_count_rows] = i;
+
+			res[l_count_rows] = 1.0;
+			if (in_kode != 1)
+			{
+				res[l_count_rows] = 0.0;
+			}
+			l_count_rows++;
+#endif
 /*
  *   Solid solution
  */
@@ -1221,6 +1254,9 @@ ineq(int in_kode)
 			x[i]->type != ALK &&
 			x[i]->type != GAS_MOLES && x[i]->type != S_S_MOLES
 			/* && x[i]->type != PP */
+#if defined(REVISED_GASES)
+			&& x[i]->type != GAS_PRESSURE
+#endif
 			)
 		{
 			if (x[i]->type == PP && x[i]->pure_phase->force_equality == FALSE)
@@ -1979,7 +2015,11 @@ mb_gases(void)
 	}
 	else
 	{
+#if defined(REVISED_GASES)
+		gas_in = TRUE;
+#else
 		gas_in = FALSE;
+#endif
 	}
 	return (OK);
 }
@@ -2186,8 +2226,9 @@ molalities(int allow_overflow)
 		else
 		{
 			s_x[i]->moles = under(s_x[i]->lm) * mass_water_aq_x;
+			//output_msg(sformatf("%s \t%e\n", s_x[i]->name, s_x[i]->moles));
 			/*
-			if (isnan(s_x[i]->moles))
+			if (_isnan(s_x[i]->moles))
 			{
 				fprintf(stderr,"molalities moles %s %e\n", s_x[i]->name, s_x[i]->moles);
 				exit(4);
@@ -2340,7 +2381,7 @@ molalities(int allow_overflow)
 
 	return (OK);
 }
-
+#if !defined(REVISED_GASES)
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 calc_gas_pressures(void)
@@ -2362,7 +2403,6 @@ calc_gas_pressures(void)
 	{
 		use.gas_phase_ptr->total_moles = 0;
 	}
-
 	phase_ptrs = new phase *[use.gas_phase_ptr->count_comps];
 	for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
 	{
@@ -2437,7 +2477,6 @@ calc_gas_pressures(void)
 				lp += rxn_ptr->s->la * rxn_ptr->coef;
 			}
 			gas_comp_ptr->phase->p_soln_x = exp(LOG_10 * (lp - phase_ptr->pr_si_f));
-
 			if (use.gas_phase_ptr->type == PRESSURE)
 			{
 				gas_comp_ptr->phase->moles_x = gas_comp_ptr->phase->p_soln_x *
@@ -2491,7 +2530,7 @@ calc_gas_pressures(void)
 	delete phase_ptrs;
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 calc_s_s_fractions(void)
@@ -2963,6 +3002,13 @@ reset(void)
 					up = 1.;
 				down = x[i]->moles;
 			}
+#if defined(REVISED_GASES)
+			else if (x[i]->type == GAS_PRESSURE)
+			{
+				up =  2.;
+				down = patm_x/2.0;
+			}
+#endif
 			else if (x[i]->type == S_S_MOLES)
 			{
 				continue;
@@ -3264,6 +3310,7 @@ reset(void)
 			{
 				mu_x += delta[i];
 			}
+			if (mu_x > 50) mu_x = 50;
 			if (mu_x <= 1e-8)
 			{
 				mu_x = 1e-8;
@@ -3404,7 +3451,32 @@ reset(void)
 			x[i]->moles += delta[i];
 			if (x[i]->moles < MIN_TOTAL)
 				x[i]->moles = MIN_TOTAL;
+			if (x[i] == gas_unknown)
+			{
+					patm_x = use.gas_phase_ptr->total_p;
+					k_temp(tc_x, patm_x);
+			}
 		}
+#if defined(REVISED_GASES)
+		else if (x[i]->type == GAS_PRESSURE)
+		{
+			if (debug_model == TRUE)
+			{
+				output_msg(sformatf(
+						   "%-10.10s %-9s%10.2e   %-9s%10.2e   %-6s%10.2e\n",
+						   x[i]->description, "old P",
+						   (double) patm_x, "new P",
+						   (double) (patm_x + delta[i]), "delta",
+						   (double) delta[i]));
+			}
+			output_msg(sformatf(
+				"%e\n", x[i]->gas_phase->total_p));
+			x[i]->pressure += delta[i];
+			patm_x = x[i]->pressure;
+			same_pressure = FALSE;
+			k_temp(tc_x, patm_x);
+		}
+#endif
 		else if (x[i]->type == S_S_MOLES)
 		{
 
@@ -3709,7 +3781,12 @@ residuals(void)
 		}
 		else if (x[i]->type == GAS_MOLES)
 		{
+			
+#if defined(REVISED_GASES)
+			residual[i] = x[i]->moles - x[i]->phase->moles_x;
+#else
 			residual[i] = x[i]->gas_phase->total_p - x[i]->f;
+#endif
 			if (fabs(residual[i]) > l_toler && gas_in == TRUE)
 			{
 				if (print_fail)
@@ -3718,11 +3795,27 @@ residuals(void)
 							   x[i]->description, i, residual[i]));
 				converge = FALSE;
 			}
-			if (iterations < 10) // for Peng-Robinson...
+			//if (iterations < 10) // for Peng-Robinson...
+			//{
+			//	converge = FALSE;
+			//}
+		}
+#if defined(REVISED_GASES)
+		else if (x[i]->type == GAS_PRESSURE)
+		{
+			residual[i] = x[i]->gas_phase->total_p - patm_x;
+			//output_msg(sformatf(
+			//	"Pressure residual: %e, %e, %e\n", residual[i], x[i]->gas_phase->total_p, patm_x));
+			if (fabs(residual[i]) > l_toler)
 			{
+				if (print_fail)
+					output_msg(sformatf(
+							   "Failed Residual %d: %s %d %e\n", iterations,
+							   x[i]->description, i, residual[i]));
 				converge = FALSE;
 			}
 		}
+#endif
 		else if (x[i]->type == S_S_MOLES)
 		{
 			residual[i] = x[i]->f * LOG_10;
@@ -4891,7 +4984,7 @@ numerical_jacobian(void)
 	LDBLE d, d1, d2;
 	int i, j;
 
-	if (/*!numerical_deriv && */(use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC))
+	if (!numerical_deriv && (use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC))
 		return (OK);
 	calculating_deriv = TRUE;
 	gammas(mu_x);
@@ -4999,6 +5092,16 @@ numerical_jacobian(void)
 				d2 = 1e-14;
 			x[i]->moles += d2;
 			break;
+#if defined(REVISED_GASES)
+		case GAS_PRESSURE:
+			d2 = d * patm_x;
+			if (d2 < 0.1)
+				d2 = 0.1;
+			patm_x += d2;
+			same_pressure = FALSE;
+			k_temp(tc_x, patm_x);
+			break;
+#endif
 		}
 		molalities(TRUE);
 		mb_sums();
@@ -5009,11 +5112,8 @@ numerical_jacobian(void)
 		residuals();
 		for (j = 0; j < count_unknowns; j++)
 		{
-			array[j * (count_unknowns + 1) + i] =
-				-(residual[j] - base[j]) / d2;
-			/*
-			   output_msg(sformatf( "%d %e %e %e %e\n", j, array[j*(count_unknowns + 1) + i] , residual[j], base[j], d2));
-			 */
+			array[j * (count_unknowns + 1) + i] = -(residual[j] - base[j]) / d2;
+			//output_msg(sformatf( "%d %e %e %e %e\n", j, array[j*(count_unknowns + 1) + i] , residual[j], base[j], d2));
 		}
 		switch (x[i]->type)
 		{
@@ -5060,6 +5160,13 @@ numerical_jacobian(void)
 		case GAS_MOLES:
 			x[i]->moles -= d2;
 			break;
+#if defined(REVISED_GASES)
+		case GAS_PRESSURE:
+			patm_x -= d2;
+			same_pressure = FALSE;
+			k_temp(tc_x, patm_x);
+			break;
+#endif
 		}
 	}
 	molalities(TRUE);

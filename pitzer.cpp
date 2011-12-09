@@ -1721,6 +1721,9 @@ jacobian_pz(void)
 		case PP:
 		case GAS_MOLES:
 		case S_S_MOLES:
+#if defined(REVISED_GASES)
+		case GAS_PRESSURE:
+#endif
 			continue;
 			break;
 		}
