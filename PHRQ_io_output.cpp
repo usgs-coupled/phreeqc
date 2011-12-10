@@ -17,7 +17,16 @@ warning_msg(const char *err_str)
 		if (count_warnings > pr.warnings)
 			return (OK);
 	}
-	if (phrq_io) phrq_io->warning_msg(err_str);
+	if (phrq_io)
+	{
+		if (status_on)
+		{
+			phrq_io->screen_msg("\n");
+		}
+		std::ostringstream msg;
+		msg << "WARNING: " << err_str;
+		phrq_io->warning_msg(msg.str().c_str());
+	}
 	
 	return OK;
 }
@@ -609,14 +618,14 @@ error_msg(const char *err_str, bool stop)
 {
 	if (get_input_errors() <= 0)
 		input_error = 1;
-	std::ostringstream msg;
-	msg << "ERROR: " << err_str << std::endl;
 	if (phrq_io)
 	{
+		std::ostringstream msg;
+		msg << "ERROR: " << err_str << std::endl;
+
 		phrq_io->output_msg(msg.str().c_str());
 		phrq_io->log_msg(msg.str().c_str());
 
-// COMMENT: {11/23/2011 3:51:53 PM}		phrq_io->error_msg("\n");
 		if (status_on)
 		{
 			phrq_io->screen_msg("\n");
