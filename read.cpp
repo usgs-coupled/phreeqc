@@ -4870,6 +4870,7 @@ read_selected_output(void)
 			{
 				strcpy(file_name, next_char);
 				have_punch_name = TRUE;
+				punch_close();
 				if (punch_open(file_name) != OK)
 				{
 					sprintf(error_string, "Can't open file, %s.", file_name);
@@ -5182,6 +5183,7 @@ read_selected_output(void)
 	}
 	if (!have_punch_name)
 	{
+		punch_close();
 		if (punch_open("selected.out") != OK)
 		{
 			sprintf(error_string, "Can't open file, %s.", "selected.out");
