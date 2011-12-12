@@ -2287,7 +2287,7 @@ molalities(int allow_overflow)
 
 				if (iterations >= 0 && allow_overflow == FALSE)
 				{
-					return (ERROR);
+					//return (ERROR);
 				}
 			}
 
@@ -3357,7 +3357,7 @@ reset(void)
 			{
 				mu_x += delta[i];
 			}
-			if (mu_x > 50) mu_x = 50;
+			//if (mu_x > 50) mu_x = 50;
 			if (mu_x <= 1e-8)
 			{
 				mu_x = 1e-8;
