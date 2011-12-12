@@ -1915,12 +1915,6 @@ jacobian_sums(void)
 		{
 			// using straight mu equation
 			array[mu_unknown->number * (count_unknowns + 1) + i] *= 0.5;
-			// this uses a Michaelis-Minton-type factor to limit ionic strength
-			//if (dampen)
-			//{
-			//	//array[mu_unknown->number * (count_unknowns + 1) + i] *= 50. / (50. + 0.5*mu_unknown->f)*(50. + 0.5*mu_unknown->f);
-			//	array[mu_unknown->number * (count_unknowns + 1) + i] *= 50. * 50. / ((50. + 0.5*mu_unknown->f)*(50. + 0.5*mu_unknown->f));
-			//}
 		}
 		array[mu_unknown->number * (count_unknowns + 1) +
 			  mu_unknown->number] -= mass_water_aq_x;
@@ -1940,20 +1934,16 @@ jacobian_sums(void)
 	{
 		for (i = 0; i < count_unknowns; i++)
 		{
-			// this uses a Michaelis-Minton-type factor to limit activity of water
-			//array[ah2o_unknown->number * (count_unknowns + 1) + i] *= -0.017;
-			//if (dampen)
-			//{
-			//	array[ah2o_unknown->number * (count_unknowns + 1) + i] /= ((1 + ah2o_unknown->f)*(1 + ah2o_unknown->f));
-			//}
-			// a(H2O) = (1 - 0.017*sum(m(i)))*0.5*(1 - tanh(sum(m(i)) - 45.0)))
-			// this equation drives activity of water smoothly to zero at about sum(m(i)) = 45
+			// a(H2O) = (1 - 0.017*sum(m(i)))*0.5*(1 - tanh(sum(m(i)) - 50.0))) + 0.075 * 0.5*(tanh(sum(m(i)) - 50) - 1)
+			// this equation drives activity of water smoothly to 0.075 at about sum(m(i)) = 50
 			if (dampen)
 			{
 				LDBLE sum = ah2o_unknown->f;
-				LDBLE factor = -0.017 * (0.5*(1.0 - tanh(sum - 45.0)));
+				LDBLE factor = -0.017 * (0.5*(1.0 - tanh(sum - 50.0)));
 				//factor -= (1.0 - 0.017 * sum) * (0.5*sech(sum - 45.0)*sech(sum - 45.0));
-				factor -= (1.0 - 0.017 * sum) * (0.5/(cosh(sum - 45.0)*cosh(sum - 45.0)));
+				//factor -= (1.0 - 0.017 * sum) * (0.5/(cosh(sum - 45.0)*cosh(sum - 45.0)));
+				factor -= (1.0 - 0.017 * sum) * (0.5/(cosh(sum - 50.0)*cosh(sum - 50.0)));
+				factor += 0.075*0.5/(cosh(sum - 50.0)*cosh(sum - 50.0));
 				array[ah2o_unknown->number * (count_unknowns + 1) + i] *= factor;
 			}
 			else
@@ -3344,16 +3334,9 @@ reset(void)
 
 			/*if (fabs(delta[i]) > epsilon * mu_x ) converge=FALSE; */
 			// using straight ionic strength equation
-			//if (!dampen)
 			{
 				mu_calc = 0.5 * mu_unknown->f / mass_water_aq_x;
 			}
-			// Michaelis-Menton-type limiter 
-			//else
-			//{
-			//	LDBLE max_mu = 50.0;
-			//	mu_calc = 0.5 * max_mu * mu_unknown->f / (max_mu + mu_unknown->f) / mass_water_aq_x; 
-			//}
 			if (debug_model == TRUE)
 			{
 				output_msg(sformatf( "Calculated mu: %e\n",
@@ -3396,15 +3379,6 @@ reset(void)
 						   (double) delta[i], "delta/c", (double) d));
 			}
 			s_h2o->la += d;
-			//if (pitzer_model == FALSE && sit_model == FALSE & !dampen)
-			//{
-			//	if (s_h2o->la < -1.0)
-			//	{
-			//		d = -1.0 - s_h2o->la;
-			//		delta[i] = d * LOG_10;
-			//		s_h2o->la = -1.0;
-			//	}
-			//}
 /*   pe */
 		}
 		else if (x[i]->type == MH)
@@ -3697,16 +3671,9 @@ residuals(void)
 		else if (x[i]->type == MU && pitzer_model == FALSE && sit_model == FALSE)
 		{
 			// Using straight ionic strength equation
-			//if (!dampen)
 			{
 				residual[i] = mass_water_aq_x * mu_x - 0.5 * x[i]->f;
 			}
-			// Michaelis-Menton-typ limiter
-			//else
-			//{
-			//	LDBLE max_mu = 50.;
-			//	residual[i] = mass_water_aq_x * mu_x - max_mu * 0.5 * x[i]->f / (max_mu + 0.5 * x[i]->f);
-			//}
 			if (fabs(residual[i]) > l_toler * mu_x * mass_water_aq_x)
 			{
 				if (print_fail)
@@ -3726,14 +3693,11 @@ residuals(void)
 			}
 			else
 			{
-				// Michaelis-Menton-type limiter
-				//residual[i] = mass_water_aq_x * exp(s_h2o->la * LOG_10) - 
-				//	mass_water_aq_x + 0.017 * x[i]->f / (1.0 + 0.017 * x[i]->f);
-
-				// a(H2O) = (1 - 0.017*sum(m(i)))*0.5*(1 - tanh(sum(m(i)) - 45.0)))
-				// this equation drives activity of water smoothly to zero at about sum(m(i)) = 45
+			// a(H2O) = (1 - 0.017*sum(m(i)))*0.5*(1 - tanh(sum(m(i)) - 50.0))) + 0.075 * 0.5*(tanh(sum(m(i)) - 50) - 1)
+			// this equation drives activity of water smoothly to 0.075 at about sum(m(i)) = 50
 				residual[i] = mass_water_aq_x * exp(s_h2o->la * LOG_10) -
-					(mass_water_aq_x - 0.017 * x[i]->f) * (0.5*(1.0 - tanh(x[i]->f - 45.0)));
+					(mass_water_aq_x - 0.017 * x[i]->f) * (0.5*(1.0 - tanh(x[i]->f - 50.0))) -
+					0.075*0.5*(tanh(x[i]->f - 50.0) + 1.0);
 
 			}
 			if (pitzer_model || sit_model)
