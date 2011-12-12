@@ -2149,6 +2149,7 @@ tidy_punch(void)
 		pr.punch = punch_save;
 		phrq_io->Set_punch_on(pr.punch == TRUE);
 	}
+	punch_flush();
 	return (OK);
 }
 
