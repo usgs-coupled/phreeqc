@@ -998,8 +998,7 @@ ineq(int in_kode)
 /*
 * Slack unknown
 */ 
-	//slack_unknown = NULL;
-	if (slack_unknown)
+	if (slack && slack_unknown)
 	{
 		int n = slack_unknown->number;
 		// slack row
@@ -1149,7 +1148,7 @@ ineq(int in_kode)
 /*
  *   slack
  */
-		if (x[i]->type == SLACK)
+		if (slack && slack_unknown && x[i]->type == SLACK)
 		{
 			memcpy((void *) &(ineq_array[l_count_rows * max_column_count]),
 				(void *) &(array[i * (count_unknowns + 1)]),

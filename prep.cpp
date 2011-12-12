@@ -3206,23 +3206,18 @@ setup_slack(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Fill in data for gas phase unknown (sum of partial pressures)
- *   in unknown structure
- */
-	int i;
-/*
- *   One for total moles in gas
+ *   Fill in data for slack unknown
  */
 	slack_unknown = NULL;
-	//if (sit_model != TRUE && pitzer_model != TRUE)
-	//{
+	if (slack)
+	{
 		x[count_unknowns]->type = SLACK;
 		x[count_unknowns]->description = string_hsave("slack");
 		x[count_unknowns]->moles = 0.0;
 		x[count_unknowns]->number = count_unknowns;
 		slack_unknown = x[count_unknowns];
 		count_unknowns++;
-	//}
+	}
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
