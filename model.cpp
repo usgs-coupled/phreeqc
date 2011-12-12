@@ -999,17 +999,18 @@ ineq(int in_kode)
 * Slack unknown
 */ 
 	//slack_unknown = NULL;
-	for (j = 0; j <= count_unknowns + 1; j++)
-	{
-		array[(count_unknowns - 1) * (count_unknowns + 1) + j] = 0.0;
-	}
-
-
 	if (slack_unknown)
 	{
+		int n = slack_unknown->number;
+		// slack row
+		for (j = 0; j <= count_unknowns + 1; j++)
+		{
+			array[n * (count_unknowns + 1) + j] = 0.0;
+		}
+		// slack column
 		for (j = 0; j < count_unknowns; j++)
 		{
-			array[j * (count_unknowns + 1) + (count_unknowns - 1)] = 1.0;
+			array[j * (count_unknowns + 1) + n] = 1.0;
 		}
 	}
 /*
@@ -1148,7 +1149,7 @@ ineq(int in_kode)
 /*
  *   slack
  */
-		if (slack_unknown)
+		if (x[i]->type == SLACK)
 		{
 			memcpy((void *) &(ineq_array[l_count_rows * max_column_count]),
 				(void *) &(array[i * (count_unknowns + 1)]),

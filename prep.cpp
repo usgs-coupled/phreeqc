@@ -3213,11 +3213,16 @@ setup_slack(void)
 /*
  *   One for total moles in gas
  */
-	x[count_unknowns]->type = SLACK;
-	x[count_unknowns]->description = string_hsave("slack");
-	x[count_unknowns]->moles = 0.0;
-	slack_unknown = x[count_unknowns];
-	count_unknowns++;
+	slack_unknown = NULL;
+	//if (sit_model != TRUE && pitzer_model != TRUE)
+	//{
+		x[count_unknowns]->type = SLACK;
+		x[count_unknowns]->description = string_hsave("slack");
+		x[count_unknowns]->moles = 0.0;
+		x[count_unknowns]->number = count_unknowns;
+		slack_unknown = x[count_unknowns];
+		count_unknowns++;
+	//}
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
