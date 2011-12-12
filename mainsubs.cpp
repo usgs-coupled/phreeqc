@@ -750,6 +750,7 @@ initialize(void)
 	gamma_iterations = 0;
 	run_reactions_iterations = 0;
 	step_size_now = step_size;
+	dampen = true;
 	pe_step_size_now = pe_step_size;
 	count_total_steps = 0;
 	remove_unstable_phases = FALSE;

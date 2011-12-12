@@ -92,6 +92,7 @@
 #if defined(REVISED_GASES)
 #define GAS_PRESSURE 27
 #endif
+#define SLACK 28
 /* state */
 #define INITIALIZE	       0
 #define INITIAL_SOLUTION   1

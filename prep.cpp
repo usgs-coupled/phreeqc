@@ -63,6 +63,7 @@ prep(void)
 		setup_gas_phase();
 		setup_s_s_assemblage();
 		setup_related_surface();
+		setup_slack();
 		tidy_redox();
 		if (get_input_errors() > 0)
 		{
@@ -3201,6 +3202,26 @@ setup_gas_phase(void)
 #endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
+setup_slack(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Fill in data for gas phase unknown (sum of partial pressures)
+ *   in unknown structure
+ */
+	int i;
+/*
+ *   One for total moles in gas
+ */
+	x[count_unknowns]->type = SLACK;
+	x[count_unknowns]->description = string_hsave("slack");
+	x[count_unknowns]->moles = 0.0;
+	slack_unknown = x[count_unknowns];
+	count_unknowns++;
+	return (OK);
+}
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
 setup_s_s_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -4563,13 +4584,18 @@ setup_unknowns(void)
 	}
 
 /*
- *   One for luck
+ *   Pitzer/Sit
  */
 	max_unknowns++;
 	if (pitzer_model == TRUE || sit_model == TRUE)
 	{
 		max_unknowns += count_s;
 	}
+/*
+ *   One for slack
+ */
+	max_unknowns++;
+
 /*
  *   Allocate space for pointer array and structures
  */
