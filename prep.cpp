@@ -367,7 +367,6 @@ quick_setup(void)
 	save_model();
 	return (OK);
 }
-#if !defined(REVISED_GASES)
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 build_gas_phase(void)
@@ -390,6 +389,12 @@ build_gas_phase(void)
 
 	if (gas_unknown == NULL)
 		return (OK);
+#if defined(REVISED_GASES)
+	if (use.gas_phase_ptr->type == VOLUME)
+	{
+		return build_fixed_volume_gas();
+	}
+#endif
 	for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
 	{
 /*
@@ -641,7 +646,6 @@ build_gas_phase(void)
 	}
 	return (OK);
 }
-#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 build_s_s_assemblage(void)
@@ -3168,7 +3172,6 @@ setup_exchange(void)
 	}
 	return (OK);
 }
-#if !defined(REVISED_GASES)
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 setup_gas_phase(void)
@@ -3181,6 +3184,12 @@ setup_gas_phase(void)
 	int i;
 	if (use.gas_phase_ptr == NULL)
 		return (OK);
+#if defined(REVISED_GASES)
+	if (use.gas_phase_ptr->type == VOLUME)
+	{
+		return setup_fixed_volume_gas();
+	}
+#endif
 /*
  *   One for total moles in gas
  */
@@ -3199,7 +3208,6 @@ setup_gas_phase(void)
 	count_unknowns++;
 	return (OK);
 }
-#endif
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -4606,7 +4614,14 @@ setup_unknowns(void)
 	if (use.gas_phase_ptr != NULL)
 	{
 #if defined(REVISED_GASES)
-		max_unknowns += use.gas_phase_ptr->count_comps;
+		if (use.gas_phase_ptr->type == VOLUME)
+		{
+			max_unknowns += use.gas_phase_ptr->count_comps;
+		}
+		else
+		{
+			max_unknowns++;
+		}
 #else
 		max_unknowns++;
 #endif

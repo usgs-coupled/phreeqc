@@ -2440,7 +2440,6 @@ molalities(int allow_overflow)
 
 	return (OK);
 }
-#if !defined(REVISED_GASES)
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 calc_gas_pressures(void)
@@ -2458,6 +2457,12 @@ calc_gas_pressures(void)
  */
 	if (use.gas_phase_ptr == NULL)
 		return (OK);
+#if defined(REVISED_GASES)
+	if (use.gas_phase_ptr->type == VOLUME)
+	{
+		return calc_fixed_volume_gas_pressures();
+	}
+#endif
 	if (use.gas_phase_ptr->type == VOLUME)
 	{
 		use.gas_phase_ptr->total_moles = 0;
@@ -2609,8 +2614,6 @@ calc_gas_pressures(void)
 	delete phase_ptrs;
 	return (OK);
 }
-
-#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 calc_s_s_fractions(void)
@@ -3525,11 +3528,13 @@ reset(void)
 			x[i]->moles += delta[i];
 			if (x[i]->moles < MIN_TOTAL)
 				x[i]->moles = MIN_TOTAL;
-			if (x[i] == gas_unknown)
+#if defined(REVISED_GASES)
+			if (x[i] == gas_unknown && use.gas_phase_ptr->type == VOLUME)
 			{
 					patm_x = use.gas_phase_ptr->total_p;
 					k_temp(tc_x, patm_x);
 			}
+#endif
 		}
 #if defined(REVISED_GASES)
 		else if (x[i]->type == GAS_PRESSURE)
@@ -3870,7 +3875,14 @@ residuals(void)
 		{
 			
 #if defined(REVISED_GASES)
-			residual[i] = x[i]->moles - x[i]->phase->moles_x;
+			if (use.gas_phase_ptr->type == VOLUME)
+			{
+				residual[i] = x[i]->moles - x[i]->phase->moles_x;
+			}
+			else
+			{
+				residual[i] = x[i]->gas_phase->total_p - x[i]->f;
+			}
 #else
 			residual[i] = x[i]->gas_phase->total_p - x[i]->f;
 #endif
@@ -5070,9 +5082,15 @@ numerical_jacobian(void)
 	LDBLE *base;
 	LDBLE d, d1, d2;
 	int i, j;
-
+#if defined(REVISED_GASES)
+	if (!numerical_deriv && 
+		(use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC) &&
+		(use.gas_phase_ptr == NULL || use.gas_phase_ptr->type != VOLUME))
+		return(OK);
+#else
 	if (!numerical_deriv && (use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC))
 		return (OK);
+#endif
 	calculating_deriv = TRUE;
 	gammas(mu_x);
 	molalities(TRUE);

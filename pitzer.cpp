@@ -1717,9 +1717,16 @@ jacobian_pz(void)
 			{
 				continue;
 			}
+		case GAS_MOLES:
+			if (gas_in == FALSE)
+				continue;
+			d2 = d * x[i]->moles;
+			if (d2 < 1e-14)
+				d2 = 1e-14;
+			x[i]->moles += d2;
+			break;
 		case MU:
 		case PP:
-		case GAS_MOLES:
 		case S_S_MOLES:
 #if defined(REVISED_GASES)
 		case GAS_PRESSURE:
@@ -1766,6 +1773,12 @@ jacobian_pz(void)
 			mass_water_aq_x /= (1 + d);
 			x[i]->master[0]->s->moles = mass_water_aq_x / gfw_water;
 			break;
+		case GAS_MOLES:
+			if (gas_in == FALSE)
+				continue;
+			x[i]->moles -= d2;
+			break;
+
 		}
 	}
 	molalities(TRUE);

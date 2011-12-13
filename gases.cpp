@@ -2,7 +2,7 @@
 #include "Phreeqc.h"
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-setup_gas_phase(void)
+setup_fixed_volume_gas(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -57,7 +57,7 @@ setup_gas_phase(void)
 }
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-build_gas_phase(void)
+build_fixed_volume_gas(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -569,7 +569,7 @@ calc_PR(void)
 }
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-calc_gas_pressures(void)
+calc_fixed_volume_gas_pressures(void)
 /* ---------------------------------------------------------------------- */
 {
 	int n_g = 0;
@@ -600,43 +600,15 @@ calc_gas_pressures(void)
 	if (use.gas_phase_ptr->type == PRESSURE)
 	{
 			//calc_PR(phase_ptrs, n_g, gas_unknown->gas_phase->total_p, tk_x, 0);
+		assert(false); // should not get here
 		calc_PR();
 	} else
 	{
 		if (PR && use.gas_phase_ptr->total_moles > 0)
 		{
-			//V_m = use.gas_phase_ptr->volume / use.gas_phase_ptr->total_moles;
-			//V_m = use.gas_phase_ptr->volume / gas_unknown->moles;
-			//if (V_m < 0.035)
-			//{
-			//	V_m = 0.035;
-			//} else if (V_m > 1e4)
-			//{
-			//	V_m = 1e4;
-			//}
-			/* need to warn about minimal V_m and maximal P... */
-			//if (use.gas_phase_ptr->v_m > 0.035)
-			//if (V_m > 0.035)
-			//{
-			//	if (V_m < 0.07)
-			//		V_m = (3. * use.gas_phase_ptr->v_m + V_m) / 4;
-			//	else
-			//		V_m = (1. * use.gas_phase_ptr->v_m + V_m) / 2;
-			//}
-			//if (iterations > 100)
-			//{
-			//	V_m *= 1.0; /* debug */
-			//}
-			//calc_PR(phase_ptrs, n_g, 0, tk_x, V_m);
 			calc_PR();
 			pr_done = true;
 			use.gas_phase_ptr->total_moles = 0;
-			//if (fabs(use.gas_phase_ptr->total_p - patm_x) > 0.01)
-			//{
-			//	same_pressure = FALSE;
-			//	patm_x = use.gas_phase_ptr->total_p;
-			//	k_temp(tc_x, patm_x);
-			//}
 		} else
 		{
 			use.gas_phase_ptr->total_p = 0;
@@ -646,7 +618,6 @@ calc_gas_pressures(void)
 
 	for (i = 0; i < gas_unknowns.size(); i++)
 	{
-		//gas_comp_ptr = &(use.gas_phase_ptr->comps[i]);
 		phase_ptr = gas_unknowns[i]->phase;
 		if (phase_ptr->in == TRUE)
 		{
@@ -664,12 +635,12 @@ calc_gas_pressures(void)
 					use.gas_phase_ptr->total_moles / use.gas_phase_ptr->total_p;
 				phase_ptr->fraction_x =	phase_ptr->moles_x / use.gas_phase_ptr->total_moles;
 			}
+
 			//else
+
 			{
 				if (pr_done)
 				{
-					//lp = phase_ptr->p_soln_x / use.gas_phase_ptr->total_p *
-					//	use.gas_phase_ptr->volume / V_m;
 					lp = phase_ptr->p_soln_x / use.gas_phase_ptr->total_p *
 						use.gas_phase_ptr->volume / use.gas_phase_ptr->v_m;
 					phase_ptr->moles_x = lp;
@@ -690,22 +661,6 @@ calc_gas_pressures(void)
 		}
 	}
 
-	if (use.gas_phase_ptr->type == VOLUME && !PR)
-	{
-		/*
-		 * Fixed-volume gas phase reacting with a solution
-		 * Change pressure used in logK to pressure of gas phase
-		 */
-		//if (fabs(use.gas_phase_ptr->total_p - patm_x) > 0.01)
-		//{
-		//	same_pressure = FALSE;
-		//	patm_x = use.gas_phase_ptr->total_p;
-		//	k_temp(tc_x, patm_x);
-		//}
-	}
-
-
-	//delete phase_ptrs;
 	return (OK);
 }
 #endif
