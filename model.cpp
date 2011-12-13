@@ -998,6 +998,7 @@ ineq(int in_kode)
 /*
 * Slack unknown
 */ 
+
 	if (slack && slack_unknown)
 	{
 		int n = slack_unknown->number;
@@ -1012,6 +1013,19 @@ ineq(int in_kode)
 			array[j * (count_unknowns + 1) + n] = 1.0;
 		}
 	}
+#ifdef SKIP
+	if (slack && slack_unknown)
+	{
+		for (j = 0; j < count_unknowns; j++)
+		{
+			if (x[j]->type == SLACK)
+			{
+				array[j * (count_unknowns + 1) + x[j]->number] = 1.0;
+				array[x[j]->mb_number * (count_unknowns + 1) + x[j]->number] = 1.0;
+			}
+		}
+	}
+#endif
 /*
  * Initialize space if necessary
  */
@@ -1282,6 +1296,7 @@ ineq(int in_kode)
 			x[i]->type != ALK &&
 			x[i]->type != GAS_MOLES && x[i]->type != S_S_MOLES
 			/* && x[i]->type != PP */
+			&& x[i]->type != SLACK
 #if defined(REVISED_GASES)
 			&& x[i]->type != GAS_PRESSURE
 #endif
@@ -3698,7 +3713,6 @@ residuals(void)
 				residual[i] = mass_water_aq_x * exp(s_h2o->la * LOG_10) -
 					(mass_water_aq_x - 0.017 * x[i]->f) * (0.5*(1.0 - tanh(x[i]->f - 50.0))) -
 					0.075*0.5*(tanh(x[i]->f - 50.0) + 1.0);
-
 			}
 			if (pitzer_model || sit_model)
 			{

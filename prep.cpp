@@ -3200,6 +3200,7 @@ setup_gas_phase(void)
 	return (OK);
 }
 #endif
+
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 setup_slack(void)
@@ -3220,6 +3221,44 @@ setup_slack(void)
 	}
 	return (OK);
 }
+
+#ifdef SKIP
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+setup_slack(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Fill in data for slack unknown
+ */
+
+	slack_unknown = NULL;
+	if (slack)
+	{
+		int i = count_unknowns;
+		int j;
+		for (j = 0; j < i; j++)
+		{
+			if (x[j]->type == MB)
+			{
+				x[count_unknowns]->type = SLACK;
+				x[count_unknowns]->description = string_hsave("slack");
+				x[count_unknowns]->moles = 0.0;
+				x[count_unknowns]->number = count_unknowns;
+				x[count_unknowns]->mb_number = j;
+				slack_unknown = x[count_unknowns];
+				count_unknowns++;
+			}
+		}
+		if (count_unknowns > i)
+		{
+			slack_unknown = x[i];
+		}
+	}
+	
+	return (OK);
+}
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 setup_s_s_assemblage(void)

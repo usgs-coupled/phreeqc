@@ -1189,6 +1189,7 @@ struct unknown
 	LDBLE inert_moles;
 	LDBLE V_m;
 	LDBLE pressure;
+	int mb_number;
 };
 
 /*----------------------------------------------------------------------

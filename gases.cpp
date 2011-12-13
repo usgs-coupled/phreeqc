@@ -21,7 +21,8 @@ setup_gas_phase(void)
 	for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
 	{
 		x[count_unknowns]->type = GAS_MOLES;
-		x[count_unknowns]->description = string_hsave("gas moles");
+		//x[count_unknowns]->description = string_hsave("gas moles");
+		x[count_unknowns]->description = use.gas_phase_ptr->comps[i].phase->name;
 		x[count_unknowns]->phase = use.gas_phase_ptr->comps[i].phase;
 		x[count_unknowns]->moles = use.gas_phase_ptr->comps[i].moles;
 		if (x[count_unknowns]->moles <= 0)
@@ -88,6 +89,7 @@ build_gas_phase(void)
 		if (phase_ptr->rxn_x == NULL)
 			continue;
 		add_elt_list(phase_ptr->next_elt, 1.0);
+#define COMBINE
 #ifdef COMBINE
 		change_hydrogen_in_elt_list(0);
 #endif
@@ -127,8 +129,7 @@ build_gas_phase(void)
 			if (unknown_ptr != NULL)
 			{
 				coef = elt_list[j].coef;
-				//store_mb(&(gas_comp_ptr->phase->moles_x), &(unknown_ptr->f),
-				//		 coef);
+				//store_mb(&(gas_comp_ptr->phase->moles_x), &(unknown_ptr->f), coef);
 				store_mb(&(gas_unknowns[i]->moles), &(unknown_ptr->f), coef);
 				if (debug_prep == TRUE)
 				{
@@ -227,7 +228,9 @@ build_gas_phase(void)
 				}
 				col = master_ptr->unknown->number;
 				coef = coef_elt * rxn_ptr->coef;
-				store_jacob(&(gas_comp_ptr->phase->moles_x),
+				//store_jacob(&(gas_comp_ptr->phase->moles_x),
+				//			&(array[row + col]), coef);
+				store_jacob(&(gas_unknowns[i]->moles),
 							&(array[row + col]), coef);
 				if (debug_prep == TRUE)
 				{

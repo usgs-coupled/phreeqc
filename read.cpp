@@ -8082,9 +8082,11 @@ read_debug(void)
 		"debug_diffuse_layer",	/* 12 */
 		"delay_mass_water",		/* 13 */
 		"convergence_tolerance",	/* 14 */
-		"numerical_derivatives"	/* 15 */
+		"numerical_derivatives",	/* 15 */
+		"tries",					/* 16 */
+		"try"						/* 17 */
 	};
-	int count_opt_list = 16;
+	int count_opt_list = 18;
 /*
  *   Read parameters:
  *	ineq_tol;
@@ -8179,6 +8181,10 @@ read_debug(void)
 			break;
 		case 15:				/* numerical_derivatives */
 			numerical_deriv = get_true_false(next_char, TRUE);
+			break;
+		case 16:				/* tries */
+		case 17:				/* try */
+			sscanf(next_char, "%d", &max_tries);
 			break;
 		}
 		if (return_value == EOF || return_value == KEYWORD)

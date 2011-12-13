@@ -1174,6 +1174,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 	{
 		max_try = 13;
 	}
+	max_try = (max_tries < max_try) ? max_tries : max_try;
 	/*max_try = 1; */
 	for (j = 0; j < max_try; j++)
 	{
