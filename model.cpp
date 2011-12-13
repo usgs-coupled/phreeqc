@@ -2462,6 +2462,7 @@ calc_gas_pressures(void)
 	{
 		use.gas_phase_ptr->total_moles = 0;
 	}
+
 	phase_ptrs = new phase *[use.gas_phase_ptr->count_comps];
 	for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
 	{
@@ -2495,10 +2496,13 @@ calc_gas_pressures(void)
 			{
 				V_m = 1e4;
 			}
-			/* need to warn about minimal V_m and maximal P... */
 			if (use.gas_phase_ptr->v_m > 0.035)
 			{
-				if (V_m < 0.07)
+				if (V_m < 0.038)
+					V_m = (9. * use.gas_phase_ptr->v_m + V_m) / 10;
+				else if (V_m < 0.04)
+					V_m = (6. * use.gas_phase_ptr->v_m + V_m) / 7;
+				else if (V_m < 0.07)
 					V_m = (3. * use.gas_phase_ptr->v_m + V_m) / 4;
 				else
 					V_m = (1. * use.gas_phase_ptr->v_m + V_m) / 2;
@@ -2513,7 +2517,10 @@ calc_gas_pressures(void)
 			if (fabs(use.gas_phase_ptr->total_p - patm_x) > 0.01)
 			{
 				same_pressure = FALSE;
-				patm_x = use.gas_phase_ptr->total_p;
+				if (V_m < 0.07)
+					patm_x = (1. * patm_x + use.gas_phase_ptr->total_p) / 2;
+				else
+					patm_x = use.gas_phase_ptr->total_p;
 				k_temp(tc_x, patm_x);
 			}
 		} else
@@ -2536,6 +2543,7 @@ calc_gas_pressures(void)
 				lp += rxn_ptr->s->la * rxn_ptr->coef;
 			}
 			gas_comp_ptr->phase->p_soln_x = exp(LOG_10 * (lp - phase_ptr->pr_si_f));
+
 			if (use.gas_phase_ptr->type == PRESSURE)
 			{
 				gas_comp_ptr->phase->moles_x = gas_comp_ptr->phase->p_soln_x *
@@ -2550,9 +2558,9 @@ calc_gas_pressures(void)
 					lp = gas_comp_ptr->phase->p_soln_x / use.gas_phase_ptr->total_p *
 						use.gas_phase_ptr->volume / V_m;
 					gas_comp_ptr->phase->moles_x = lp;
-					//if (iterations > 200)
+					//if (iterations > 100)
 					//{
-					//	lp *= 1.0; /* for debugging */
+					//	lp *= 1.0; /* debug */
 					//}
 				} else
 				{
@@ -2577,18 +2585,31 @@ calc_gas_pressures(void)
 		 * Fixed-volume gas phase reacting with a solution
 		 * Change pressure used in logK to pressure of gas phase
 		 */
-		if (fabs(use.gas_phase_ptr->total_p - patm_x) > 0.01)
+		if (iterations > 1 && fabs(use.gas_phase_ptr->total_p - patm_x) > 0.01)
 		{
 			same_pressure = FALSE;
-			patm_x = use.gas_phase_ptr->total_p;
+			if (use.gas_phase_ptr->total_p > 1500)
+			{
+				for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
+				{
+					gas_comp_ptr = &(use.gas_phase_ptr->comps[i]);
+					phase_ptr = use.gas_phase_ptr->comps[i].phase;
+					if (phase_ptr->in == TRUE)
+					{
+						gas_comp_ptr->phase->moles_x *= 1500.0 / use.gas_phase_ptr->total_p;
+					}
+				}
+				use.gas_phase_ptr->total_p = 1500.0;
+			}
+			patm_x = (patm_x + use.gas_phase_ptr->total_p) / 2;
 			k_temp(tc_x, patm_x);
 		}
 	}
 
-
 	delete phase_ptrs;
 	return (OK);
 }
+
 #endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
