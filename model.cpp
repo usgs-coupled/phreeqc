@@ -2287,7 +2287,7 @@ molalities(int allow_overflow)
 
 				if (iterations >= 0 && allow_overflow == FALSE)
 				{
-					//return (ERROR);
+					return (ERROR);
 				}
 			}
 
