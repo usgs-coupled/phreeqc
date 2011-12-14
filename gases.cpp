@@ -498,7 +498,6 @@ calc_PR(void)
 				}
 				else if (V_m < v1)
 					P = R_TK / (v1 - b_sum) - a_aa_sum / (v1 * (v1 + 2 * b_sum) - b2);
-				}
 			}
 		}
 		gas_phase_ptr->total_p = P;												// phase_ptr->total_p updated
