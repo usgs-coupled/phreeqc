@@ -498,12 +498,15 @@ calc_PR(void)
 				}
 				else if (V_m < v1)
 					P = R_TK / (v1 - b_sum) - a_aa_sum / (v1 * (v1 + 2 * b_sum) - b2);
+				}
 			}
 		}
 		gas_phase_ptr->total_p = P;												// phase_ptr->total_p updated
+		use.gas_phase_ptr->v_m = V_m;
 	}
 	else
 	{
+		assert(false);
 		P = gas_phase_ptr->total_p;
 		r3[1] = b_sum - R_TK / P;
 		r3_12 = r3[1] * r3[1];
@@ -631,6 +634,7 @@ calc_fixed_volume_gas_pressures(void)
 
 			if (use.gas_phase_ptr->type == PRESSURE)
 			{
+				assert(false);
 				phase_ptr->moles_x = phase_ptr->p_soln_x *
 					use.gas_phase_ptr->total_moles / use.gas_phase_ptr->total_p;
 				phase_ptr->fraction_x =	phase_ptr->moles_x / use.gas_phase_ptr->total_moles;
@@ -647,6 +651,7 @@ calc_fixed_volume_gas_pressures(void)
 				}
 				else
 				{
+					assert(false);
 					phase_ptr->moles_x = phase_ptr->p_soln_x *
 						use.gas_phase_ptr->volume / (R_LITER_ATM * tk_x);
 					use.gas_phase_ptr->total_p += phase_ptr->p_soln_x;
