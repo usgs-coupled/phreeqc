@@ -4009,7 +4009,7 @@ calc_PR(struct phase **phase_ptrs, int n_g, LDBLE P, LDBLE TK, LDBLE V_m)
 
 		phase_ptr->pr_in = true;
 	}
-	if (use.gas_phase_ptr && iterations > 9)
+	if (use.gas_phase_ptr && iterations > 2)
 	{
 		use.gas_phase_ptr->total_p = P;
 		use.gas_phase_ptr->v_m = V_m;

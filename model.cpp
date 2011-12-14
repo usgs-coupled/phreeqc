@@ -2460,7 +2460,10 @@ calc_gas_pressures(void)
 #if defined(REVISED_GASES)
 	if (use.gas_phase_ptr->type == VOLUME)
 	{
-		return calc_fixed_volume_gas_pressures();
+		if (iterations > 2)
+			return calc_fixed_volume_gas_pressures();
+		else
+			return OK;
 	}
 #endif
 	if (use.gas_phase_ptr->type == VOLUME)
@@ -2485,13 +2488,13 @@ calc_gas_pressures(void)
 	}
 	if (use.gas_phase_ptr->type == PRESSURE)
 	{
-		if (PR /*&& gas_unknown->gas_phase->total_p > 1 */ && iterations > 9)
+		if (PR /*&& gas_unknown->gas_phase->total_p > 1 */ && iterations > 2)
 		{
 			calc_PR(phase_ptrs, n_g, gas_unknown->gas_phase->total_p, tk_x, 0);
 		}
 	} else
 	{
-		if (PR && use.gas_phase_ptr->total_moles > 0 && iterations > 9)
+		if (PR && use.gas_phase_ptr->total_moles > 0 && iterations > 2)
 		{
 			V_m = use.gas_phase_ptr->volume / use.gas_phase_ptr->total_moles;
 			if (V_m < 0.035)
@@ -2590,23 +2593,29 @@ calc_gas_pressures(void)
 		 * Fixed-volume gas phase reacting with a solution
 		 * Change pressure used in logK to pressure of gas phase
 		 */
+		if (use.gas_phase_ptr->total_p > 1500)
+		{
+			use.gas_phase_ptr->total_moles = 0;
+			for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
+			{
+				gas_comp_ptr = &(use.gas_phase_ptr->comps[i]);
+				phase_ptr = use.gas_phase_ptr->comps[i].phase;
+				if (phase_ptr->in == TRUE)
+				{
+					gas_comp_ptr->phase->moles_x *= 1500.0 / use.gas_phase_ptr->total_p;
+					use.gas_phase_ptr->total_moles +=
+						gas_comp_ptr->phase->moles_x;
+				}
+			}
+			use.gas_phase_ptr->total_p = 1500.0;
+		}
 		if (iterations > 1 && fabs(use.gas_phase_ptr->total_p - patm_x) > 0.01)
 		{
 			same_pressure = FALSE;
-			if (use.gas_phase_ptr->total_p > 1500)
-			{
-				for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
-				{
-					gas_comp_ptr = &(use.gas_phase_ptr->comps[i]);
-					phase_ptr = use.gas_phase_ptr->comps[i].phase;
-					if (phase_ptr->in == TRUE)
-					{
-						gas_comp_ptr->phase->moles_x *= 1500.0 / use.gas_phase_ptr->total_p;
-					}
-				}
-				use.gas_phase_ptr->total_p = 1500.0;
-			}
-			patm_x = (patm_x + use.gas_phase_ptr->total_p) / 2;
+			if (use.gas_phase_ptr->total_p > 1e3)
+				patm_x = (3 * patm_x + use.gas_phase_ptr->total_p) / 4;
+			else
+				patm_x = (1 * patm_x + use.gas_phase_ptr->total_p) / 2;
 			k_temp(tc_x, patm_x);
 		}
 	}
