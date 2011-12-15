@@ -2075,7 +2075,14 @@ mb_gases(void)
 	else
 	{
 #if defined(REVISED_GASES)
-		gas_in = TRUE;
+		if (use.gas_phase_ptr->pr_in)
+		{
+			gas_in = TRUE;
+		}
+		else
+		{
+			gas_in = FALSE;
+		}
 #else
 		gas_in = FALSE;
 #endif
@@ -2458,7 +2465,7 @@ calc_gas_pressures(void)
 	if (use.gas_phase_ptr == NULL)
 		return (OK);
 #if defined(REVISED_GASES)
-	if (use.gas_phase_ptr->type == VOLUME)
+	if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in)
 	{
 		if (iterations > 2)
 			return calc_fixed_volume_gas_pressures();
@@ -3538,7 +3545,7 @@ reset(void)
 			if (x[i]->moles < MIN_TOTAL)
 				x[i]->moles = MIN_TOTAL;
 #if defined(REVISED_GASES)
-			if (x[i] == gas_unknown && use.gas_phase_ptr->type == VOLUME)
+			if (x[i] == gas_unknown && use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in)
 			{
 					patm_x = use.gas_phase_ptr->total_p;
 					same_pressure = FALSE;
@@ -3885,7 +3892,7 @@ residuals(void)
 		{
 			
 #if defined(REVISED_GASES)
-			if (use.gas_phase_ptr->type == VOLUME)
+			if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in)
 			{
 				residual[i] = x[i]->moles - x[i]->phase->moles_x;
 			}
@@ -5095,7 +5102,7 @@ numerical_jacobian(void)
 #if defined(REVISED_GASES)
 	if (!numerical_deriv && 
 		(use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC) &&
-		(use.gas_phase_ptr == NULL || use.gas_phase_ptr->type != VOLUME))
+		(use.gas_phase_ptr == NULL || use.gas_phase_ptr->type != VOLUME || !use.gas_phase_ptr->pr_in))
 		return(OK);
 #else
 	if (!numerical_deriv && (use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC))

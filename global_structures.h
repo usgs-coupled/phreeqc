@@ -737,6 +737,7 @@ struct gas_phase
 	LDBLE total_moles;
 	LDBLE volume;
 	LDBLE v_m; /* molar volume in Peng Robinson */
+	bool pr_in;
 	LDBLE temperature;
 	int count_comps;
 	struct gas_comp *comps;

@@ -1057,6 +1057,9 @@ tidy_gas_phase(void)
 				}
 			}
 		}
+
+		gas_phase[i].pr_in = PR;
+
 		if (PR && P > 0)
 		{
 			phase_ptrs = new phase *[gas_phase[i].count_comps];
