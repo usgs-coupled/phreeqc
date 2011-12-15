@@ -1221,6 +1221,7 @@ gas_phase_alloc(void)
 	gas_phase_ptr->total_moles = 0;
 	gas_phase_ptr->volume = 0;
 	gas_phase_ptr->v_m = 0.0;
+	gas_phase_ptr->pr_in = false;
 	gas_phase_ptr->temperature = 0;
 	gas_phase_ptr->count_comps = 0;
 	gas_phase_ptr->comps = NULL;
@@ -1474,6 +1475,7 @@ gas_phase_init(struct gas_phase *gas_phase_ptr, int n_user, int n_user_end,
 	gas_phase_ptr->total_moles = 0.0;
 	gas_phase_ptr->volume = 1.0;
 	gas_phase_ptr->v_m = 0.0;
+	gas_phase_ptr->pr_in = false;
 	gas_phase_ptr->temperature = 298.15;
 	gas_phase_ptr->count_comps = 0;
 	gas_phase_ptr->comps =
@@ -8293,6 +8295,7 @@ cxxGasPhase2gas_phase(const cxxGasPhase * gp)
 	gas_phase_ptr->total_p = gp->Get_total_p();
 	gas_phase_ptr->volume = gp->Get_volume();
 	gas_phase_ptr->v_m = gp->Get_v_m();
+	gas_phase_ptr->pr_in = gp->Get_pr_in();
 	gas_phase_ptr->temperature = 273.15;
 
 	// comps
