@@ -40,6 +40,7 @@ setup_fixed_volume_gas(void)
 	{
 		gas_unknown = gas_unknowns[0];
 	}
+	same_pressure = FALSE;
 
 #ifdef SKIP
 	if (use.gas_phase_ptr->type == VOLUME)
@@ -617,13 +618,13 @@ calc_fixed_volume_gas_pressures(void)
 			use.gas_phase_ptr->total_moles = 0;
 		}
 	}
-
 	for (i = 0; i < gas_unknowns.size(); i++)
 	{
 		phase_ptr = gas_unknowns[i]->phase;
 		if (phase_ptr->in == TRUE)
 		{
 			lp = -phase_ptr->lk;
+			//lp = -k_calc(phase_ptr->rxn_x->logk, tk_x, use.gas_phase_ptr->total_p * PASCAL_PER_ATM);
 			for (rxn_ptr = phase_ptr->rxn_x->token + 1; rxn_ptr->s != NULL;
 				 rxn_ptr++)
 			{

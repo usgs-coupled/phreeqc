@@ -3541,6 +3541,7 @@ reset(void)
 			if (x[i] == gas_unknown && use.gas_phase_ptr->type == VOLUME)
 			{
 					patm_x = use.gas_phase_ptr->total_p;
+					same_pressure = FALSE;
 					k_temp(tc_x, patm_x);
 			}
 #endif

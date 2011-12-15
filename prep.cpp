@@ -1,6 +1,6 @@
 #include "Phreeqc.h"
 #include "phqalloc.h"
-
+#include <vector>
 #include <assert.h>
 
 /* ---------------------------------------------------------------------- */
@@ -202,6 +202,39 @@ quick_setup(void)
 /*
  *   gas phase
  */
+#if defined(REVISED_GASES)
+	if (gas_unknown != NULL)
+	{
+		if (use.gas_phase_ptr->type == VOLUME)
+		{
+			//use.gas_phase_ptr->total_moles = 0;
+			for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
+			{
+				gas_unknowns[i]->moles = use.gas_phase_ptr->comps[i].moles;
+				if (gas_unknowns[i]->moles <= 0)
+				gas_unknowns[i]->moles = MIN_TOTAL;
+				//use.gas_phase_ptr->total_moles += gas_unknowns[i]->moles;
+				gas_unknowns[i]->phase->pr_in = false;
+				gas_unknowns[i]->phase->pr_phi = 1.0;
+				gas_unknowns[i]->phase->pr_p = 0;
+				gas_unknowns[i]->gas_phase = use.gas_phase_ptr;
+			}
+			same_pressure = FALSE;
+		}
+		else
+		{
+			gas_unknown->moles = 0.0;
+			for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
+			{
+				gas_unknown->moles += use.gas_phase_ptr->comps[i].moles;
+			}
+			if (gas_unknown->moles <= 0)
+				gas_unknown->moles = MIN_TOTAL;
+			gas_unknown->ln_moles = log(gas_unknown->moles);
+			gas_unknown->gas_phase = use.gas_phase_ptr;
+		}
+	}
+#else
 	if (gas_unknown != NULL)
 	{
 		gas_unknown->moles = 0.0;
@@ -214,6 +247,8 @@ quick_setup(void)
 		gas_unknown->ln_moles = log(gas_unknown->moles);
 		gas_unknown->gas_phase = use.gas_phase_ptr;
 	}
+#endif
+
 /*
  *   s_s_assemblage
  */
@@ -5292,13 +5327,38 @@ k_temp(LDBLE tempc, LDBLE pa) /* pa - pressure in atm */
 /*
  *    Calculate log k for all pure phases
  */
-	for (i = 0; i < count_phases; i++)
+	if (use.gas_phase_ptr != NULL && use.gas_phase_ptr->type == VOLUME)
 	{
-		if (phases[i]->in == TRUE && (!phases[i]->pr_in || state == INITIAL_GAS_PHASE))  
+#if defined(REVISED_GASES)
+		for (i = 0; i < count_phases; i++)
 		{
-			if (same_model && same_temperature && phases[i]->rxn_x->logk[delta_v] == 0)
-				continue;
-			phases[i]->lk = k_calc(phases[i]->rxn_x->logk, tempk, pa * PASCAL_PER_ATM);
+			if (phases[i]->in == TRUE)  
+			{
+				phases[i]->lk = k_calc(phases[i]->rxn_x->logk, tempk, pa * PASCAL_PER_ATM);
+			}
+		}
+#else
+		for (i = 0; i < count_phases; i++)
+		{
+			if (phases[i]->in == TRUE && (!phases[i]->pr_in || state == INITIAL_GAS_PHASE))  
+			{
+				if (same_model && same_temperature && phases[i]->rxn_x->logk[delta_v] == 0)
+					continue;
+				phases[i]->lk = k_calc(phases[i]->rxn_x->logk, tempk, pa * PASCAL_PER_ATM);
+			}
+		}
+#endif
+	}
+	else
+	{
+		for (i = 0; i < count_phases; i++)
+		{
+			if (phases[i]->in == TRUE && (!phases[i]->pr_in || state == INITIAL_GAS_PHASE))  
+			{
+				if (same_model && same_temperature && phases[i]->rxn_x->logk[delta_v] == 0)
+					continue;
+				phases[i]->lk = k_calc(phases[i]->rxn_x->logk, tempk, pa * PASCAL_PER_ATM);
+			}
 		}
 	}
 /*
