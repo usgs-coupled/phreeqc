@@ -3545,7 +3545,7 @@ reset(void)
 			if (x[i]->moles < MIN_TOTAL)
 				x[i]->moles = MIN_TOTAL;
 #if defined(REVISED_GASES)
-			if (x[i] == gas_unknown && use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in)
+			if (x[i] == gas_unknown && use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in && !calculating_deriv)
 			{
 					patm_x = use.gas_phase_ptr->total_p;
 					same_pressure = FALSE;
@@ -5232,10 +5232,11 @@ numerical_jacobian(void)
 		   mb_gases();
 		 */
 		residuals();
+		//output_msg(sformatf( "%d\n", i));
 		for (j = 0; j < count_unknowns; j++)
 		{
 			array[j * (count_unknowns + 1) + i] = -(residual[j] - base[j]) / d2;
-			//output_msg(sformatf( "%d %e %e %e %e\n", j, array[j*(count_unknowns + 1) + i] , residual[j], base[j], d2));
+			//output_msg(sformatf( "\t%d %e %e %e %e\n", j, array[j*(count_unknowns + 1) + i] , residual[j], base[j], d2));
 		}
 		switch (x[i]->type)
 		{
