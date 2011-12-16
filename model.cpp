@@ -1947,23 +1947,12 @@ jacobian_sums(void)
  */
 	if (ah2o_unknown != NULL)
 	{
-		LDBLE x_mass_w = mass_water_aq_x;
-		LDBLE y_sum = ah2o_unknown->f;
-		LDBLE a = 0.017;
-		LDBLE offset = 50;
-
-		// derivative of aw = (1 - 0.017sum/mass_w)*0.5(tanh(50 - y/x) + 1) wrt sum
-		LDBLE factor = -0.5*a*(tanh(offset - y_sum/x_mass_w) + 1)/(x_mass_w);
-		factor -= 0.5*(1.0 - a*y_sum/x_mass_w)/(x_mass_w * cosh(offset - y_sum/x_mass_w)*cosh(offset - y_sum/x_mass_w));
-		// derivative of aw = 0.075*0.5*(tanh(sum/mass_w - 50) + 1) wrt sum
-		factor += 0.075*0.5/(x_mass_w * cosh(offset - y_sum/x_mass_w)*cosh(offset - y_sum/x_mass_w));
 		for (i = 0; i < count_unknowns; i++)
 		{
-			// a(H2O) = (1 - 0.017/Mw*sum(m(i)))*0.5*(1 - tanh(sum(m(i))/Mw - 50.0))) + 0.075 * 0.5*(tanh(sum(m(i))/Mw - 50) + 1)
+			// a(H2O) = (1 - 0.017*sum(m(i)))*0.5*(1 - tanh(sum(m(i)) - 50.0))) + 0.075 * 0.5*(tanh(sum(m(i)) - 50) - 1)
 			// this equation drives activity of water smoothly to 0.075 at about sum(m(i)) = 50
 			if (dampen)
 			{
-#ifdef SKIP
 				LDBLE sum = ah2o_unknown->f;
 				LDBLE factor = -0.017 * (0.5*(1.0 - tanh(sum - 50.0)));
 				//factor -= (1.0 - 0.017 * sum) * (0.5*sech(sum - 45.0)*sech(sum - 45.0));
@@ -1971,43 +1960,22 @@ jacobian_sums(void)
 				factor -= (1.0 - 0.017 * sum) * (0.5/(cosh(sum - 50.0)*cosh(sum - 50.0)));
 				factor += 0.075*0.5/(cosh(sum - 50.0)*cosh(sum - 50.0));
 				array[ah2o_unknown->number * (count_unknowns + 1) + i] *= factor;
-#endif
-
-				array[ah2o_unknown->number * (count_unknowns + 1) + i] *= factor;
 			}
 			else
 			{
 				array[ah2o_unknown->number * (count_unknowns + 1) + i] *= -0.017;
 			}
 		}
-#ifdef SKIP
 		array[ah2o_unknown->number * (count_unknowns + 1) +
 			  ah2o_unknown->number] -=
 			mass_water_aq_x * exp(s_h2o->la * LOG_10);
-#endif
-
-		array[ah2o_unknown->number * (count_unknowns + 1) + ah2o_unknown->number] = -exp(s_h2o->la * LOG_10);
-
-		// derivative of aw = (1 - 0.017sum/mass_w)*0.5(tanh(50 - y/x) + 1) wrt mass_w
-		factor = 0.5*a*y_sum * (tanh(offset - y_sum/x_mass_w) + 1)/(x_mass_w * x_mass_w);
-		factor += 0.5*y_sum * (1.0 - a*y_sum/x_mass_w)/(x_mass_w * x_mass_w * cosh(offset - y_sum/x_mass_w)*cosh(offset - y_sum/x_mass_w));
-		// derivative of aw = 0.075*0.5*(tanh(sum/mass_w - 50) + 1) wrt mass_w
-		factor -= 0.075*0.5/(x_mass_w * x_mass_w * cosh(offset - y_sum/x_mass_w)*cosh(offset - y_sum/x_mass_w));
-
-		if (mass_oxygen_unknown != NULL)
-		{
-			array[ah2o_unknown->number * (count_unknowns + 1) +  mass_oxygen_unknown->number] -= exp(s_h2o->la * LOG_10) + factor; 
-		}
 	}
-#ifdef SKIP
 	if (mass_oxygen_unknown != NULL && ah2o_unknown != NULL)
 	{
-
 		array[ah2o_unknown->number * (count_unknowns + 1) +
 			  mass_oxygen_unknown->number] -=
 			(exp(s_h2o->la * LOG_10) - 1) * mass_water_aq_x;
 	}
-#endif
 /*
  *   Surface charge balance
  */
@@ -3785,14 +3753,9 @@ residuals(void)
 			{
 			// a(H2O) = (1 - 0.017*sum(m(i)))*0.5*(1 - tanh(sum(m(i)) - 50.0))) + 0.075 * 0.5*(tanh(sum(m(i)) - 50) - 1)
 			// this equation drives activity of water smoothly to 0.075 at about sum(m(i)) = 50
-#ifdef SKIP
 				residual[i] = mass_water_aq_x * exp(s_h2o->la * LOG_10) -
 					(mass_water_aq_x - 0.017 * x[i]->f) * (0.5*(1.0 - tanh(x[i]->f - 50.0))) -
 					0.075*0.5*(tanh(x[i]->f - 50.0) + 1.0);
-#endif
-				residual[i] = exp(s_h2o->la * LOG_10) -
-					(1 - 0.017 * x[i]->f/mass_water_aq_x) * 0.5*(tanh(50.0 - x[i]->f/mass_water_aq_x) + 1.0) -
-					0.075*0.5*(tanh(x[i]->f/mass_water_aq_x - 50.0) + 1.0);
 			}
 			if (pitzer_model || sit_model)
 			{
