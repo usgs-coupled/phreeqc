@@ -121,10 +121,10 @@ model(void)
  */
 			if (state >= REACTION && numerical_deriv)
 			{
-				jacobian_sums();
+				//jacobian_sums();
 				numerical_jacobian();
 			}
-			else
+			else /* hmm */
 			{
 				jacobian_sums();
 				numerical_jacobian();
@@ -1562,15 +1562,24 @@ ineq(int in_kode)
  */
 	if (gas_in == TRUE)
 	{
-		i = gas_unknown->number;
-		memcpy((void *) &(ineq_array[l_count_rows * max_column_count]),
-			   (void *) &(zero[0]),
-			   (size_t) (count_unknowns + 1) * sizeof(LDBLE));
-		ineq_array[l_count_rows * max_column_count + i] = -1.0;
-		ineq_array[l_count_rows * max_column_count + count_unknowns] =
-			x[i]->moles;
-		back_eq[l_count_rows] = i;
-		l_count_rows++;
+		for (i = gas_unknown->number; i < count_unknowns; i++)
+		{
+			if (x[i]->type == GAS_MOLES)
+			{
+				memcpy((void *) &(ineq_array[l_count_rows * max_column_count]),
+					   (void *) &(zero[0]),
+					   (size_t) (count_unknowns + 1) * sizeof(LDBLE));
+				ineq_array[l_count_rows * max_column_count + i] = -1.0;
+				ineq_array[l_count_rows * max_column_count + count_unknowns] =
+					x[i]->moles;
+				back_eq[l_count_rows] = i;
+				l_count_rows++;
+			}
+			else
+			{
+				break;
+			}
+		}
 	}
 	else if (use.gas_phase_ptr != NULL && gas_in == FALSE)
 	{
@@ -2077,7 +2086,7 @@ mb_gases(void)
 #if defined(REVISED_GASES)
 		if (use.gas_phase_ptr->pr_in)
 		{
-			gas_in = TRUE;
+		gas_in = TRUE;
 		}
 		else
 		{
@@ -3548,7 +3557,6 @@ reset(void)
 			if (x[i] == gas_unknown && use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in && !calculating_deriv)
 			{
 					patm_x = use.gas_phase_ptr->total_p;
-					same_pressure = FALSE;
 					k_temp(tc_x, patm_x);
 			}
 #endif

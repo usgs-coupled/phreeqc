@@ -58,6 +58,27 @@ calc_alk(struct reaction * rxn_ptr)
 	}
 	return (return_value);
 }
+/* ---------------------------------------------------------------------- */
+LDBLE Phreeqc::
+calc_dens0(void)
+/* ---------------------------------------------------------------------- */
+{
+	 /* Density of pure water
+	 Millero, 2009, Aq. Geochem. 15, 7-41, 1 - 200 oC, 1 - 1000 atm... */
+
+	LDBLE rho_0 = (999.83952 + (16.952577 + (-7.9905127e-3 + (-4.6241757e-5 + (1.0584601e-7 -\
+		2.8103006e-10 * tc_x) * tc_x) * tc_x) * tc_x) * tc_x) / (1 + 0.016887236 * tc_x);
+	/* pressure... */
+	//LDBLE A = 5.08531e-2 + (-3.338927e-4 + (5.112457e-6 + (-3.226571e-8 + (1.186388e-10 -\
+	//	1.437927e-13 * tc_x) * tc_x) * tc_x) * tc_x);
+	//LDBLE B = -5.6999022e-6 + (6.370734e-8 + (-1.047053e-9 + (5.836798e-12 + (-1.658343e-14 +\
+	//	3.977591e-22 * tc_x) * tc_x) * tc_x) * tc_x);
+	//rho_0 += (A + B * patm_x) * patm_x;
+	/* But, A and B are near-constants, the pressure term is equal to... */
+	rho_0 += 0.046 * patm_x;
+
+	return (rho_0);
+}
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -198,6 +219,7 @@ copy_token(std::string &token, char **ptr)
 /*
  *   Read to end of whitespace
  */
+	token.clear();
 	while (isspace((int) (c = **ptr)))
 		(*ptr)++;
 /*

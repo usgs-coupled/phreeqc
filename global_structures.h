@@ -177,11 +177,12 @@ typedef enum {
 	T_A3,
 	T_A4,
 	T_A5,
-	  T_A6,
-	delta_v,			/* molar volume */
-	delta_v1,   /* coef * P */
-	delta_v2,   /* coef * T */
-	delta_v3,  /* coef * T / P*/
+	T_A6,
+	delta_v,	/* set in calc_delta_v: calculated molar volume-change of the reaction */
+	vm_tc,		/* set in k_temp: calculated molar volume of the species at tc */
+	vm0,		/* read: molar volume at tc = 0 */
+	vm1,		/* read: coef * tc */
+	vm2,		/* read: coef * tc * tc */
 	MAX_LOG_K_INDICES	/* Keep this definition at the end of the enum */
 } LOG_K_INDICES;
 /* HSEARCH(3C) */

@@ -583,9 +583,10 @@ read_exchange_species(void)
 		"add_log_k",			/* 17 */
 		"add_constant",			/* 18 */
 		"delta_v",				/* 19 */   
-		"deltav"				/* 20 */
+		"deltav",				/* 20 */
+		"vm"	/* 21, molar volume, must replace delta_v */
 	};
-	int count_opt_list = 21;
+	int count_opt_list = 22;
 
 	association = TRUE;
 	s_ptr = NULL;
@@ -894,6 +895,7 @@ read_exchange_species(void)
 			break;
 		case 19:            /* delta_v */
 		case 20:            /* deltav */
+		case 21:            /* vm, molar volume */
 			if (s_ptr == NULL)
 			{
 				sprintf(error_string,
@@ -903,7 +905,7 @@ read_exchange_species(void)
 				input_error++;
 				break;
 			}
-			read_delta_v_only(next_char, &s_ptr->logk[delta_v],
+			read_delta_v_only(next_char, &s_ptr->logk[vm0],
 				&s_ptr->original_deltav_units);
 			opt_save = OPTION_DEFAULT;
 			break;
@@ -3062,7 +3064,7 @@ read_delta_v_only(char *ptr, LDBLE * delta_v, DELTA_V_UNIT * units)
 	if (j < 1)
 	{
 		input_error++;
-		error_msg("Expecting numeric values for delta_v.",
+		error_msg("Expecting numeric values for the species' molar volume, vm.",
 			CONTINUE);
 		return (ERROR);
 	}
@@ -3074,8 +3076,7 @@ read_delta_v_only(char *ptr, LDBLE * delta_v, DELTA_V_UNIT * units)
 	{
 		j = copy_token(token, &ptr, &l);
 	} while (j == DIGIT); 
-	//j = copy_token(token, &ptr, &l);
-	//j = copy_token(token, &ptr, &l);
+
 	if (j == EMPTY)
 	{
 		return (OK);
@@ -3838,9 +3839,10 @@ read_phases(void)
 		"p_c",					/* 13 */
 		"omega",				/* 14 */
 		"delta_v",				/* 15 */
-		"deltav"				/* 16 */
+		"deltav",				/* 16 */
+		"vm"	/* 17, molar volume, must replace delta_v */
 	};
-	int count_opt_list = 17;
+	int count_opt_list = 18;
 
 	association = FALSE;
 /*
@@ -4011,12 +4013,13 @@ read_phases(void)
 			break;
 		case 15:				/* delta_v */
 		case 16:				/* delta_v */
+		case 17:            /* vm, molar volume */
 			if (phase_ptr == NULL)
 				break;
 			//read_delta_v_only(next_char, &phase_ptr->delta_v[1],
-			read_delta_v_only(next_char, &(phase_ptr->logk[delta_v]),
+			read_delta_v_only(next_char, &(phase_ptr->logk[vm0]),
 				&phase_ptr->original_deltav_units);
-			phase_ptr->delta_v[1] = phase_ptr->logk[delta_v];
+			phase_ptr->delta_v[1] = phase_ptr->logk[vm0];
 			opt_save = OPTION_DEFAULT;
 			break;
 		case OPTION_DEFAULT:
@@ -5574,14 +5577,15 @@ read_species(void)
 		"add_log_k",			/* 17 */
 		"add_constant",			/* 18 */
 		"dw",					/* 19 */
-/* VP: Density Start */
 		"erm_ddl",				/* 20 */
+/* VP: Density Start */
 		"millero",				/* 21 */
-		"delta_v",				/* 22 */
-		"deltav"				/* 23 */
-	};
-	int count_opt_list = 24;
 /* VP: Density End */
+		"delta_v",				/* 22 */
+		"deltav",				/* 23 */
+		"vm"	/* 24, molar volume, must replace delta_v */
+	};
+	int count_opt_list = 25;
 
 	association = TRUE;
 	s_ptr = NULL;
@@ -5927,6 +5931,7 @@ read_species(void)
 
 		case 22:            /* delta_v */
 		case 23:            /* deltav */
+		case 24:            /* vm, molar volume */
 			if (s_ptr == NULL)
 			{
 				sprintf(error_string,
@@ -5936,7 +5941,7 @@ read_species(void)
 				input_error++;
 				break;
 			}
-			read_delta_v_only(next_char, &s_ptr->logk[delta_v],
+			read_delta_v_only(next_char, &s_ptr->logk[vm0],
 				&s_ptr->original_deltav_units);
 			opt_save = OPTION_DEFAULT;
 			break;
@@ -6317,9 +6322,10 @@ read_surface_species(void)
 		"cd_music",				/* 16 */
 		"music",				/* 17 */
 		"delta_v",				/* 18 */
-		"deltav"				/* 19 */
+		"deltav",				/* 19 */
+		"vm"
 	};
-	int count_opt_list = 20;
+	int count_opt_list = 21;
 
 	association = TRUE;
 	/*
@@ -6593,6 +6599,7 @@ read_surface_species(void)
 			break;
 		case 18:            /* delta_v */
 		case 19:            /* deltav */
+		case 20:            /* vm, molar volume */
 		if (s_ptr == NULL)
 			{
 				sprintf(error_string,
@@ -6602,7 +6609,7 @@ read_surface_species(void)
 				input_error++;
 				break;
 			}
-			read_delta_v_only(next_char, &s_ptr->logk[delta_v],
+			read_delta_v_only(next_char, &s_ptr->logk[vm0],
 				&s_ptr->original_deltav_units);
 			opt_save = OPTION_DEFAULT;
 			break;
@@ -10301,9 +10308,10 @@ read_named_logk(void)
 		"add_logk",				/* 8 */
 		"add_log_k",			/* 9 */
 		"delta_v",				/* 10 */
-		"deltav"				/* 11 */
+		"deltav",				/* 11 */
+		"vm"
 	};
-	int count_opt_list = 12;
+	int count_opt_list = 13;
 	logk_ptr = NULL;
 /*
  *   Read name followed by options
@@ -10467,6 +10475,7 @@ read_named_logk(void)
 			break;
 		case 10:            /* delta_v */
 		case 11:            /* deltav */
+		case 12:            /* vm, molar volume */
 			if (logk_ptr == NULL)
 			{
 				sprintf(error_string,
@@ -10476,7 +10485,7 @@ read_named_logk(void)
 				input_error++;
 				break;
 			}
-			read_delta_v_only(next_char, &logk_ptr->log_k[delta_v],
+			read_delta_v_only(next_char, &logk_ptr->log_k[vm0],
 				&logk_ptr->original_deltav_units);
 			logk_copy2orig(logk_ptr);
 			opt_save = OPTION_DEFAULT;

@@ -1132,7 +1132,7 @@ print_saturation_indices(void)
 	struct rxn_token *rxn_ptr;
 	struct reaction *reaction_ptr;
 	const char *pr_in;
-	bool PR = false, PR_inprint, gas = true;
+	bool PR = false, DV = false, PR_inprint, gas = true;
  
 	if (pr.saturation_indices == FALSE || pr.all == FALSE)
 		return (OK);
@@ -1188,6 +1188,9 @@ print_saturation_indices(void)
 			PR_inprint = true;
 			phases[i]->pr_in = false;
 		}
+		//lk = k_calc(reaction_ptr->logk, tk_x, patm_x * PASCAL_PER_ATM);
+		reaction_ptr->logk[delta_v] = calc_delta_v(phases[i]->rxn_x, true) -
+			 (phases[i]->logk[vm0] + phases[i]->logk[vm1] * tc_x + phases[i]->logk[vm2] * tc_x * tc_x);
 		lk = k_calc(reaction_ptr->logk, tk_x, patm_x * PASCAL_PER_ATM);
 		if (PR_inprint)
 			phases[i]->pr_in = true;
@@ -1210,22 +1213,34 @@ print_saturation_indices(void)
 			pr_in = "**";
 			PR = true;
 		}
+		else if (fabs(reaction_ptr->logk[delta_v]) > 0.01)
+		{
+			pr_in = "* ";
+			DV = true;
+		}
 		else
 			pr_in = "  ";
 
 		output_msg(sformatf("\t%-15s%7.2f%2s%8.2f%8.2f  %s",
 				   phases[i]->name, (double) si, pr_in, (double) iap, (double) lk,
 				   phases[i]->formula));
+		if (fabs(reaction_ptr->logk[delta_v]) > 0.01)
+			output_msg(sformatf("\t%s%6.2f%s",
+				   " Delta_V ", reaction_ptr->logk[delta_v], " cm3/mol"));
 		if (gas && phases[i]->pr_in && phases[i]->pr_p)
-			output_msg(sformatf("\t%s%5.1f%s%5.3f%s\n",
+			output_msg(sformatf("\t%s%5.1f%s%5.3f%s",
 				   " Pressure ", phases[i]->pr_p, " atm, phi ", phases[i]->pr_phi, "."));
-		else
-			output_msg("\n");
+		output_msg("\n");
 
 	}
+	if (DV)
+		output_msg(sformatf("\t%24s %s\n",
+				   "* ", "with Delta_V * (P - 1) / 2.3RT."));
 	if (PR)
-		output_msg(sformatf("\t%24s %s\n\n",
-				   "**", "SI from Peng-Robinson fugacity - Delta(V) * (P - 1) / 2.3RT."));
+		output_msg(sformatf("\t%24s %s\n",
+				   "**", "SI from Peng-Robinson fugacity - Delta_V * (P - 1) / 2.3RT."));
+	if (PR || DV)
+		output_msg("\n");
 	else
 		output_msg("\n\n");
 

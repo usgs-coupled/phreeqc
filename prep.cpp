@@ -4030,12 +4030,18 @@ calc_PR(struct phase **phase_ptrs, int n_g, LDBLE P, LDBLE TK, LDBLE V_m)
 		phase_ptr->pr_phi = exp(phi);
 		phase_ptr->pr_si_f = phi / LOG_10/* - phase_ptr->delta_v[0] * (P - 1) / (LOG_10 * R_TK)*/;
 		// for initial equilibrations, adapt log_k of the gas phase...
+		tc_x = TK - 273.15;
+		calc_vm();
 		if (phase_ptr->rxn_x != NULL)
 		{
+			phase_ptr->rxn_x->logk[delta_v] = calc_delta_v(phase_ptr->rxn_x, true) -
+				 (phase_ptr->logk[vm0] + phase_ptr->logk[vm1] * tc_x + phase_ptr->logk[vm2] * tc_x * tc_x);
 			phase_ptr->lk = k_calc(phase_ptr->rxn_x->logk, TK, P * PASCAL_PER_ATM);
 		}
 		else if (phase_ptr->rxn_s != NULL && state == INITIALIZE)
 		{
+			phase_ptr->rxn_s->logk[delta_v] = calc_delta_v(phase_ptr->rxn_s, true) -
+				 (phase_ptr->logk[vm0] + phase_ptr->logk[vm1] * tc_x +phase_ptr->logk[vm2] * tc_x * tc_x);
 			phase_ptr->lk = k_calc(phase_ptr->rxn_s->logk, TK, P * PASCAL_PER_ATM);
 		}
 		else
@@ -4336,8 +4342,8 @@ setup_solution(void)
 				//    when rxn_x has been defined for each phase in the model
 				//if (/*x[count_unknowns]->si > 0 && */phase_ptr->p_c > 0 && phase_ptr->t_c > 0)
 				//{
-				//	p = exp(x[count_unknowns]->si * LOG_10);
-				//	t = solution_ptr->tc + 273.15;
+				//	LDBLE p = exp(x[count_unknowns]->si * LOG_10);
+				//	LDBLE t = solution_ptr->tc + 273.15;
 				//	if (!phase_ptr->pr_in || p != phase_ptr->pr_p || t != phase_ptr->pr_tk)
 				//	{
 				//		calc_PR(&phase_ptr, 1, p, t, 0);
@@ -5302,6 +5308,62 @@ write_phase_sys_total(int n)
 }
 
 /* ---------------------------------------------------------------------- */
+LDBLE Phreeqc::
+calc_delta_v(reaction *r_ptr, bool phase)
+/* ---------------------------------------------------------------------- */
+{
+/* calculate delta_v from millero parms' */
+
+	int i;
+	LDBLE delta_v = 0.0;
+
+	for (i = 0; r_ptr->token[i].name; i++)
+	{
+		if (phase)
+		{
+		/* reactants have coef's < 0, products have coef's > 0 */
+			if (r_ptr->token[i].s)
+				delta_v += r_ptr->token[i].coef * r_ptr->token[i].s->logk[vm_tc];
+		} else
+		{
+		/* reactants have coef's > 0, products have coef's < 0 */
+			if (r_ptr->token[i].s)
+				delta_v -= r_ptr->token[i].coef * r_ptr->token[i].s->logk[vm_tc];
+		}
+	}
+
+	return delta_v;
+}
+
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+calc_vm(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *  Calculates molar volumes for aqueous species...
+ */
+	int i;
+	/* S_v * Iv^0.5 in the molar volumes of Millero, but unsure what it means.
+	   Use mu_x for the volume averaged Iv, the difference is negligible....*/
+	LDBLE Sv_I = 0.0; //0.5 * (1.444 + (0.016799 + (-8.4055e-6 + 5.5153e-7 * tc_x) * tc_x) * tc_x) * sqrt(mu_x);
+	for (i = 0; i < count_s_x; i++)
+	{
+		s_x[i]->rxn_x->logk[vm_tc] = fabs(s_x[i]->z) * Sv_I;
+		if (s_x[i]->millero[0] != 0)
+		{
+			/* the volume terms... */
+			s_x[i]->rxn_x->logk[vm_tc] += s_x[i]->millero[0] + (s_x[i]->millero[1] + s_x[i]->millero[2] * tc_x) * tc_x;
+			/* plus the volume terms * Iv, take mu_x for Iv... */
+			//s_x[i]->rxn_x->logk[vm_tc] += (s_x[i]->millero[3] + (s_x[i]->millero[4] + s_x[i]->millero[5] * tc_x) * tc_x) * mu_x;
+		}
+		// OK I think, but logk may not be for the same reaction as rxn_x->logk
+		//s_search(s_x[i]->name)->logk[vm_tc] = s_x[i]->rxn_x->logk[vm_tc];
+		s_x[i]->logk[vm_tc] = s_x[i]->rxn_x->logk[vm_tc];
+	}
+	return OK;
+}
+/* ---------------------------------------------------------------------- */
 int Phreeqc::
 k_temp(LDBLE tempc, LDBLE pa) /* pa - pressure in atm */
 /* ---------------------------------------------------------------------- */
@@ -5312,15 +5374,24 @@ k_temp(LDBLE tempc, LDBLE pa) /* pa - pressure in atm */
 	int i;
 	LDBLE tempk;
 
+/* note... because of mu_x term in the pressure_dependent Vm's, k_temp must be called for iter > 0 
+   for initial solutions.
+   still needs to be checked, left out mu_x terms for now... */
 	if (same_model == TRUE && same_temperature == TRUE && same_pressure == TRUE)
 		return (OK);
 
 	tempk = tempc + 273.15;
 /*
- *    Calculate log k for all aqueous species
+ *  Calculate log k for all aqueous species
  */
+	/* calculate relative molar volumes for tc_x... */
+	calc_vm();
+
 	for (i = 0; i < count_s_x; i++)
 	{
+		/* calculate delta_v for the reaction... */
+		s_x[i]->rxn_x->logk[delta_v] = calc_delta_v(s_x[i]->rxn_x, false);
+
 		if (same_model && same_temperature && s_x[i]->rxn_x->logk[delta_v] == 0)
 			continue;
 		s_x[i]->lk = k_calc(s_x[i]->rxn_x->logk, tempk, pa * PASCAL_PER_ATM);
@@ -5335,6 +5406,8 @@ k_temp(LDBLE tempc, LDBLE pa) /* pa - pressure in atm */
 		{
 			if (phases[i]->in == TRUE)  
 			{
+				phases[i]->rxn_x->logk[delta_v] = calc_delta_v(phases[i]->rxn_x, true) -
+					(phases[i]->logk[vm0] + phases[i]->logk[vm1] * tc_x + phases[i]->logk[vm2] * tc_x * tc_x);
 				phases[i]->lk = k_calc(phases[i]->rxn_x->logk, tempk, pa * PASCAL_PER_ATM);
 			}
 		}
@@ -5343,6 +5416,8 @@ k_temp(LDBLE tempc, LDBLE pa) /* pa - pressure in atm */
 		{
 			if (phases[i]->in == TRUE && (!phases[i]->pr_in || state == INITIAL_GAS_PHASE))  
 			{
+				phases[i]->rxn_x->logk[delta_v] = calc_delta_v(phases[i]->rxn_x, true) -
+					(phases[i]->logk[vm0] + phases[i]->logk[vm1] * tc_x + phases[i]->logk[vm2] * tc_x * tc_x);
 				if (same_model && same_temperature && phases[i]->rxn_x->logk[delta_v] == 0)
 					continue;
 				phases[i]->lk = k_calc(phases[i]->rxn_x->logk, tempk, pa * PASCAL_PER_ATM);
@@ -5356,6 +5431,8 @@ k_temp(LDBLE tempc, LDBLE pa) /* pa - pressure in atm */
 		{
 			if (phases[i]->in == TRUE && (!phases[i]->pr_in || state == INITIAL_GAS_PHASE))  
 			{
+				phases[i]->rxn_x->logk[delta_v] = calc_delta_v(phases[i]->rxn_x, true) -
+					(phases[i]->logk[vm0] + phases[i]->logk[vm1] * tc_x + phases[i]->logk[vm2] * tc_x * tc_x);
 				if (same_model && same_temperature && phases[i]->rxn_x->logk[delta_v] == 0)
 					continue;
 				phases[i]->lk = k_calc(phases[i]->rxn_x->logk, tempk, pa * PASCAL_PER_ATM);
@@ -5387,8 +5464,7 @@ k_calc(LDBLE * l_logk, LDBLE tempk, LDBLE presPa)
 	 *   Calculates log k at specified temperature and pressure
 	 *   Returns calculated log k.
 	 *
-	 *   Note: The molar volume is stored in cm3 so the delta_v term is multiplied 
-	 *   by 1E-3 to convert it in L.
+	 *   delta_v is in cm3/mol.
 	 */
 
 	/* Molar energy */
@@ -5407,10 +5483,7 @@ k_calc(LDBLE * l_logk, LDBLE tempk, LDBLE presPa)
 		+ l_logk[T_A5] / (tempk * tempk)
 		+ l_logk[T_A6] * tempk * tempk;
 	if (delta_p > 0)
-		lk -= (l_logk[delta_v]
-			+  l_logk[delta_v1] * delta_p
-			+  l_logk[delta_v2] * (tempk - 298.15)
-			+  l_logk[delta_v3] * delta_p / tempk) * 1E-3 * delta_p / (LOG_10 * tempk * R_LITER_ATM);
+		lk -= l_logk[delta_v] * 1E-3 * delta_p / (LOG_10 * tempk * R_LITER_ATM);
 	return lk;
 }
 
