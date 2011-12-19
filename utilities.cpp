@@ -171,7 +171,83 @@ copy_token(char *token_ptr, char **ptr, int *length)
 #endif
 	return (return_value);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+copy_token(std::string &token, char **ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Copies from **ptr to *token until first space is encountered.
+ *
+ *   Arguments:
+ *      &token_ptr  output, place to store token
+ *
+ *     **ptr        input, character string to read token from
+ *                  output, next position after token
+ *
+ *   Returns:
+ *      UPPER,
+ *      LOWER,
+ *      DIGIT,
+ *      EMPTY,
+ *      UNKNOWN.
+ */
+	int return_value;
+	char c;
 
+/*
+ *   Read to end of whitespace
+ */
+	while (isspace((int) (c = **ptr)))
+		(*ptr)++;
+/*
+ *   Check what we have
+ */
+	if (isupper((int) c) || c == '[')
+	{
+		return_value = UPPER;
+	}
+	else if (islower((int) c))
+	{
+		return_value = LOWER;
+	}
+	else if (isdigit((int) c) || c == '.' || c == '-')
+	{
+		return_value = DIGIT;
+	}
+	else if (c == '\0')
+	{
+		return_value = EMPTY;
+	}
+	else
+	{
+		return_value = UNKNOWN;
+	}
+/*
+ *   Begin copying to token
+ */
+	char c_char[2];
+	c_char[1] = '\0';
+	while ((!isspace((int) (c = **ptr))) &&
+		   /*              c != ',' && */
+		   c != ';' && c != '\0')
+	{
+		//token_ptr[i] = c;
+		c_char[0] = c;
+		token.append(c_char);
+		(*ptr)++;
+	}
+#ifdef PHREEQ98
+	if ((return_value == DIGIT) && (strstr(token_ptr, ",") != NULL))
+	{
+		sprintf(error_string,
+				"Commas are not allowed as decimal separator: %s.",
+				token_ptr);
+		error_msg(error_string, CONTINUE);
+	}
+#endif
+	return (return_value);
+}
 #if defined PHREEQ98 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -694,7 +770,18 @@ print_centered(const char *string)
 	output_msg(sformatf("%s\n\n", token));
 	return (OK);
 }
-
+bool Phreeqc::
+replace(const char *str1, const char *str2, std::string & str)
+{
+	size_t pos = str.find(str1);
+	if (pos != std::string::npos)
+	{
+		size_t l = strlen(str1);
+		str.replace(pos, l, str2);
+		return true;
+	}
+	return false;
+}
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 replace(const char *str1, const char *str2, char *str)

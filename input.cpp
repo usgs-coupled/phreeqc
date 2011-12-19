@@ -1,5 +1,5 @@
 #include <assert.h>
-
+#include "Utils.h"
 #include "Phreeqc.h"
 #include <istream>
 #include <fstream>
@@ -116,7 +116,7 @@ get_line(void)
  */
 	int i, j, return_value, empty, l;
 	char *ptr;
-	char token[MAX_LENGTH];
+	std::string stdtoken;
 	void *cookie;
 	bool continue_loop;
 
@@ -192,8 +192,8 @@ get_line(void)
 			else
 			{
 				ptr = line;
-				copy_token(token, &ptr, &i);
-				if (token[0] == '-' && isalpha((int) token[1]))
+				copy_token(stdtoken, &ptr);
+				if (stdtoken.c_str()[0] == '-' && isalpha(stdtoken.c_str()[1]))
 				{
 					return_value = OPTION;
 				}
@@ -201,9 +201,10 @@ get_line(void)
 		}
 		// add new include file to stack
 		ptr = line;
-		copy_token(token, &ptr, &i);
-		str_tolower(token);
-		if ((strstr(token,"include$") == token) || (strstr(token,"include_file") == token))
+		copy_token(stdtoken, &ptr);
+		Utilities::str_tolower(stdtoken);
+		if ((strstr(stdtoken.c_str(),"include$") == stdtoken.c_str()) || 
+			(strstr(stdtoken.c_str(),"include_file") == stdtoken.c_str()))
 		{
 			char file_name[MAX_LENGTH];
 			strcpy(file_name, ptr);

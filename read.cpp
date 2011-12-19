@@ -8441,16 +8441,15 @@ check_key(const char *str)
  *      TRUE,
  *      FALSE.
  */
-	int l;
 	char *ptr;
-	char token[MAX_LENGTH];
+	std::string stdtoken;
 	char * token1;
 	token1 = string_duplicate(str);
 
 	ptr = token1;
-	int j = copy_token(token, &ptr, &l);
-	str_tolower(token);
-	std::string key(token);
+	int j = copy_token(stdtoken, &ptr);
+	Utilities::str_tolower(stdtoken);
+	std::string key(stdtoken);
 
 	if (j == EMPTY)
 	{
@@ -8630,7 +8629,7 @@ check_units(char *tot_units, int alkalinity, int check_compatibility,
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-find_option(char *item, int *n, const char **list, int count_list, int exact)
+find_option(const char *item, int *n, const char **list, int count_list, int exact)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -8650,15 +8649,14 @@ find_option(char *item, int *n, const char **list, int count_list, int exact)
  *		 i       position of match in list
  */
 	int i;
-	char token[MAX_LENGTH];
+	std::string stdtoken(item);
 
-	strcpy(token, item);
-	str_tolower(token);
+	Utilities::str_tolower(stdtoken);
 	for (i = 0; i < count_list; i++)
 	{
 		if (exact == TRUE)
 		{
-			if (strcmp(list[i], token) == 0)
+			if (strcmp(list[i], stdtoken.c_str()) == 0)
 			{
 				*n = i;
 				return (OK);
@@ -8666,7 +8664,7 @@ find_option(char *item, int *n, const char **list, int count_list, int exact)
 		}
 		else
 		{
-			if (strstr(list[i], token) == list[i])
+			if (strstr(list[i], stdtoken.c_str()) == list[i])
 			{
 				*n = i;
 				return (OK);
@@ -8714,9 +8712,9 @@ get_option(const char **opt_list, int count_opt_list, char **next_char)
  *   Read a line and check for options
  */
 	int j;
-	int opt_l, opt;
+	int opt;
 	char *opt_ptr;
-	char option[MAX_LENGTH];
+	std::string stdoption;
 /*
  *   Read line
  */
@@ -8732,15 +8730,14 @@ get_option(const char **opt_list, int count_opt_list, char **next_char)
 	else if (j == OPTION)
 	{
 		opt_ptr = line;
-		copy_token(option, &opt_ptr, &opt_l);
-		if (find_option(&(option[1]), &opt, opt_list, count_opt_list, FALSE)
-			== OK)
+		copy_token(stdoption, &opt_ptr);
+		if (find_option(&(stdoption.c_str()[1]), &opt, opt_list, count_opt_list, FALSE) == OK)
 		{
 			j = opt;
-			replace(option, opt_list[j], line_save);
-			replace(option, opt_list[j], line);
+			replace(stdoption.c_str(), opt_list[j], line_save);
+			replace(stdoption.c_str(), opt_list[j], line);
 			opt_ptr = line;
-			copy_token(option, &opt_ptr, &opt_l);
+			copy_token(stdoption, &opt_ptr);
 			*next_char = opt_ptr;
 			if (pr.echo_input == TRUE)
 			{
@@ -8762,9 +8759,8 @@ get_option(const char **opt_list, int count_opt_list, char **next_char)
 	else
 	{
 		opt_ptr = line;
-		copy_token(option, &opt_ptr, &opt_l);
-		if (find_option(&(option[0]), &opt, opt_list, count_opt_list, TRUE)
-			== OK)
+		copy_token(stdoption, &opt_ptr);
+		if (find_option(&(stdoption.c_str()[0]), &opt, opt_list, count_opt_list, TRUE) == OK)
 		{
 			j = opt;
 			*next_char = opt_ptr;
@@ -9026,7 +9022,7 @@ read_user_punch(void)
  */
 	int l, length, line_length;
 	int return_value, opt, opt_save;
-	char token[MAX_LENGTH];
+	std::string stdtoken;
 	char *next_char;
 	const char *opt_list[] = {
 		"start",				/* 0 */
@@ -9070,7 +9066,7 @@ read_user_punch(void)
 			break;
 		case 2:				/* headings */
 		case 3:				/* heading */
-			while (copy_token(token, &next_char, &l) != EMPTY)
+			while (copy_token(stdtoken, &next_char) != EMPTY)
 			{
 				user_punch_headings =
 					(char **) PHRQ_realloc(user_punch_headings,
@@ -9080,7 +9076,7 @@ read_user_punch(void)
 				if (user_punch_headings == NULL)
 					malloc_error();
 				user_punch_headings[user_punch_count_headings] =
-					string_hsave(token);
+					string_hsave(stdtoken.c_str());
 				user_punch_count_headings++;
 			}
 			break;
