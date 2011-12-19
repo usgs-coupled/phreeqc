@@ -1956,10 +1956,18 @@ jacobian_sums(void)
  */
 	if (ah2o_unknown != NULL)
 	{
+#ifdef LIMITER
+		LDBLE y_sum = ah2o_unknown->f;
+		LDBLE x_h2o = mass_water_aq_x;
+		LDBLE a = 0.017;
+		LDBLE lim = 95.0 - 100.0*a*y_sum/x_h2o;
+		LDBLE factor = -a*(x_h2o*(-0.5*tanh(lim) - 0.5) + (50.0*a*y_sum - 47.5 * x_h2o) / (cosh(lim)*cosh(lim))) /
+			(x_h2o*x_h2o);
+#endif
 		for (i = 0; i < count_unknowns; i++)
 		{
-			// a(H2O) = (1 - 0.017*sum(m(i)))*0.5*(1 - tanh(sum(m(i)) - 50.0))) + 0.075 * 0.5*(tanh(sum(m(i)) - 50) - 1)
-			// this equation drives activity of water smoothly to 0.075 at about sum(m(i)) = 50
+
+
 			if (dampen)
 			{
 				LDBLE sum = ah2o_unknown->f;
@@ -1975,9 +1983,24 @@ jacobian_sums(void)
 				array[ah2o_unknown->number * (count_unknowns + 1) + i] *= -0.017;
 			}
 		}
+
 		array[ah2o_unknown->number * (count_unknowns + 1) +
 			  ah2o_unknown->number] -=
 			mass_water_aq_x * exp(s_h2o->la * LOG_10);
+#if defined(LIMITER)
+		// activity of water term
+		array[ah2o_unknown->number * (count_unknowns + 1) +
+			  ah2o_unknown->number] -= exp(s_h2o->la * LOG_10);
+
+		// mass of water term
+		if (mass_oxygen_unknown != NULL)
+		{
+			array[ah2o_unknown->number * (count_unknowns + 1) + mass_oxygen_unknown->number] -=
+				  a*y_sum*(x_h2o*(0.5*tanh(lim) + 0.5) + (47.5*x_h2o - 50.0*a*y_sum)/(cosh(lim)*cosh(lim))) / 
+				  (x_h2o*x_h2o*x_h2o);
+			//array[ah2o_unknown->number * (count_unknowns + 1) + mass_oxygen_unknown->number] *= -mass_water_aq_x;
+		}
+#endif
 	}
 	if (mass_oxygen_unknown != NULL && ah2o_unknown != NULL)
 	{
@@ -3759,11 +3782,18 @@ residuals(void)
 			}
 			else
 			{
-			// a(H2O) = (1 - 0.017*sum(m(i)))*0.5*(1 - tanh(sum(m(i)) - 50.0))) + 0.075 * 0.5*(tanh(sum(m(i)) - 50) - 1)
-			// this equation drives activity of water smoothly to 0.075 at about sum(m(i)) = 50
+#ifdef LIMITER
+				// a(H2O) = (1 - 0.017*sum(m(i)))*0.5*(1 - tanh(sum(m(i)) - 50.0))) + 0.075 * 0.5*(tanh(sum(m(i)) - 50) - 1)
+				// this equation drives activity of water smoothly to 0.075 at about sum(m(i)) = 50
 				residual[i] = mass_water_aq_x * exp(s_h2o->la * LOG_10) -
 					(mass_water_aq_x - 0.017 * x[i]->f) * (0.5*(1.0 - tanh(x[i]->f - 50.0))) -
 					0.075*0.5*(tanh(x[i]->f - 50.0) + 1.0);
+#endif
+				// a = 0.017; Y = sum(m(i)); X = Mw (mass of water)
+				// Aw = (1 - a y/x) 0.5 (tanh(100 (0.95 - ay/x)) + 1) + 0.05 (0.5 (1 - tanh(100(0.95 - ay/x))))
+				residual[i] =  exp(s_h2o->la * LOG_10) - ((1.0 - 0.017 * x[i]->f/mass_water_aq_x) *
+					0.5*(tanh(100.0*(0.95 - 0.017*x[i]->f/mass_water_aq_x)) + 1) +
+					0.05*0.5*(1.0 - tanh(100.0*(0.95 - 0.017*x[i]->f/mass_water_aq_x)))) ;
 			}
 			if (pitzer_model || sit_model)
 			{
