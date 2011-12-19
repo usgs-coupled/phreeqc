@@ -9027,7 +9027,7 @@ read_user_punch(void)
  *	 ERROR   if error occurred reading data
  *
  */
-	int l, length, line_length;
+	int length, line_length;
 	int return_value, opt, opt_save;
 	std::string stdtoken;
 	char *next_char;

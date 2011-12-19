@@ -546,7 +546,7 @@ print_gas_phase(void)
 	if(use.gas_phase_ptr->total_moles > 0)
 		output_msg(sformatf("  Molar volume: %10.2e liters/mole",
 			   (double) use.gas_phase_ptr->volume / use.gas_phase_ptr->total_moles));
-	if (PR && use.gas_phase_ptr->volume / use.gas_phase_ptr->total_moles <= 0.035 || (PR && use.gas_phase_ptr->v_m <= 0.035))
+	if ((PR && use.gas_phase_ptr->volume / use.gas_phase_ptr->total_moles <= 0.035) || (PR && use.gas_phase_ptr->v_m <= 0.035))
 		output_msg(" WARNING: Program's limit for Peng-Robinson.\n");
 	else
 		output_msg("\n");

@@ -576,7 +576,7 @@ calc_fixed_volume_gas_pressures(void)
 /* ---------------------------------------------------------------------- */
 {
 	int n_g = 0;
-	LDBLE lp, V_m = 0;
+	LDBLE lp;
 	struct rxn_token *rxn_ptr;
 	struct phase *phase_ptr;
 	bool PR = false, pr_done = false;
