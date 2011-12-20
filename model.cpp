@@ -2097,14 +2097,15 @@ mb_gases(void)
 	else
 	{
 #if defined(REVISED_GASES)
-		if (use.gas_phase_ptr->pr_in)
-		{
+		//if (use.gas_phase_ptr->pr_in)
+		//{
+		//gas_in = TRUE;
+		//}
+		//else
+		//{
+		//	gas_in = FALSE;
+		//}
 		gas_in = TRUE;
-		}
-		else
-		{
-			gas_in = FALSE;
-		}
 #else
 		gas_in = FALSE;
 #endif
@@ -2487,7 +2488,8 @@ calc_gas_pressures(void)
 	if (use.gas_phase_ptr == NULL)
 		return (OK);
 #if defined(REVISED_GASES)
-	if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in)
+	//if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in)
+	if (use.gas_phase_ptr->type == VOLUME)
 	{
 		if (iterations > 2)
 			return calc_fixed_volume_gas_pressures();
@@ -3567,7 +3569,8 @@ reset(void)
 			if (x[i]->moles < MIN_TOTAL)
 				x[i]->moles = MIN_TOTAL;
 #if defined(REVISED_GASES)
-			if (x[i] == gas_unknown && use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in && !calculating_deriv)
+			//if (x[i] == gas_unknown && use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in && !calculating_deriv)
+			if (x[i] == gas_unknown && use.gas_phase_ptr->type == VOLUME && !calculating_deriv)
 			{
 					patm_x = use.gas_phase_ptr->total_p;
 					k_temp(tc_x, patm_x);
@@ -3914,7 +3917,8 @@ residuals(void)
 		{
 			
 #if defined(REVISED_GASES)
-			if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in)
+			//if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in)
+			if (use.gas_phase_ptr->type == VOLUME)
 			{
 				residual[i] = x[i]->moles - x[i]->phase->moles_x;
 			}
@@ -3933,10 +3937,6 @@ residuals(void)
 							   x[i]->description, i, residual[i]));
 				converge = FALSE;
 			}
-			//if (iterations < 10) // for Peng-Robinson...
-			//{
-			//	converge = FALSE;
-			//}
 		}
 #if defined(REVISED_GASES)
 		else if (x[i]->type == GAS_PRESSURE)
@@ -5124,7 +5124,8 @@ numerical_jacobian(void)
 #if defined(REVISED_GASES)
 	if (!numerical_deriv && 
 		(use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC) &&
-		(use.gas_phase_ptr == NULL || use.gas_phase_ptr->type != VOLUME || !use.gas_phase_ptr->pr_in))
+		//(use.gas_phase_ptr == NULL || use.gas_phase_ptr->type != VOLUME || !use.gas_phase_ptr->pr_in))
+		(use.gas_phase_ptr == NULL || use.gas_phase_ptr->type != VOLUME))
 		return(OK);
 #else
 	if (!numerical_deriv && (use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC))

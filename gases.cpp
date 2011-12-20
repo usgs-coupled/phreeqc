@@ -1,4 +1,3 @@
-#if defined(REVISED_GASES)
 #include "Phreeqc.h"
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -600,23 +599,15 @@ calc_fixed_volume_gas_pressures(void)
 		}
 		use.gas_phase_ptr->total_moles += gas_unknowns[i]->moles;
 	}
-	if (use.gas_phase_ptr->type == PRESSURE)
+	if (PR && use.gas_phase_ptr->total_moles > 0)
 	{
-			//calc_PR(phase_ptrs, n_g, gas_unknown->gas_phase->total_p, tk_x, 0);
-		assert(false); // should not get here
 		calc_PR();
+		pr_done = true;
+		use.gas_phase_ptr->total_moles = 0;
 	} else
 	{
-		if (PR && use.gas_phase_ptr->total_moles > 0)
-		{
-			calc_PR();
-			pr_done = true;
-			use.gas_phase_ptr->total_moles = 0;
-		} else
-		{
-			use.gas_phase_ptr->total_p = 0;
-			use.gas_phase_ptr->total_moles = 0;
-		}
+		use.gas_phase_ptr->total_p = 0;
+		use.gas_phase_ptr->total_moles = 0;
 	}
 	for (i = 0; i < gas_unknowns.size(); i++)
 	{
@@ -632,32 +623,18 @@ calc_fixed_volume_gas_pressures(void)
 			}
 			phase_ptr->p_soln_x = exp(LOG_10 * (lp - phase_ptr->pr_si_f));
 
-			if (use.gas_phase_ptr->type == PRESSURE)
+			if (pr_done)
 			{
-				assert(false);
-				phase_ptr->moles_x = phase_ptr->p_soln_x *
-					use.gas_phase_ptr->total_moles / use.gas_phase_ptr->total_p;
-				phase_ptr->fraction_x =	phase_ptr->moles_x / use.gas_phase_ptr->total_moles;
+				lp = phase_ptr->p_soln_x / use.gas_phase_ptr->total_p *
+					use.gas_phase_ptr->volume / use.gas_phase_ptr->v_m;
+				phase_ptr->moles_x = lp;
 			}
-
-			//else
-
+			else
 			{
-				if (pr_done)
-				{
-					lp = phase_ptr->p_soln_x / use.gas_phase_ptr->total_p *
-						use.gas_phase_ptr->volume / use.gas_phase_ptr->v_m;
-					phase_ptr->moles_x = lp;
-				}
-				else
-				{
-					assert(false);
-					phase_ptr->moles_x = phase_ptr->p_soln_x *
-						use.gas_phase_ptr->volume / (R_LITER_ATM * tk_x);
-					use.gas_phase_ptr->total_p += phase_ptr->p_soln_x;
-				}
-				use.gas_phase_ptr->total_moles += phase_ptr->moles_x;
+				phase_ptr->moles_x = phase_ptr->p_soln_x * use.gas_phase_ptr->volume / (R_LITER_ATM * tk_x);
+				use.gas_phase_ptr->total_p += phase_ptr->p_soln_x;
 			}
+			use.gas_phase_ptr->total_moles += phase_ptr->moles_x;
 		}
 		else
 		{
@@ -668,4 +645,4 @@ calc_fixed_volume_gas_pressures(void)
 
 	return (OK);
 }
-#endif
+

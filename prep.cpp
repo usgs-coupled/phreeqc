@@ -205,7 +205,8 @@ quick_setup(void)
 #if defined(REVISED_GASES)
 	if (gas_unknown != NULL)
 	{
-		if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in)
+		//if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in)
+		if (use.gas_phase_ptr->type == VOLUME)
 		{
 			//use.gas_phase_ptr->total_moles = 0;
 			for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
@@ -425,7 +426,8 @@ build_gas_phase(void)
 	if (gas_unknown == NULL)
 		return (OK);
 #if defined(REVISED_GASES)
-	if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in)
+	//if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in)
+	if (use.gas_phase_ptr->type == VOLUME)
 	{
 		return build_fixed_volume_gas();
 	}
@@ -3221,7 +3223,8 @@ setup_gas_phase(void)
 		return (OK);
 
 #if defined(REVISED_GASES)
-	if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in)
+	//if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in)
+	if (use.gas_phase_ptr->type == VOLUME)
 	{
 		return setup_fixed_volume_gas();
 	}
@@ -4656,7 +4659,8 @@ setup_unknowns(void)
 	if (use.gas_phase_ptr != NULL)
 	{
 #if defined(REVISED_GASES)
-		if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in)
+		//if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in)
+		if (use.gas_phase_ptr->type == VOLUME)
 		{
 			max_unknowns += use.gas_phase_ptr->count_comps;
 		}
