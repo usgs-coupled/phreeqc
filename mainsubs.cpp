@@ -751,8 +751,7 @@ initialize(void)
 	gamma_iterations = 0;
 	run_reactions_iterations = 0;
 	step_size_now = step_size;
-	//dampen = true;
-	dampen = false;
+	dampen_ah2o = true;
 	slack = false;
 	pe_step_size_now = pe_step_size;
 	count_total_steps = 0;

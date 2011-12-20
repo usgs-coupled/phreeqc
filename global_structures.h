@@ -41,10 +41,7 @@
 
 #define CONVERGED 2
 #define MASS_BALANCE 3
-/*
-  #define OSCILLATE 4
-  #define H2O_LIMITS 5
-*/
+
 #define REWRITE 2
 #define INIT -1
 
