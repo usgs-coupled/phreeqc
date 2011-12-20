@@ -845,9 +845,6 @@ jacobian_sit(void)
 		case MU:
 		case PP:
 		case S_S_MOLES:
-#if defined(REVISED_GASES)
-		case GAS_PRESSURE:
-#endif
 			continue;
 			break;
 		}

@@ -753,6 +753,7 @@ initialize(void)
 	step_size_now = step_size;
 	dampen_ah2o = true;
 	slack = false;
+	numerical_fixed_volume = false;
 	pe_step_size_now = pe_step_size;
 	count_total_steps = 0;
 	remove_unstable_phases = FALSE;

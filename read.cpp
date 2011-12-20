@@ -8091,9 +8091,10 @@ read_debug(void)
 		"convergence_tolerance",	/* 14 */
 		"numerical_derivatives",	/* 15 */
 		"tries",					/* 16 */
-		"try"						/* 17 */
+		"try",						/* 17 */
+		"numerical_fixed_volume"    /* 18 */
 	};
-	int count_opt_list = 18;
+	int count_opt_list = 19;
 /*
  *   Read parameters:
  *	ineq_tol;
@@ -8192,6 +8193,9 @@ read_debug(void)
 		case 16:				/* tries */
 		case 17:				/* try */
 			sscanf(next_char, "%d", &max_tries);
+			break;
+		case 18:				/* debug_inverse */
+			numerical_fixed_volume = (get_true_false(next_char, TRUE) == TRUE);
 			break;
 		}
 		if (return_value == EOF || return_value == KEYWORD)

@@ -86,9 +86,6 @@
 #define GAS_MOLES 24
 #define S_S_MOLES 25
 #define PITZER_GAMMA 26
-#if defined(REVISED_GASES)
-#define GAS_PRESSURE 27
-#endif
 #define SLACK 28
 /* state */
 #define INITIALIZE	       0

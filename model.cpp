@@ -509,19 +509,6 @@ check_residuals(void)
 				error_msg(error_string, CONTINUE);
 			}
 		}
-#if defined(REVISED_GASES)
-		else if (x[i]->type == GAS_PRESSURE)
-		{
-			if (residual[i] >= epsilon
-				|| residual[i] <= -epsilon)
-			{
-				sprintf(error_string, "%20s Pressure has not converged. "
-						"\tResidual: %e\n", x[i]->description,
-						(double) residual[i]);
-				error_msg(error_string, CONTINUE);
-			}
-		}
-#endif
 		else if (x[i]->type == PITZER_GAMMA)
 		{
 			if (fabs(residual[i]) > epsilon)
@@ -1249,25 +1236,6 @@ ineq(int in_kode)
 				res[l_count_rows] = 0.0;
 			}
 			l_count_rows++;
-#if defined(REVISED_GASES)
-/*
- *   Gas pressure
- */
-		}
-		else if (x[i]->type == GAS_PRESSURE)
-		{
-			memcpy((void *) &(ineq_array[l_count_rows * max_column_count]),
-				   (void *) &(array[i * (count_unknowns + 1)]),
-				   (size_t) (count_unknowns + 1) * sizeof(LDBLE));
-			back_eq[l_count_rows] = i;
-
-			res[l_count_rows] = 1.0;
-			if (in_kode != 1)
-			{
-				res[l_count_rows] = 0.0;
-			}
-			l_count_rows++;
-#endif
 /*
  *   Solid solution
  */
@@ -1297,9 +1265,6 @@ ineq(int in_kode)
 			x[i]->type != GAS_MOLES && x[i]->type != S_S_MOLES
 			/* && x[i]->type != PP */
 			&& x[i]->type != SLACK
-#if defined(REVISED_GASES)
-			&& x[i]->type != GAS_PRESSURE
-#endif
 			)
 		{
 			if (x[i]->type == PP && x[i]->pure_phase->force_equality == FALSE)
@@ -2096,19 +2061,14 @@ mb_gases(void)
 	}
 	else
 	{
-#if defined(REVISED_GASES)
-		//if (use.gas_phase_ptr->pr_in)
-		//{
-		//gas_in = TRUE;
-		//}
-		//else
-		//{
-		//	gas_in = FALSE;
-		//}
-		gas_in = TRUE;
-#else
-		gas_in = FALSE;
-#endif
+		if (numerical_fixed_volume && use.gas_phase_ptr->pr_in)
+		{
+			gas_in = TRUE;
+		}
+		else
+		{
+			gas_in = FALSE;
+		}
 	}
 	return (OK);
 }
@@ -2487,16 +2447,13 @@ calc_gas_pressures(void)
  */
 	if (use.gas_phase_ptr == NULL)
 		return (OK);
-#if defined(REVISED_GASES)
-	//if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in)
-	if (use.gas_phase_ptr->type == VOLUME)
+	if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in && numerical_fixed_volume)
 	{
 		if (iterations > 2)
 			return calc_fixed_volume_gas_pressures();
 		else
 			return OK;
 	}
-#endif
 	if (use.gas_phase_ptr->type == VOLUME)
 	{
 		use.gas_phase_ptr->total_moles = 0;
@@ -3125,13 +3082,6 @@ reset(void)
 					up = 1.;
 				down = x[i]->moles;
 			}
-#if defined(REVISED_GASES)
-			else if (x[i]->type == GAS_PRESSURE)
-			{
-				up =  2.;
-				down = patm_x/2.0;
-			}
-#endif
 			else if (x[i]->type == S_S_MOLES)
 			{
 				continue;
@@ -3568,35 +3518,15 @@ reset(void)
 			x[i]->moles += delta[i];
 			if (x[i]->moles < MIN_TOTAL)
 				x[i]->moles = MIN_TOTAL;
-#if defined(REVISED_GASES)
-			//if (x[i] == gas_unknown && use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in && !calculating_deriv)
-			if (x[i] == gas_unknown && use.gas_phase_ptr->type == VOLUME && !calculating_deriv)
+
+			if (x[i] == gas_unknown && use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in 
+				&& numerical_fixed_volume && !calculating_deriv)
 			{
 					patm_x = use.gas_phase_ptr->total_p;
 					k_temp(tc_x, patm_x);
 			}
-#endif
+
 		}
-#if defined(REVISED_GASES)
-		else if (x[i]->type == GAS_PRESSURE)
-		{
-			if (debug_model == TRUE)
-			{
-				output_msg(sformatf(
-						   "%-10.10s %-9s%10.2e   %-9s%10.2e   %-6s%10.2e\n",
-						   x[i]->description, "old P",
-						   (double) patm_x, "new P",
-						   (double) (patm_x + delta[i]), "delta",
-						   (double) delta[i]));
-			}
-			output_msg(sformatf(
-				"%e\n", x[i]->gas_phase->total_p));
-			x[i]->pressure += delta[i];
-			patm_x = x[i]->pressure;
-			same_pressure = FALSE;
-			k_temp(tc_x, patm_x);
-		}
-#endif
 		else if (x[i]->type == S_S_MOLES)
 		{
 
@@ -3916,9 +3846,7 @@ residuals(void)
 		else if (x[i]->type == GAS_MOLES)
 		{
 			
-#if defined(REVISED_GASES)
-			//if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in)
-			if (use.gas_phase_ptr->type == VOLUME)
+			if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in && numerical_fixed_volume)
 			{
 				residual[i] = x[i]->moles - x[i]->phase->moles_x;
 			}
@@ -3926,9 +3854,7 @@ residuals(void)
 			{
 				residual[i] = x[i]->gas_phase->total_p - x[i]->f;
 			}
-#else
-			residual[i] = x[i]->gas_phase->total_p - x[i]->f;
-#endif
+
 			if (fabs(residual[i]) > l_toler && gas_in == TRUE)
 			{
 				if (print_fail)
@@ -3938,22 +3864,6 @@ residuals(void)
 				converge = FALSE;
 			}
 		}
-#if defined(REVISED_GASES)
-		else if (x[i]->type == GAS_PRESSURE)
-		{
-			residual[i] = x[i]->gas_phase->total_p - patm_x;
-			//output_msg(sformatf(
-			//	"Pressure residual: %e, %e, %e\n", residual[i], x[i]->gas_phase->total_p, patm_x));
-			if (fabs(residual[i]) > l_toler)
-			{
-				if (print_fail)
-					output_msg(sformatf(
-							   "Failed Residual %d: %s %d %e\n", iterations,
-							   x[i]->description, i, residual[i]));
-				converge = FALSE;
-			}
-		}
-#endif
 		else if (x[i]->type == S_S_MOLES)
 		{
 			residual[i] = x[i]->f * LOG_10;
@@ -5121,16 +5031,13 @@ numerical_jacobian(void)
 	LDBLE *base;
 	LDBLE d, d1, d2;
 	int i, j;
-#if defined(REVISED_GASES)
-	if (!numerical_deriv && 
-		(use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC) &&
-		//(use.gas_phase_ptr == NULL || use.gas_phase_ptr->type != VOLUME || !use.gas_phase_ptr->pr_in))
-		(use.gas_phase_ptr == NULL || use.gas_phase_ptr->type != VOLUME))
+	if (!
+		(numerical_deriv || 
+		(use.surface_ptr != NULL && use.surface_ptr->type == CD_MUSIC) ||
+		(use.gas_phase_ptr != NULL && use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in && numerical_fixed_volume) 
+		))
 		return(OK);
-#else
-	if (!numerical_deriv && (use.surface_ptr == NULL || use.surface_ptr->type != CD_MUSIC))
-		return (OK);
-#endif
+
 	calculating_deriv = TRUE;
 	gammas(mu_x);
 	molalities(TRUE);
@@ -5237,16 +5144,6 @@ numerical_jacobian(void)
 				d2 = 1e-14;
 			x[i]->moles += d2;
 			break;
-#if defined(REVISED_GASES)
-		case GAS_PRESSURE:
-			d2 = d * patm_x;
-			if (d2 < 0.1)
-				d2 = 0.1;
-			patm_x += d2;
-			same_pressure = FALSE;
-			k_temp(tc_x, patm_x);
-			break;
-#endif
 		}
 		molalities(TRUE);
 		mb_sums();
@@ -5306,13 +5203,6 @@ numerical_jacobian(void)
 		case GAS_MOLES:
 			x[i]->moles -= d2;
 			break;
-#if defined(REVISED_GASES)
-		case GAS_PRESSURE:
-			patm_x -= d2;
-			same_pressure = FALSE;
-			k_temp(tc_x, patm_x);
-			break;
-#endif
 		}
 	}
 	molalities(TRUE);
