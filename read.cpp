@@ -8092,9 +8092,10 @@ read_debug(void)
 		"numerical_derivatives",	/* 15 */
 		"tries",					/* 16 */
 		"try",						/* 17 */
-		"numerical_fixed_volume"    /* 18 */
+		"numerical_fixed_volume",    /* 18 */
+		"force_numerical_fixed_volume"    /* 19 */
 	};
-	int count_opt_list = 19;
+	int count_opt_list = 20;
 /*
  *   Read parameters:
  *	ineq_tol;
@@ -8196,6 +8197,9 @@ read_debug(void)
 			break;
 		case 18:				/* debug_inverse */
 			numerical_fixed_volume = (get_true_false(next_char, TRUE) == TRUE);
+			break;
+		case 19:				/* debug_inverse */
+			force_numerical_fixed_volume = (get_true_false(next_char, TRUE) == TRUE);
 			break;
 		}
 		if (return_value == EOF || return_value == KEYWORD)

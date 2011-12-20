@@ -204,7 +204,7 @@ quick_setup(void)
  */
 	if (gas_unknown != NULL)
 	{
-		if (use.gas_phase_ptr->type == VOLUME && numerical_fixed_volume && use.gas_phase_ptr->pr_in)
+		if (use.gas_phase_ptr->type == VOLUME && numerical_fixed_volume && (use.gas_phase_ptr->pr_in || force_numerical_fixed_volume))
 		{
 			for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
 			{
@@ -408,7 +408,7 @@ build_gas_phase(void)
 	if (gas_unknown == NULL)
 		return (OK);
 
-	if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in && numerical_fixed_volume)
+	if (use.gas_phase_ptr->type == VOLUME && (use.gas_phase_ptr->pr_in || force_numerical_fixed_volume) && numerical_fixed_volume)
 	{
 		return build_fixed_volume_gas();
 	}
@@ -3203,7 +3203,7 @@ setup_gas_phase(void)
 	if (use.gas_phase_ptr == NULL)
 		return (OK);
 
-	if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in && numerical_fixed_volume)
+	if (use.gas_phase_ptr->type == VOLUME && (use.gas_phase_ptr->pr_in || force_numerical_fixed_volume) && numerical_fixed_volume)
 	{
 		return setup_fixed_volume_gas();
 	}
@@ -4637,7 +4637,7 @@ setup_unknowns(void)
  */
 	if (use.gas_phase_ptr != NULL)
 	{
-		if (use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in && numerical_fixed_volume)
+		if (use.gas_phase_ptr->type == VOLUME && (use.gas_phase_ptr->pr_in || force_numerical_fixed_volume) && numerical_fixed_volume)
 		{
 			max_unknowns += use.gas_phase_ptr->count_comps;
 		}
@@ -5377,7 +5377,7 @@ k_temp(LDBLE tempc, LDBLE pa) /* pa - pressure in atm */
 /*
  *    Calculate log k for all pure phases
  */
-	if (use.gas_phase_ptr != NULL && use.gas_phase_ptr->type == VOLUME && use.gas_phase_ptr->pr_in && numerical_fixed_volume)
+	if (use.gas_phase_ptr != NULL && use.gas_phase_ptr->type == VOLUME && (use.gas_phase_ptr->pr_in || force_numerical_fixed_volume) && numerical_fixed_volume)
 	{
 		for (i = 0; i < count_phases; i++)
 		{
