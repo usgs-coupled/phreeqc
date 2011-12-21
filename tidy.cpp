@@ -520,7 +520,7 @@ check_species_input(void)
 		{
 			input_error++;
 			return_value = ERROR;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Elements in species have not been tabulated, %s.",
 					s[i]->name);
 			error_msg(error_string, CONTINUE);
@@ -529,7 +529,7 @@ check_species_input(void)
 		{
 			input_error++;
 			return_value = ERROR;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Reaction for species has not been defined, %s.",
 					s[i]->name);
 			error_msg(error_string, CONTINUE);
@@ -634,7 +634,7 @@ add_other_logk(LDBLE * source_k, int count_add_logk,
 		if (found_item == NULL)
 		{
 			input_error++;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Could not find named temperature expression, %s\n",
 					token);
 			error_msg(error_string, CONTINUE);
@@ -687,7 +687,7 @@ add_logks(struct logk *logk_ptr, int repeats)
 	if (repeats > 15)
 	{
 		input_error++;
-		sprintf(error_string, "Circular definition of named_logk? %s\n",
+		error_string = sformatf( "Circular definition of named_logk? %s\n",
 				logk_ptr->name);
 		error_msg(error_string, CONTINUE);
 		return (ERROR);
@@ -703,7 +703,7 @@ add_logks(struct logk *logk_ptr, int repeats)
 		if (found_item == NULL)
 		{
 			input_error++;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Could not find named temperature expression, %s\n",
 					token);
 			error_msg(error_string, CONTINUE);
@@ -780,7 +780,7 @@ rewrite_eqn_to_secondary(void)
 		if (++add_count > MAX_ADD_EQUATIONS)
 		{
 			parse_error++;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Could not reduce equation to secondary master species, %s.",
 					trxn.token[0].name);
 			error_msg(error_string, CONTINUE);
@@ -792,7 +792,7 @@ rewrite_eqn_to_secondary(void)
 			token_ptr = &(trxn.token[i]);
 			if (token_ptr->s == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"NULL species pointer for species, %s.",
 						token_ptr->name);
 				error_msg(error_string, CONTINUE);
@@ -845,7 +845,7 @@ replace_solids_gases(void)
 		if (++add_count > MAX_ADD_EQUATIONS)
 		{
 			parse_error++;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Could not remove all solids and gases from equation, %s.",
 					trxn.token[0].name);
 			error_msg(error_string, CONTINUE);
@@ -871,7 +871,7 @@ replace_solids_gases(void)
 				if (phase_ptr == NULL)
 				{
 					input_error++;
-					sprintf(error_string, "Phase not found, %s.",
+					error_string = sformatf( "Phase not found, %s.",
 							token_ptr->name);
 					error_msg(error_string, CONTINUE);
 					break;
@@ -938,7 +938,7 @@ rewrite_eqn_to_primary(void)
 		if (++add_count > MAX_ADD_EQUATIONS)
 		{
 			parse_error++;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Could not reduce equation to primary master species, %s.",
 					trxn.token[0].s->name);
 			error_msg(error_string, CONTINUE);
@@ -988,7 +988,7 @@ tidy_gas_phase(void)
 			if (phase_ptr == NULL)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Gas not found in PHASES data base, %s.",
 						gas_phase[i].comps[j].name);
 				error_msg(error_string, CONTINUE);
@@ -1008,7 +1008,7 @@ tidy_gas_phase(void)
 				if (gas_phase[i].solution_equilibria == TRUE)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Gas phase %d: can not use '-equilibrium' option with fixed pressure gas phase.",
 							gas_phase[i].n_user);
 					error_msg(error_string, CONTINUE);
@@ -1024,7 +1024,7 @@ tidy_gas_phase(void)
 				else
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Gas phase %d: partial pressure of gas component %s not defined.",
 							gas_phase[i].n_user, gas_phase[i].comps[j].name);
 					error_msg(error_string, CONTINUE);
@@ -1048,7 +1048,7 @@ tidy_gas_phase(void)
 					else
 					{
 						input_error++;
-						sprintf(error_string,
+						error_string = sformatf(
 								"Gas phase %d: moles of gas component %s not defined.",
 								gas_phase[i].n_user,
 								gas_phase[i].comps[j].name);
@@ -1194,7 +1194,7 @@ tidy_inverse(void)
 			if (inverse[i].elts[j].master == NULL)
 			{
 				input_error++;
-				sprintf(error_string, "No master species for element, %s.",
+				error_string = sformatf( "No master species for element, %s.",
 						inverse[i].elts[j].name);
 				error_msg(error_string, CONTINUE);
 				continue;
@@ -1240,7 +1240,7 @@ tidy_inverse(void)
 			if (inverse[i].phases[j].phase == NULL)
 			{
 				input_error++;
-				sprintf(error_string, "Could not find phase, %s.",
+				error_string = sformatf( "Could not find phase, %s.",
 						inverse[i].phases[j].name);
 				error_msg(error_string, CONTINUE);
 				continue;
@@ -1260,7 +1260,7 @@ tidy_inverse(void)
 					if (master_ptr == NULL)
 					{
 						input_error++;
-						sprintf(error_string,
+						error_string = sformatf(
 								"Element not found for isotope calculation: %s.",
 								inverse[i].phases[j].isotopes[k].elt_name);
 						error_msg(error_string, CONTINUE);
@@ -1269,7 +1269,7 @@ tidy_inverse(void)
 					if (master_ptr->primary != TRUE)
 					{
 						input_error++;
-						sprintf(error_string,
+						error_string = sformatf(
 								"Isotope ratio may only be used"
 								" for total element in phase.\n"
 								"Secondary species not allowed: %s.",
@@ -1293,7 +1293,7 @@ tidy_inverse(void)
 					if (elt_list_ptr == NULL)
 					{
 						input_error++;
-						sprintf(error_string,
+						error_string = sformatf(
 								"Element, %s,for which isotope ratio was defined is not found in phase, %s",
 								master_ptr->elt->name,
 								inverse[i].phases[j].phase->name);
@@ -1422,7 +1422,7 @@ tidy_inverse(void)
 			if (master_ptr == NULL)
 			{
 				input_error++;
-				sprintf(error_string, "Element not found, %s.",
+				error_string = sformatf( "Element not found, %s.",
 						inverse[i].elts[j].name);
 				error_msg(error_string, CONTINUE);
 				continue;
@@ -1451,7 +1451,7 @@ tidy_inverse(void)
 			if (master_ptr == NULL)
 			{
 				input_error++;
-				sprintf(error_string, "Element not found, %s.",
+				error_string = sformatf( "Element not found, %s.",
 						inverse[i].elts[j].name);
 				error_msg(error_string, CONTINUE);
 				continue;
@@ -1559,7 +1559,7 @@ tidy_phases(void)
 			if (check_eqn(FALSE) == ERROR)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Equation for phase %s does not balance.",
 						phases[i]->name);
 				error_msg(error_string, CONTINUE);
@@ -1596,7 +1596,7 @@ tidy_pp_assemblage(void)
 			if (phase_ptr == NULL)
 			{
 				input_error++;
-				sprintf(error_string, "Phase not found in data base, %s.",
+				error_string = sformatf( "Phase not found in data base, %s.",
 						pp_assemblage[i].pure_phases[j].name);
 				error_msg(error_string, CONTINUE);
 				continue;
@@ -1626,7 +1626,7 @@ tidy_pp_assemblage(void)
 					if (elt_list[l].elt->master == NULL)
 					{
 						input_error++;
-						sprintf(error_string,
+						error_string = sformatf(
 								"Element \"%s\" in alternative phase for \"%s\" in EQUILIBRIUM_PHASES not found in database.",
 								elt_list[l].elt->name,
 								pp_assemblage[i].pure_phases[j].name);
@@ -1694,7 +1694,7 @@ tidy_s_s_assemblage(void)
 				if (phase_ptr == NULL)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Phase not found in data base, %s, assemblage %d.",
 							s_s_assemblage[i].s_s[j].comps[k].name,
 							s_s_assemblage[i].n_user);
@@ -1711,7 +1711,7 @@ tidy_s_s_assemblage(void)
 				if (s_s_assemblage[i].s_s[j].comps[k].moles == NAN)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Moles of solid solution component not defined, %s, assemblage %d.",
 							s_s_assemblage[i].s_s[j].comps[k].name,
 							s_s_assemblage[i].n_user);
@@ -1994,7 +1994,7 @@ tidy_punch(void)
 			fpunchf_heading(sformatf("%*s\t", l, punch.totals[i].name));
 			if (punch.totals[i].master == NULL)
 			{
-				sprintf(error_string, "Did not find master species,"
+				error_string = sformatf( "Did not find master species,"
 						" %s.", punch.totals[i].name);
 				warning_msg(error_string);
 			}
@@ -2009,7 +2009,7 @@ tidy_punch(void)
 			fpunchf_heading(sformatf("%*s\t", l, token));
 			if (punch.molalities[i].s == NULL)
 			{
-				sprintf(error_string, "Did not find species,"
+				error_string = sformatf( "Did not find species,"
 						" %s.", punch.molalities[i].name);
 				warning_msg(error_string);
 			}
@@ -2024,7 +2024,7 @@ tidy_punch(void)
 			fpunchf_heading(sformatf("%*s\t", l, token));
 			if (punch.activities[i].s == NULL)
 			{
-				sprintf(error_string, "Did not find species, "
+				error_string = sformatf( "Did not find species, "
 						"%s.", punch.activities[i].name);
 				warning_msg(error_string);
 			}
@@ -2040,7 +2040,7 @@ tidy_punch(void)
 			fpunchf_heading(sformatf("%*s\t", l, token));
 			if (punch.pure_phases[i].phase == NULL)
 			{
-				sprintf(error_string, "Did not find phase, "
+				error_string = sformatf( "Did not find phase, "
 						"%s.", punch.pure_phases[i].name);
 				warning_msg(error_string);
 			}
@@ -2055,7 +2055,7 @@ tidy_punch(void)
 			fpunchf_heading(sformatf("%*s\t", l, token));
 			if (punch.si[i].phase == NULL)
 			{
-				sprintf(error_string, "Did not find phase, "
+				error_string = sformatf( "Did not find phase, "
 						"%s.", punch.si[i].name);
 				warning_msg(error_string);
 			}
@@ -2076,7 +2076,7 @@ tidy_punch(void)
 			fpunchf_heading(sformatf("%*s\t", l, token));
 			if (punch.gases[i].phase == NULL)
 			{
-				sprintf(error_string, "Did not find phase, "
+				error_string = sformatf( "Did not find phase, "
 						"%s.", punch.gases[i].name);
 				warning_msg(error_string);
 			}
@@ -2109,7 +2109,7 @@ tidy_punch(void)
 		{
 			if (isotope_ratio_search(punch.isotopes[i].name) == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Did not find isotope_ratio definition for "
 						"%s in -isotopes of SELECTED_OUTPUT.\n%s must be defined in ISOTOPE_RATIO data block.",
 						punch.isotopes[i].name, punch.isotopes[i].name);
@@ -2126,7 +2126,7 @@ tidy_punch(void)
 		{
 			if (calculate_value_search(punch.calculate_values[i].name) == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Did not find calculate_values definition for "
 						"%s in -calculate_values of SELECTED_OUTPUT.\n%s must be defined in CALCULATE_VALUES data block.",
 						punch.calculate_values[i].name,
@@ -2185,7 +2185,7 @@ tidy_species(void)
 			if (check_eqn(TRUE) == ERROR)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Equation for species %s does not balance.",
 						s[i]->name);
 				error_msg(error_string, CONTINUE);
@@ -2202,7 +2202,7 @@ tidy_species(void)
 				if (isupper((int) c))
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Element or valence name in SOLUTION_MASTER_SPECIES should include only one element, %s.",
 							master[i]->elt->name);
 					error_msg(error_string, CONTINUE);
@@ -2232,7 +2232,7 @@ tidy_species(void)
 			if (compute_gfw(master[i]->gfw_formula, &master[i]->gfw) == ERROR)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Calculating gfw for master species, %s, formula %s.",
 						master[i]->elt->name, master[i]->gfw_formula);
 				error_msg(error_string, CONTINUE);
@@ -2302,7 +2302,7 @@ tidy_species(void)
 		if (elements[i]->master == NULL)
 		{
 			input_error++;
-			sprintf(error_string, "No master species for element %s.",
+			error_string = sformatf( "No master species for element %s.",
 					elements[i]->name);
 			error_msg(error_string, CONTINUE);
 		}
@@ -2310,7 +2310,7 @@ tidy_species(void)
 		if (elements[i]->primary == NULL)
 		{
 			input_error++;
-			sprintf(error_string, "No master species for element %s.",
+			error_string = sformatf( "No master species for element %s.",
 					elements[i]->name);
 			error_msg(error_string, CONTINUE);
 		}
@@ -2327,7 +2327,7 @@ tidy_species(void)
 			if (master_ptr == NULL)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Every primary master species for a redox element\n"
 						"\tmust also be a secondary master species.\n"
 						"\tError in definitions related to %s .\n",
@@ -2338,7 +2338,7 @@ tidy_species(void)
 			else if (master_ptr->s->secondary == NULL)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Every primary master species for a redox element\n"
 						"\tmust also be a secondary master species.\n"
 						"\t%s is the primary master species for element %s.\n"
@@ -2389,7 +2389,7 @@ tidy_species(void)
 					else
 					{
 						input_error++;
-						sprintf(error_string,
+						error_string = sformatf(
 							"Element in -mole_balance %s not defined for species %s.\n", s[i]->mole_balance, s[i]->name);
 						error_msg(error_string, CONTINUE);
 						continue;
@@ -2445,7 +2445,7 @@ tidy_surface(void)
 				if (master_ptr == NULL)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Master species not in data base for %s, "
 							"skipping element.",
 							surface_ptr->comps[i].totals[j].elt->name);
@@ -2521,7 +2521,7 @@ tidy_surface(void)
 			if (surface_ptr->comps[i].master == NULL)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"No surface master species for surface component %s, ",
 						surface_ptr->comps[i].formula);
 				error_msg(error_string, CONTINUE);
@@ -2597,7 +2597,7 @@ tidy_solutions(void)
 				master_ptr = master_bsearch(token);
 				if (master_ptr == NULL)
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 							"Could not find element in database, %s.\n\tConcentration is set to zero.",
 							tot_ptr->description);
 					warning_msg(error_string);
@@ -2765,7 +2765,7 @@ tidy_isotopes(void)
 			if (master_ptr == NULL)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"In isotope calculation: element not defined: %s.",
 						solution_ptr->isotopes[i].elt_name);
 				error_msg(error_string, CONTINUE);
@@ -2821,7 +2821,7 @@ tidy_isotopes(void)
 				if (master_ptr == NULL)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"In isotope calculation: element not defined: %s.",
 							solution_ptr->isotopes[l].elt_name);
 					error_msg(error_string, CONTINUE);
@@ -2849,7 +2849,7 @@ tidy_isotopes(void)
 							solution_ptr->isotopes[l].ratio_uncertainty;
 						if (master[k]->isotope == TRUE)
 						{
-							sprintf(error_string,
+							error_string = sformatf(
 									"In isotope calculation: redefinition of isotope ratio for %s.",
 									solution_ptr->isotopes[l].elt_name);
 							error_msg(error_string, CONTINUE);
@@ -2867,7 +2867,7 @@ tidy_isotopes(void)
 						solution_ptr->isotopes[l].ratio_uncertainty;
 					if (master_ptr->isotope == TRUE)
 					{
-						sprintf(error_string,
+						error_string = sformatf(
 								"In isotope calculation: redefinition of isotope ratio for %s.",
 								solution_ptr->isotopes[l].elt_name);
 						error_msg(error_string, CONTINUE);
@@ -2888,7 +2888,7 @@ tidy_isotopes(void)
 					&& master[k]->isotope == FALSE)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Isotopic ratio not defined for element or valence state %g%s, using 0.",
 							(double) isotope_number, master[k]->elt->name);
 					warning_msg(error_string);
@@ -2974,7 +2974,7 @@ tidy_kin_exchange(void)
 				if (master_ptr == NULL)
 				{
 					input_error++;
-					sprintf(error_string, "Master species not in data "
+					error_string = sformatf( "Master species not in data "
 							"base for %s, skipping element.",
 							comp_ptr->totals[k].elt->name);
 					error_msg(error_string, CONTINUE);
@@ -2988,7 +2988,7 @@ tidy_kin_exchange(void)
 			if (comp_ptr->master == NULL)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Exchange formula does not contain an exchange master species, %s",
 						comp_ptr->formula);
 				error_msg(error_string, CONTINUE);
@@ -2999,7 +2999,7 @@ tidy_kin_exchange(void)
 			if ((kinetics_ptr = kinetics_bsearch(n, &k)) == NULL)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Kinetics %d must be defined to use exchange related to kinetic reaction, %s",
 						n, comp_ptr->formula);
 				error_msg(error_string, CONTINUE);
@@ -3017,7 +3017,7 @@ tidy_kin_exchange(void)
 			if (k == kinetics_ptr->count_comps)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Kinetic reaction, %s, related to exchanger, %s, not found in KINETICS %d",
 						comp_ptr->rate_name, comp_ptr->formula, n);
 				error_msg(error_string, CONTINUE);
@@ -3084,7 +3084,7 @@ tidy_min_exchange(void)
 				if (master_ptr == NULL)
 				{
 					input_error++;
-					sprintf(error_string, "Master species not in data "
+					error_string = sformatf( "Master species not in data "
 							"base for %s, skipping element.",
 							comp_ptr->totals[k].elt->name);
 					error_msg(error_string, CONTINUE);
@@ -3098,7 +3098,7 @@ tidy_min_exchange(void)
 			if (comp_ptr->master == NULL)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Exchange formula does not contain an exchange master species, %s",
 						comp_ptr->formula);
 				error_msg(error_string, CONTINUE);
@@ -3109,7 +3109,7 @@ tidy_min_exchange(void)
 			if ((pp_a_ptr = pp_assemblage_bsearch(n, &k)) == NULL)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Equilibrium_phases %d must be defined to use exchange related to mineral phase, %s",
 						n, comp_ptr->formula);
 				error_msg(error_string, CONTINUE);
@@ -3127,7 +3127,7 @@ tidy_min_exchange(void)
 			if (k == pp_a_ptr->count_comps)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Mineral, %s, related to exchanger, %s, not found in Equilibrium_Phases %d",
 						comp_ptr->phase_name, comp_ptr->formula, n);
 				error_msg(error_string, CONTINUE);
@@ -3163,7 +3163,7 @@ tidy_min_exchange(void)
 					&& elt_list[jj].coef < 0)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Stoichiometry of exchanger, %s * %g mol sites/mol phase,\n\tmust be a subset of the related phase %s, %s.",
 							comp_ptr->formula,
 							(double) comp_ptr->phase_proportion,
@@ -3217,7 +3217,7 @@ tidy_min_surface(void)
 				if (master_ptr == NULL)
 				{
 					input_error++;
-					sprintf(error_string, "Master species not in data "
+					error_string = sformatf( "Master species not in data "
 							"base for %s, skipping element.",
 							comp_ptr->totals[k].elt->name);
 					error_msg(error_string, CONTINUE);
@@ -3231,7 +3231,7 @@ tidy_min_surface(void)
 			if (comp_ptr->master == NULL)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Surface formula does not contain a surface master species, %s",
 						comp_ptr->formula);
 				error_msg(error_string, CONTINUE);
@@ -3242,7 +3242,7 @@ tidy_min_surface(void)
 			if ((pp_a_ptr = pp_assemblage_bsearch(n, &k)) == NULL)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Equilibrium_phases %d must be defined to use surface related to mineral phase, %s",
 						n, comp_ptr->formula);
 				error_msg(error_string, CONTINUE);
@@ -3260,7 +3260,7 @@ tidy_min_surface(void)
 			if (k == pp_a_ptr->count_comps)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Mineral, %s, related to surface, %s, not found in Equilibrium_Phases %d",
 						comp_ptr->phase_name, comp_ptr->formula, n);
 				error_msg(error_string, CONTINUE);
@@ -3269,7 +3269,7 @@ tidy_min_surface(void)
 			if (pp_a_ptr->pure_phases[k].phase == NULL)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Mineral, %s, related to surface, %s, not found in database.",
 						pp_a_ptr->pure_phases[k].name, comp_ptr->formula);
 				error_msg(error_string, CONTINUE);
@@ -3319,7 +3319,7 @@ tidy_min_surface(void)
 					if (surface[i].comps[jj].master->s->z != 0.0)
 					{
 						input_error++;
-						sprintf(error_string,
+						error_string = sformatf(
 								"Master species of surface, %s, must be uncharged if the number of sites is related to a phase.",
 								surface[i].comps[jj].master->s->name);
 						error_msg(error_string, CONTINUE);
@@ -3348,7 +3348,7 @@ tidy_min_surface(void)
 					&& elt_list[jj].elt->primary->s != s_h2o)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Element %s in sum of surface sites,\n"
 							"\tincluding %s * %g mol sites/mol phase,\n"
 							"\texceeds stoichiometry in the related phase %s, %s.",
@@ -3411,7 +3411,7 @@ tidy_kin_surface(void)
 				if (master_ptr == NULL)
 				{
 					input_error++;
-					sprintf(error_string, "Master species not in data "
+					error_string = sformatf( "Master species not in data "
 							"base for %s, skipping element.",
 							comp_ptr->totals[k].elt->name);
 					error_msg(error_string, CONTINUE);
@@ -3425,7 +3425,7 @@ tidy_kin_surface(void)
 			if (comp_ptr->master == NULL)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Surface formula does not contain a surface master species, %s",
 						comp_ptr->formula);
 				error_msg(error_string, CONTINUE);
@@ -3436,7 +3436,7 @@ tidy_kin_surface(void)
 			if ((kinetics_ptr = kinetics_bsearch(n, &k)) == NULL)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Kinetics %d must be defined to use surface related to kinetic reaction, %s",
 						n, comp_ptr->formula);
 				error_msg(error_string, CONTINUE);
@@ -3454,7 +3454,7 @@ tidy_kin_surface(void)
 			if (k == kinetics_ptr->count_comps)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Kinetic reaction, %s, related to surface, %s, not found in Kinetics %d",
 						comp_ptr->rate_name, comp_ptr->formula, n);
 				error_msg(error_string, CONTINUE);
@@ -3558,7 +3558,7 @@ tidy_kin_surface(void)
 					if (l == count_elts_kinetics)
 					{
 						input_error++;
-						sprintf(error_string,
+						error_string = sformatf(
 								"Stoichiometry of surface, %s * %g mol sites/mol reactant,\n\tmust be a subset of the formula defined for the related reactant %s.\n\tElement %s is not present in reactant formula.",
 								comp_ptr->formula,
 								(double) comp_ptr->phase_proportion,
@@ -3569,7 +3569,7 @@ tidy_kin_surface(void)
 							 fabs(elt_list_kinetics[l].coef))
 					{
 						input_error++;
-						sprintf(error_string,
+						error_string = sformatf(
 								"Stoichiometry of surface, %s * %g mol sites/mol reactant,\n\tmust be a subset of the formula defined for the related reactant %s.\n\tCoefficient of element %s in surface exceeds amount present in reactant formula.",
 								comp_ptr->formula,
 								(double) comp_ptr->phase_proportion,
@@ -3644,7 +3644,7 @@ s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 		}
 		if (print == TRUE)
 		{
-			sprintf(error_string, "Description of Solid Solution %s",
+			error_string = sformatf( "Description of Solid Solution %s",
 					s_s_ptr->name);
 			dup_print(error_string, TRUE);
 		}
@@ -4074,7 +4074,7 @@ slnq(int n, LDBLE * a, LDBLE * l_delta, int ncols, int print)
 	return (OK);
 
   slnq_error:{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Error: Singular matrix in subroutine slnq. \n");
 		warning_msg(error_string);
 	}
@@ -4212,7 +4212,7 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 	if (s_s_ptr->comps[0].phase == NULL || s_s_ptr->comps[1].phase == NULL)
 	{
 		input_error++;
-		sprintf(error_string,
+		error_string = sformatf(
 				"Two components were not defined for %s solid solution",
 				s_s_ptr->name);
 		error_msg(error_string, CONTINUE);
@@ -4266,7 +4266,7 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 			if (fabs(xbq2) < 0 || q2 <= 0)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"No solution possible for A0 and A1 calculation from two activity coefficients, %s.\n",
 						s_s_ptr->name);
 				error_msg(error_string, CONTINUE);
@@ -4301,7 +4301,7 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 		if (done == FALSE)
 		{
 			input_error++;
-			sprintf(error_string,
+			error_string = sformatf(
 					"No solution possible for A0 and A1 calculation from two activity coefficients, %s.\n",
 					s_s_ptr->name);
 			error_msg(error_string, CONTINUE);
@@ -4343,7 +4343,7 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 				if (fabs(x22 * x61 - x21 * x62) < tol)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"No solution possible for A0 and A1 calculation from two distribution coefficients, %s.\n",
 							s_s_ptr->name);
 					error_msg(error_string, CONTINUE);
@@ -4441,7 +4441,7 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 		if (fabs(alpha0) < tol)
 		{
 			input_error++;
-			sprintf(error_string,
+			error_string = sformatf(
 					"No solution possible for A0 and A1 calculation from alyotropic point, %s.\n",
 					s_s_ptr->name);
 			error_msg(error_string, CONTINUE);
@@ -4477,7 +4477,7 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 				if (fabs(fx1) < 1e-10)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Could not find A0 and A1 calculation from alyotropic point, %s.\n",
 							s_s_ptr->name);
 					error_msg(error_string, CONTINUE);
@@ -4492,7 +4492,7 @@ s_s_calc_a0_a1(struct s_s *s_s_ptr)
 			if (i == 50)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Too many iterations, could not find A0 and A1 calculation from alyotropic point, %s.\n",
 						s_s_ptr->name);
 				error_msg(error_string, CONTINUE);
@@ -4570,7 +4570,7 @@ tidy_master_isotope(void)
 			if (master_ptr == NULL)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Did not find master species for isotope, %s",
 						master_isotope[i]->name);
 				error_msg(error_string, CONTINUE);
@@ -4607,7 +4607,7 @@ tidy_isotope_ratios(void)
 		if (master_isotope_ptr == NULL)
 		{
 			input_error++;
-			sprintf(error_string,
+			error_string = sformatf(
 					"For ISOTOPE_RATIO %s, did not find ISOTOPE definition for this isotope, %s",
 					isotope_ratio[i]->name, isotope_ratio[i]->isotope_name);
 			error_msg(error_string, CONTINUE);
@@ -4616,7 +4616,7 @@ tidy_isotope_ratios(void)
 		if (master_ptr == NULL)
 		{
 			input_error++;
-			sprintf(error_string,
+			error_string = sformatf(
 					"For ISOTOPE_RATIO %s, did not find SOLUTION_MASTER_SPECIES for isotope, %s",
 					isotope_ratio[i]->name, isotope_ratio[i]->isotope_name);
 			error_msg(error_string, CONTINUE);
@@ -4625,7 +4625,7 @@ tidy_isotope_ratios(void)
 		if (calculate_value_ptr == NULL)
 		{
 			input_error++;
-			sprintf(error_string,
+			error_string = sformatf(
 					"For ISOTOPE_RATIOS %s, did not find corresponding CALCULATE_VALUE definition",
 					isotope_ratio[i]->name);
 			error_msg(error_string, CONTINUE);
@@ -4652,7 +4652,7 @@ tidy_isotope_alphas(void)
 		if (calculate_value_ptr == NULL)
 		{
 			input_error++;
-			sprintf(error_string,
+			error_string = sformatf(
 					"For ISOTOPE_ALPHAS %s, did not find corresponding CALCULATE_VALUE definition",
 					isotope_alpha[i]->name);
 			error_msg(error_string, CONTINUE);
@@ -4663,7 +4663,7 @@ tidy_isotope_alphas(void)
 			if (logk_ptr == NULL)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"For ISOTOPE_ALPHAS %s, did not find corresponding NAMED_EXPRESSION definition %s.",
 						isotope_alpha[i]->name, isotope_alpha[i]->named_logk);
 				error_msg(error_string, CONTINUE);
@@ -4742,7 +4742,7 @@ tidy_exchange(void)
 				if (master_ptr == NULL)
 				{
 					input_error++;
-					sprintf(error_string, "Master species not in data "
+					error_string = sformatf( "Master species not in data "
 							"base for %s, skipping element.",
 							comp_ptr->totals[k].elt->name);
 					error_msg(error_string, CONTINUE);

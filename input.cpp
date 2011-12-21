@@ -77,7 +77,7 @@ check_line_impl(const char *string, int allow_empty, int allow_eof,
 /* Check eof */
 	if (i == EOF && allow_eof == FALSE)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Unexpected eof while reading %s\nExecution terminated.\n",
 				string);
 		error_msg(error_string, STOP);
@@ -85,7 +85,7 @@ check_line_impl(const char *string, int allow_empty, int allow_eof,
 /* Check keyword */
 	if (i == KEYWORD && allow_keyword == FALSE)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Expected data for %s, but got a keyword ending data block.",
 				string);
 		error_msg(error_string, CONTINUE);
@@ -215,7 +215,7 @@ get_line(void)
 				if (!next_stream->is_open())
 				{
 					// error opening file
-					sprintf(error_string, "Could not open include file %s", file_name);
+					error_string = sformatf( "Could not open include file %s", file_name);
 					error_msg(error_string, STOP);
 				}
 				phrq_io->push_istream(next_stream);

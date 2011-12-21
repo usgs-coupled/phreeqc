@@ -103,7 +103,7 @@ sit_tidy(void)
 				 && sit_params[i]->ispec[j] == -1))
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Species for Pitzer parameter not defined in SOLUTION_SPECIES, %s",
 						sit_params[i]->species[j]);
 				error_msg(error_string, CONTINUE);
@@ -1000,7 +1000,7 @@ model_sit(void)
 			 */
 			if (iterations > itmax)
 			{
-				sprintf(error_string, "Maximum iterations exceeded, %d\n",
+				error_string = sformatf( "Maximum iterations exceeded, %d\n",
 						itmax);
 				warning_msg(error_string);
 				stop_program = TRUE;
@@ -1095,7 +1095,7 @@ model_sit(void)
 		gamma_iterations++;
 		if (gamma_iterations > itmax)
 		{
-			sprintf(error_string, "Maximum gamma iterations exceeded, %d\n",
+			error_string = sformatf( "Maximum gamma iterations exceeded, %d\n",
 					itmax);
 			warning_msg(error_string);
 			stop_program = TRUE;

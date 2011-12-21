@@ -22,7 +22,7 @@ advection(void)
 		if (solution_bsearch(i, &n, TRUE) == NULL)
 		{
 			input_error++;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Solution %d is needed for advection, but is not defined.",
 					i);
 			error_msg(error_string, CONTINUE);
@@ -39,7 +39,7 @@ advection(void)
 			if (kinetics_bsearch(i, &n) != NULL)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"KINETIC reaction(s) defined, but time_step is not defined in ADVECTION keyword.");
 				error_msg(error_string, CONTINUE);
 				break;

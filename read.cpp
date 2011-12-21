@@ -74,7 +74,7 @@ read_input(void)
 
 		if (i == EOF)
 			return (EOF);
-		sprintf(error_string,
+		error_string = sformatf(
 				"Unknown input, no keyword has been specified.");
 		warning_msg(error_string);
 	}
@@ -96,7 +96,7 @@ read_input(void)
 		switch (next_keyword)
 		{
 		case Keywords::KEY_NONE:				/* Have not read line with keyword */
-			sprintf(error_string, "Unknown input, no keyword has been specified.");
+			error_string = sformatf( "Unknown input, no keyword has been specified.");
 			warning_msg(error_string);
 			while ((j =	check_line("No keyword", FALSE, TRUE, TRUE, TRUE)) != KEYWORD && j != EOF)
 			{
@@ -438,7 +438,7 @@ read_conc(int n, int count_mass_balance, char *str)
 			   &(solution[n]->totals[count_mass_balance].input_conc));
 	if (j == 0)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Concentration data error for %s in solution input.", token1);
 		error_msg(error_string, CONTINUE);
 		return (ERROR);
@@ -618,7 +618,7 @@ read_exchange_species(void)
 		case 0:				/* no_check */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -630,7 +630,7 @@ read_exchange_species(void)
 		case 1:				/* check */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -644,7 +644,7 @@ read_exchange_species(void)
 		case 11:				/* mole_balance */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -672,7 +672,7 @@ read_exchange_species(void)
 		case 5:				/* logk */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -686,7 +686,7 @@ read_exchange_species(void)
 		case 7:				/* deltah */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -702,7 +702,7 @@ read_exchange_species(void)
 		case 10:				/* ae */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -715,7 +715,7 @@ read_exchange_species(void)
 		case 12:				/* gamma */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -728,7 +728,7 @@ read_exchange_species(void)
 					   &s_ptr->dhb, &s_ptr->a_f);
 			if (i < 2)
 			{
-				sprintf(error_string, "Expecting 2 activity-"
+				error_string = sformatf( "Expecting 2 activity-"
 						"coefficient parameters, a and b.");
 				warning_msg(error_string);
 			}
@@ -742,7 +742,7 @@ read_exchange_species(void)
 		case 13:				/* davies */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -757,7 +757,7 @@ read_exchange_species(void)
 		case 14:				/* offset */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -774,7 +774,7 @@ read_exchange_species(void)
 		case 15:				/* llnl_gamma */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -785,7 +785,7 @@ read_exchange_species(void)
 			i = sscanf(next_char, SCANFORMAT, &s_ptr->dha);
 			if (i < 1)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expecting activity-coefficient parameter, a.");
 				warning_msg(error_string);
 			}
@@ -795,7 +795,7 @@ read_exchange_species(void)
 		case 17:				/* add_log_k */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -828,7 +828,7 @@ read_exchange_species(void)
 			if (copy_token(token, &next_char, &i) == EMPTY)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected the name of a NAMED_EXPRESSION.");
 				error_msg(error_string, CONTINUE);
 				break;
@@ -847,7 +847,7 @@ read_exchange_species(void)
 		case 18:				/* add_constant */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -881,7 +881,7 @@ read_exchange_species(void)
 			if (i <= 0)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected the constant to add for log_K definition.");
 				error_msg(error_string, CONTINUE);
 				break;
@@ -898,7 +898,7 @@ read_exchange_species(void)
 		case 21:            /* vm, molar volume */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 					"No reaction defined before option, %s.",
 				opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -998,7 +998,7 @@ read_exchange_species(void)
 			if (phase_ptr == NULL)
 			{
 				input_error++;
-				sprintf(error_string, "Copying exchange to phases.");
+				error_string = sformatf( "Copying exchange to phases.");
 				error_msg(error_string, CONTINUE);
 			}
 			phase_ptr->formula = s_ptr->name;
@@ -1164,7 +1164,7 @@ read_exchange(void)
 			 */
 			if (i != UPPER && token[0] != '[')
 			{ /* maybe a bit more clear? */
-				sprintf(error_string,
+				error_string = sformatf(
 					"Expected exchanger name to begin with a capital letter, but found:\n %s",
 					line_save);
 				error_msg(error_string, CONTINUE);
@@ -1183,7 +1183,7 @@ read_exchange(void)
 				/* exchanger conc. is read directly .. */
 				if (sscanf(token1, SCANFORMAT, &conc) < 1)
 				{
-				sprintf(error_string,
+				error_string = sformatf(
 					"Expected concentration of exchanger, but found:\n %s",
 					line_save);
 					error_msg(error_string, CONTINUE);
@@ -1198,7 +1198,7 @@ read_exchange(void)
 						string_hsave(token1);
 					if (copy_token(token1, &ptr, &l) != DIGIT)
 					{
-						sprintf(error_string,
+						error_string = sformatf(
 							"Expected a coefficient to relate exchange to kinetic reaction, but found:\n %s",
 							prev_next_char);
 						error_msg(error_string, CONTINUE);
@@ -1240,7 +1240,7 @@ read_exchange(void)
 					}
 					else
 					{
-						sprintf(error_string,
+						error_string = sformatf(
 							"Character string expected to be 'equilibrium_phase' or 'kinetics'\n to relate exchange to mineral or kinetic reaction, but found:\n %s",
 							prev_next_char);
 						error_msg(error_string, CONTINUE);
@@ -1254,7 +1254,7 @@ read_exchange(void)
 
 				if (j != DIGIT)
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 						"Expected a coefficient to relate exchanger to mineral or kinetic reaction, but found:\n %s",
 						prev_next_char);
 					error_msg(error_string, CONTINUE);
@@ -2103,7 +2103,7 @@ read_inv_phases(struct inverse *inverse_ptr, char *ptr)
 			get_num(&ptr1, &(isotopes[count_isotopes].isotope_number));
 			if (ptr1[0] == '\0' || isupper((int) ptr1[0]) == FALSE)
 			{
-				sprintf(error_string, "Expecting element name: %s.", ptr1);
+				error_string = sformatf( "Expecting element name: %s.", ptr1);
 				error_msg(error_string, CONTINUE);
 				error_msg(line_save, CONTINUE);
 				input_error++;
@@ -2129,7 +2129,7 @@ read_inv_phases(struct inverse *inverse_ptr, char *ptr)
 			if (copy_token(token, &ptr, &l) != DIGIT)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 					"Expected numeric value for uncertainty in isotope ratio, but found:\n %s",
 					prev_next_char);
 				error_msg(error_string, CONTINUE);
@@ -2142,7 +2142,7 @@ read_inv_phases(struct inverse *inverse_ptr, char *ptr)
 		}
 		else
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Unknown option for inverse modeling phase.");
 			warning_msg(error_string);
 		}
@@ -2314,7 +2314,7 @@ read_kinetics(void)
 		case 0:				/* tolerance */
 			if (kinetics_comp_ptr == NULL)
 			{
-				sprintf(error_string, "No rate name has been defined.");
+				error_string = sformatf( "No rate name has been defined.");
 				error_msg(error_string, CONTINUE);
 				input_error++;
 			}
@@ -2327,7 +2327,7 @@ read_kinetics(void)
 				}
 				else
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 						"Expecting numerical value for tolerance, but found:\n %s",
 						prev_next_char);
 					error_msg(error_string, CONTINUE);
@@ -2338,7 +2338,7 @@ read_kinetics(void)
 		case 1:				/* m */
 			if (kinetics_comp_ptr == NULL)
 			{
-				sprintf(error_string, "No rate name has been defined.");
+				error_string = sformatf( "No rate name has been defined.");
 				error_msg(error_string, CONTINUE);
 				input_error++;
 			}
@@ -2351,7 +2351,7 @@ read_kinetics(void)
 				}
 				else
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 						"Expecting numerical value for moles of reactant (m), but found:\n %s",
 						prev_next_char);
 					error_msg(error_string, CONTINUE);
@@ -2362,7 +2362,7 @@ read_kinetics(void)
 		case 2:				/* m0 */
 			if (kinetics_comp_ptr == NULL)
 			{
-				sprintf(error_string, "No rate name has been defined.");
+				error_string = sformatf( "No rate name has been defined.");
 				error_msg(error_string, CONTINUE);
 				input_error++;
 			}
@@ -2375,7 +2375,7 @@ read_kinetics(void)
 				}
 				else
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 					"Expecting numerical value for initial moles of reactant (m0), but found:\n %s",
 					prev_next_char);
 				error_msg(error_string, CONTINUE);
@@ -2387,7 +2387,7 @@ read_kinetics(void)
 		case 7:				/* parameters */
 			if (kinetics_comp_ptr == NULL)
 			{
-				sprintf(error_string, "No rate name has been defined.");
+				error_string = sformatf( "No rate name has been defined.");
 				error_msg(error_string, CONTINUE);
 				input_error++;
 			}
@@ -2439,7 +2439,7 @@ read_kinetics(void)
 		case 4:				/* formula */
 			if (kinetics_comp_ptr == NULL)
 			{
-				sprintf(error_string, "No rate name has been defined.");
+				error_string = sformatf( "No rate name has been defined.");
 				error_msg(error_string, CONTINUE);
 				input_error++;
 			}
@@ -2579,7 +2579,7 @@ read_kinetics(void)
 			}
 			else
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expecting numerical value for step_divide.");
 				error_msg(error_string, CONTINUE);
 				input_error++;
@@ -2598,7 +2598,7 @@ read_kinetics(void)
 			}
 			else
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expecting order for Runge-Kutta method.");
 				error_msg(error_string, CONTINUE);
 				input_error++;
@@ -2615,7 +2615,7 @@ read_kinetics(void)
 			}
 			else
 			{
-				sprintf(error_string, "Expecting maximal bad steps number.");
+				error_string = sformatf( "Expecting maximal bad steps number.");
 				error_msg(error_string, CONTINUE);
 				input_error++;
 			}
@@ -2634,7 +2634,7 @@ read_kinetics(void)
 			}
 			else
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expecting maximum number of steps for one call to cvode.");
 				error_msg(error_string, CONTINUE);
 				input_error++;
@@ -2651,7 +2651,7 @@ read_kinetics(void)
 			}
 			else
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expecting number of terms (order) used in cvode (1-5).");
 				error_msg(error_string, CONTINUE);
 				input_error++;
@@ -3339,7 +3339,7 @@ read_incremental_reactions(void)
 		/* empty, eof, keyword, print */
 		if (j == EOF)
 			return (EOF);
-		sprintf(error_string, "Unknown input: %s", line);
+		error_string = sformatf( "Unknown input: %s", line);
 		error_msg(error_string, CONTINUE);
 		input_error++;
 	}
@@ -3446,13 +3446,13 @@ read_master_species(void)
 			input_error++;
 			if (elts_ptr != NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected alkalinity for master species, %s, in master species input.",
 						elts_ptr->name);
 			}
 			else
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected alkalinity for master species in master species input.");
 			}
 			error_msg(error_string, CONTINUE);
@@ -3475,13 +3475,13 @@ read_master_species(void)
 			input_error++;
 			if (elts_ptr != NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected gram formula weight for master species, %s, in master species input.",
 						elts_ptr->name);
 			}
 			else
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected gram formula weight for master species in master species input.");
 			}
 			error_msg(error_string, CONTINUE);
@@ -3507,13 +3507,13 @@ read_master_species(void)
 					input_error++;
 					if (elts_ptr != NULL)
 					{
-						sprintf(error_string,
+						error_string = sformatf(
 								"Expected gram formula weight for element, %s.",
 								elts_ptr->name);
 					}
 					else
 					{
-						sprintf(error_string,
+						error_string = sformatf(
 								"Expected gram formula weight for element.");
 					}
 
@@ -3687,7 +3687,7 @@ read_number_description(char *ptr, int *n_user,
 	if (copy_token(token, &ptr, &l) != DIGIT)
 	{
 /*
-		sprintf(error_string, "No number given with %s keyword, "
+		error_string = sformatf( "No number given with %s keyword, "
 			"%s 1 assumed.", str, str);
 			warning_msg(error_string);
  */
@@ -3702,12 +3702,12 @@ read_number_description(char *ptr, int *n_user,
 		{
 			if (next_keyword >= 0)
 			{
-				sprintf(error_string, "Reading number range for %s.",
+				error_string = sformatf( "Reading number range for %s.",
 						keyword[next_keyword].name);
 			}
 			else
 			{
-				sprintf(error_string, "Reading number range for keyword.");
+				error_string = sformatf( "Reading number range for keyword.");
 			}
 			error_msg(error_string, CONTINUE);
 			input_error++;
@@ -3758,11 +3758,11 @@ read_number_description(char *ptr, int *n_user,
 			{
 				if (next_keyword >= 0)
 				{
-					sprintf(error_string, "Reading number range for %s.", Keywords::Keyword_name_search(next_keyword).c_str());
+					error_string = sformatf( "Reading number range for %s.", Keywords::Keyword_name_search(next_keyword).c_str());
 				}
 				else
 				{
-					sprintf(error_string, "Reading number range for keyword.");
+					error_string = sformatf( "Reading number range for keyword.");
 				}
 				error_msg(error_string, CONTINUE);
 				input_error++;
@@ -3776,11 +3776,11 @@ read_number_description(char *ptr, int *n_user,
 			{
 				if (next_keyword >= 0)
 				{
-					sprintf(error_string, "Reading number range for %s.", Keywords::Keyword_name_search(next_keyword).c_str());
+					error_string = sformatf( "Reading number range for %s.", Keywords::Keyword_name_search(next_keyword).c_str());
 				}
 				else
 				{
-					sprintf(error_string, "Reading number range for keyword.");
+					error_string = sformatf( "Reading number range for keyword.");
 				}
 				error_msg(error_string, CONTINUE);
 				input_error++;
@@ -3791,7 +3791,7 @@ read_number_description(char *ptr, int *n_user,
 	}
 	if (*n_user < 0 && allow_negative == FALSE)
 	{
-		sprintf(error_string, "Negative number in number range not allowed for keyword.");
+		error_string = sformatf( "Negative number in number range not allowed for keyword.");
 		error_msg(error_string, CONTINUE);
 		input_error++;
 	}
@@ -3934,7 +3934,7 @@ read_phases(void)
 			if (copy_token(token, &next_char, &i) == EMPTY)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected the name of a NAMED_EXPRESSION.");
 				error_msg(error_string, CONTINUE);
 				break;
@@ -3981,7 +3981,7 @@ read_phases(void)
 			if (i <= 0)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected the constant to add for log_K definition.");
 				error_msg(error_string, CONTINUE);
 				break;
@@ -4614,7 +4614,7 @@ read_reaction_steps(struct irrev *irrev_ptr)
 		replace("/l", "", token1);
 		if (strstr(token1, "Mol") == NULL)
 		{
-			sprintf(error_string, "Units of steps not in moles, %s.", token);
+			error_string = sformatf( "Units of steps not in moles, %s.", token);
 			error_msg(error_string, CONTINUE);
 			input_error++;
 			return (ERROR);
@@ -4707,7 +4707,7 @@ read_save(void)
 		}
 		else if (i == EMPTY)
 		{
-			sprintf(error_string, "No number given, 1 assumed.");
+			error_string = sformatf( "No number given, 1 assumed.");
 			warning_msg(error_string);
 			n_user = 1;
 			n_user_end = 1;
@@ -4876,7 +4876,7 @@ read_selected_output(void)
 				punch_close();
 				if (punch_open(file_name) != OK)
 				{
-					sprintf(error_string, "Can't open file, %s.", file_name);
+					error_string = sformatf( "Can't open file, %s.", file_name);
 					input_error++;
 					error_msg(error_string, CONTINUE);
 				}
@@ -4888,7 +4888,7 @@ read_selected_output(void)
 			{
 				if (i != UPPER && token[0] != '[')
 				{
-					sprintf(error_string, "Expected element name to"
+					error_string = sformatf( "Expected element name to"
 							" begin with upper case letter.");
 					warning_msg(error_string);
 				}
@@ -4914,7 +4914,7 @@ read_selected_output(void)
 			{
 				if (i != UPPER && token[0] != '(' && (token[0] != '['))
 				{
-					sprintf(error_string, "Expected species name to"
+					error_string = sformatf( "Expected species name to"
 							" begin with upper case letter.");
 					warning_msg(error_string);
 				}
@@ -4941,7 +4941,7 @@ read_selected_output(void)
 			{
 				if (i != UPPER && token[0] != '(' && (token[0] != '['))
 				{
-					sprintf(error_string, "Expected species name to"
+					error_string = sformatf( "Expected species name to"
 							" begin with upper case letter.");
 					warning_msg(error_string);
 				}
@@ -5057,7 +5057,7 @@ read_selected_output(void)
 			{
 				if (i != UPPER && token[0] != '[')
 				{
-					sprintf(error_string, "Expected element name to"
+					error_string = sformatf( "Expected element name to"
 							" begin with upper case letter.");
 					warning_msg(error_string);
 				}
@@ -5189,7 +5189,7 @@ read_selected_output(void)
 		punch_close();
 		if (punch_open("selected.out") != OK)
 		{
-			sprintf(error_string, "Can't open file, %s.", "selected.out");
+			error_string = sformatf( "Can't open file, %s.", "selected.out");
 			input_error++;
 			error_msg(error_string, CONTINUE);
 		}
@@ -5394,7 +5394,7 @@ read_solution(void)
 			if (copy_token(token, &next_char, &l) != DIGIT)
 			{
 				input_error++;
-				sprintf(error_string, "Expected isotope name to"
+				error_string = sformatf( "Expected isotope name to"
 						" begin with an isotopic number.");
 				error_msg(error_string, CONTINUE);
 				continue;
@@ -5425,7 +5425,7 @@ read_solution(void)
 			if (copy_token(token, &next_char, &l) != DIGIT)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected numeric value for isotope ratio.");
 				error_msg(error_string, CONTINUE);
 				continue;
@@ -5441,7 +5441,7 @@ read_solution(void)
 				if (j != DIGIT)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Expected numeric value for uncertainty in isotope ratio.");
 					error_msg(error_string, CONTINUE);
 					continue;
@@ -5461,7 +5461,7 @@ read_solution(void)
 			else if (j != DIGIT)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected numeric value for mass of water in solution.");
 				error_msg(error_string, CONTINUE);
 			}
@@ -5618,7 +5618,7 @@ read_species(void)
 		case 0:				/* no_check */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -5630,7 +5630,7 @@ read_species(void)
 		case 1:				/* check */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -5642,7 +5642,7 @@ read_species(void)
 		case 2:				/* gamma data */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -5654,7 +5654,7 @@ read_species(void)
 					   &s_ptr->dhb);
 			if (i < 2)
 			{
-				sprintf(error_string, "Expecting 2 activity-"
+				error_string = sformatf( "Expecting 2 activity-"
 						"coefficient parameters, a and b.");
 				warning_msg(error_string);
 			}
@@ -5665,7 +5665,7 @@ read_species(void)
 		case 12:				/* mole_balance */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -5693,7 +5693,7 @@ read_species(void)
 		case 6:				/* logk */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -5707,7 +5707,7 @@ read_species(void)
 		case 8:				/* deltah */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -5723,7 +5723,7 @@ read_species(void)
 		case 11:				/* ae */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -5736,7 +5736,7 @@ read_species(void)
 		case 13:				/* llnl_gamma */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -5747,7 +5747,7 @@ read_species(void)
 			i = sscanf(next_char, SCANFORMAT, &s_ptr->dha);
 			if (i < 1)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expecting activity-coefficient parameter, a.");
 				warning_msg(error_string);
 			}
@@ -5756,7 +5756,7 @@ read_species(void)
 		case 14:				/* co2_llnl_gamma */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -5769,7 +5769,7 @@ read_species(void)
 		case 15:				/* activity water */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -5783,7 +5783,7 @@ read_species(void)
 		case 17:				/* add_log_k */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -5816,7 +5816,7 @@ read_species(void)
 			if (copy_token(token, &next_char, &i) == EMPTY)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected the name of a NAMED_EXPRESSION.");
 				error_msg(error_string, CONTINUE);
 				break;
@@ -5835,7 +5835,7 @@ read_species(void)
 		case 18:				/* add_constant */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -5869,7 +5869,7 @@ read_species(void)
 			if (i <= 0)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected the constant to add for log_K definition.");
 				error_msg(error_string, CONTINUE);
 				break;
@@ -5884,7 +5884,7 @@ read_species(void)
 		case 19:				/* tracer diffusion coefficient */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -5897,7 +5897,7 @@ read_species(void)
 		case 20:				/* enrichment factor in the DDL */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -5907,7 +5907,7 @@ read_species(void)
 			i = sscanf(next_char, SCANFORMAT, &s_ptr->erm_ddl);
 			if (s_ptr->erm_ddl < 0)
 			{
-				sprintf(error_string, "Expecting enrichment factor > 0, "
+				error_string = sformatf( "Expecting enrichment factor > 0, "
 						"resetting to erm_ddl = 1.");
 				warning_msg(error_string);
 				s_ptr->erm_ddl = 1.0;
@@ -5918,7 +5918,7 @@ read_species(void)
 		case 21:			/* Millero a, b, c, d, e and f coefficients */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -5941,7 +5941,7 @@ read_species(void)
 		case 24:            /* vm, molar volume */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 					"No reaction defined before option, %s.",
 				opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -6129,14 +6129,14 @@ read_use(void)
 			}
 			if (strstr(token, "-") != NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"USE does not accept a range of numbers, %s.", token);
 				warning_msg(error_string);
-				sprintf(error_string,
+				error_string = sformatf(
 						"Only %s %d will be used in the batch-reaction calculation.",
 						token1, n_user);
 				warning_msg(error_string);
-				sprintf(error_string,
+				error_string = sformatf(
 						"NOTE--USE is not needed for ADVECTION and TRANSPORT calculations.");
 				warning_msg(error_string);
 
@@ -6145,7 +6145,7 @@ read_use(void)
 		}
 		else if (i == EMPTY)
 		{
-			sprintf(error_string, "No number given, 1 assumed.");
+			error_string = sformatf( "No number given, 1 assumed.");
 			warning_msg(error_string);
 			n_user = 1;
 			break;
@@ -6365,7 +6365,7 @@ read_surface_species(void)
 		case 0:				/* no_check */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -6377,7 +6377,7 @@ read_surface_species(void)
 		case 1:				/* check */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -6391,7 +6391,7 @@ read_surface_species(void)
 		case 11:				/* mole_balance */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -6419,7 +6419,7 @@ read_surface_species(void)
 		case 5:				/* logk */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -6433,7 +6433,7 @@ read_surface_species(void)
 		case 7:				/* deltah */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -6449,7 +6449,7 @@ read_surface_species(void)
 		case 10:				/* ae */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -6462,7 +6462,7 @@ read_surface_species(void)
 		case 12:				/* offset */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -6480,7 +6480,7 @@ read_surface_species(void)
 		case 14:				/* add_log_k */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -6513,7 +6513,7 @@ read_surface_species(void)
 			if (copy_token(token, &next_char, &i) == EMPTY)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected the name of a NAMED_EXPRESSION.");
 				error_msg(error_string, CONTINUE);
 				break;
@@ -6532,7 +6532,7 @@ read_surface_species(void)
 		case 15:				/* add_constant */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -6566,7 +6566,7 @@ read_surface_species(void)
 			if (i <= 0)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected the constant to add for log_K definition.");
 				error_msg(error_string, CONTINUE);
 				break;
@@ -6582,7 +6582,7 @@ read_surface_species(void)
 		case 17:				/* music */
 			if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -6610,7 +6610,7 @@ read_surface_species(void)
 		case 20:            /* vm, molar volume */
 		if (s_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 					"No reaction defined before option, %s.",
 				opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -7350,7 +7350,7 @@ read_surf(void)
 			if (surface[n].charge[i].grams *
 				surface[n].charge[i].specific_area <= 0)
 			{
-				sprintf(error_string, "Surface area not defined for %s.\n",
+				error_string = sformatf( "Surface area not defined for %s.\n",
 						surface[n].charge[i].name);
 				error_msg(error_string, CONTINUE);
 				input_error++;
@@ -7362,7 +7362,7 @@ read_surf(void)
 	 */
 	if (surface[n].type == UNKNOWN_DL)
 	{
-		sprintf(error_string, "Unknown surface type.\n");
+		error_string = sformatf( "Unknown surface type.\n");
 		error_msg(error_string, CONTINUE);
 		input_error++;
 	}
@@ -7370,7 +7370,7 @@ read_surf(void)
 	{
 		if (surface[n].dl_type != NO_DL)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"No electrostatic term calculations do not allow calculation of the diffuse layer composition.\n");
 			warning_msg(error_string);
 			surface[n].dl_type = NO_DL;
@@ -7384,7 +7384,7 @@ read_surf(void)
 	{
 		if (surface[n].dl_type == BORKOVEK_DL)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Borkovec and Westall diffuse layer calculation is not allowed with a CD_MUSIC surface.\n\tUsing Donnan diffuse layer calculation.");
 			warning_msg(error_string);
 			surface[n].dl_type = DONNAN_DL;
@@ -7947,7 +7947,7 @@ read_advection(void)
 			opt_save = OPTION_DEFAULT;
 			if (punch_ad_modulus <= 0)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Punch frequency must be greater than 0. Frequency set to 1000.");
 				warning_msg(error_string);
 				punch_ad_modulus = 1000;
@@ -7974,7 +7974,7 @@ read_advection(void)
 			opt_save = OPTION_DEFAULT;
 			if (print_ad_modulus <= 0)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Print frequency must be greater than 0. Frequency set to 1000.");
 				warning_msg(error_string);
 				print_ad_modulus = 1000;
@@ -8008,7 +8008,7 @@ read_advection(void)
 		{
 			if (punch_temp[i] > count_ad_cells || punch_temp[i] < 1)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Cell number for punch is out of range, %d. Request ignored.",
 						punch_temp[i]);
 				warning_msg(error_string);
@@ -8041,7 +8041,7 @@ read_advection(void)
 		{
 			if (print_temp[i] > count_ad_cells || print_temp[i] < 1)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Cell number for print is out of range, %d. Request ignored.",
 						print_temp[i]);
 				warning_msg(error_string);
@@ -8588,7 +8588,7 @@ check_units(char *tot_units, int alkalinity, int check_compatibility,
 	{
 		if (print == TRUE)
 		{
-			sprintf(error_string, "Unknown unit, %s.", tot_units);
+			error_string = sformatf( "Unknown unit, %s.", tot_units);
 			error_msg(error_string, CONTINUE);
 		}
 		return (ERROR);
@@ -8606,7 +8606,7 @@ check_units(char *tot_units, int alkalinity, int check_compatibility,
 	{
 		if (print == TRUE)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Alkalinity given in moles, assumed to be equivalents.");
 			warning_msg(error_string);
 		}
@@ -8642,7 +8642,7 @@ check_units(char *tot_units, int alkalinity, int check_compatibility,
 	replace("Mol", "mol", tot_units);
 	if (print == TRUE)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Units for master species, %s, are not compatible with default units, %s.",
 				tot_units, string);
 		error_msg(error_string, CONTINUE);
@@ -8907,7 +8907,7 @@ read_rates(void)
 			if (rate_ptr == NULL)
 			{
 				input_error++;
-				sprintf(error_string, "No rate name has been defined.");
+				error_string = sformatf( "No rate name has been defined.");
 				error_msg(error_string, CONTINUE);
 				opt_save = OPT_1;
 				break;
@@ -9255,7 +9255,7 @@ read_user_graph(void)
 				{
 					input_error++;
 					copy_token(token, &prev_next_char, &l);
-					sprintf(error_string,
+					error_string = sformatf(
 						"Found '%s', but expect axis type \'x\', \'y\', or \'sy\'.", token);
 					error_msg(error_string, CONTINUE);
 				}
@@ -9269,7 +9269,7 @@ read_user_graph(void)
 					{
 						input_error++;
 						copy_token(token, &prev_next_char, &l);
-						sprintf(error_string,
+						error_string = sformatf(
 						"Found '%s', but expect number or 'a(uto)'.", token);
 						error_msg(error_string, CONTINUE);
 					}
@@ -9282,7 +9282,7 @@ read_user_graph(void)
 							f_max = (float) atof(token);
 							if (f_min > f_max)
 							{
-								sprintf(error_string,
+								error_string = sformatf(
 								"Maximum must be larger than minimum of axis_scale, interchanging both for %s axis", axis);
 								warning_msg(error_string);
 								SetAxisScale(axis, 0, token, FALSE);
@@ -9314,7 +9314,7 @@ read_user_graph(void)
 			{
 				input_error++;
 				copy_token(token, &prev_next_char, &l);
-				sprintf(error_string,
+				error_string = sformatf(
 						"Found '%s', but expect plot type: (\'x\' or \'dist\') for distance, (\'t\') for time.",
 						token);
 					error_msg(error_string, CONTINUE);
@@ -9347,7 +9347,7 @@ read_user_graph(void)
 			strcpy(file_name, next_char);
 			if (!OpenCSVFile(file_name))
 			{
-				sprintf(error_string, "Can't open file, %s. Give the full path + name, or copy the file to the working directory.", file_name);
+				error_string = sformatf( "Can't open file, %s. Give the full path + name, or copy the file to the working directory.", file_name);
 				input_error++;
 				error_msg(error_string, CONTINUE);
 			}
@@ -9589,7 +9589,7 @@ read_solid_solutions(void)
 			}
 			if (j != 4)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected 4 parameters to calculate a0 and a1 from two activity coefficients, assemblage %d, solid solution %s",
 						s_s_assemblage[n].n_user,
 						s_s_assemblage[n].s_s[number_s_s].name);
@@ -9611,7 +9611,7 @@ read_solid_solutions(void)
 			}
 			if (j != 4)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected 4 parameters to calculate a0 and a1 from two distribution coefficients, assemblage %d, solid solution %s",
 						s_s_assemblage[n].n_user,
 						s_s_assemblage[n].s_s[number_s_s].name);
@@ -9633,7 +9633,7 @@ read_solid_solutions(void)
 			}
 			if (j != 2)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected 2 miscibility gap fractions of component 2 to calculate a0 and a1, assemblage %d, solid solution %s",
 						s_s_assemblage[n].n_user,
 						s_s_assemblage[n].s_s[number_s_s].name);
@@ -9655,7 +9655,7 @@ read_solid_solutions(void)
 			}
 			if (j != 2)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected 2 spinodal gap fractions of component 2 to calculate a0 and a1, assemblage %d, solid solution %s",
 						s_s_assemblage[n].n_user,
 						s_s_assemblage[n].s_s[number_s_s].name);
@@ -9677,7 +9677,7 @@ read_solid_solutions(void)
 			}
 			if (j != 2)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected fraction of component 2 and critical temperature to calculate a0 and a1, assemblage %d, solid solution %s",
 						s_s_assemblage[n].n_user,
 						s_s_assemblage[n].s_s[number_s_s].name);
@@ -9699,7 +9699,7 @@ read_solid_solutions(void)
 			}
 			if (j != 2)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected fraction of component 2 and sigma pi at alyotropic point to calculate a0 and a1, assemblage %d, solid solution %s",
 						s_s_assemblage[n].n_user,
 						s_s_assemblage[n].s_s[number_s_s].name);
@@ -9718,7 +9718,7 @@ read_solid_solutions(void)
 			}
 			if (j != 1)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected temperature (Kelvin) for parameters, assemblage %d, solid solution %s, using 298.15 K",
 						s_s_assemblage[n].n_user,
 						s_s_assemblage[n].s_s[number_s_s].name);
@@ -9737,7 +9737,7 @@ read_solid_solutions(void)
 			}
 			if (j != 1)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected temperature (Celcius) for parameters, assemblage %d, solid solution %s, using 25 C",
 						s_s_assemblage[n].n_user,
 						s_s_assemblage[n].s_s[number_s_s].name);
@@ -9759,7 +9759,7 @@ read_solid_solutions(void)
 			}
 			if (j != 2)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected Wg2 and Wg1 Thompson-Waldbaum parameters to calculate a0 and a1, assemblage %d, solid solution %s",
 						s_s_assemblage[n].n_user,
 						s_s_assemblage[n].s_s[number_s_s].name);
@@ -9781,7 +9781,7 @@ read_solid_solutions(void)
 			}
 			if (j != 2)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected alpha2 and alpha3 Margules parameters to calculate a0 and a1, assemblage %d, solid solution %s",
 						s_s_assemblage[n].n_user,
 						s_s_assemblage[n].s_s[number_s_s].name);
@@ -9935,7 +9935,7 @@ read_solid_solutions(void)
 		{
 			if (s_s_assemblage[n].s_s[number_s_s].count_comps != 2)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Solid solution, %s, is nonideal. Must define exactly two components (-comp1 and -comp2).",
 						s_s_assemblage[n].s_s[number_s_s].name);
 				error_msg(error_string, CONTINUE);
@@ -10358,7 +10358,7 @@ read_named_logk(void)
 		case 1:				/* logk */
 			if (logk_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -10373,7 +10373,7 @@ read_named_logk(void)
 		case 3:				/* deltah */
 			if (logk_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -10390,7 +10390,7 @@ read_named_logk(void)
 		case 6:				/* ae */
 			if (logk_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -10404,7 +10404,7 @@ read_named_logk(void)
 		case 7:				/* ln_alpha1000 */
 			if (logk_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -10422,7 +10422,7 @@ read_named_logk(void)
 			}
 			if (empty == FALSE)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Analytical expression previously defined for %s in NAMED_EXPRESSIONS\nAnalytical expression will be overwritten.",
 						logk_ptr->name);
 				warning_msg(error_string);
@@ -10439,7 +10439,7 @@ read_named_logk(void)
 		case 9:				/* add_log_k */
 			if (logk_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"No reaction defined before option, %s.",
 						opt_list[opt]);
 				error_msg(error_string, CONTINUE);
@@ -10472,7 +10472,7 @@ read_named_logk(void)
 			if (copy_token(token, &next_char, &i) == EMPTY)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected the name of a NAMED_EXPRESSION.");
 				error_msg(error_string, CONTINUE);
 				break;
@@ -10494,7 +10494,7 @@ read_named_logk(void)
 		case 12:            /* vm, molar volume */
 			if (logk_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 					"No reaction defined before option, %s.",
 				opt_list[opt]);
 				error_msg(error_string, CONTINUE);

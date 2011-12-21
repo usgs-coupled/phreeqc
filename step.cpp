@@ -516,7 +516,7 @@ add_surface(struct surface *surface_ptr)
 			if (master_ptr == NULL)
 			{
 				input_error++;
-				sprintf(error_string, "Element not defined in database, %s.",
+				error_string = sformatf( "Element not defined in database, %s.",
 						surface_ptr->comps[i].totals[j].elt->name);
 				error_msg(error_string, STOP);
 			}
@@ -969,7 +969,7 @@ reaction_calc(struct irrev *irrev_ptr)
 	{
 		if (elt_list[i].elt->master == NULL)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Element or phase not defined in database, %s.",
 					elt_list[i].elt->name);
 			error_msg(error_string, CONTINUE);
@@ -1217,7 +1217,7 @@ add_kinetics(struct kinetics *kinetics_ptr)
 		if (master_ptr == NULL)
 		{
 			input_error++;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Element %s in kinetic reaction not found in database.",
 					kinetics_ptr->totals[i].elt->name);
 			error_msg(error_string, STOP);
@@ -1284,7 +1284,7 @@ gas_phase_check(struct gas_phase *gas_phase_ptr)
 					if (state != ADVECTION && state != TRANSPORT
 						&& state != PHAST)
 					{
-						sprintf(error_string,
+						error_string = sformatf(
 								"Element %s is contained in gas %s (which has 0.0 mass),\nbut is not in solution or other phases.",
 								elt_list[j].elt->name,
 								gas_comp_ptr[i].phase->name);
@@ -1355,7 +1355,7 @@ pp_assemblage_check(struct pp_assemblage *pp_assemblage_ptr)
 					if (state != ADVECTION && state != TRANSPORT
 						&& state != PHAST)
 					{
-						sprintf(error_string,
+						error_string = sformatf(
 								"Element %s is contained in %s (which has 0.0 mass),"
 								"\t\nbut is not in solution or other phases.",
 								elt_list[i].elt->name,
@@ -1426,7 +1426,7 @@ s_s_assemblage_check(struct s_s_assemblage *s_s_assemblage_ptr)
 						if (state != ADVECTION && state != TRANSPORT
 							&& state != PHAST)
 						{
-							sprintf(error_string,
+							error_string = sformatf(
 									"Element %s is contained in solid solution %s (which has 0.0 mass),\nbut is not in solution or other phases.",
 									elt_list[l].elt->name,
 									s_s_assemblage_ptr->s_s[i].comps[j].
@@ -1488,7 +1488,7 @@ solution_check(void)
 		   "Element %s has negative moles in solution, %e. \n\tErroneous mole balance occurs as moles are added to produce zero moles.\n\tUsually caused by KINETICS, REACTION, or diffuse layer calculation.\n\tMay be due to large time steps in early part of KINETICS simulation or negative concentrations in the diffuse layer.",
 		   master_ptr->elt->name, (LDBLE) master_ptr->total);
 		 */
-		sprintf(error_string,
+		error_string = sformatf(
 				"Negative moles in solution for %s, %e. Recovering...",
 				master_ptr->elt->name, (double) master_ptr->total);
 		warning_msg(error_string);

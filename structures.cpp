@@ -580,7 +580,7 @@ element_store(const char *element)
 	found_item = hsearch_multi(elements_hash_table, item, ENTER);
 	if (found_item == NULL)
 	{
-		sprintf(error_string, "Hash table error in element_store.");
+		error_string = sformatf( "Hash table error in element_store.");
 		error_msg(error_string, CONTINUE);
 	}
 	return (elements[n]);
@@ -980,7 +980,7 @@ exchange_duplicate(int n_user_old, int n_user_new)
 	exchange_ptr_old = exchange_bsearch(n_user_old, &n_old);
 	if (exchange_ptr_old == NULL)
 	{
-		sprintf(error_string, "Exchange %d not found.", n_user_old);
+		error_string = sformatf( "Exchange %d not found.", n_user_old);
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -1090,7 +1090,7 @@ exchange_ptr_to_user(struct exchange *exchange_ptr_old, int n_user_new)
  */
 	if (exchange_ptr_old == NULL)
 	{
-		sprintf(error_string, "Exchange ptr is NULL");
+		error_string = sformatf( "Exchange ptr is NULL");
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -1157,7 +1157,7 @@ exchange_search(int n_user, int *n, int print)
 	{
 		if (print == TRUE)
 		{
-			sprintf(error_string, "Exchange %d not found.", n_user);
+			error_string = sformatf( "Exchange %d not found.", n_user);
 			error_msg(error_string, CONTINUE);
 		}
 		*n = -999;
@@ -1402,7 +1402,7 @@ gas_phase_duplicate(int n_user_old, int n_user_new)
 	gas_phase_ptr_old = gas_phase_bsearch(n_user_old, &n_old);
 	if (gas_phase_ptr_old == NULL)
 	{
-		sprintf(error_string, "Gas_Phase %d not found.", n_user_old);
+		error_string = sformatf( "Gas_Phase %d not found.", n_user_old);
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -1504,7 +1504,7 @@ gas_phase_ptr_to_user(struct gas_phase *gas_phase_ptr_old, int n_user_new)
  */
 	if (gas_phase_ptr_old == NULL)
 	{
-		sprintf(error_string, "Gas_Phase pointer is NULL.");
+		error_string = sformatf( "Gas_Phase pointer is NULL.");
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -2052,7 +2052,7 @@ irrev_duplicate(int n_user_old, int n_user_new)
 	irrev_ptr_old = irrev_bsearch(n_user_old, &n_old);
 	if (irrev_ptr_old == NULL)
 	{
-		sprintf(error_string, "Irreversible reaction %d not found.",
+		error_string = sformatf( "Irreversible reaction %d not found.",
 				n_user_old);
 		error_msg(error_string, CONTINUE);
 		input_error++;
@@ -2190,7 +2190,7 @@ irrev_ptr_to_user(struct irrev *irrev_ptr_old, int n_user_new)
  */
 	if (irrev_ptr_old == NULL)
 	{
-		sprintf(error_string, "Irreversible reaction pointer is NULL.");
+		error_string = sformatf( "Irreversible reaction pointer is NULL.");
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -2552,7 +2552,7 @@ kinetics_duplicate(int n_user_old, int n_user_new)
 	kinetics_ptr_old = kinetics_bsearch(n_user_old, &n_old);
 	if (kinetics_ptr_old == NULL)
 	{
-		sprintf(error_string, "Kinetics %d not found.", n_user_old);
+		error_string = sformatf( "Kinetics %d not found.", n_user_old);
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -2667,7 +2667,7 @@ kinetics_ptr_to_user(struct kinetics *kinetics_ptr_old, int n_user_new)
  */
 	if (kinetics_ptr_old == NULL)
 	{
-		sprintf(error_string, "Kinetics pointer is NULL.");
+		error_string = sformatf( "Kinetics pointer is NULL.");
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -2734,7 +2734,7 @@ kinetics_search(int n_user, int *n, int print)
 	{
 		if (print == TRUE)
 		{
-			sprintf(error_string, "Kinetics %d not found.", n_user);
+			error_string = sformatf( "Kinetics %d not found.", n_user);
 			error_msg(error_string, CONTINUE);
 		}
 		*n = -999;
@@ -2942,7 +2942,7 @@ master_bsearch_primary(char *ptr)
 	if (master_ptr_primary == NULL)
 	{
 		input_error++;
-		sprintf(error_string,
+		error_string = sformatf(
 				"Could not find primary master species for %s.", ptr);
 		error_msg(error_string, CONTINUE);
 	}
@@ -2974,7 +2974,7 @@ master_bsearch_secondary(char *ptr)
 	if (master_ptr_primary == NULL)
 	{
 		input_error++;
-		sprintf(error_string,
+		error_string = sformatf(
 				"Could not find primary master species for %s.", ptr);
 		error_msg(error_string, CONTINUE);
 	}
@@ -3003,7 +3003,7 @@ master_bsearch_secondary(char *ptr)
 	if (master_ptr->elt->primary != master_ptr_primary)
 	{
 		input_error++;
-		sprintf(error_string,
+		error_string = sformatf(
 				"Could not find secondary master species for %s.", ptr);
 		error_msg(error_string, STOP);
 	}
@@ -3204,7 +3204,7 @@ mix_duplicate(int n_user_old, int n_user_new)
 	mix_ptr_old = mix_bsearch(n_user_old, &n_old);
 	if (mix_ptr_old == NULL)
 	{
-		sprintf(error_string, "Mix %d not found.", n_user_old);
+		error_string = sformatf( "Mix %d not found.", n_user_old);
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -3295,7 +3295,7 @@ mix_search(int n_user, int *n, int print)
 	{
 		if (print == TRUE)
 		{
-			sprintf(error_string, "Mix %d not found.", n_user);
+			error_string = sformatf( "Mix %d not found.", n_user);
 			error_msg(error_string, CONTINUE);
 		}
 		*n = -999;
@@ -3322,7 +3322,7 @@ mix_ptr_to_user(struct mix *mix_ptr_old, int n_user_new)
  */
 	if (mix_ptr_old == NULL)
 	{
-		sprintf(error_string, "Mix pointer is NULL.");
+		error_string = sformatf( "Mix pointer is NULL.");
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -3642,7 +3642,7 @@ phase_bsearch(const char *ptr, int *j, int print)
 	}
 	if (void_ptr == NULL && print == TRUE)
 	{
-		sprintf(error_string, "Could not find phase in list, %s.", ptr);
+		error_string = sformatf( "Could not find phase in list, %s.", ptr);
 		error_msg(error_string, CONTINUE);
 	}
 
@@ -3781,7 +3781,7 @@ phase_store(char *name)
 	found_item = hsearch_multi(phases_hash_table, item, ENTER);
 	if (found_item == NULL)
 	{
-		sprintf(error_string, "Hash table error in phase_store.");
+		error_string = sformatf( "Hash table error in phase_store.");
 		error_msg(error_string, CONTINUE);
 	}
 
@@ -3968,7 +3968,7 @@ pp_assemblage_duplicate(int n_user_old, int n_user_new)
 	pp_assemblage_ptr_old = pp_assemblage_bsearch(n_user_old, &n_old);
 	if (pp_assemblage_ptr_old == NULL)
 	{
-		sprintf(error_string, "Pp_Assemblage %d not found.", n_user_old);
+		error_string = sformatf( "Pp_Assemblage %d not found.", n_user_old);
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -4100,7 +4100,7 @@ pp_assemblage_ptr_to_user(struct pp_assemblage *pp_assemblage_ptr_old,
  */
 	if (pp_assemblage_ptr_old == NULL)
 	{
-		sprintf(error_string, "Pp_Assemblage pointer is NULL.");
+		error_string = sformatf( "Pp_Assemblage pointer is NULL.");
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -4799,7 +4799,7 @@ s_store(char *name, LDBLE l_z, int replace_if_found)
 	found_item = hsearch_multi(species_hash_table, item, ENTER);
 	if (found_item == NULL)
 	{
-		sprintf(error_string, "Hash table error in species_store.");
+		error_string = sformatf( "Hash table error in species_store.");
 		error_msg(error_string, CONTINUE);
 	}
 
@@ -4995,7 +4995,7 @@ s_s_assemblage_duplicate(int n_user_old, int n_user_new)
 	s_s_assemblage_ptr_old = s_s_assemblage_bsearch(n_user_old, &n_old);
 	if (s_s_assemblage_ptr_old == NULL)
 	{
-		sprintf(error_string, "S_S_Assemblage %d not found.", n_user_old);
+		error_string = sformatf( "S_S_Assemblage %d not found.", n_user_old);
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -5124,7 +5124,7 @@ s_s_assemblage_ptr_to_user(struct s_s_assemblage *s_s_assemblage_ptr_old,
  */
 	if (s_s_assemblage_ptr_old == NULL)
 	{
-		sprintf(error_string, "S_S_Assemblage pointer is NULL.");
+		error_string = sformatf( "S_S_Assemblage pointer is NULL.");
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -5524,7 +5524,7 @@ solution_bsearch(int k, int *n, int print)
 	}
 	if (void_ptr == NULL && print == TRUE)
 	{
-		sprintf(error_string, "Solution %d not found.", k);
+		error_string = sformatf( "Solution %d not found.", k);
 		error_msg(error_string, CONTINUE);
 	}
 	if (void_ptr == NULL)
@@ -5745,7 +5745,7 @@ solution_duplicate(int n_user_old, int n_user_new)
 	solution_old_ptr = solution_bsearch(n_user_old, &n_old, TRUE);
 	if (solution_old_ptr == NULL)
 	{
-		sprintf(error_string, "Solution %d not found.", n_user_old);
+		error_string = sformatf( "Solution %d not found.", n_user_old);
 		error_msg(error_string, STOP);
 	}
 /*
@@ -5882,7 +5882,7 @@ solution_ptr_to_user(struct solution *solution_old_ptr, int n_user_new)
  */
 	if (solution_old_ptr == NULL)
 	{
-		sprintf(error_string, "Solution pointer is NULL.");
+		error_string = sformatf( "Solution pointer is NULL.");
 		error_msg(error_string, STOP);
 	}
 /*
@@ -6464,7 +6464,7 @@ surface_duplicate(int n_user_old, int n_user_new)
 	surface_ptr_old = surface_bsearch(n_user_old, &n_old);
 	if (surface_ptr_old == NULL)
 	{
-		sprintf(error_string, "Surface %d not found.", n_user_old);
+		error_string = sformatf( "Surface %d not found.", n_user_old);
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -6654,7 +6654,7 @@ surface_ptr_to_user(struct surface *surface_ptr_old, int n_user_new)
  */
 	if (surface_ptr_old == NULL)
 	{
-		sprintf(error_string, "Surface pointer is NULL.");
+		error_string = sformatf( "Surface pointer is NULL.");
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -6725,7 +6725,7 @@ surface_search(int n_user, int *n, int print)
 	{
 		if (print == TRUE)
 		{
-			sprintf(error_string, "Surface %d not found.", n_user);
+			error_string = sformatf( "Surface %d not found.", n_user);
 			error_msg(error_string, CONTINUE);
 		}
 		*n = -999;
@@ -6927,7 +6927,7 @@ temperature_duplicate(int n_user_old, int n_user_new)
 	temperature_ptr_old = temperature_bsearch(n_user_old, &n_old);
 	if (temperature_ptr_old == NULL)
 	{
-		sprintf(error_string, "Temperature %d not found.", n_user_old);
+		error_string = sformatf( "Temperature %d not found.", n_user_old);
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -7050,7 +7050,7 @@ temperature_ptr_to_user(struct temperature * temperature_ptr_old, int n_user_new
  */
 	if (temperature_ptr_old == NULL)
 	{
-		sprintf(error_string, "Temperature pointer is NULL.");
+		error_string = sformatf( "Temperature pointer is NULL.");
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -7518,7 +7518,7 @@ trxn_swap(const char *token)
 	if (j >= count_trxn)
 	{
 		input_error++;
-		sprintf(error_string, "Could not find token in equation, %s.", token);
+		error_string = sformatf( "Could not find token in equation, %s.", token);
 		error_msg(error_string, CONTINUE);
 		for (i = 0; i < count_trxn; i++)
 		{
@@ -7747,7 +7747,7 @@ logk_store(char *name, int replace_if_found)
 	found_item = hsearch_multi(logk_hash_table, item, ENTER);
 	if (found_item == NULL)
 	{
-		sprintf(error_string, "Hash table error in logk_store.");
+		error_string = sformatf( "Hash table error in logk_store.");
 		error_msg(error_string, CONTINUE);
 	}
 

@@ -107,7 +107,7 @@ fpunchf_user(int user_index, const char *format, double d)
 	{
 		if (s_warning == 0)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"USER_PUNCH: Headings count doesn't match number of calls to PUNCH.\n");
 			warning_msg(error_string);
 			s_warning = 1;
@@ -135,7 +135,7 @@ fpunchf_user(int user_index, const char *format, char * d)
 	{
 		if (s_warning == 0)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"USER_PUNCH: Headings count doesn't match number of calls to PUNCH.\n");
 			warning_msg(error_string);
 			s_warning = 1;
@@ -192,7 +192,7 @@ process_file_names(int argc, char *argv[], std::istream **db_cookie,
 		{
 			if (!phrq_io->error_open(argv[4]))
 			{
-				sprintf(error_string, "Error opening file, %s.", argv[4]);
+				error_string = sformatf( "Error opening file, %s.", argv[4]);
 				warning_msg(error_string);
 			}
 		}
@@ -284,7 +284,7 @@ process_file_names(int argc, char *argv[], std::istream **db_cookie,
 		else
 		{
 			delete local_input_stream;
-			sprintf(error_string, "Error opening file, %s.", in_file);
+			error_string = sformatf( "Error opening file, %s.", in_file);
 			error_msg(error_string, STOP);
 		}
 		
@@ -404,8 +404,8 @@ open_input_stream(char *query, char *default_name, std::ios_base::openmode mode,
 		{
 			//phrq_io->Set_screen_ostream(&std::cerr);
 			phrq_io->Set_error_ostream(&std::cerr);
-			sprintf(error_string, "Can't open file, %s.", name);
-			screen_msg(sformatf("\nERROR: %s\n", error_string));
+			error_string = sformatf( "\nERROR: Can't open file, %s.\n", name);
+			screen_msg(error_string);
 			//screen_flush();
 			error_flush();
 			batch = FALSE;
@@ -464,8 +464,8 @@ open_output_stream(char *query, char *default_name, std::ios_base::openmode mode
 		{
 			//phrq_io->Set_screen_ostream(&std::cerr);
 			phrq_io->Set_error_ostream(&std::cerr);
-			sprintf(error_string, "Can't open file, %s.", name);
-			screen_msg(sformatf("\nERROR: %s\n", error_string));
+			error_string = sformatf( "\nERROR: Can't open file, %s.\n", name);
+			screen_msg( error_string);
 			//screen_flush();
 			error_flush();
 			batch = FALSE;

@@ -47,7 +47,7 @@ calc_alk(struct reaction * rxn_ptr)
 		}
 		if (master_ptr == NULL)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Non-master species in secondary reaction, %s.",
 					rxn_ptr->token[0].s->name);
 			error_msg(error_string, CONTINUE);
@@ -186,7 +186,7 @@ copy_token(char *token_ptr, char **ptr, int *length)
 #ifdef PHREEQ98
 	if ((return_value == DIGIT) && (strstr(token_ptr, ",") != NULL))
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Commas are not allowed as decimal separator: %s.",
 				token_ptr);
 		error_msg(error_string, CONTINUE);
@@ -264,7 +264,7 @@ copy_token(std::string &token, char **ptr)
 #ifdef PHREEQ98
 	if ((return_value == DIGIT) && (strstr(token_ptr, ",") != NULL))
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Commas are not allowed as decimal separator: %s.",
 				token_ptr);
 		error_msg(error_string, CONTINUE);
@@ -477,7 +477,7 @@ get_token(char **eqnaddr, char *string, LDBLE * l_z, int *l)
 			{
 				if (c == '\0')
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 							"No final bracket \"]\" for element name, %s.",
 							string);
 					error_msg(error_string, CONTINUE);
@@ -513,7 +513,7 @@ get_token(char **eqnaddr, char *string, LDBLE * l_z, int *l)
  */
 	if (i == 0)
 	{
-		sprintf(error_string, "NULL string detected in get_token, %s.", rest);
+		error_string = sformatf( "NULL string detected in get_token, %s.", rest);
 		error_msg(error_string, CONTINUE);
 		return (ERROR);
 	}
@@ -665,7 +665,7 @@ parse_couple(char *token)
 	get_elt(&ptr, elt1, &e1);
 	if (*ptr != '(')
 	{
-		sprintf(error_string, "Element name must be followed by "
+		error_string = sformatf( "Element name must be followed by "
 				"parentheses in redox couple, %s.", token);
 		error_msg(error_string, CONTINUE);
 		parse_error++;
@@ -679,7 +679,7 @@ parse_couple(char *token)
 		ptr++;
 		if (*ptr == '/' || *ptr == '\0')
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"End of line or  " "/"
 					" encountered before end of parentheses, %s.", token);
 			error_msg(error_string, CONTINUE);
@@ -697,7 +697,7 @@ parse_couple(char *token)
 	ptr++;
 	if (*ptr != '/')
 	{
-		sprintf(error_string, " " "/" " must follow parentheses "
+		error_string = sformatf( " " "/" " must follow parentheses "
 				"ending first half of redox couple, %s.", token);
 		error_msg(error_string, CONTINUE);
 		parse_error++;
@@ -707,14 +707,14 @@ parse_couple(char *token)
 	get_elt(&ptr, elt2, &e2);
 	if (strcmp(elt1, elt2) != 0)
 	{
-		sprintf(error_string, "Redox couple must be two redox states "
+		error_string = sformatf( "Redox couple must be two redox states "
 				"of the same element, %s.", token);
 		error_msg(error_string, CONTINUE);
 		return (ERROR);
 	}
 	if (*ptr != '(')
 	{
-		sprintf(error_string, "Element name must be followed by "
+		error_string = sformatf( "Element name must be followed by "
 				"parentheses in redox couple, %s.", token);
 		error_msg(error_string, CONTINUE);
 		parse_error++;
@@ -728,7 +728,7 @@ parse_couple(char *token)
 		ptr++;
 		if (*ptr == '/' || *ptr == '\0')
 		{
-			sprintf(error_string, "End of line or " "/" " encountered"
+			error_string = sformatf( "End of line or " "/" " encountered"
 					" before end of parentheses, %s.", token);
 			error_msg(error_string, CONTINUE);
 			return (ERROR);
@@ -761,7 +761,7 @@ parse_couple(char *token)
 	}
 	else
 	{
-		sprintf(error_string, "Both parts of redox couple are the same, %s.",
+		error_string = sformatf( "Both parts of redox couple are the same, %s.",
 				token);
 		error_msg(error_string, CONTINUE);
 		return (ERROR);

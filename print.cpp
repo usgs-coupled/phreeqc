@@ -183,7 +183,7 @@ print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 	}
 	if (j >= count_unknowns)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"In print_diffuse_layer: component not found, %s.",
 				surface_charge_ptr1->name);
 		error_msg(error_string, STOP);

@@ -64,7 +64,7 @@ read_isotopes(void)
 		case 0:				/* isotope */
 			if (elt_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"The element of which this isotope is a minor isotope has not been defined, %s. ISOTOPES data block.",
 						line);
 				error_msg(error_string, CONTINUE);
@@ -85,7 +85,7 @@ read_isotopes(void)
 			 */
 			if (copy_token(token, &next_char, &l) == EMPTY)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expecting units for isotopic values, %s. ISOTOPES data block.",
 						line);
 				error_msg(error_string, CONTINUE);
@@ -98,7 +98,7 @@ read_isotopes(void)
 			 */
 			if (copy_token(token, &next_char, &l) == EMPTY)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expecting isotope ratio of standard, %s. ISOTOPES data block.",
 						line);
 				error_msg(error_string, CONTINUE);
@@ -112,7 +112,7 @@ read_isotopes(void)
 #ifdef SKIP
 			if (elt_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"The element of which this isotope is a minor isotope has not been defined, %s. ISOTOPES data block.",
 						line);
 				error_msg(error_string, CONTINUE);
@@ -122,7 +122,7 @@ read_isotopes(void)
 			master_isotope_ptr_major->total_is_major =
 				get_true_false(next_char, TRUE);
 #endif
-			sprintf(error_string,
+			error_string = sformatf(
 					"Obsolete identifier. The total of the element must be the sum of all isotopes. ISOTOPES data block.\n%s",
 					line);
 			warning_msg(error_string);
@@ -133,7 +133,7 @@ read_isotopes(void)
  */
 			if (copy_token(token, &next_char, &l) == EMPTY)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expecting an element name for isotope definition, %s. ISOTOPES data block.",
 						line);
 				error_msg(error_string, CONTINUE);
@@ -231,7 +231,7 @@ read_calculate_values(void)
  */
 			if (copy_token(token, &next_char, &l) == EMPTY)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expecting a name for calculate_value definition, %s. CALCULATE_VALUES data block.",
 						line);
 				error_msg(error_string, CONTINUE);
@@ -343,7 +343,7 @@ read_isotope_ratios(void)
  */
 			if (copy_token(token, &next_char, &l) == EMPTY)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expecting a name for isotope_ratio definition, %s. ISOTOPE_RATIOS data block.",
 						line);
 				error_msg(error_string, CONTINUE);
@@ -356,7 +356,7 @@ read_isotope_ratios(void)
 			 */
 			if (copy_token(token, &next_char, &l) == EMPTY)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expecting a name of isotope for an isotope_ratio definition, %s. ISOTOPE_RATIOS data block.",
 						line);
 				error_msg(error_string, CONTINUE);
@@ -443,7 +443,7 @@ read_isotope_alphas(void)
  */
 			if (copy_token(token, &next_char, &l) == EMPTY)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expecting a name for isotope_alpha definition, %s. ISOTOPE_ALPHAS data block.",
 						line);
 				error_msg(error_string, CONTINUE);
@@ -542,7 +542,7 @@ calculate_isotope_moles(struct element *elt_ptr,
 	 */
 	if (total_moles <= 0)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Can not calculate molality of isotopes, molality of element is zero, %s",
 				elt_ptr->name);
 		warning_msg(error_string);
@@ -638,7 +638,7 @@ calculate_isotope_moles(struct element *elt_ptr,
 				tot += list[i].moles;
 				continue;
 			}
-			sprintf(error_string, "Isotope units not recognized, %s",
+			error_string = sformatf( "Isotope units not recognized, %s",
 					list[i].units);
 			input_error++;
 			error_msg(error_string, CONTINUE);
@@ -1094,7 +1094,7 @@ calculate_values(void)
 				 &calculate_value[j]->varbase,
 				 &calculate_value[j]->loopbase) != 0)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Fatal Basic error in CALCULATE_VALUES %s.",
 						calculate_value[j]->name);
 				error_msg(error_string, STOP);
@@ -1105,13 +1105,13 @@ calculate_values(void)
 			(l_command, calculate_value[j]->linebase,
 			 calculate_value[j]->varbase, calculate_value[j]->loopbase) != 0)
 		{
-			sprintf(error_string, "Fatal Basic error in calculate_value %s.",
+			error_string = sformatf( "Fatal Basic error in calculate_value %s.",
 					calculate_value[j]->name);
 			error_msg(error_string, STOP);
 		}
 		if (rate_moles == NAN)
 		{
-			sprintf(error_string, "Calculated value not SAVE'd for %s.",
+			error_string = sformatf( "Calculated value not SAVE'd for %s.",
 					calculate_value[j]->name);
 			error_msg(error_string, STOP);
 		}
@@ -1190,7 +1190,7 @@ convert_isotope(struct master_isotope * master_isotope_ptr, LDBLE ratio)
 	{
 		return (ratio / master_isotope_ptr->standard);
 	}
-	sprintf(error_string,
+	error_string = sformatf(
 			"Did not recognize isotope units in convert_isotope, %s", units);
 	error_msg(error_string, STOP);
 	return (-99.0);
@@ -1271,7 +1271,7 @@ master_isotope_store(const char *name, int replace_if_found)
 	found_item = hsearch_multi(master_isotope_hash_table, item, ENTER);
 	if (found_item == NULL)
 	{
-		sprintf(error_string, "Hash table error in master_isotope_store.");
+		error_string = sformatf( "Hash table error in master_isotope_store.");
 		error_msg(error_string, CONTINUE);
 	}
 
@@ -1430,7 +1430,7 @@ calculate_value_store(const char *name, int replace_if_found)
 	found_item = hsearch_multi(calculate_value_hash_table, item, ENTER);
 	if (found_item == NULL)
 	{
-		sprintf(error_string, "Hash table error in calculate_value_store.");
+		error_string = sformatf( "Hash table error in calculate_value_store.");
 		error_msg(error_string, CONTINUE);
 	}
 
@@ -1615,7 +1615,7 @@ isotope_ratio_store(const char *name, int replace_if_found)
 	found_item = hsearch_multi(isotope_ratio_hash_table, item, ENTER);
 	if (found_item == NULL)
 	{
-		sprintf(error_string, "Hash table error in isotope_ratio_store.");
+		error_string = sformatf( "Hash table error in isotope_ratio_store.");
 		error_msg(error_string, CONTINUE);
 	}
 
@@ -1774,7 +1774,7 @@ isotope_alpha_store(const char *name, int replace_if_found)
 	found_item = hsearch_multi(isotope_alpha_hash_table, item, ENTER);
 	if (found_item == NULL)
 	{
-		sprintf(error_string, "Hash table error in isotope_alpha_store.");
+		error_string = sformatf( "Hash table error in isotope_alpha_store.");
 		error_msg(error_string, CONTINUE);
 	}
 

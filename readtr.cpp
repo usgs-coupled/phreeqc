@@ -202,7 +202,7 @@ read_transport(void)
 			opt_save = OPTION_DEFAULT;
 			if (punch_modulus <= 0)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Punch frequency must be greater than 0. Frequency set to 1000.");
 				warning_msg(error_string);
 				punch_modulus = 1000;
@@ -349,7 +349,7 @@ read_transport(void)
 				if (sscanf(token, "%d", &(stag_data->count_stag)) != 1)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Expecting number of stagnant layers.");
 					error_msg(error_string, CONTINUE);
 					break;
@@ -362,7 +362,7 @@ read_transport(void)
 					if (sscanf(token, SCANFORMAT, &(stag_data->exch_f)) != 1)
 					{
 						input_error++;
-						sprintf(error_string,
+						error_string = sformatf(
 								"Expecting exchange factor for stagnant layers.");
 						error_msg(error_string, CONTINUE);
 						break;
@@ -371,7 +371,7 @@ read_transport(void)
 					if (sscanf(token, SCANFORMAT, &(stag_data->th_m)) != 1)
 					{
 						input_error++;
-						sprintf(error_string,
+						error_string = sformatf(
 								"Expecting porosity in the mobile zone.");
 						error_msg(error_string, CONTINUE);
 						break;
@@ -380,7 +380,7 @@ read_transport(void)
 					if (sscanf(token, SCANFORMAT, &(stag_data->th_im)) != 1)
 					{
 						input_error++;
-						sprintf(error_string,
+						error_string = sformatf(
 								"Expecting porosity in the immobile zone.");
 						error_msg(error_string, CONTINUE);
 						break;
@@ -430,7 +430,7 @@ read_transport(void)
 			opt_save = OPTION_DEFAULT;
 			if (print_modulus <= 0)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Print frequency must be greater than 0. Frequency set to 1000.");
 				warning_msg(error_string);
 				print_modulus = 1000;
@@ -497,7 +497,7 @@ read_transport(void)
 				if (sscanf(token, SCANFORMAT, &default_Dw) != 1)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Expected default species diffusion coefficient in water at 25oC, m2/s.");
 					error_msg(error_string, CONTINUE);
 					break;
@@ -511,7 +511,7 @@ read_transport(void)
 				if (sscanf(token, SCANFORMAT, &multi_Dpor) != 1)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Expected porosity to calculate diffusion coefficient.");
 					error_msg(error_string, CONTINUE);
 					break;
@@ -525,7 +525,7 @@ read_transport(void)
 				if (sscanf(token, SCANFORMAT, &multi_Dpor_lim) != 1)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Expected porosity limit for diffusive transport.");
 					error_msg(error_string, CONTINUE);
 					break;
@@ -538,7 +538,7 @@ read_transport(void)
 				if (sscanf(token, SCANFORMAT, &multi_Dn) != 1)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Expected exponent for porosity reduction of diffusion coefficient (Dp = Dw * (por)^n).");
 					error_msg(error_string, CONTINUE);
 					break;
@@ -571,7 +571,7 @@ read_transport(void)
 				if (sscanf(token, SCANFORMAT, &interlayer_Dpor) != 1)
 				{
 					input_error++;
-					sprintf(error_string, "Expected interlayer porosity.");
+					error_string = sformatf( "Expected interlayer porosity.");
 					error_msg(error_string, CONTINUE);
 					break;
 				}
@@ -584,7 +584,7 @@ read_transport(void)
 				if (sscanf(token, SCANFORMAT, &interlayer_Dpor_lim) != 1)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Expected interlayer porosity limit for diffusive transport.");
 					error_msg(error_string, CONTINUE);
 					break;
@@ -597,7 +597,7 @@ read_transport(void)
 				if (sscanf(token, SCANFORMAT, &interlayer_tortf) != 1)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Expected interlayer tortuosity factor (Dp = Dw /t_f).");
 					error_msg(error_string, CONTINUE);
 					break;
@@ -653,7 +653,7 @@ read_transport(void)
 	{
 		if (old_cells < max)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"No cell-lengths were read; length = 1 m assumed.");
 			warning_msg(error_string);
 			for (i = 0; i < max; i++)
@@ -668,7 +668,7 @@ read_transport(void)
 		}
 		if (max > count_length)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Cell-lengths were read for %d cells. Last value is used till cell %d.",
 					count_length, max);
 			warning_msg(error_string);
@@ -691,7 +691,7 @@ read_transport(void)
 	{
 		if (old_cells < max)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"No dispersivities were read; disp = 0 assumed.");
 			warning_msg(error_string);
 			for (i = 0; i < max; i++)
@@ -704,7 +704,7 @@ read_transport(void)
 			cell_data[i].disp = disp[i];
 		if (max > count_disp)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Dispersivities were read for %d cells. Last value is used till cell %d.",
 					count_disp, max);
 			warning_msg(error_string);
@@ -737,7 +737,7 @@ read_transport(void)
 		{
 			if (punch_temp[i] > max || punch_temp[i] < 1)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Cell number for punch is out of range, %d. Request ignored.",
 						punch_temp[i]);
 				warning_msg(error_string);
@@ -760,7 +760,7 @@ read_transport(void)
 		{
 			if (print_temp[i] > max || print_temp[i] < 1)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Cell number for print is out of range, %d. Request ignored.",
 						print_temp[i]);
 				warning_msg(error_string);
@@ -778,7 +778,7 @@ read_transport(void)
 	if (interlayer_Dflag && !multi_Dflag)
 	{
 		input_error++;
-		sprintf(error_string,
+		error_string = sformatf(
 				"-multi_D must be defined, when -interlayer_D true.");
 		error_msg(error_string, CONTINUE);
 
@@ -806,7 +806,7 @@ read_transport(void)
 		if (transport_start > count_shifts)
 		{
 			input_error++;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Starting shift for transport, %d, is greater than number of shifts, %d.",
 					transport_start, count_shifts);
 			error_msg(error_string, CONTINUE);
@@ -844,13 +844,13 @@ read_transport(void)
 			if (diffc <= 0 && heat_diffc > 0)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Must enter diffusion coefficient (-diffc) when modeling thermal diffusion.");
 				error_msg(error_string, CONTINUE);
 			}
 			else if (heat_diffc > diffc)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Thermal diffusion is calculated assuming exchange factor was for\n\t effective (non-thermal) diffusion coefficient = %e.",
 						(double) diffc);
 				warning_msg(error_string);
@@ -861,7 +861,7 @@ read_transport(void)
 			if (heat_diffc > diffc)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Must enter value for mobile/stagnant exchange factor when modeling thermal diffusion.");
 				error_msg(error_string, CONTINUE);
 			}
@@ -870,7 +870,7 @@ read_transport(void)
 	else if (stag_data->count_stag > 1 && heat_diffc > diffc)
 	{
 		input_error++;
-		sprintf(error_string,
+		error_string = sformatf(
 				"Only one stagnant layer permitted (-stag) when modeling thermal diffusion.");
 		error_msg(error_string, CONTINUE);
 	}

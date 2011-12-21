@@ -314,7 +314,7 @@ read_solution_spread(void)
 			if (copy_token(token, &next_char, &l) != DIGIT)
 			{
 				input_error++;
-				sprintf(error_string, "Expected isotope name to"
+				error_string = sformatf( "Expected isotope name to"
 						" begin with an isotopic number.");
 				error_msg(error_string, CONTINUE);
 				continue;
@@ -347,7 +347,7 @@ read_solution_spread(void)
 				if (j != DIGIT)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Expected numeric value for uncertainty in isotope ratio.");
 					error_msg(error_string, CONTINUE);
 					continue;
@@ -368,7 +368,7 @@ read_solution_spread(void)
 			if (j != DIGIT)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected numeric value for mass of water in solution.");
 				error_msg(error_string, CONTINUE);
 			}
@@ -381,7 +381,7 @@ read_solution_spread(void)
 			if (copy_token(token, &next_char, &l) != DIGIT)
 			{
 				input_error++;
-				sprintf(error_string, "Expected isotope name to"
+				error_string = sformatf( "Expected isotope name to"
 						" begin with an isotopic number.");
 				error_msg(error_string, CONTINUE);
 				continue;
@@ -411,7 +411,7 @@ read_solution_spread(void)
 			if (copy_token(token, &next_char, &l) != DIGIT)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected numeric value for default isotope ratio.");
 				error_msg(error_string, CONTINUE);
 				break;
@@ -423,7 +423,7 @@ read_solution_spread(void)
 				if (j != DIGIT)
 				{
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Expected numeric value for uncertainty in isotope ratio.");
 					error_msg(error_string, CONTINUE);
 					continue;
@@ -524,7 +524,7 @@ spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 	else if (data->type_vector[i] == STRING)
 	{
 		input_error++;
-		sprintf(error_string,
+		error_string = sformatf(
 				"Expected solution number or number range in 'number' column, found:  %s.",
 				data->char_vector[i]);
 		error_msg(error_string, CONTINUE);
@@ -718,7 +718,7 @@ spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 			if (copy_token(token, &next_char, &l) != DIGIT)
 			{
 				input_error++;
-				sprintf(error_string, "Expected isotope name to"
+				error_string = sformatf( "Expected isotope name to"
 						" begin with an isotopic number.");
 				error_msg(error_string, CONTINUE);
 				continue;
@@ -748,7 +748,7 @@ spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 			if (copy_token(token, &next_char, &l) != DIGIT)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected numeric value for isotope ratio.");
 				error_msg(error_string, CONTINUE);
 				continue;
@@ -801,7 +801,7 @@ spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 			else if (j != DIGIT)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Expected numeric value for mass of water in solution.");
 				error_msg(error_string, CONTINUE);
 			}

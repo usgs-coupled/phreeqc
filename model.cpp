@@ -110,7 +110,7 @@ model(void)
  */
 			if (iterations > itmax)
 			{
-				sprintf(error_string, "Maximum iterations exceeded, %d\n",
+				error_string = sformatf( "Maximum iterations exceeded, %d\n",
 						itmax);
 				warning_msg(error_string);
 				stop_program = TRUE;
@@ -295,7 +295,7 @@ check_residuals(void)
 			if (fabs(residual[i]) >= epsilon * x[i]->moles
 				&& x[i]->moles > MIN_TOTAL /* || stop_program == TRUE */ )
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"%20s has not converged. Total: %e\tCalculated: "
 						"%e\tResidual: %e\n", x[i]->description,
 						(double) x[i]->moles, (double) x[i]->f,
@@ -313,7 +313,7 @@ check_residuals(void)
 		{
 			if (fabs(residual[i]) >= epsilon /* || stop_program == TRUE */ )
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"%20s solution phase boundary has not converged. "
 						"\tResidual: %e\n", x[i]->description,
 						(double) residual[i]);
@@ -326,7 +326,7 @@ check_residuals(void)
 				epsilon * mu_x *
 				mass_water_aq_x /* || stop_program == TRUE */ )
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"%20s Charge balance has not converged. "
 						"\tResidual: %e\n", x[i]->description,
 						(double) residual[i]);
@@ -339,7 +339,7 @@ check_residuals(void)
 				epsilon * mu_x *
 				mass_water_aq_x /* || stop_program == TRUE */ )
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"%20s Ionic strength has not converged. "
 						"\tResidual: %e\n", x[i]->description,
 						(double) residual[i]);
@@ -350,7 +350,7 @@ check_residuals(void)
 		{
 			if (fabs(residual[i]) >= epsilon /* || stop_program == TRUE */ )
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"%20s Activity of water has not converged. "
 						"\tResidual: %e\n", x[i]->description,
 						(double) residual[i]);
@@ -376,7 +376,7 @@ check_residuals(void)
 				epsilon * x[i]->moles /* || stop_program == TRUE */ )
 #endif
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"%20s Mass of hydrogen has not converged. "
 						"\tResidual: %e\n", x[i]->description,
 						(double) residual[i]);
@@ -390,7 +390,7 @@ check_residuals(void)
 			if (fabs(residual[i]) >=
 				0.01 * epsilon * x[i]->moles /* || stop_program == TRUE */ )
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"%20s Mass of oxygen has not converged. "
 						"\tResidual: %e\n", x[i]->description,
 						(double) residual[i]);
@@ -426,7 +426,7 @@ check_residuals(void)
 					}
 					else if (residual[i] <= -epsilon)
 					{
-						sprintf(error_string,
+						error_string = sformatf(
 								"%20s Pure phase has not converged. "
 								"\tResidual: %e\n", x[i]->description,
 								(double) residual[i]);
@@ -442,7 +442,7 @@ check_residuals(void)
 					log_msg(sformatf(
 							   "%s, Pure phase has not converged. \tResidual: %e\n",
 							   x[i]->description, (double) residual[i]));
-					sprintf(error_string,
+					error_string = sformatf(
 							"%s, Pure phase with add formula has not converged.\n\t SI may be a local minimum."
 							"\tResidual: %e\n", x[i]->description,
 							(double) residual[i]);
@@ -458,7 +458,7 @@ check_residuals(void)
 				   || (x[i]->moles > MIN_RELATED_SURFACE
 					   && (fabs(residual[i]) > epsilon * x[i]->moles)))
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"%20s Exchanger mass balance has not converged. "
 						"\tResidual: %e\n", x[i]->description,
 						(double) residual[i]);
@@ -474,7 +474,7 @@ check_residuals(void)
 				   || (x[i]->moles > MIN_RELATED_SURFACE
 					   && (fabs(residual[i]) > epsilon * x[i]->moles)))
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"%20s Surface mass balance has not converged. "
 						"\tResidual: %e\n", x[i]->description,
 						(double) residual[i]);
@@ -488,7 +488,7 @@ check_residuals(void)
 				 && fabs(residual[i]) >
 				 epsilon) /* || stop_program == TRUE */ )
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"%20s Surface charge/potential has not converged. "
 						"\tResidual: %e\n", x[i]->description,
 						(double) residual[i]);
@@ -502,7 +502,7 @@ check_residuals(void)
 			if (residual[i] >= epsilon
 				|| residual[i] <= -epsilon /* || stop_program == TRUE */ )
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"%20s Total moles in gas phase has not converged. "
 						"\tResidual: %e\n", x[i]->description,
 						(double) residual[i]);
@@ -513,7 +513,7 @@ check_residuals(void)
 		{
 			if (fabs(residual[i]) > epsilon)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"%20s log gamma not converged.\tResidual: %e\n",
 						x[i]->description, (double) residual[i]);
 			}
@@ -527,7 +527,7 @@ check_residuals(void)
 			if (residual[i] >= epsilon
 				|| residual[i] <= -epsilon /* || stop_program == TRUE */ )
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"%20s Total moles in solid solution has not converged. "
 						"\tResidual: %e\n", x[i]->description,
 						(double) residual[i]);
@@ -2985,7 +2985,7 @@ reset(void)
 	}
 	if (warning > 0)
 	{
-		sprintf(error_string, "%d delta equal NaN\n", warning);
+		error_string = sformatf( "%d delta equal NaN\n", warning);
 		warning_msg(error_string);
 	}
 	if (pure_phase_unknown != NULL || gas_unknown != NULL
@@ -3175,7 +3175,7 @@ reset(void)
 	}
 	if (warning > 0)
 	{
-		sprintf(error_string, "%d delta equal NaN after scaling\n", warning);
+		error_string = sformatf( "%d delta equal NaN after scaling\n", warning);
 		warning_msg(error_string);
 	}
 /*
@@ -3463,7 +3463,7 @@ reset(void)
 
 			if (mass_water_aq_x < 1e-10)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Mass of water is less than 1e-10 kilogram.\n"
 						"The aqueous phase may not be stable relative to given masses of minerals.");
 				warning_msg(error_string);

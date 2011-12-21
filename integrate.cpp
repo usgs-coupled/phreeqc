@@ -320,10 +320,10 @@ g_function(LDBLE x_value)
 									 1.0), (double) sum, (double) sum1));
 			}
 		}
-		sprintf(error_string, "Negative sum in g_function, %e\t%e.",
+		error_string = sformatf( "Negative sum in g_function, %e\t%e.",
 				(double) sum, (double) x_value);
 		error_msg(error_string, CONTINUE);
-		sprintf(error_string,
+		error_string = sformatf(
 				"Solutions must be charge balanced, charge imbalance is %e\n",
 				(double) sum1);
 		error_msg(error_string, STOP);
@@ -492,7 +492,7 @@ qromb_midpnt(LDBLE x1, LDBLE x2)
 		}
 
 	}
-	sprintf(error_string,
+	error_string = sformatf(
 			"\nToo many iterations integrating diffuse layer.\n");
 	error_msg(error_string, STOP);
 	return (-999.9);
@@ -795,7 +795,7 @@ sum_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 	}
 	if (j >= use.surface_ptr->count_charge)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"In sum_diffuse_layer, component not found, %s.",
 				surface_charge_ptr1->name);
 		error_msg(error_string, STOP);
@@ -1243,7 +1243,7 @@ calc_psi_avg(LDBLE surf_chrg_eq)
 		l_iter++;
 		if (l_iter > 50)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"\nToo many iterations in subroutine calc_psi_avg; surface charge = %12.4e; surface water = %12.4e.\n",
 					(double) surf_chrg_eq, (double) surface_charge_ptr->mass_water);
 			error_msg(error_string, STOP);

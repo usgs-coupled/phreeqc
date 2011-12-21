@@ -896,7 +896,7 @@ get_calculate_value(const char *name)
 	calculate_value_ptr = calculate_value_search(name);
 	if (calculate_value_ptr == NULL)
 	{
-		sprintf(error_string, "CALC_VALUE Basic function, %s not found.",
+		error_string = sformatf( "CALC_VALUE Basic function, %s not found.",
 				name);
 		error_msg(error_string, CONTINUE);
 		input_error++;
@@ -904,7 +904,7 @@ get_calculate_value(const char *name)
 	}
 	if (name == NULL)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Definition for calculated value not found, %s", name);
 		input_error++;
 		error_msg(error_string, CONTINUE);
@@ -912,7 +912,7 @@ get_calculate_value(const char *name)
 	}
 	//if (calculate_value_ptr->calculated == FALSE)
 	//{
-	//	sprintf(error_string,
+	//	error_string = sformatf(
 	//			"Calculated value used before it has been calculated, %s.\nCalculated values are evalutated in the order in which they were defined.",
 	//			name);
 	//	input_error++;
@@ -929,7 +929,7 @@ get_calculate_value(const char *name)
 			&calculate_value_ptr->varbase,
 			&calculate_value_ptr->loopbase) != 0)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Fatal Basic error in CALCULATE_VALUES %s.",
 					calculate_value_ptr->name);
 			error_msg(error_string, STOP);
@@ -942,13 +942,13 @@ get_calculate_value(const char *name)
 		calculate_value_ptr->varbase, 
 		calculate_value_ptr->loopbase) != 0)
 	{
-		sprintf(error_string, "Fatal Basic error in calculate_value %s.",
+		error_string = sformatf( "Fatal Basic error in calculate_value %s.",
 				calculate_value_ptr->name);
 		error_msg(error_string, STOP);
 	}
 	if (rate_moles == NAN)
 	{
-		sprintf(error_string, "Calculated value not SAVE'd for %s.",
+		error_string = sformatf( "Calculated value not SAVE'd for %s.",
 				calculate_value_ptr->name);
 		error_msg(error_string, STOP);
 	}
@@ -978,7 +978,7 @@ kinetics_moles(const char *kinetics_name)
 		}
 	}
 
-	sprintf(error_string, "No data for rate %s in KINETICS keyword.",
+	error_string = sformatf( "No data for rate %s in KINETICS keyword.",
 			kinetics_name);
 	warning_msg(error_string);
 	return (0);
@@ -1073,7 +1073,7 @@ pr_pressure(const char *phase_name)
 	phase_ptr = phase_bsearch(phase_name, &l, FALSE);
 	if (phase_ptr == NULL)
 	{
-		sprintf(error_string, "Gas %s, not found.", phase_name);
+		error_string = sformatf( "Gas %s, not found.", phase_name);
 		warning_msg(error_string);
 		return (1e-99);
 	}
@@ -1102,7 +1102,7 @@ pr_phi(const char *phase_name)
 	phase_ptr = phase_bsearch(phase_name, &l, FALSE);
 	if (phase_ptr == NULL)
 	{
-		sprintf(error_string, "Gas %s, not found.", phase_name);
+		error_string = sformatf( "Gas %s, not found.", phase_name);
 		warning_msg(error_string);
 		return (1e-99);
 	}
@@ -1126,7 +1126,7 @@ saturation_ratio(const char *phase_name)
 	phase_ptr = phase_bsearch(phase_name, &l, FALSE);
 	if (phase_ptr == NULL)
 	{
-		sprintf(error_string, "Mineral %s, not found.", phase_name);
+		error_string = sformatf( "Mineral %s, not found.", phase_name);
 		warning_msg(error_string);
 		return (1e-99);
 	}
@@ -1158,7 +1158,7 @@ saturation_index(const char *phase_name, LDBLE * iap, LDBLE * si)
 	phase_ptr = phase_bsearch(phase_name, &l, FALSE);
 	if (phase_ptr == NULL)
 	{
-		sprintf(error_string, "Mineral %s, not found.", phase_name);
+		error_string = sformatf( "Mineral %s, not found.", phase_name);
 		warning_msg(error_string);
 		*si = -99;
 	}
@@ -1421,7 +1421,7 @@ match_elts_in_species(const char *name, const char *mytemplate)
 		 */
 		if (copy_token(elt_name, &ptr1, &l) == EMPTY)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Expecting a nonempty list of element names in isotope sum. %s",
 					mytemplate);
 			error_msg(error_string, CONTINUE);
@@ -1493,7 +1493,7 @@ match_elts_in_species(const char *name, const char *mytemplate)
 		 */
 		if (copy_token(elt_name, &ptr1, &l) == EMPTY)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Expecting a nonempty list of element names in isotope sum. %s",
 					mytemplate);
 			error_msg(error_string, CONTINUE);
@@ -1574,7 +1574,7 @@ extract_bracket(char **string, char *bracket_string)
 	strcpy(bracket_string, ptr);
 	if ((ptr1 = strstr(bracket_string, "}")) == NULL)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"No matching bracket (}) in isotope template string %s",
 				*string);
 		error_msg(error_string, CONTINUE);

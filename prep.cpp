@@ -332,7 +332,7 @@ quick_setup(void)
 					ptr1[0] = '\0';
 				if (strcmp(name, x[i]->surface_charge->name) != 0)
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 							"Internal error: Surface charge name %s does not match surface component name %s\nTry alphabetical order for surfaces in SURFACE",
 							x[i]->surface_charge->name,
 							x[i]->surface_comp->formula);
@@ -536,7 +536,7 @@ build_gas_phase(void)
 				}
 				if (master_ptr == NULL)
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 							"Element needed for gas component, %s, is not in model.",
 							phase_ptr->name);
 					warning_msg(error_string);
@@ -555,7 +555,7 @@ build_gas_phase(void)
 				}
 				if (master_ptr->in == FALSE)
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 							"Element, %s, in phase, %s, is not in model.",
 							master_ptr->elt->name, phase_ptr->name);
 					error_msg(error_string, CONTINUE);
@@ -602,7 +602,7 @@ build_gas_phase(void)
 		{
 			if (rxn_ptr->s != s_eminus && rxn_ptr->s->in == FALSE)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 					"Element in species, %s, in phase, %s, is not in model.",
 					rxn_ptr->s->name, phase_ptr->name);
 				warning_msg(error_string);
@@ -623,7 +623,7 @@ build_gas_phase(void)
 
 				if (master_ptr == NULL)
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 						"Master species for %s, in phase, %s, is not in model.",
 						rxn_ptr->s->name, phase_ptr->name);
 					error_msg(error_string, CONTINUE);
@@ -642,7 +642,7 @@ build_gas_phase(void)
 					}
 					if (master_ptr->in == FALSE)
 					{
-						sprintf(error_string,
+						error_string = sformatf(
 							"Element, %s, in phase, %s, is not in model.",
 							master_ptr->elt->name, phase_ptr->name);
 						warning_msg(error_string);
@@ -824,7 +824,7 @@ build_s_s_assemblage(void)
 					if (state != ADVECTION && state != TRANSPORT
 						&& state != PHAST)
 					{
-						sprintf(error_string,
+						error_string = sformatf(
 								"Element in phase, %s, is not in model.",
 								x[i]->phase->name);
 						warning_msg(error_string);
@@ -1554,7 +1554,7 @@ build_pure_phases(void)
 					if (state != ADVECTION && state != TRANSPORT
 						&& state != PHAST)
 					{
-						sprintf(error_string,
+						error_string = sformatf(
 								"Element in phase, %s, is not in model.",
 								x[i]->phase->name);
 						warning_msg(error_string);
@@ -1634,7 +1634,7 @@ build_solution_phase_boundaries(void)
 		store_mb(&(x[i]->si), &(x[i]->f), 1.0);
 		if (x[i]->phase->in != TRUE)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Solution does not contain all elements for phase-boundary mineral, %s.",
 					x[i]->phase->name);
 			error_msg(error_string, CONTINUE);
@@ -1905,7 +1905,7 @@ convert_units(struct solution *solution_ptr)
 				/* use given chemical formula to calculate gfw */
 				if (compute_gfw(tot_ptr->as, &(tot_ptr->gfw)) == ERROR)
 				{
-					sprintf(error_string, "Could not compute gfw, %s.",
+					error_string = sformatf( "Could not compute gfw, %s.",
 							tot_ptr->as);
 					error_msg(error_string, CONTINUE);
 					input_error++;
@@ -1914,7 +1914,7 @@ convert_units(struct solution *solution_ptr)
 					strcmp(tot_ptr->as, "CaCO3") == 0)
 				{
 					tot_ptr->gfw /= 2.;
-					sprintf(error_string,
+					error_string = sformatf(
 							"Equivalent wt for alkalinity should be Ca.5(CO3).5. Using %g g/eq.",
 							(double) tot_ptr->gfw);
 					warning_msg(error_string);
@@ -1933,7 +1933,7 @@ convert_units(struct solution *solution_ptr)
 				}
 				else
 				{
-					sprintf(error_string, "Could not find gfw, %s.",
+					error_string = sformatf( "Could not find gfw, %s.",
 							tot_ptr->description);
 					error_msg(error_string, CONTINUE);
 					input_error++;
@@ -2054,7 +2054,7 @@ get_list_master_ptrs(char *ptr, struct master *master_ptr)
 		{
 			if (master_ptr0->s->secondary == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Master species for valence states of element %s are not correct.\n\tPossibly related to master species for %s.",
 						master_ptr0->elt->name, master[j]->elt->name);
 				error_msg(error_string, CONTINUE);
@@ -2689,7 +2689,7 @@ write_mass_action_eqn_x(int stop)
 		count++;
 		if (count > MAX_ADD_EQUATIONS)
 		{
-			sprintf(error_string, "Could not reduce equation "
+			error_string = sformatf( "Could not reduce equation "
 					"to primary and secondary species that are "
 					"in the model\n\t Species: %s.", trxn.token[0].s->name);
 			if (stop == STOP)
@@ -2770,16 +2770,16 @@ add_potential_factor(void)
  */
 	if (master_ptr == NULL)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Did not find a surface species in equation defining %s",
 				trxn.token[0].name);
 		error_msg(error_string, CONTINUE);
-		sprintf(error_string,
+		error_string = sformatf(
 				"One of the following must be defined with SURFACE_SPECIES:");
 		error_msg(error_string, CONTINUE);
 		for (i = 1; i < count_trxn; i++)
 		{
-			sprintf(error_string, "     %s", trxn.token[i].name);
+			error_string = sformatf( "     %s", trxn.token[i].name);
 			error_msg(error_string, CONTINUE);
 		}
 		input_error++;
@@ -2789,7 +2789,7 @@ add_potential_factor(void)
 	unknown_ptr = find_surface_charge_unknown(token, SURF_PSI);
 	if (unknown_ptr == NULL)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"No potential unknown found for surface species %s.", token);
 		error_msg(error_string, STOP);
 	}
@@ -2856,16 +2856,16 @@ add_cd_music_factors(int n)
  */
 	if (master_ptr == NULL)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Did not find a surface species in equation defining %s",
 				trxn.token[0].name);
 		error_msg(error_string, CONTINUE);
-		sprintf(error_string,
+		error_string = sformatf(
 				"One of the following must be defined with SURFACE_SPECIES:");
 		error_msg(error_string, CONTINUE);
 		for (i = 1; i < count_trxn; i++)
 		{
-			sprintf(error_string, "     %s", trxn.token[i].name);
+			error_string = sformatf( "     %s", trxn.token[i].name);
 			error_msg(error_string, CONTINUE);
 		}
 		input_error++;
@@ -2878,7 +2878,7 @@ add_cd_music_factors(int n)
 	unknown_ptr = find_surface_charge_unknown(token, SURF_PSI);
 	if (unknown_ptr == NULL)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"No potential unknown found for surface species %s.", token);
 		error_msg(error_string, STOP);
 	}
@@ -2907,7 +2907,7 @@ add_cd_music_factors(int n)
 	unknown_ptr = find_surface_charge_unknown(token, SURF_PSI1);
 	if (unknown_ptr == NULL)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"No potential unknown found for surface species %s.", token);
 		error_msg(error_string, STOP);
 	}
@@ -2926,7 +2926,7 @@ add_cd_music_factors(int n)
 	unknown_ptr = find_surface_charge_unknown(token, SURF_PSI2);
 	if (unknown_ptr == NULL)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"No potential unknown found for surface species %s.", token);
 		error_msg(error_string, STOP);
 	}
@@ -2974,7 +2974,7 @@ add_surface_charge_balance(void)
 	}
 	if (i >= count_elts)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"No surface master species found for surface species.");
 		error_msg(error_string, STOP);
 	}
@@ -2985,7 +2985,7 @@ add_surface_charge_balance(void)
 	unknown_ptr = find_surface_charge_unknown(token, SURF_PSI);
 	if (unknown_ptr == NULL)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"No potential unknown found for surface species %s.", token);
 		error_msg(error_string, STOP);
 	}
@@ -3032,7 +3032,7 @@ add_cd_music_charge_balances(int n)
 	}
 	if (i >= count_elts)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"No surface master species found for surface species.");
 		error_msg(error_string, STOP);
 	}
@@ -3092,7 +3092,7 @@ rewrite_master_to_secondary(struct master *master_ptr1,
 	master_ptr_p2 = master_ptr2->elt->primary;
 	if (master_ptr_p1 != master_ptr_p2 || master_ptr_p1 == NULL)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"All redox states must be for the same element. %s\t%s.",
 				master_ptr1->elt->name, master_ptr2->elt->name);
 		error_msg(error_string, CONTINUE);
@@ -3106,7 +3106,7 @@ rewrite_master_to_secondary(struct master *master_ptr1,
 	coef2 = rxn_find_coef(master_ptr2->rxn_primary, master_ptr_p1->s->name);
 	if (equal(coef1, 0.0, TOL) == TRUE || equal(coef2, 0.0, TOL) == TRUE)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"One of these equations does not contain master species for element, %s or %s.",
 				master_ptr1->s->name, master_ptr2->s->name);
 		error_msg(error_string, CONTINUE);
@@ -3147,7 +3147,7 @@ setup_exchange(void)
 			master_ptr = use.exchange_ptr->comps[j].totals[i].elt->master;
 			if (master_ptr == NULL)
 			{
-				sprintf(error_string, "Master species not in data "
+				error_string = sformatf( "Master species not in data "
 						"base for %s, skipping element.",
 						use.exchange_ptr->comps[j].totals[i].elt->name);
 				input_error++;
@@ -3373,7 +3373,7 @@ setup_surface(void)
 			master_ptr = use.surface_ptr->comps[i].totals[j].elt->master;
 			if (master_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Master species not in data base for %s, skipping element.",
 						use.surface_ptr->comps[i].totals[j].elt->name);
 				warning_msg(error_string);
@@ -3385,7 +3385,7 @@ setup_surface(void)
 			 *   Check that data not already given
 			 */ if (master_ptr->in != FALSE)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Analytical data entered twice for %s.",
 						master_ptr->s->name);
 				error_msg(error_string, CONTINUE);
@@ -3610,7 +3610,7 @@ setup_surface(void)
 						name2 = x[j]->surface_comp->phase_name;
 					}
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"All surface sites for a single component must be related to the same phase.\n\tSite: %s is related to %s, Site: %s is related to %s",
 							x[i]->surface_comp->master->s->name, name1,
 							x[j]->surface_comp->master->s->name, name2);
@@ -3655,7 +3655,7 @@ setup_surface(void)
 						name2 = x[j]->surface_comp->rate_name;
 					}
 					input_error++;
-					sprintf(error_string,
+					error_string = sformatf(
 							"All surface sites for a single component must be related to the same kinetic reaction.\n\tSite: %s is related to %s, Site: %s is related to %s",
 							x[i]->surface_comp->master->s->name, name1,
 							x[j]->surface_comp->master->s->name, name2);
@@ -3730,7 +3730,7 @@ setup_master_rxn(struct master **master_ptr_list, struct reaction **pe_rxn)
  */
 		if (master_ptr->s == s_h2o)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Can not enter concentration data for O(-2),\n\tdissolved oxygen is O(0),\n\tfor mass of water, use -water identifier.");
 			error_msg(error_string, CONTINUE);
 			input_error++;
@@ -3741,7 +3741,7 @@ setup_master_rxn(struct master **master_ptr_list, struct reaction **pe_rxn)
 		{
 			if (master_ptr->s != s_eminus && master_ptr->s != s_hplus)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Analytical data entered twice for %s.",
 						master_ptr->s->name);
 				error_msg(error_string, CONTINUE);
@@ -4164,7 +4164,7 @@ setup_solution(void)
 		if (master_ptr == NULL)
 		{
 			/*                      solution_ptr->totals[i].skip = TRUE; */
-			sprintf(error_string,
+			error_string = sformatf(
 					"Master species not in data base for %s, skipping element.",
 					solution_ptr->totals[i].description);
 			warning_msg(error_string);
@@ -4173,7 +4173,7 @@ setup_solution(void)
 		if (master_ptr->type != AQ)
 		{
 			/*                      solution_ptr->totals[i].skip = TRUE; */
-			sprintf(error_string,
+			error_string = sformatf(
 					"Only aqueous concentrations are allowed in solution data, ignoring %s.",
 					solution_ptr->totals[i].description);
 			warning_msg(error_string);
@@ -4287,7 +4287,7 @@ setup_solution(void)
 								  FALSE);
 				if (solution_ptr->totals[i].phase == NULL)
 				{
-					sprintf(error_string, "Expected a mineral name, %s.",
+					error_string = sformatf( "Expected a mineral name, %s.",
 							solution_ptr->totals[i].equation_name);
 					error_msg(error_string, CONTINUE);
 					input_error++;
@@ -4476,7 +4476,7 @@ adjust_setup_solution(void)
 			//				  FALSE);
 			//if (solution_ptr->totals[i].phase == NULL)
 			//{
-			//	sprintf(error_string, "Expected a mineral name, %s.",
+			//	error_string = sformatf( "Expected a mineral name, %s.",
 			//			solution_ptr->totals[i].equation_name);
 			//	error_msg(error_string, CONTINUE);
 			//	input_error++;
@@ -4569,7 +4569,7 @@ setup_unknowns(void)
 			{
 				if (use.exchange_ptr->comps[j].totals[i].elt->master == NULL)
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 							"Master species missing for element %s",
 							use.exchange_ptr->comps[j].totals[i].elt->name);
 					error_msg(error_string, STOP);
@@ -4985,14 +4985,14 @@ tidy_redox(void)
 			}
 			else
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Can not find master species for redox couple, %s.",
 						pe_data_ptr->name);
 				error_msg(error_string, STOP);
 			}
 			if (inout() == FALSE)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Analytical data missing for redox couple, %s\n\t Using pe instead.",
 						pe_data_ptr->name);
 				warning_msg(error_string);
@@ -5017,11 +5017,11 @@ tidy_redox(void)
 		trxn_add(pe_data_ptr->rxn, 1.0, FALSE);
 		if (write_mass_action_eqn_x(CONTINUE) == FALSE)
 		{
-			sprintf(error_string, "Could not rewrite redox "
+			error_string = sformatf( "Could not rewrite redox "
 					"couple equation for %s\n\t Possibly missing data for one "
 					"of the redox states.", pe_data_ptr->name);
 			warning_msg(error_string);
-			sprintf(error_string, "Using pe instead of %s.",
+			error_string = sformatf( "Using pe instead of %s.",
 					pe_data_ptr->name);
 			warning_msg(error_string);
 			rxn_free(pe_data_ptr->rxn);
@@ -5060,7 +5060,7 @@ write_mb_eqn_x(void)
 		count++;
 		if (count > MAX_ADD_EQUATIONS)
 		{
-			sprintf(error_string, "Could not reduce equation "
+			error_string = sformatf( "Could not reduce equation "
 					"to primary and secondary species that are "
 					"in the model, %s.", trxn.token[0].s->name);
 			error_msg(error_string, CONTINUE);
@@ -5161,7 +5161,7 @@ write_mb_for_species_list(int n)
 			if (get_secondary_in_species(&ptr, trxn.token[i].coef) == ERROR)
 			{
 				input_error++;
-				sprintf(error_string, "Error parsing %s.", trxn.token[i].s->secondary->elt->name);
+				error_string = sformatf( "Error parsing %s.", trxn.token[i].s->secondary->elt->name);
 				error_msg(error_string, CONTINUE);
 			}
 		}
@@ -5825,7 +5825,7 @@ build_min_exch(void)
 	if (exchange_bsearch(use.exchange_ptr->n_user, &n) == NULL)
 	{
 		input_error++;
-		sprintf(error_string, "Exchange %d not found.",
+		error_string = sformatf( "Exchange %d not found.",
 				use.exchange_ptr->n_user);
 		error_msg(error_string, CONTINUE);
 	}
@@ -5854,7 +5854,7 @@ build_min_exch(void)
 		if (j == -1)
 		{
 			input_error++;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Did not find unknown for master exchange species %s",
 					exchange[n].comps[i].master->s->name);
 			error_msg(error_string, CONTINUE);
@@ -5886,7 +5886,7 @@ build_min_exch(void)
 			if (master_ptr == NULL)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Did not find unknown for exchange related to mineral %s",
 						exchange[n].comps[i].phase_name);
 				error_msg(error_string, STOP);
@@ -5903,7 +5903,7 @@ build_min_exch(void)
 					 comp_ptr->phase_proportion,
 					 5.0 * convergence_tolerance) == FALSE)
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 							"Resetting number of sites in exchanger %s (=%e) to be consistent with moles of phase %s (=%e).\n%s",
 							master_ptr->s->name, (double) x[j]->moles,
 							comp_ptr->phase_name,
@@ -5962,7 +5962,7 @@ build_min_surface(void)
 	if (surface_bsearch(use.surface_ptr->n_user, &n) == NULL)
 	{
 		input_error++;
-		sprintf(error_string, "Surface %d not found.",
+		error_string = sformatf( "Surface %d not found.",
 				use.surface_ptr->n_user);
 		error_msg(error_string, CONTINUE);
 	}
@@ -5991,7 +5991,7 @@ build_min_surface(void)
 		if (j == -1)
 		{
 			input_error++;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Did not find unknown for master surface species %s",
 					surface[n].comps[i].master->s->name);
 			error_msg(error_string, CONTINUE);
@@ -6042,7 +6042,7 @@ build_min_surface(void)
 			if (master_ptr == NULL)
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Did not find unknown for surface related to mineral %s",
 						surface[n].comps[i].phase_name);
 				error_msg(error_string, STOP);
@@ -6055,7 +6055,7 @@ build_min_surface(void)
 					 comp_ptr->phase_proportion,
 					 5.0 * convergence_tolerance) == FALSE)
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 							"Resetting number of sites in surface %s (=%e) to be consistent with moles of phase %s (=%e).\n%s",
 							master_ptr->s->name, (double) x[j]->moles,
 							comp_ptr->phase_name,

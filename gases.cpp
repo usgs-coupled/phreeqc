@@ -201,7 +201,7 @@ build_fixed_volume_gas(void)
 				}
 				if (master_ptr == NULL)
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 							"Element needed for gas component, %s, is not in model.",
 							phase_ptr->name);
 					warning_msg(error_string);
@@ -220,7 +220,7 @@ build_fixed_volume_gas(void)
 				}
 				if (master_ptr->in == FALSE)
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 							"Element, %s, in phase, %s, is not in model.",
 							master_ptr->elt->name, phase_ptr->name);
 					error_msg(error_string, CONTINUE);
@@ -269,7 +269,7 @@ build_fixed_volume_gas(void)
 		{
 			if (rxn_ptr->s != s_eminus && rxn_ptr->s->in == FALSE)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 					"Element in species, %s, in phase, %s, is not in model.",
 					rxn_ptr->s->name, phase_ptr->name);
 				warning_msg(error_string);
@@ -290,7 +290,7 @@ build_fixed_volume_gas(void)
 
 				if (master_ptr == NULL)
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 						"Master species for %s, in phase, %s, is not in model.",
 						rxn_ptr->s->name, phase_ptr->name);
 					error_msg(error_string, CONTINUE);
@@ -309,7 +309,7 @@ build_fixed_volume_gas(void)
 					}
 					if (master_ptr->in == FALSE)
 					{
-						sprintf(error_string,
+						error_string = sformatf(
 							"Element, %s, in phase, %s, is not in model.",
 							master_ptr->elt->name, phase_ptr->name);
 						warning_msg(error_string);

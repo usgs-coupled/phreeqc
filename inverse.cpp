@@ -74,7 +74,7 @@ inverse_models(void)
 				netpath_file = fopen(string, "w");
 				if (netpath_file == NULL)
 				{
-					sprintf(error_string, "Can't open file, %s.", string);
+					error_string = sformatf( "Can't open file, %s.", string);
 					error_msg(error_string, STOP);
 				}
 				count_inverse_models = 0;
@@ -91,7 +91,7 @@ inverse_models(void)
 /*
  *  Initial prints
  */
-			sprintf(error_string,
+			error_string = sformatf(
 					"Beginning of inverse modeling %d calculations.",
 					inverse[n].n_user);
 			dup_print(error_string, TRUE);
@@ -403,7 +403,7 @@ setup_inverse(struct inverse *inv_ptr)
 		solution_ptr = solution_bsearch(inv_ptr->solns[i], &j, TRUE);
 		if (solution_ptr == NULL)
 		{
-			sprintf(error_string, "Solution number %d not found.",
+			error_string = sformatf( "Solution number %d not found.",
 					inv_ptr->solns[i]);
 			error_msg(error_string, STOP);
 		}
@@ -415,7 +415,7 @@ setup_inverse(struct inverse *inv_ptr)
 			/*   List elements not included in model */
 			if (master_ptr->in < 0)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"%s is included in solution %d, but is not included as a mass-balance constraint.",
 						solution_ptr->totals[j].description,
 						inv_ptr->solns[i]);
@@ -489,7 +489,7 @@ setup_inverse(struct inverse *inv_ptr)
 			}
 			if (master_ptr == NULL)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Setup_inverse, reaction for phase, %s.",
 						phase_ptr->name);
 				error_msg(error_string, STOP);
@@ -543,7 +543,7 @@ setup_inverse(struct inverse *inv_ptr)
 				}
 				if (master_ptr == NULL)
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 							"Subroutine setup_inverse, element not found, %s.",
 							rxn_ptr->token[j].s->name);
 					error_msg(error_string, STOP);
@@ -1536,7 +1536,7 @@ solve_with_mask(struct inverse *inv_ptr, unsigned long cur_bits)
 #endif
 	if (kode == 3)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Exceeded maximum iterations in inverse modeling: %d.\n"
 				"Recompile program with larger limit.", iter);
 		error_msg(error_string, STOP);
@@ -2914,7 +2914,7 @@ check_solns(struct inverse *inv_ptr)
 
 		if (kode != 0)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Not possible to balance solution %d with input uncertainties.",
 					inv_ptr->solns[i]);
 			error_msg(error_string, CONTINUE);
@@ -3133,7 +3133,7 @@ carbon_derivs(struct inverse *inv_ptr)
 		solution_ptr_orig = solution_bsearch(inv_ptr->solns[i], &n, TRUE);
 		if (solution_ptr_orig == NULL)
 		{
-			sprintf(error_string, "Solution %d for inverse "
+			error_string = sformatf( "Solution %d for inverse "
 					"modeling not found.", inv_ptr->solns[i]);
 			error_msg(error_string, STOP);
 		}
@@ -3279,7 +3279,7 @@ isotope_balance_equation(struct inverse *inv_ptr, int row, int n)
 	/* isotope element must be defined */
 	if (primary_ptr == NULL)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"In isotope calculation: element not defined: %s.",
 				inv_ptr->isotopes[n].elt_name);
 		error_msg(error_string, CONTINUE);
@@ -3289,7 +3289,7 @@ isotope_balance_equation(struct inverse *inv_ptr, int row, int n)
 	/* isotope element must be primary */
 	if (primary_ptr->primary != TRUE)
 	{
-		sprintf(error_string, "Isotope mass-balance may only be used"
+		error_string = sformatf( "Isotope mass-balance may only be used"
 				" for total element concentrations.\n"
 				"Secondary species not allowed: %s.",
 				inv_ptr->isotopes[n].elt_name);
@@ -3437,7 +3437,7 @@ count_isotope_unknowns(struct inverse *inv_ptr,
 		isotope_number = inv_ptr->isotopes[i].isotope_number;
 		if (primary_ptr == NULL)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Element not found for isotope calculation: %s.",
 					inv_ptr->isotopes[i].elt_name);
 			error_msg(error_string, CONTINUE);
@@ -3446,7 +3446,7 @@ count_isotope_unknowns(struct inverse *inv_ptr,
 		}
 		if (primary_ptr->primary != TRUE)
 		{
-			sprintf(error_string, "Isotope mass-balance may only be used"
+			error_string = sformatf( "Isotope mass-balance may only be used"
 					" for total element concentrations.\n"
 					"Secondary species not allowed: %s.",
 					inv_ptr->isotopes[i].elt_name);
@@ -3569,7 +3569,7 @@ check_isotopes(struct inverse *inv_ptr)
 			}
 			if (err == TRUE)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"In solution %d, isotope ratio(s) are needed for element: %g%s.",
 						solution_ptr->n_user, (double) isotope_number,
 						primary_ptr->elt->name);
@@ -3632,7 +3632,7 @@ check_isotopes(struct inverse *inv_ptr)
 					{
 						solution_ptr->isotopes[k].x_ratio_uncertainty =
 							iso_defaults[l].uncertainty;
-						sprintf(error_string,
+						error_string = sformatf(
 								"Solution %d,  element %g%s: default isotope ratio uncertainty is used, %g.",
 								solution_ptr->n_user,
 								(double) solution_ptr->isotopes[k].
@@ -3647,7 +3647,7 @@ check_isotopes(struct inverse *inv_ptr)
 			}
 			if (solution_ptr->isotopes[k].x_ratio_uncertainty == NAN)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"In solution %d, isotope ratio uncertainty is needed for element: %g%s.",
 						solution_ptr->n_user,
 						(double) solution_ptr->isotopes[k].isotope_number,
@@ -3695,7 +3695,7 @@ check_isotopes(struct inverse *inv_ptr)
 					}
 					else
 					{
-						sprintf(error_string,
+						error_string = sformatf(
 								"In phase %s, isotope ratio(s) are needed for element: %g%s.",
 								phase_ptr->name, (double) isotope_number,
 								primary_ptr->elt->name);
@@ -3806,7 +3806,7 @@ phase_isotope_inequalities(struct inverse *inv_ptr)
 			}
 			else
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"In isotope calculations, all phases containing isotopes must be"
 						" constrained.\nPhase %s is not constrained.\n",
 						inv_ptr->phases[i].phase->name);
@@ -3913,7 +3913,7 @@ dump_netpath(struct inverse *inverse_ptr)
 	netpath_file = fopen(string, "w");
 	if (netpath_file == NULL)
 	{
-		sprintf(error_string, "Can't open file, %s.", inverse_ptr->netpath);
+		error_string = sformatf( "Can't open file, %s.", inverse_ptr->netpath);
 		error_msg(error_string, STOP);
 	}
 	add_to_file("netpath.fil", inverse_ptr->netpath);
@@ -4723,7 +4723,7 @@ dump_netpath_pat(struct inverse *inv_ptr)
 	model_file = fopen(string1, "w");
 	if (model_file == NULL)
 	{
-		sprintf(error_string, "Can't open file, %s.", string);
+		error_string = sformatf( "Can't open file, %s.", string);
 		error_msg(error_string, STOP);
 	}
 	add_to_file("model.fil", string1);
@@ -5097,7 +5097,7 @@ add_to_file(const char *filename, char *string)
 		model_file = fopen(filename, "w");
 		if (model_file == NULL)
 		{
-			sprintf(error_string, "Can't open file, %s.", filename);
+			error_string = sformatf( "Can't open file, %s.", filename);
 			error_msg(error_string, STOP);
 		}
 	}
@@ -5117,7 +5117,7 @@ add_to_file(const char *filename, char *string)
 		if (i >= MAX_LINE)
 		{
 			string_line[MAX_LINE - 1] = '\0';
-			sprintf(error_string, "File name in %s is greater than %d characters: %s\n", filename, MAX_LINE, string_line);
+			error_string = sformatf( "File name in %s is greater than %d characters: %s\n", filename, MAX_LINE, string_line);
 			warning_msg(error_string);
 		}
 		else
@@ -5143,7 +5143,7 @@ add_to_file(const char *filename, char *string)
 			}
 			else
 			{
-				sprintf(error_string,"Could not open netpath model file: %s\n", filename);
+				error_string = sformatf("Could not open netpath model file: %s\n", filename);
 				error_msg(error_string, STOP);
 			}
 			return (OK);

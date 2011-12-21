@@ -39,7 +39,7 @@ transport(void)
 		if (use.solution_ptr == NULL)
 		{
 			input_error++;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Solution %d is needed for transport, but is not defined.",
 					i);
 			error_msg(error_string, CONTINUE);
@@ -73,7 +73,7 @@ transport(void)
 		if (ishift == 1)
 		{
 			input_error++;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Solution 0 is needed for transport, but is not defined.");
 			error_msg(error_string, CONTINUE);
 		}
@@ -87,7 +87,7 @@ transport(void)
 		if (ishift == -1)
 		{
 			input_error++;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Solution %d is needed for transport, but is not defined.",
 					count_cells + 1);
 			error_msg(error_string, CONTINUE);
@@ -125,7 +125,7 @@ transport(void)
 			transp_surf = TRUE;
 		if (transp_surf && !multi_Dflag)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"-multi_d must be defined for surface transport");
 			error_msg(error_string, CONTINUE);
 		}
@@ -3553,7 +3553,7 @@ sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 	surface_ptr1 = source1;
 	if (surface_ptr1 == NULL)
 	{
-		sprintf(error_string, "Null pointer for surface 1 in sum_surface.");
+		error_string = sformatf( "Null pointer for surface 1 in sum_surface.");
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -3646,7 +3646,7 @@ sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 					|| (surface_ptr1->comps[i1].phase_name == NULL
 						&& surface_ptr2->comps[i2].phase_name != NULL))
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 							"Surfaces differ in use of related phases (sites proportional to moles of an equilibrium phase). Can not mix.");
 					error_msg(error_string, CONTINUE);
 					input_error++;
@@ -3658,7 +3658,7 @@ sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 										  surface_ptr2->comps[i2].
 										  phase_name) != 0)
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 							"Surfaces differ in use of related phases (sites proportional to moles of an equilibrium phase). Can not mix.");
 					error_msg(error_string, CONTINUE);
 					input_error++;
@@ -3669,7 +3669,7 @@ sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 					|| (surface_ptr1->comps[i1].rate_name == NULL
 						&& surface_ptr2->comps[i2].rate_name != NULL))
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 							"Surfaces differ in use of related rate (sites proportional to moles of a kinetic reactant). Can not mix.");
 					error_msg(error_string, CONTINUE);
 					input_error++;
@@ -3681,7 +3681,7 @@ sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 										  surface_ptr2->comps[i2].
 										  rate_name) != 0)
 				{
-					sprintf(error_string,
+					error_string = sformatf(
 							"Surfaces differ in use of related rates (sites proportional to moles of a kinetic reactant). Can not mix.");
 					error_msg(error_string, CONTINUE);
 					input_error++;
@@ -3817,7 +3817,7 @@ sum_surface_comp(struct surface *source1, LDBLE f1, struct surface *source2,
 	surface_ptr = target;
 	if (surface_ptr == NULL)
 	{
-		sprintf(error_string, "Target surface is NULL in sum_surface_comp");
+		error_string = sformatf( "Target surface is NULL in sum_surface_comp");
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -3844,7 +3844,7 @@ check_surfaces(struct surface *surface_ptr1, struct surface *surface_ptr2)
 	/*if (surface_ptr1->diffuse_layer != surface_ptr2->diffuse_layer) { */
 	if (surface_ptr1->dl_type != surface_ptr2->dl_type)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Surfaces %d and %d differ in definition of diffuse layer. Can not mix.",
 				n_user1, n_user2);
 		error_msg(error_string, CONTINUE);
@@ -3854,7 +3854,7 @@ check_surfaces(struct surface *surface_ptr1, struct surface *surface_ptr2)
 	/*if (surface_ptr1->edl != surface_ptr2->edl) { */
 	if (surface_ptr1->type != surface_ptr2->type)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Surfaces %d and %d differ in use of electrical double layer. Can not mix.",
 				n_user1, n_user2);
 		error_msg(error_string, CONTINUE);
@@ -3863,7 +3863,7 @@ check_surfaces(struct surface *surface_ptr1, struct surface *surface_ptr2)
 	}
 	if (surface_ptr1->only_counter_ions != surface_ptr2->only_counter_ions)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Surfaces %d and %d differ in use of only counter ions in the diffuse layer. Can not mix.",
 				n_user1, n_user2);
 		error_msg(error_string, CONTINUE);
@@ -3872,7 +3872,7 @@ check_surfaces(struct surface *surface_ptr1, struct surface *surface_ptr2)
 	}
 	if (surface_ptr1->related_phases != surface_ptr2->related_phases)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Surfaces %d and %d differ in use of related phases (sites proportional to moles of an equilibrium phase). Can not mix.",
 				n_user1, n_user2);
 		error_msg(error_string, CONTINUE);
@@ -3881,7 +3881,7 @@ check_surfaces(struct surface *surface_ptr1, struct surface *surface_ptr2)
 	}
 	if (surface_ptr1->related_rate != surface_ptr2->related_rate)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Surfaces %d and %d differ in use of related rate (sites proportional to moles of a kinetic reactant). Can not mix.",
 				n_user1, n_user2);
 		error_msg(error_string, CONTINUE);

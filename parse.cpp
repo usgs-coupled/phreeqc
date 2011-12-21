@@ -41,7 +41,7 @@ parse_eq(char *eqn, struct elt_list **elt_ptr, int association)
 	{
 		if (islegit(c) == FALSE)
 		{
-			sprintf(error_string, "Character is not allowed,\
+			error_string = sformatf( "Character is not allowed,\
  %c (octal: %o).", c, c);
 			error_msg(error_string, CONTINUE);
 			return (ERROR);
@@ -61,7 +61,7 @@ parse_eq(char *eqn, struct elt_list **elt_ptr, int association)
 			break;
 		if (c == '\0')
 		{
-			sprintf(error_string, "Equation has no equal sign.\n\t%s", eqn);
+			error_string = sformatf( "Equation has no equal sign.\n\t%s", eqn);
 			error_msg(error_string, CONTINUE);
 			return (ERROR);
 		}
@@ -194,13 +194,13 @@ check_eqn(int association)
 	{
 		if (association == TRUE)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Coefficient of first species on rhs is not equal to 1.0.");
 			error_msg(error_string, CONTINUE);
 		}
 		else
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Coefficient of mineral (first on lhs) is not equal to 1.0.");
 			error_msg(error_string, CONTINUE);
 		}
@@ -231,7 +231,7 @@ check_eqn(int association)
  */
 	if (equal(sumcharge, 0.0, TOL) == FALSE)
 	{
-		sprintf(error_string, "Equation is not charge balanced.");
+		error_string = sformatf( "Equation is not charge balanced.");
 		error_msg(error_string, CONTINUE);
 		oops++;
 	}
@@ -243,7 +243,7 @@ check_eqn(int association)
 		if ((equal(elt_list[i].coef, 0.0, TOL) == FALSE) &&
 			strncmp((elt_list[i].elt)->name, "e", MAX_LENGTH) != 0)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Equation does not balance for element, %s.",
 					(elt_list[i].elt)->name);
 			error_msg(error_string, CONTINUE);
@@ -297,7 +297,7 @@ get_charge(char *charge, LDBLE * l_z)
  */
 	if (c != '+' && c != '-')
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Character string for charge does not start with + or -,\t%s.",
 				charge);
 		error_msg(error_string, CONTINUE);
@@ -342,7 +342,7 @@ get_charge(char *charge, LDBLE * l_z)
 			}
 			else
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Error in character string for charge, %s.", charge);
 				error_msg(error_string, CONTINUE);
 				return (ERROR);
@@ -371,7 +371,7 @@ get_charge(char *charge, LDBLE * l_z)
 	{
 		if (sprintf(charge, "%-+d", i) == EOF)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Error converting charge to character string, %s.",
 					charge);
 			error_msg(error_string, CONTINUE);
@@ -453,7 +453,7 @@ get_coef(LDBLE * coef, char **eqnaddr)
 			token[i++] = c;
 			if (i >= MAX_LENGTH)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Coefficient has more than MAX_LENGTH characters.");
 				error_msg(error_string, CONTINUE);
 				return (ERROR);
@@ -466,7 +466,7 @@ get_coef(LDBLE * coef, char **eqnaddr)
 		*coef = strtod(token, &ptr1);
 		if ((errno == ERANGE) || (*ptr1 != '\0'))
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Error converting coefficient in get_coef, %s.", token);
 			error_msg(error_string, CONTINUE);
 			return (ERROR);
@@ -476,7 +476,7 @@ get_coef(LDBLE * coef, char **eqnaddr)
 /*
  *   None of the above, unknown construct
  */
-	sprintf(error_string,
+	error_string = sformatf(
 			"Illegal equation construct detected in get_coef.\n\t%s.", rest);
 	error_msg(error_string, CONTINUE);
 	return (ERROR);
@@ -503,7 +503,7 @@ get_elt(char **t_ptr, char *element, int *i)
 	c = *(*t_ptr)++;
 	if (c == '\0')
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Empty string in get_elt.  Expected an element name.");
 		error_msg(error_string, CONTINUE);
 		return (ERROR);
@@ -583,7 +583,7 @@ get_elts_in_species(char **t_ptr, LDBLE coef)
 			paren_count--;
 			if (paren_count < 0)
 			{
-				sprintf(error_string, "Too many right parentheses.");
+				error_string = sformatf( "Too many right parentheses.");
 				error_msg(error_string, CONTINUE);
 				return (ERROR);
 			}
@@ -631,7 +631,7 @@ get_elts_in_species(char **t_ptr, LDBLE coef)
 			count = count_elts;
 			if (c1 == ')')
 			{
-				sprintf(error_string, "Empty parentheses.");
+				error_string = sformatf( "Empty parentheses.");
 				warning_msg(error_string);
 			}
 			paren_count++;
@@ -674,7 +674,7 @@ get_elts_in_species(char **t_ptr, LDBLE coef)
 /*
  *   Not beginning of element and not opening paren
  */
-		sprintf(error_string,
+		error_string = sformatf(
 				"Parsing error in get_elts_in_species, unexpected character, %c.",
 				c);
 		error_msg(error_string, CONTINUE);
@@ -683,7 +683,7 @@ get_elts_in_species(char **t_ptr, LDBLE coef)
 	}
 	if (paren_count != 0)
 	{
-		sprintf(error_string, "Unbalanced parentheses.");
+		error_string = sformatf( "Unbalanced parentheses.");
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
@@ -714,7 +714,7 @@ get_secondary(char **t_ptr, char *element, int *i)
 	c = *(*t_ptr)++;
 	if (c == '\0')
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Empty string in get_elt.  Expected an element name.");
 		error_msg(error_string, CONTINUE);
 		input_error++;
@@ -840,7 +840,7 @@ get_secondary_in_species(char **t_ptr, LDBLE coef)
 			paren_count--;
 			if (paren_count < 0)
 			{
-				sprintf(error_string, "Too many right parentheses.");
+				error_string = sformatf( "Too many right parentheses.");
 				error_msg(error_string, CONTINUE);
 				input_error++;
 				return (ERROR);
@@ -884,7 +884,7 @@ get_secondary_in_species(char **t_ptr, LDBLE coef)
 			count = count_elts;
 			if (c1 == ')')
 			{
-				sprintf(error_string, "Empty parentheses.");
+				error_string = sformatf( "Empty parentheses.");
 				warning_msg(error_string);
 			}
 			paren_count++;
@@ -927,7 +927,7 @@ get_secondary_in_species(char **t_ptr, LDBLE coef)
 /*
  *   Not beginning of element and not opening paren
  */
-		sprintf(error_string,
+		error_string = sformatf(
 				"Parsing error in get_secondary_in_species, unexpected character, %c.",
 				c);
 		error_msg(error_string, CONTINUE);
@@ -935,7 +935,7 @@ get_secondary_in_species(char **t_ptr, LDBLE coef)
 	}
 	if (paren_count != 0)
 	{
-		sprintf(error_string, "Unbalanced parentheses.");
+		error_string = sformatf( "Unbalanced parentheses.");
 		error_msg(error_string, CONTINUE);
 		return (ERROR);
 	}
@@ -983,7 +983,7 @@ get_num(char **t_ptr, LDBLE * num)
 			/* check number length */
 			if (i >= MAX_LENGTH)
 			{
-				sprintf(error_string,
+				error_string = sformatf(
 						"Number was greater than MAX_LENGTH characters.");
 				error_msg(error_string, CONTINUE);
 				input_error++;
@@ -996,7 +996,7 @@ get_num(char **t_ptr, LDBLE * num)
 		*num = strtod(token, &ptr1);
 		if (errno == ERANGE)
 		{
-			sprintf(error_string, "Converting number in get_num, %s.", token);
+			error_string = sformatf( "Converting number in get_num, %s.", token);
 			input_error++;
 			error_msg(error_string, CONTINUE);
 			return (ERROR);

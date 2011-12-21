@@ -737,7 +737,7 @@ initialize(void)
 	status_timer = (float) clock();
 	status_interval = 0;
 	count_rate_p = 0;
-	strcpy(error_string,"");
+	//strcpy(error_string,"");
 	reaction_step = 0;
 	transport_step = 0;
 	transport_start = 0;
@@ -753,7 +753,7 @@ initialize(void)
 	step_size_now = step_size;
 	dampen_ah2o = false;
 	slack = false;
-	numerical_fixed_volume = true;
+	numerical_fixed_volume = false;
 	force_numerical_fixed_volume = false;
 	pe_step_size_now = pe_step_size;
 	count_total_steps = 0;
@@ -846,7 +846,7 @@ set_use(void)
 			solution_bsearch(use.n_solution_user, &use.n_solution, FALSE);
 		if (use.solution_ptr == NULL)
 		{
-			sprintf(error_string, "Solution %d not found.",
+			error_string = sformatf( "Solution %d not found.",
 					use.n_solution_user);
 			error_msg(error_string, STOP);
 		}
@@ -860,7 +860,7 @@ set_use(void)
 		use.n_mix_user_orig = use.n_mix_user;
 		if (use.mix_ptr == NULL)
 		{
-			sprintf(error_string, "Mixture %d not found.", use.n_mix_user);
+			error_string = sformatf( "Mixture %d not found.", use.n_mix_user);
 			error_msg(error_string, STOP);
 		}
 	}
@@ -878,7 +878,7 @@ set_use(void)
 								  &use.n_pp_assemblage);
 		if (use.pp_assemblage_ptr == NULL)
 		{
-			sprintf(error_string, "Pure phase assemblage %d not found.",
+			error_string = sformatf( "Pure phase assemblage %d not found.",
 					use.n_pp_assemblage_user);
 			error_msg(error_string, STOP);
 		}
@@ -895,7 +895,7 @@ set_use(void)
 		use.irrev_ptr = irrev_bsearch(use.n_irrev_user, &use.n_irrev);
 		if (use.irrev_ptr == NULL)
 		{
-			sprintf(error_string, "Irreversible reaction %d not found.",
+			error_string = sformatf( "Irreversible reaction %d not found.",
 					use.n_irrev_user);
 			error_msg(error_string, STOP);
 		}
@@ -913,7 +913,7 @@ set_use(void)
 			exchange_bsearch(use.n_exchange_user, &use.n_exchange);
 		if (use.exchange_ptr == NULL)
 		{
-			sprintf(error_string, "Exchange %d not found.",
+			error_string = sformatf( "Exchange %d not found.",
 					use.n_exchange_user);
 			error_msg(error_string, STOP);
 		}
@@ -931,7 +931,7 @@ set_use(void)
 			kinetics_bsearch(use.n_kinetics_user, &use.n_kinetics);
 		if (use.kinetics_ptr == NULL)
 		{
-			sprintf(error_string, "Kinetics %d not found.",
+			error_string = sformatf( "Kinetics %d not found.",
 					use.n_kinetics_user);
 			error_msg(error_string, STOP);
 		}
@@ -949,7 +949,7 @@ set_use(void)
 		use.surface_ptr = surface_bsearch(use.n_surface_user, &use.n_surface);
 		if (use.surface_ptr == NULL)
 		{
-			sprintf(error_string, "Surface %d not found.",
+			error_string = sformatf( "Surface %d not found.",
 					use.n_surface_user);
 			error_msg(error_string, STOP);
 		}
@@ -967,7 +967,7 @@ set_use(void)
 			temperature_bsearch(use.n_temperature_user, &use.n_temperature);
 		if (use.temperature_ptr == NULL)
 		{
-			sprintf(error_string, "Temperature %d not found.",
+			error_string = sformatf( "Temperature %d not found.",
 					use.n_temperature_user);
 			error_msg(error_string, STOP);
 		}
@@ -984,7 +984,7 @@ set_use(void)
 		use.pressure_ptr =	Utilities::Reactant_find(Reaction_pressure_map, use.n_pressure_user);
 		if (use.pressure_ptr == NULL)
 		{
-			sprintf(error_string, "pressure %d not found.",	use.n_pressure_user);
+			error_string = sformatf( "pressure %d not found.",	use.n_pressure_user);
 			error_msg(error_string, STOP);
 		}
 	}
@@ -1001,7 +1001,7 @@ set_use(void)
 			gas_phase_bsearch(use.n_gas_phase_user, &use.n_gas_phase);
 		if (use.gas_phase_ptr == NULL)
 		{
-			sprintf(error_string, "Gas_phase %d not found.",
+			error_string = sformatf( "Gas_phase %d not found.",
 					use.n_gas_phase_user);
 			error_msg(error_string, STOP);
 		}
@@ -1020,7 +1020,7 @@ set_use(void)
 								   &use.n_s_s_assemblage);
 		if (use.s_s_assemblage_ptr == NULL)
 		{
-			sprintf(error_string, "s_s_assemblage %d not found.",
+			error_string = sformatf( "s_s_assemblage %d not found.",
 					use.n_s_s_assemblage_user);
 			error_msg(error_string, STOP);
 		}

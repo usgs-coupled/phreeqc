@@ -186,7 +186,7 @@ pitzer_tidy(void)
 				 && pitz_params[i]->ispec[j] == -1))
 			{
 				input_error++;
-				sprintf(error_string,
+				error_string = sformatf(
 						"Species for Pitzer parameter not defined in SOLUTION_SPECIES, %s",
 						pitz_params[i]->species[j]);
 				error_msg(error_string, CONTINUE);
@@ -233,7 +233,7 @@ pitzer_tidy(void)
 	}
 	if (mcb0 == NULL && mcb1 == NULL && mcc0 == NULL && ICON == TRUE)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"No KCl interaction parameters, turning off MacInnis scaling.");
 		warning_msg(error_string);
 		ICON = FALSE;
@@ -651,12 +651,12 @@ read_pitzer(void)
 				{
 					if (pitz_params[j]->species[2] != NULL)
 					{
-						sprintf(error_string, "Redefinition of parameter, %s %s %s\n", 
+						error_string = sformatf( "Redefinition of parameter, %s %s %s\n", 
 						pitz_params[j]->species[0], pitz_params[j]->species[1], pitz_params[j]->species[2]);
 					}
 					else
 					{
-						sprintf(error_string, "Redefinition of parameter, %s %s\n", 
+						error_string = sformatf( "Redefinition of parameter, %s %s\n", 
 						pitz_params[j]->species[0], pitz_params[j]->species[1]);
 					}
 				    warning_msg(error_string);
@@ -1884,7 +1884,7 @@ model_pz(void)
 			 */
 			if (iterations > itmax)
 			{
-				sprintf(error_string, "Maximum iterations exceeded, %d\n",
+				error_string = sformatf( "Maximum iterations exceeded, %d\n",
 						itmax);
 				warning_msg(error_string);
 				stop_program = TRUE;
@@ -1979,7 +1979,7 @@ model_pz(void)
 		gamma_iterations++;
 		if (gamma_iterations > itmax)
 		{
-			sprintf(error_string, "Maximum gamma iterations exceeded, %d\n",
+			error_string = sformatf( "Maximum gamma iterations exceeded, %d\n",
 					itmax);
 			warning_msg(error_string);
 			stop_program = TRUE;

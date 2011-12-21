@@ -72,7 +72,7 @@ calc_kinetic_reaction(struct kinetics *kinetics_ptr, LDBLE time_step)
 		rate_ptr = rate_search(kinetics_ptr->comps[i].rate_name, &j);
 		if (rate_ptr == NULL)
 		{
-			sprintf(error_string, "Rate not found for %s",
+			error_string = sformatf( "Rate not found for %s",
 					kinetics_ptr->comps[i].rate_name);
 			error_msg(error_string, STOP);
 		}
@@ -89,7 +89,7 @@ calc_kinetic_reaction(struct kinetics *kinetics_ptr, LDBLE time_step)
 					(rates[j].commands, &rates[j].linebase, &rates[j].varbase,
 					 &rates[j].loopbase) != 0)
 				{
-					sprintf(error_string, "Fatal Basic error in rate %s.",
+					error_string = sformatf( "Fatal Basic error in rate %s.",
 							kinetics_ptr->comps[i].rate_name);
 					error_msg(error_string, STOP);
 				}
@@ -100,13 +100,13 @@ calc_kinetic_reaction(struct kinetics *kinetics_ptr, LDBLE time_step)
 				(l_command, rates[j].linebase, rates[j].varbase,
 				 rates[j].loopbase) != 0)
 			{
-				sprintf(error_string, "Fatal Basic error in rate %s.",
+				error_string = sformatf( "Fatal Basic error in rate %s.",
 						kinetics_ptr->comps[i].rate_name);
 				error_msg(error_string, STOP);
 			}
 			if (rate_moles == NAN)
 			{
-				sprintf(error_string, "Moles of reaction not SAVE'd for %s.",
+				error_string = sformatf( "Moles of reaction not SAVE'd for %s.",
 						kinetics_ptr->comps[i].rate_name);
 				error_msg(error_string, STOP);
 			}
@@ -367,7 +367,7 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 
 		if (step_bad > kinetics_ptr->bad_step_max)
 		{
-			sprintf(error_string,
+			error_string = sformatf(
 					"Bad RK steps > %d. Please decrease (time)step or increase -bad_step_max.",
 					kinetics_ptr->bad_step_max);
 			error_msg(error_string, STOP);
@@ -1186,7 +1186,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 			itmax *= 2;
 			step_size = small_step;
 			pe_step_size = small_pe_step;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Trying smaller step size, pe step size %g, %g ... \n",
 					(double) step_size, (double) pe_step_size);
 			warning_msg(error_string);
@@ -1195,7 +1195,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 		{
 			itmax *= 2;
 			ineq_tol /= 10.;
-			sprintf(error_string, "Trying reduced tolerance %g ...\n",
+			error_string = sformatf( "Trying reduced tolerance %g ...\n",
 					(double) ineq_tol);
 			warning_msg(error_string);
 		}
@@ -1203,7 +1203,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 		{
 			itmax *= 2;
 			ineq_tol *= 10.;
-			sprintf(error_string, "Trying increased tolerance %g ...\n",
+			error_string = sformatf( "Trying increased tolerance %g ...\n",
 					(double) ineq_tol);
 			warning_msg(error_string);
 		}
@@ -1218,7 +1218,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 			{
 				diagonal_scale = TRUE;
 			}
-			sprintf(error_string, "Trying diagonal scaling ...\n");
+			error_string = sformatf( "Trying diagonal scaling ...\n");
 			warning_msg(error_string);
 		}
 		else if (j == 5)
@@ -1233,7 +1233,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 				diagonal_scale = TRUE;
 			}
 			ineq_tol /= 10.;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Trying diagonal scaling and reduced tolerance %g ...\n",
 					(double) ineq_tol);
 			warning_msg(error_string);
@@ -1243,7 +1243,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 			if (pitzer_model == TRUE || sit_model == TRUE) continue;
 			itmax *= 2;
 			pp_column_scale = 1e-10;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Trying scaling pure_phase columns %g ...\n",
 					(double) pp_column_scale);
 			warning_msg(error_string);
@@ -1261,7 +1261,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 			{
 				diagonal_scale = TRUE;
 			}
-			sprintf(error_string,
+			error_string = sformatf(
 					"Trying scaling pure_phase columns and diagonal scale %g ...\n",
 					(double) pp_column_scale);
 			warning_msg(error_string);
@@ -1271,7 +1271,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 			if (pitzer_model == TRUE || sit_model == TRUE) continue;
 			itmax *= 2;
 			min_value *= 10;
-			sprintf(error_string, "Trying increased scaling %g ...\n",
+			error_string = sformatf( "Trying increased scaling %g ...\n",
 					(double) min_value);
 			warning_msg(error_string);
 		}
@@ -1279,7 +1279,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 		{
 			if (pitzer_model == TRUE || sit_model == TRUE) continue;
 			aqueous_only = 5;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Skipping optimize equations for first %d iterations ...\n",
 					aqueous_only);
 			warning_msg(error_string);
@@ -1288,7 +1288,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 		{
 			if (pitzer_model == TRUE || sit_model == TRUE) continue;
 			negative_concentrations = TRUE;
-			sprintf(error_string,
+			error_string = sformatf(
 					"Adding inequality to make concentrations greater than zero.\n");
 			warning_msg(error_string);
 		}
@@ -1296,7 +1296,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 		{
 			itmax *= 2;
 			ineq_tol /= 100.;
-			sprintf(error_string, "Trying reduced tolerance %g ...\n",
+			error_string = sformatf( "Trying reduced tolerance %g ...\n",
 					(double) ineq_tol);
 			warning_msg(error_string);
 		}
@@ -1304,7 +1304,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 		{
 			itmax *= 2;
 			ineq_tol /= 1000.;
-			sprintf(error_string, "Trying reduced tolerance %g ...\n",
+			error_string = sformatf( "Trying reduced tolerance %g ...\n",
 					(double) ineq_tol);
 			warning_msg(error_string);
 		}
@@ -1358,7 +1358,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 	if (converge == FALSE && use.kinetics_ptr != NULL
 		&& use.kinetics_ptr->use_cvode == TRUE)
 	{
-		sprintf(error_string,
+		error_string = sformatf(
 				"Numerical method failed on all parameter combinations, retrying integration");
 		warning_msg(error_string);
 		converge = MASS_BALANCE;
@@ -1392,7 +1392,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 		pr.use = TRUE;
 		sum_species();
 		print_all();
-		sprintf(error_string,
+		error_string = sformatf(
 				"Numerical method failed on all combinations of convergence parameters");
 		error_msg(error_string, STOP);
 	}
@@ -1557,7 +1557,7 @@ set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 			use.solution_ptr = solution_bsearch(i, &use.n_solution, FALSE);
 			if (use.solution_ptr == NULL)
 			{
-				sprintf(error_string, "Solution %d not found.",
+				error_string = sformatf( "Solution %d not found.",
 						use.n_solution_user);
 				error_msg(error_string, STOP);
 			}
@@ -1570,7 +1570,7 @@ set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 		use.solution_ptr = solution_bsearch(i, &use.n_solution, FALSE);
 		if (use.solution_ptr == NULL)
 		{
-			sprintf(error_string, "Solution %d not found.",
+			error_string = sformatf( "Solution %d not found.",
 					use.n_solution_user);
 			error_msg(error_string, STOP);
 		}
@@ -1757,7 +1757,7 @@ set_reaction(int i, int use_mix, int use_kinetics)
 		use.mix_ptr = mix_bsearch(i, &use.n_mix);
 		if (use.mix_ptr == NULL)
 		{
-			sprintf(error_string, "MIX %d not found.", i);
+			error_string = sformatf( "MIX %d not found.", i);
 			error_msg(error_string, STOP);
 		}
 	}
@@ -1766,7 +1766,7 @@ set_reaction(int i, int use_mix, int use_kinetics)
 		use.solution_ptr = solution_bsearch(i, &use.n_solution, FALSE);
 		if (use.solution_ptr == NULL)
 		{
-			sprintf(error_string, "Solution %d not found.", i);
+			error_string = sformatf( "Solution %d not found.", i);
 			error_msg(error_string, STOP);
 		}
 	}
@@ -1779,7 +1779,7 @@ set_reaction(int i, int use_mix, int use_kinetics)
 			pp_assemblage_bsearch(i, &use.n_pp_assemblage);
 		if (use.pp_assemblage_ptr == NULL)
 		{
-			sprintf(error_string, "PP_ASSEMBLAGE %d not found.", i);
+			error_string = sformatf( "PP_ASSEMBLAGE %d not found.", i);
 			error_msg(error_string, STOP);
 		}
 	}
@@ -1792,7 +1792,7 @@ set_reaction(int i, int use_mix, int use_kinetics)
 		use.irrev_ptr = irrev_bsearch(i, &use.n_irrev);
 		if (use.irrev_ptr == NULL)
 		{
-			sprintf(error_string, "REACTION %d not found.", i);
+			error_string = sformatf( "REACTION %d not found.", i);
 			error_msg(error_string, STOP);
 		}
 	}
@@ -1804,7 +1804,7 @@ set_reaction(int i, int use_mix, int use_kinetics)
 		use.exchange_ptr = exchange_bsearch(i, &use.n_exchange);
 		if (use.exchange_ptr == NULL)
 		{
-			sprintf(error_string, "EXCHANGE %d not found.", i);
+			error_string = sformatf( "EXCHANGE %d not found.", i);
 			error_msg(error_string, STOP);
 		}
 	}
@@ -1817,7 +1817,7 @@ set_reaction(int i, int use_mix, int use_kinetics)
 		use.surface_ptr = surface_bsearch(i, &use.n_surface);
 		if (use.surface_ptr == NULL)
 		{
-			sprintf(error_string, "SURFACE %d not found.", i);
+			error_string = sformatf( "SURFACE %d not found.", i);
 			error_msg(error_string, STOP);
 		}
 	}
@@ -1829,7 +1829,7 @@ set_reaction(int i, int use_mix, int use_kinetics)
 		use.temperature_ptr = temperature_bsearch(i, &use.n_temperature);
 		if (use.temperature_ptr == NULL)
 		{
-			sprintf(error_string, "TEMPERATURE %d not found.", i);
+			error_string = sformatf( "TEMPERATURE %d not found.", i);
 			error_msg(error_string, STOP);
 		}
 	}
@@ -1841,7 +1841,7 @@ set_reaction(int i, int use_mix, int use_kinetics)
 		use.pressure_ptr = Utilities::Reactant_find(Reaction_pressure_map, i);
 		if (use.pressure_ptr == NULL)
 		{
-			sprintf(error_string, "pressure %d not found.", i);
+			error_string = sformatf( "pressure %d not found.", i);
 			error_msg(error_string, STOP);
 		}
 	}
@@ -1853,7 +1853,7 @@ set_reaction(int i, int use_mix, int use_kinetics)
 		use.gas_phase_ptr = gas_phase_bsearch(i, &use.n_gas_phase);
 		if (use.gas_phase_ptr == NULL)
 		{
-			sprintf(error_string, "GAS_PHASE %d not found.", i);
+			error_string = sformatf( "GAS_PHASE %d not found.", i);
 			error_msg(error_string, STOP);
 		}
 	}
@@ -1866,7 +1866,7 @@ set_reaction(int i, int use_mix, int use_kinetics)
 			s_s_assemblage_bsearch(i, &use.n_s_s_assemblage);
 		if (use.s_s_assemblage_ptr == NULL)
 		{
-			sprintf(error_string, "Solid-solution Assemblage %d not found.",
+			error_string = sformatf( "Solid-solution Assemblage %d not found.",
 					i);
 			error_msg(error_string, STOP);
 		}
@@ -1879,7 +1879,7 @@ set_reaction(int i, int use_mix, int use_kinetics)
 		use.kinetics_ptr = kinetics_bsearch(i, &use.n_kinetics);
 		if (use.kinetics_ptr == NULL)
 		{
-			sprintf(error_string, "KINETICS %d not found.", i);
+			error_string = sformatf( "KINETICS %d not found.", i);
 			error_msg(error_string, STOP);
 		}
 	}
@@ -2144,10 +2144,10 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 			while (flag != SUCCESS)
 			{
 				sum_t += cvode_last_good_time;
-				sprintf(error_string,
-						"CVode incomplete at cvode_steps %d. Cell: %d\tTime: %e\tCvode calls: %d, continuing...",
+				error_string = sformatf(
+						"CVode incomplete at cvode_steps %d. Cell: %d\tTime: %e\tCvode calls: %d, continuing...\n",
 						(int) iopt[NST], cell_no, (double) sum_t, m_iter + 1);
-				warning_msg(sformatf("%s\n", error_string));
+				warning_msg(error_string);
 #ifdef DEBUG_KINETICS
 				if (m_iter > 5)
 					dump_kinetics_stderr(cell_no);
@@ -2188,7 +2188,7 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 				flag =
 					CVode(kinetics_cvode_mem, tout1, kinetics_y, &t, NORMAL);
 				/*
-				   sprintf(error_string, "CVode failed, flag=%d.\n", flag);
+				   error_string = sformatf( "CVode failed, flag=%d.\n", flag);
 				   error_msg(error_string, STOP);
 				 */
 			}
@@ -2353,7 +2353,7 @@ set_advection(int i, int use_mix, int use_kinetics, int nsaver)
 		use.solution_ptr = solution_bsearch(i, &use.n_solution, FALSE);
 		if (use.solution_ptr == NULL)
 		{
-			sprintf(error_string, "Solution %d not found.",
+			error_string = sformatf( "Solution %d not found.",
 					use.n_solution_user);
 			error_msg(error_string, STOP);
 		}
