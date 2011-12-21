@@ -387,6 +387,7 @@ dup_print(const char *ptr, int emphasis)
 			AddToCEntry((char *) ptr, 3, outputlinenr);
 	}
 #endif
+	std::string save_in(ptr);
 	l = (int) strlen(ptr);
 	dash = (char *) PHRQ_malloc((size_t) (l + 2) * sizeof(char));
 	if (dash == NULL)
@@ -396,13 +397,13 @@ dup_print(const char *ptr, int emphasis)
 		for (i = 0; i < l; i++)
 			dash[i] = '-';
 		dash[i] = '\0';
-		output_msg(sformatf("%s\n%s\n%s\n\n", dash, ptr, dash));
-		log_msg(sformatf("%s\n%s\n%s\n\n", dash, ptr, dash));
+		output_msg(sformatf("%s\n%s\n%s\n\n", dash, save_in.c_str(), dash));
+		log_msg(sformatf("%s\n%s\n%s\n\n", dash, save_in.c_str(), dash));
 	}
 	else
 	{
-		output_msg(sformatf("%s\n\n", ptr));
-		log_msg(sformatf("%s\n\n", ptr));
+		output_msg(sformatf("%s\n\n", save_in.c_str()));
+		log_msg(sformatf("%s\n\n", save_in.c_str()));
 	}
 	dash = (char *) free_check_null(dash);
 
