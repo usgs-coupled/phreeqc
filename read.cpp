@@ -5553,7 +5553,7 @@ read_species(void)
 	struct species *s_ptr;
 	struct elt_list *next_elt;
 	char *ptr, token[MAX_LENGTH];
-
+	bool vm_read;
 	int return_value, opt, opt_save;
 	char *next_char;
 	const char *opt_list[] = {
@@ -5601,6 +5601,7 @@ read_species(void)
 		{
 			opt = opt_save;
 		}
+		vm_read = false;
 		switch (opt)
 		{
 		case OPTION_EOF:		/* end of file */
@@ -5925,6 +5926,12 @@ read_species(void)
 				break;
 			}
 			print_density = read_millero_abcdef (next_char, &(s_ptr->millero[0]));
+			if (!vm_read)
+			{
+			/* copy millero parms into logk, for calculating pressure dependency... */
+				for (i = 0; i < 3; i++)
+					s_ptr->logk[vm0 + i] = s_ptr->millero[i];
+			}
 			opt_save = OPTION_DEFAULT;
 			break;
 /* VP: Density End */
@@ -5943,6 +5950,7 @@ read_species(void)
 			}
 			read_delta_v_only(next_char, &s_ptr->logk[vm0],
 				&s_ptr->original_deltav_units);
+			vm_read = true;
 			opt_save = OPTION_DEFAULT;
 			break;
 		case OPTION_DEFAULT:

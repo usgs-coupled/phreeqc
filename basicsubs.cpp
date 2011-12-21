@@ -133,7 +133,7 @@ calc_SC(void)
 /* VP: Density Start */
 /* ---------------------------------------------------------------------- */
 LDBLE Phreeqc::
-calc_dens (void)
+calc_dens(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -143,97 +143,103 @@ calc_dens (void)
  *   Millero, F.J. (2000) The equation of state of lakes. Aquatic geochemistry
  *   volume 6, pages 1-17
  */
-  int i;
-  /*
-  LDBLE rho_0;
-  LDBLE solution_mass, solution_volume;
-  */
-  LDBLE rho_new, rho_old;
-  LDBLE e_T, M_T;
-  LDBLE a, b, c, d, e, f;
-  LDBLE phi_0_i, b_v_i, s_v_i, PHI_v, B_v, S_v;
-/*
-  LDBLE k, I_m, I_v;
-  LDBLE AA_basic, BB, CC;
-*/
-  LDBLE k;
-  LDBLE gfw;
-  int l_z;
-  struct species *s_ptr;
+	int i;
+	/*
+	LDBLE rho_0;
+	LDBLE solution_mass, solution_volume;
+	*/
+	LDBLE rho_new, rho_old;
+	LDBLE e_T, M_T;
+	LDBLE a, b, c, d, e, f;
+	LDBLE phi_0_i, b_v_i, s_v_i, PHI_v, B_v, S_v;
+	/*
+	LDBLE k, I_m, I_v;
+	LDBLE AA_basic, BB, CC;
+	*/
+	LDBLE k;
+	LDBLE gfw;
+	int l_z;
+	struct species *s_ptr;
 
-  /* Density of V-SMOW (UNESCO, 1983) */
-  rho_0 = 999.842594 + (6.793952e-2 + (-9.095290e-3 + (1.001685e-4 + (-1.120083e-6 + 6.536332e-9 * tc_x) * tc_x) * tc_x) * tc_x) * tc_x;
-  rho_0 /= 1000;
-  s_v_i = 1.444 + (0.016799 + (-8.4055e-6 + 5.5153e-7 * tc_x) * tc_x) * tc_x;
-  rho_new = rho_0;
-  rho_old = 0.0;
+  /* Density of pure water (UNESCO, 1983) */
+	//rho_0 = 999.842594 + (6.793952e-2 + (-9.095290e-3 + (1.001685e-4 + (-1.120083e-6 + 6.536332e-9 * tc_x) * tc_x) * tc_x) * tc_x) * tc_x;
+	//rho_0 = calc_rho_0(tc_x, patm_x); // done in k_temp
+	//rho_0 /= 1000;
+	s_v_i = 1.444 + (0.016799 + (-8.4055e-6 + 5.5153e-7 * tc_x) * tc_x) * tc_x;
+	rho_new = rho_0;
+	rho_old = 0.0;
 
-  e_T = 0.0;
-  M_T = 0.0;
-  I_m = 0.0;
-  PHI_v = 0.0;
-  B_v = 0.0;
-  S_v = 0.0;
-  for (i = 0; i < count_species_list; i++) {
-    a = 0.0; b = 0.0; c = 0.0; d = 0.0; e = 0.0; f = 0.0; /* Just to be sure */
-    phi_0_i = 0.0; b_v_i = 0.0; /* Just to be sure */
+	e_T = 0.0;
+	M_T = 0.0;
+	I_m = 0.0;
+	PHI_v = 0.0;
+	B_v = 0.0;
+	S_v = 0.0;
+	for (i = 0; i < count_species_list; i++)
+	{
+		if (species_list[i].s->type != AQ)
+		  continue;
+		if (strcmp(species_list[i].s->name, "CO2") == 0)
+		  continue;
 
-    if (species_list[i].s->type != AQ)
-      continue;
-    if (strcmp(species_list[i].s->name, "CO2") == 0)
-      continue;
+		if (species_list[i].master_s->secondary != NULL)
+			gfw = species_list[i].master_s->secondary->gfw;
+		else
+			gfw = species_list[i].master_s->primary->gfw;
 
-    if (species_list[i].master_s->secondary != NULL) gfw = species_list[i].master_s->secondary->gfw;
-      else gfw = species_list[i].master_s->primary->gfw;
+		if (species_list[i].s->millero[0] == 0)
+			s_ptr = species_list[i].master_s;
+		else
+			s_ptr = species_list[i].s;
 
-    if (species_list[i].s->millero[0] == 0) s_ptr = species_list[i].master_s;
-      else s_ptr = species_list[i].s;
+		/* Special case: CO3-2 species */
+		if (strcmp(s_ptr->name, "CO3-2") == 0)
+		{
+			if (strstr(species_list[i].s->name, "HCO3") != NULL)
+			{
+				s_ptr = s_search("HCO3-");
+			} else if (strstr(species_list[i].s->name, "CO3") != NULL)
+			{
+				compute_gfw("CO3-2", &gfw);
+			}
+		}
 
-    /* Special case: CO3-2 species */
-    if (strcmp(s_ptr->name, "CO3-2") == 0) {
-       if (strstr(species_list[i].s->name, "HCO3") != NULL) {
-	  s_ptr = s_search("HCO3-");
-       } else if (strstr(species_list[i].s->name, "CO3") != NULL) {
-	  compute_gfw("CO3-2", &gfw);
-       }
-    }
+		l_z = abs((int) s_ptr->z);
+		a = s_ptr->millero[0];
+		b = s_ptr->millero[1];
+		c = s_ptr->millero[2];
+		d = s_ptr->millero[3];
+		e = s_ptr->millero[4];
+		f = s_ptr->millero[5];
+		phi_0_i = a + (b + c * tc_x) * tc_x;
+		b_v_i = d + (e + f * tc_x) * tc_x;
 
-    l_z = abs((int) s_ptr->z);
-    a = s_ptr->millero[0];
-    b = s_ptr->millero[1];
-    c = s_ptr->millero[2];
-    d = s_ptr->millero[3];
-    e = s_ptr->millero[4];
-    f = s_ptr->millero[5];
-    phi_0_i = a + (b + c * tc_x) * tc_x;
-    b_v_i = d + (e + f * tc_x) * tc_x;
+		PHI_v += (species_list[i].s->moles * phi_0_i);
+		B_v += (species_list[i].s->moles * b_v_i);
+		S_v += (species_list[i].s->moles * l_z * (s_v_i * l_z / 2));
 
-    PHI_v += (species_list[i].s->moles * phi_0_i);
-    B_v += (species_list[i].s->moles * b_v_i);
-    S_v += (species_list[i].s->moles * l_z * (s_v_i * l_z / 2));
+		if (l_z == 0) e_T += (species_list[i].s->moles * 2); /* For uncharged species like H4SiO4 (times 2 because e_T is divided by 2 later on) */
+		   else e_T += (species_list[i].s->moles * l_z);
+		M_T += (species_list[i].s->moles * gfw);
+		I_m += (species_list[i].s->moles * (l_z * l_z));
+	}
 
-    if (l_z == 0) e_T += (species_list[i].s->moles * 2); /* For uncharged species like H4SiO4 (times 2 because e_T is divided by 2 later on) */
-       else e_T += (species_list[i].s->moles * l_z);
-    M_T += (species_list[i].s->moles * gfw);
-    I_m += (species_list[i].s->moles * (l_z * l_z));
-  }
-
-  /* If pure water then return rho_0 */
-  if (PHI_v == 0)
+	/* If pure water then return rho_0 */
+	if (PHI_v == 0)
 	 return rho_0;
 
-  solution_mass =  mass_water_aq_x * 1000 + M_T;
-  e_T /= 2;
-  M_T /= e_T;
-  I_m /= 2;
-  PHI_v /= e_T;
-  B_v /= e_T;
-  S_v /= e_T;
+	solution_mass =  mass_water_aq_x * 1000 + M_T;
+	e_T /= 2;
+	M_T /= e_T;
+	I_m /= 2;
+	PHI_v /= e_T;
+	B_v /= e_T;
+	S_v /= e_T;
 
-  k = e_T / I_m;
-  AA_basic = k * (M_T - rho_0 * PHI_v);
-  BB_basic = -k * rho_0 * S_v;
-  CC = -k * rho_0 * B_v;
+	k = e_T / I_m;
+	AA_basic = k * (M_T - rho_0 * PHI_v);
+	BB_basic = -k * rho_0 * S_v;
+	CC = -k * rho_0 * B_v;
 
 /* DP: Replace Pickard iteration with interval halving */
 #ifdef SKIP
@@ -245,13 +251,13 @@ calc_dens (void)
 	rho_new = rho_new / 1000 + rho_0;
   } while ((fabs(rho_new - rho_old) > 1.0e-6) && (rho_new < 1.99999));
 #endif
-  rho_new = halve(f_rho, 0.5, 2.0, 1e-7);
+	rho_new = halve(f_rho, 0.5, 2.0, 1e-7);
 /* DP: End Replace Pickard iteration with interval halving */
 
-  /*if (isnan(rho_new) || rho_new > 1.99999) rho_new = 1.99999;*/
-  if (!PHR_ISFINITE(rho_new) || rho_new > 1.99999) rho_new = 1.99999;
+	/*if (isnan(rho_new) || rho_new > 1.99999) rho_new = 1.99999;*/
+	if (!PHR_ISFINITE(rho_new) || rho_new > 1.99999) rho_new = 1.99999;
 
-  return rho_new; /*(rho_new - rho_0) * 1e3; */
+	return rho_new; /*(rho_new - rho_0) * 1e3; */
 }
 /* VP: Density End */
 /* DP: Function for interval halving */
@@ -260,17 +266,18 @@ LDBLE Phreeqc::
 f_rho(LDBLE rho_old, void *cookie)
 /* ---------------------------------------------------------------------- */
 {
-  LDBLE rho, I_v;
-  Phreeqc * pThis;
+	LDBLE rho, I_v;
+	Phreeqc * pThis;
 
-  pThis = (Phreeqc *) cookie;
+	pThis = (Phreeqc *) cookie;
 
-  pThis->solution_volume = pThis->solution_mass / rho_old / 1000;
-  I_v = 1.0;
-  if (pThis->solution_volume != 0) I_v = pThis->I_m / pThis->solution_volume;
-  rho = pThis->AA_basic * I_v + pThis->BB_basic * exp(1.5 * log(I_v)) + pThis->CC * exp(2 * log(I_v)); /* exp/log is used for exponentiation */
-  rho = rho / 1000 + pThis->rho_0;
-  return (rho - rho_old);
+	pThis->solution_volume = pThis->solution_mass / rho_old / 1000;
+	I_v = 1.0;
+	if (pThis->solution_volume != 0)
+		I_v = pThis->I_m / pThis->solution_volume;
+	rho = I_v * (pThis->AA_basic + pThis->BB_basic * sqrt(I_v) + pThis->CC * (I_v));
+	rho = rho / 1000 + pThis->rho_0;
+	return (rho - rho_old);
 }
 
 /* DP: End function for interval halving */
