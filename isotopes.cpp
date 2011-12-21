@@ -473,7 +473,7 @@ add_isotopes(struct solution *solution_ptr)
 /* ---------------------------------------------------------------------- */
 {
 	int i;
-	char *ptr;
+	const char *ptr;
 	struct master_isotope *master_isotope_ptr;
 	LDBLE total_moles;
 	/*
@@ -533,7 +533,7 @@ calculate_isotope_moles(struct element *elt_ptr,
 {
 	int i, j, l_iter;
 	int count_isotopes, total_is_major;
-	char *ptr;
+	const char *ptr;
 	struct master_isotope *master_isotope_ptr, *master_isotope_ptr1;
 	struct master_isotope list[MAX_ELTS];
 	LDBLE m_major, tot;
@@ -1167,7 +1167,7 @@ LDBLE Phreeqc::
 convert_isotope(struct master_isotope * master_isotope_ptr, LDBLE ratio)
 /* ---------------------------------------------------------------------- */
 {
-	char *units;
+	const char *units;
 	units = master_isotope_ptr->units;
 
 	if (strcmp_nocase(units, "permil") == 0)

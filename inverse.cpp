@@ -132,7 +132,7 @@ inverse_models(void)
 	}
 
 	user_punch_count_headings = old_headings.size();
-	user_punch_headings = (char **) PHRQ_realloc(user_punch_headings,
+	user_punch_headings = (const char **) PHRQ_realloc(user_punch_headings,
 		(size_t) (user_punch_count_headings + 1) * sizeof(char *));
 	if (user_punch_headings == NULL)
 		malloc_error();
@@ -273,11 +273,11 @@ setup_inverse(struct inverse *inv_ptr)
 		malloc_error();
 
 	col_name =
-		(char **) PHRQ_malloc((size_t) max_column_count * sizeof(char *));
+		(const char **) PHRQ_malloc((size_t) max_column_count * sizeof(char *));
 	if (col_name == NULL)
 		malloc_error();
 
-	row_name = (char **) PHRQ_malloc((size_t) max_row_count * sizeof(char *));
+	row_name = (const char **) PHRQ_malloc((size_t) max_row_count * sizeof(char *));
 	if (row_name == NULL)
 		malloc_error();
 
@@ -1334,8 +1334,8 @@ solve_inverse(struct inverse *inv_ptr)
 	inv_cu = (LDBLE *) free_check_null(inv_cu);
 	inv_iu = (int *) free_check_null(inv_iu);
 	inv_is = (int *) free_check_null(inv_is);
-	col_name = (char **) free_check_null(col_name);
-	row_name = (char **) free_check_null(row_name);
+	col_name = (const char **) free_check_null(col_name);
+	row_name = (const char **) free_check_null(row_name);
 	col_back = (int *) free_check_null(col_back);
 	row_back = (int *) free_check_null(row_back);
 	min_delta = (LDBLE *) free_check_null(min_delta);
@@ -2123,7 +2123,7 @@ punch_model_heading(struct inverse *inv_ptr)
 	size_t j;
 
 	user_punch_count_headings = heading_names.size();
-	user_punch_headings = (char **) PHRQ_realloc(user_punch_headings,
+	user_punch_headings = (const char **) PHRQ_realloc(user_punch_headings,
 		(size_t) (user_punch_count_headings + 1) * sizeof(char *));
 	if (user_punch_headings == NULL)
 		malloc_error();
@@ -5083,7 +5083,7 @@ set_initial_solution(int n_user_old, int n_user_new)
 }
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-add_to_file(const char *filename, char *string)
+add_to_file(const char *filename, const char *string)
 /* ---------------------------------------------------------------------- */
 {
 	FILE *model_file;

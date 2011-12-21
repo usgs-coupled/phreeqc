@@ -410,7 +410,7 @@ initialize(void)
 	user_punch->linebase = NULL;
 	user_punch->varbase = NULL;
 	user_punch->loopbase = NULL;
-	user_punch_headings = (char **) PHRQ_malloc(sizeof(char *));
+	user_punch_headings = (const char **) PHRQ_malloc(sizeof(char *));
 	if (user_punch_headings == NULL)
 		malloc_error();
 	user_punch_count_headings = 0;

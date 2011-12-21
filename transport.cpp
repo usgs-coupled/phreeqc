@@ -1412,7 +1412,8 @@ fill_spec(int l_cell_no)
 /* copy species activities into sol_D.spec... */
 
 	int i, i2, count_spec, count_exch_spec;
-	char *name, token[MAX_LENGTH];
+	char token[MAX_LENGTH];
+	const char * name;
 	struct species *s_ptr, *s_ptr2;
 	struct master *master_ptr;
 	LDBLE dum, dum2;
@@ -1940,9 +1941,13 @@ fill_m_s(struct J_ij *l_J_ij, int l_J_ij_count_spec)
 
 	for (j = 0; j < l_J_ij_count_spec; j++)
 	{
-		ptr = l_J_ij[j].name;
-		count_elts = 0;
-		get_elts_in_species(&ptr, 1);
+		{
+			char * temp_name = string_duplicate(l_J_ij[j].name);
+			ptr = temp_name;
+			count_elts = 0;
+			get_elts_in_species(&ptr, 1);
+			free_check_null(temp_name);
+		}
 		for (k = 0; k < count_elts; k++)
 		{
 			if (strcmp(elt_list[k].elt->name, "X") == 0)
@@ -4545,7 +4550,7 @@ diff_stag_surf(int mobile_cell)
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-reformat_surf(char *comp_name, LDBLE fraction, char *new_comp_name,
+reformat_surf(const char *comp_name, LDBLE fraction, const char *new_comp_name,
 			  LDBLE new_Dw, int l_cell)
 /* ---------------------------------------------------------------------- */
 {

@@ -31,14 +31,14 @@ clean_up(void)
 	last_model.pp_assemblage =
 		(struct phase **) free_check_null(last_model.pp_assemblage);
 	last_model.s_s_assemblage =
-		(char **) free_check_null(last_model.s_s_assemblage);
+		(const char **) free_check_null(last_model.s_s_assemblage);
 	last_model.add_formula =
-		(char **) free_check_null(last_model.add_formula);
+		(const char **) free_check_null(last_model.add_formula);
 	last_model.si = (LDBLE *) free_check_null(last_model.si);
 	last_model.surface_comp =
-		(char **) free_check_null(last_model.surface_comp);
+		(const char **) free_check_null(last_model.surface_comp);
 	last_model.surface_charge =
-		(char **) free_check_null(last_model.surface_charge);
+		(const char **) free_check_null(last_model.surface_charge);
 
 	/* model */
 	free_model_allocs();
@@ -235,7 +235,7 @@ clean_up(void)
 	user_print = (struct rate *) free_check_null(user_print);
 
 	user_punch = (struct rate *) free_check_null(user_punch);
-	user_punch_headings = (char **) free_check_null(user_punch_headings);
+	user_punch_headings = (const char **) free_check_null(user_punch_headings);
 
 	/*
 	   Free llnl aqueous model parameters
@@ -2425,7 +2425,7 @@ kinetics_comp_duplicate(struct kinetics_comp *kinetics_comp_new_ptr,
 	if (kinetics_comp_new_ptr->count_c_params > 0)
 	{
 		kinetics_comp_new_ptr->c_params =
-			(char **)
+			(const char **)
 			PHRQ_malloc((size_t) (kinetics_comp_old_ptr->count_c_params) *
 						sizeof(char *));
 		if (kinetics_comp_new_ptr->c_params == NULL)
@@ -2600,7 +2600,7 @@ kinetics_free(struct kinetics *kinetics_ptr)
 	for (i = 0; i < kinetics_ptr->count_comps; i++)
 	{
 		kinetics_ptr->comps[i].c_params =
-			(char **) free_check_null(kinetics_ptr->comps[i].c_params);
+			(const char **) free_check_null(kinetics_ptr->comps[i].c_params);
 		kinetics_ptr->comps[i].d_params =
 			(LDBLE *) free_check_null(kinetics_ptr->comps[i].d_params);
 		kinetics_ptr->comps[i].list =
@@ -2919,7 +2919,7 @@ master_compare(const void *ptr1, const void *ptr2)
 
 /* ---------------------------------------------------------------------- */
 struct master * Phreeqc::
-master_bsearch_primary(char *ptr)
+master_bsearch_primary(const char *ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2933,8 +2933,10 @@ master_bsearch_primary(char *ptr)
 /*
  *   Find element name
  */
-	ptr1 = ptr;
+	char * temp_name = string_duplicate(ptr);
+	ptr1 = temp_name;
 	get_elt(&ptr1, elt, &l);
+	free_check_null(temp_name);
 /*
  *   Search master species list
  */
@@ -3715,7 +3717,7 @@ phase_init(struct phase *phase_ptr)
 
 /* ---------------------------------------------------------------------- */
 struct phase * Phreeqc::
-phase_store(char *name)
+phase_store(const char *name)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -3740,7 +3742,7 @@ phase_store(char *name)
 	struct phase *phase_ptr;
 	ENTRY item, *found_item;
 	char token[MAX_LENGTH];
-	char *ptr;
+	const char *ptr;
 /*
  *   Search list
  */
@@ -4303,7 +4305,7 @@ rate_free(struct rate *rate_ptr)
 
 /* ---------------------------------------------------------------------- */
 struct rate * Phreeqc::
-rate_search(char *name, int *n)
+rate_search(const char *name, int *n)
 /* ---------------------------------------------------------------------- */
 {
 /*   Linear search of the structure array "rates" for name.
@@ -4728,7 +4730,7 @@ s_search(const char *name)
 
 /* ---------------------------------------------------------------------- */
 struct species * Phreeqc::
-s_store(char *name, LDBLE l_z, int replace_if_found)
+s_store(const char *name, LDBLE l_z, int replace_if_found)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -5963,7 +5965,7 @@ species_list_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
 	int j;
-	char *name1, *name2;
+	const char *name1, *name2;
 	const struct species_list *nptr1, *nptr2;
 
 	nptr1 = (const struct species_list *) ptr1;
@@ -6067,7 +6069,7 @@ int Phreeqc::
 species_list_compare_master(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
-	char *name1, *name2;
+	const char *name1, *name2;
 	const struct species_list *nptr1, *nptr2;
 
 	nptr1 = (const struct species_list *) ptr1;
@@ -7821,7 +7823,7 @@ logk_copy2orig(struct logk *logk_ptr)
 
 /* ---------------------------------------------------------------------- */
 struct logk * Phreeqc::
-logk_search(char *name)
+logk_search(const char *name_in)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -7839,11 +7841,12 @@ logk_search(char *name)
 /*
  *   Search list
  */
+	char * name = string_duplicate(name_in);
 	str_tolower(name);
 	item.key = name;
 	item.data = NULL;
 	found_item = hsearch_multi(logk_hash_table, item, FIND);
-
+	free_check_null(name);
 	if (found_item != NULL)
 	{
 		logk_ptr = (struct logk *) (found_item->data);
@@ -8209,7 +8212,7 @@ Get_exch_master(const cxxExchComp * ec)
 	{
 
 		/* Find master species */
-		char *eltName = string_hsave(it->first.c_str());
+		const char *eltName = string_hsave(it->first.c_str());
 		assert(it->first.size() != 0);
 		struct element *elt_ptr = element_store(eltName);
 		if (elt_ptr->master == NULL)
@@ -8234,7 +8237,7 @@ Get_exch_master(const cxxExchComp * ec)
 		{
 
 			/* Find master species */
-			char *eltName = string_hsave(it->first.c_str());
+			const char *eltName = string_hsave(it->first.c_str());
 			assert(it->first.size() != 0);
 			struct element *elt_ptr = element_store(eltName);
 			if (elt_ptr->master == NULL)
@@ -8634,7 +8637,7 @@ cxxSolutionIsotopeList2isotope(const cxxSolutionIsotopeList * il)
 			iso[i].ratio = it->Get_ratio();
 			iso[i].ratio_uncertainty = it->Get_ratio_uncertainty();
 			iso[i].master = master_bsearch(it->Get_elt_name().c_str());
-			char * str = string_hsave(it->Get_elt_name().c_str());
+			const char * str = string_hsave(it->Get_elt_name().c_str());
 			iso[i].primary = master_bsearch_primary(str);
 			i++;
 		}
@@ -8811,7 +8814,7 @@ cxxSurface2surface(const cxxSurface * surf)
 			{
 				ptr1[0] = '\0';
 			}
-			char *charge_name = string_hsave(name);	
+			const char *charge_name = string_hsave(name);	
 
 			for (j = 0; j < surface_ptr->count_charge; j++)
 			{
@@ -8916,7 +8919,7 @@ cxxNameDouble2surface_master(const cxxNameDouble * totals)
 		it != totals->end(); it++)
 	{
 		/* Find master species */
-		char *eltName = string_hsave(it->first.c_str());
+		const char *eltName = string_hsave(it->first.c_str());
 		assert(it->first.size() > 0);
 		struct element *elt_ptr = element_store(eltName);
 		if (elt_ptr->master == NULL)

@@ -1040,7 +1040,7 @@ string_duplicate(const char *token)
 }
 
 /* ---------------------------------------------------------------------- */
-char * Phreeqc::
+const char * Phreeqc::
 string_hsave(const char *str)
 /* ---------------------------------------------------------------------- */
 {
@@ -1461,7 +1461,7 @@ hsearch_multi(HashTable * Table, ENTRY item, ACTION action)
 */
 
  Address Phreeqc::
-Hash_multi(HashTable * Table, char *Key)
+Hash_multi(HashTable * Table, const char *Key)
 {
 	Address h, address;
 	register unsigned char *k = (unsigned char *) Key;

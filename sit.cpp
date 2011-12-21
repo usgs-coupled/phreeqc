@@ -116,7 +116,7 @@ sit_tidy(void)
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-sit_ISPEC(char *name)
+sit_ISPEC(const char *name)
 /* ---------------------------------------------------------------------- */
 /*
  *      Find species number in spec for character string species name

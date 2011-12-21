@@ -739,8 +739,10 @@ coef_in_master(struct master * master_ptr)
 	struct elt_list *next_elt;
 
 	coef = 0.0;
-	ptr = master_ptr->elt->name;
+	char * temp_name = string_duplicate(master_ptr->elt->name);
+	ptr = temp_name;
 	get_elt(&ptr, elt_name, &l);
+	free_check_null(temp_name);
 	for (next_elt = master_ptr->s->next_elt; next_elt->elt != NULL;
 		 next_elt++)
 	{
@@ -1618,8 +1620,12 @@ tidy_pp_assemblage(void)
 					pp_assemblage[i].pure_phases[j].add_formula =
 						phase_ptr->formula;
 				}
-				ptr = pp_assemblage[i].pure_phases[j].add_formula;
-				get_elts_in_species(&ptr, coef);
+				{
+					char * temp_add = string_duplicate(pp_assemblage[i].pure_phases[j].add_formula);
+					ptr = temp_add;
+					get_elts_in_species(&ptr, coef);
+					free_check_null(temp_add);
+				}
 				/* check that all elements are in the database */
 				for (l = first; l < count_elts; l++)
 				{
@@ -2194,7 +2200,8 @@ tidy_species(void)
 	}
 	for (i = 0; i < count_master; i++)
 	{
-		ptr = master[i]->elt->name;
+		char * temp_name = string_duplicate(master[i]->elt->name);
+		ptr = temp_name;
 		if (ptr[0] != '[')
 		{
 			while ((c = (int) *(++ptr)) != '\0')
@@ -2210,6 +2217,7 @@ tidy_species(void)
 				}
 			}
 		}
+		free_check_null(temp_name);
 		/* store sequence number in master structure */
 		master[i]->number = i;
 		if (strcmp(master[i]->elt->name, "Alkalinity") != 0)
@@ -2476,8 +2484,12 @@ tidy_surface(void)
 					 */
 					count_elts = 0;
 					paren_count = 0;
-					ptr1 = surface_ptr->comps[i].formula;
-					get_elts_in_species(&ptr1, surface_ptr->comps[i].moles);
+					{
+						char * temp_formula = string_duplicate(surface_ptr->comps[i].formula);
+						ptr1 = temp_formula;
+						get_elts_in_species(&ptr1, surface_ptr->comps[i].moles);
+						free_check_null(temp_formula);
+					}
 					surface_ptr->comps[i].formula_totals =
 						(struct elt_list *) free_check_null(surface_ptr->
 															comps[i].
@@ -2592,8 +2604,12 @@ tidy_solutions(void)
 					tot_ptr->moles = 0.0;
 					continue;
 				}
-				ptr = tot_ptr->description;
-				copy_token(token, &ptr, &l);
+				{
+					char * temp_desc = string_duplicate(tot_ptr->description);
+					ptr = temp_desc;
+					copy_token(token, &ptr, &l);
+					free_check_null(temp_desc);
+				}
 				master_ptr = master_bsearch(token);
 				if (master_ptr == NULL)
 				{
@@ -2693,8 +2709,10 @@ phase_rxn_to_trxn(struct phase *phase_ptr, struct reaction *rxn_ptr)
 
 	trxn.token[0].name = phase_ptr->formula;
 	/* charge */
-	ptr = phase_ptr->formula;
+	char * temp_formula = string_duplicate(phase_ptr->formula);
+	ptr = temp_formula;
 	get_token(&ptr, token, &l_z, &l);
+	free_check_null(temp_formula);
 	trxn.token[0].z = l_z;
 	trxn.token[0].s = NULL;
 	trxn.token[0].unknown = NULL;
@@ -3032,8 +3050,12 @@ tidy_kin_exchange(void)
 
 			count_elts = 0;
 			paren_count = 0;
-			ptr = comp_ptr->formula;
-			get_elts_in_species(&ptr, conc);
+			{
+				char * temp_formula = string_duplicate(comp_ptr->formula);
+				ptr = temp_formula;
+				get_elts_in_species(&ptr, conc);
+				free_check_null(temp_formula);
+			}
 			comp_ptr->totals =
 				(struct elt_list *) free_check_null(comp_ptr->totals);
 			comp_ptr->totals = elt_list_save();
@@ -3140,8 +3162,12 @@ tidy_min_exchange(void)
 				pp_a_ptr->pure_phases[k].moles * comp_ptr->phase_proportion;
 			count_elts = 0;
 			paren_count = 0;
-			ptr = comp_ptr->formula;
-			get_elts_in_species(&ptr, conc);
+			{
+				char * temp_formula = string_duplicate(comp_ptr->formula);
+				ptr = temp_formula;
+				get_elts_in_species(&ptr, conc);
+				free_check_null(temp_formula);
+			}
 			comp_ptr->totals =
 				(struct elt_list *) free_check_null(comp_ptr->totals);
 			comp_ptr->totals = elt_list_save();
@@ -3150,10 +3176,18 @@ tidy_min_exchange(void)
  */
 			count_elts = 0;
 			paren_count = 0;
-			ptr = comp_ptr->formula;
-			get_elts_in_species(&ptr, -comp_ptr->phase_proportion);
-			ptr = pp_a_ptr->pure_phases[k].phase->formula;
-			get_elts_in_species(&ptr, 1.0);
+			{
+				char * temp_formula = string_duplicate(comp_ptr->formula);
+				ptr = temp_formula;
+				get_elts_in_species(&ptr, -comp_ptr->phase_proportion);
+				free_check_null(temp_formula);
+			}
+			{
+				char * temp_formula = string_duplicate(pp_a_ptr->pure_phases[k].phase->formula);
+				ptr = temp_formula;
+				get_elts_in_species(&ptr, 1.0);
+				free_check_null(temp_formula);
+			}
 			qsort(elt_list, (size_t) count_elts,
 				  (size_t) sizeof(struct elt_list), elt_list_compare);
 			elt_list_combine();
@@ -3284,10 +3318,14 @@ tidy_min_surface(void)
 			comp_ptr->cb = conc * comp_ptr->formula_z;
 #endif
 /*			if (conc < MIN_RELATED_SURFACE) conc = 0.0; */
-			ptr = comp_ptr->formula;
-			count_elts = 0;
-			paren_count = 0;
-			get_elts_in_species(&ptr, conc);
+			{
+				char * temp_formula = string_duplicate(comp_ptr->formula);
+				ptr = temp_formula;
+				count_elts = 0;
+				paren_count = 0;
+				get_elts_in_species(&ptr, conc);
+				free_check_null(temp_formula);
+			}
 			comp_ptr->totals =
 				(struct elt_list *) free_check_null(comp_ptr->totals);
 			comp_ptr->totals = elt_list_save();
@@ -3301,18 +3339,24 @@ tidy_min_surface(void)
  */
 			count_elts = 0;
 			paren_count = 0;
-			ptr = pp_a_ptr->pure_phases[k].phase->formula;
-			get_elts_in_species(&ptr, 1.0);
+			{
+				char * temp_formula = string_duplicate(pp_a_ptr->pure_phases[k].phase->formula);
+				ptr = temp_formula;
+				get_elts_in_species(&ptr, 1.0);
+				free_check_null(temp_formula);
+			}
 			for (jj = 0; jj < surface[i].count_comps; jj++)
 			{
 				if (comp_ptr->charge != surface[i].comps[jj].charge)
 					continue;
 				if (surface[i].type == CD_MUSIC)
 				{
-					ptr = surface[i].comps[jj].formula;
+					char * temp_formula = string_duplicate(surface[i].comps[jj].formula);
+					ptr = temp_formula;
 					get_elts_in_species(&ptr,
 										-surface[i].comps[jj].
 										phase_proportion);
+					free_check_null(temp_formula);
 				}
 				else
 				{
@@ -3324,10 +3368,14 @@ tidy_min_surface(void)
 								surface[i].comps[jj].master->s->name);
 						error_msg(error_string, CONTINUE);
 					}
-					ptr = surface[i].comps[jj].master->s->name;
-					get_elts_in_species(&ptr,
+					{
+						char * temp_name = string_duplicate(surface[i].comps[jj].master->s->name);
+						ptr = temp_name;
+						get_elts_in_species(&ptr,
 										-surface[i].comps[jj].
 										phase_proportion);
+						free_check_null(temp_name);
+					}
 				}
 			}
 			qsort(elt_list, (size_t) count_elts,
@@ -3468,10 +3516,14 @@ tidy_kin_surface(void)
 			conc = kinetics_ptr->comps[k].m * comp_ptr->phase_proportion;
 
 /*			if (conc < MIN_RELATED_SURFACE) conc = 0.0; */
-			ptr = comp_ptr->formula;
-			count_elts = 0;
-			paren_count = 0;
-			get_elts_in_species(&ptr, conc);
+			{
+				char * temp_formula = string_duplicate(comp_ptr->formula);
+				ptr = temp_formula;
+				count_elts = 0;
+				paren_count = 0;
+				get_elts_in_species(&ptr, conc);
+				free_check_null(temp_formula);
+			}
 			comp_ptr->totals =
 				(struct elt_list *) free_check_null(comp_ptr->totals);
 			comp_ptr->totals = elt_list_save();
@@ -3506,9 +3558,11 @@ tidy_kin_surface(void)
 				}
 				else
 				{
-					ptr = kinetics_ptr->comps[k].list[j].name;
+					char * temp_name = string_duplicate(kinetics_ptr->comps[k].list[j].name);
+					ptr = temp_name;
 					get_elts_in_species(&ptr,
 										kinetics_ptr->comps[k].list[j].coef);
+					free_check_null(temp_name);
 				}
 			}
 			/* save kinetics formula */
@@ -3533,9 +3587,11 @@ tidy_kin_surface(void)
 					(comp_ptr->rate_name,
 					 kinetics_ptr->comps[k].rate_name) == 0)
 				{
-					ptr = comp_ptr->formula;
+					char * temp_formula = string_duplicate( comp_ptr->formula);
+					ptr = temp_formula;
 					get_elts_in_species(&ptr,
 										-1 * comp_ptr->phase_proportion);
+					free_check_null(temp_formula);
 				}
 			}
 			if (count_elts > 0)
@@ -4690,20 +4746,20 @@ reset_last_model(void)
 		(struct phase **) free_check_null(last_model.gas_phase);
 	last_model.count_s_s_assemblage = 0;
 	last_model.s_s_assemblage =
-		(char **) free_check_null(last_model.s_s_assemblage);
+		(const char **) free_check_null(last_model.s_s_assemblage);
 	last_model.count_pp_assemblage = 0;
 	last_model.pp_assemblage =
 		(struct phase **) free_check_null(last_model.pp_assemblage);
 	last_model.add_formula =
-		(char **) free_check_null(last_model.add_formula);
+		(const char **) free_check_null(last_model.add_formula);
 	last_model.si = (LDBLE *) free_check_null(last_model.si);
 	last_model.dl_type = NO_DL;
 	last_model.count_surface_comp = 0;
 	last_model.surface_comp =
-		(char **) free_check_null(last_model.surface_comp);
+		(const char **) free_check_null(last_model.surface_comp);
 	last_model.count_surface_charge = 0;
 	last_model.surface_charge =
-		(char **) free_check_null(last_model.surface_charge);
+		(const char **) free_check_null(last_model.surface_charge);
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */

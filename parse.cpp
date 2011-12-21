@@ -26,7 +26,7 @@ parse_eq(char *eqn, struct elt_list **elt_ptr, int association)
 	int i;
 	LDBLE coef, l_z;
 	char c;
-	char *ptr, *char_ptr;
+	char *ptr;
 	char token[MAX_LENGTH];
 
 	paren_count = 0;
@@ -88,7 +88,7 @@ parse_eq(char *eqn, struct elt_list **elt_ptr, int association)
 		}
 		trxn.token[count_trxn].coef *= -1.0;
 		/*   Swap species into first structure position */
-		char_ptr = trxn.token[0].name;
+		const char * char_ptr = trxn.token[0].name;
 		coef = trxn.token[0].coef;
 		l_z = trxn.token[0].z;
 		trxn.token[0].name = trxn.token[count_trxn].name;
@@ -126,13 +126,12 @@ parse_eq(char *eqn, struct elt_list **elt_ptr, int association)
  *   Get elements in species or mineral formula
  */
 	count_elts = 0;
-	char_ptr = trxn.token[0].name;
 	strcpy(token, trxn.token[0].name);
 	replace("(s)", "", token);
 	replace("(S)", "", token);
 	replace("(g)", "", token);
 	replace("(G)", "", token);
-	char_ptr = token;
+	char *char_ptr = token;
 
 	if (get_elts_in_species(&char_ptr, trxn.token[0].coef) == ERROR)
 	{
@@ -182,7 +181,6 @@ check_eqn(int association)
 {
 	int i;
 	int oops = 0;
-	char *t_ptr;
 	LDBLE sumcharge;
 
 	paren_count = 0;
@@ -213,11 +211,14 @@ check_eqn(int association)
 	for (i = 0; i < count_trxn; i++)
 	{
 		sumcharge += (trxn.token[i].coef) * (trxn.token[i].z);
-		t_ptr = trxn.token[i].name;
+		char * temp_name = string_duplicate(trxn.token[i].name);
+		char *t_ptr = temp_name;
 		if (get_elts_in_species(&t_ptr, trxn.token[i].coef) == ERROR)
 		{
+			free_check_null(temp_name);
 			return (ERROR);
 		}
+		free_check_null(temp_name);
 	}
 /*
  *   Sort elements in reaction and combine

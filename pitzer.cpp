@@ -45,7 +45,7 @@ pitzer_tidy(void)
 	/*
 	 *      Make lists of species for cations, anions, neutral
 	 */
-	char *string1, *string2;
+	const char *string1, *string2;
 	int i, j, order;
 	int i0, i1, i2;
 	int count_pos, count_neg, count_neut, count[3], jj;
@@ -537,7 +537,7 @@ pitzer_tidy(void)
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-ISPEC(char *name)
+ISPEC(const char *name)
 /* ---------------------------------------------------------------------- */
 /*
  *      Find species number in spec for character string species name

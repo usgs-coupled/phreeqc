@@ -379,7 +379,7 @@ print_exchange(void)
  */
 	int i;
 	struct exchange *exchange_ptr;
-	char *name, *name1;
+	const char *name, *name1;
 	struct master *master_ptr;
 	LDBLE dum, dum2;
 /*
@@ -1388,7 +1388,7 @@ print_species(void)
  *   order of aqueous species.
  */
 	int i;
-	char *name, *name1;
+	const char *name, *name1;
 	struct master *master_ptr;
 	LDBLE min;
 	LDBLE lm;

@@ -96,7 +96,7 @@ fpunchf_user(int user_index, const char *format, double d)
 {
 	static int s_warning = 0;
 	static char buffer[80];
-	char *name;
+	const char *name;
 
 	// check headings
 	if (user_index < user_punch_count_headings)
@@ -124,7 +124,7 @@ fpunchf_user(int user_index, const char *format, char * d)
 {
 	static int s_warning = 0;
 	static char buffer[80];
-	char *name;
+	const char *name;
 
 	// check headings
 	if (user_index < user_punch_count_headings)

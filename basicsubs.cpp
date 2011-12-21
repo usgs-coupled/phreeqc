@@ -1350,7 +1350,8 @@ match_elts_in_species(const char *name, const char *mytemplate)
  */
 	int i, i1, l, case_no, match;
 	char c, c1;
-	char *ptr, *ptr1, *replace_name, *name_ptr;
+	char *ptr, *ptr1;
+	const char *replace_name, *name_ptr;
 	LDBLE d;
 	char element[MAX_LENGTH];
 	char token[MAX_LENGTH], equal_list[MAX_LENGTH], elt_name[MAX_LENGTH];

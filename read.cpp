@@ -1932,7 +1932,8 @@ read_inv_isotopes(struct inverse *inverse_ptr, char *ptr)
 	int i, j, l, l1, l2, count;
 	LDBLE isotope_number;
 	char token[MAX_LENGTH], token1[MAX_LENGTH];
-	char *ptr1, *ptr2, *redox_name, *element_name;
+	char *ptr1, *ptr2;
+	const char * redox_name, *element_name;
 /*
  *   Read element name
  */
@@ -2295,7 +2296,7 @@ read_kinetics(void)
 			kinetics_comp_ptr->count_d_params = 0;
 
 			kinetics_comp_ptr->c_params =
-				(char **) PHRQ_malloc(sizeof(char *));
+				(const char **) PHRQ_malloc(sizeof(char *));
 			if (kinetics_comp_ptr->c_params == NULL)
 				malloc_error();
 			kinetics_comp_ptr->count_c_params = 0;
@@ -2420,7 +2421,7 @@ read_kinetics(void)
 						 *   Store a character parameter
 						 */
 						kinetics_comp_ptr->c_params =
-							(char **) PHRQ_realloc(kinetics_comp_ptr->
+							(const char **) PHRQ_realloc(kinetics_comp_ptr->
 												   c_params,
 												   (size_t)
 												   (kinetics_comp_ptr->
@@ -7282,7 +7283,8 @@ read_surf(void)
 	/* renumber charge variable in comps */
 	for (i = 0; i < surface[n].count_comps; i++)
 	{
-		ptr = surface[n].comps[i].formula;
+		char * temp_formula = string_duplicate(surface[n].comps[i].formula);
+		ptr = temp_formula;
 		copy_token(token, &ptr, &l);
 		ptr1 = token;
 		get_elt(&ptr1, name, &l);
@@ -7297,6 +7299,7 @@ read_surf(void)
 				break;
 			}
 		}
+		free_check_null(temp_formula);
 		assert(j < surface[n].count_charge);
 	}
 
@@ -9092,7 +9095,7 @@ read_user_punch(void)
 			while (copy_token(stdtoken, &next_char) != EMPTY)
 			{
 				user_punch_headings =
-					(char **) PHRQ_realloc(user_punch_headings,
+					(const char **) PHRQ_realloc(user_punch_headings,
 										   (size_t)
 										   (user_punch_count_headings +
 											1) * sizeof(char *));

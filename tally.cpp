@@ -423,8 +423,10 @@ fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 			{
 				if (master[j]->total > 0.0)
 				{
-					ptr = master[j]->elt->primary->elt->name;
+					char * temp_name = string_duplicate(master[j]->elt->primary->elt->name);
+					ptr = temp_name;
 					get_elts_in_species(&ptr, master[j]->total);
+					free_check_null(temp_name);
 				}
 			}
 			qsort(elt_list, (size_t) count_elts,
@@ -940,11 +942,13 @@ build_tally_table(void)
 				{
 					for (k = 0; k < kinetics_ptr->comps[j].count_list; k++)
 					{
-						ptr = kinetics_ptr->comps[j].list[k].name;
+						char * temp_name = string_duplicate(kinetics_ptr->comps[j].list[k].name);
+						ptr = temp_name;
 						get_elts_in_species(&ptr,
 											1.0 *
 											kinetics_ptr->comps[j].list[k].
 											coef);
+						free_check_null(temp_name);
 					}
 				}
 				qsort(elt_list, (size_t) count_elts,
@@ -1112,8 +1116,10 @@ calc_dummy_kinetic_reaction_tally(struct kinetics *kinetics_ptr)
 		{
 			for (j = 0; j < kinetics_ptr->comps[i].count_list; j++)
 			{
-				ptr = kinetics_ptr->comps[i].list[j].name;
+				char * temp_name = string_duplicate(kinetics_ptr->comps[i].list[j].name);
+				ptr = temp_name;
 				get_elts_in_species(&ptr, coef);
+				free_check_null(temp_name);
 			}
 		}
 

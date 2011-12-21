@@ -142,7 +142,6 @@ calc_final_kinetic_reaction(struct kinetics *kinetics_ptr)
 	int i, j, k;
 	LDBLE coef;
 	char token[MAX_LENGTH];
-	char *ptr;
 	struct phase *phase_ptr;
 	struct master *master_ptr;
 /*
@@ -178,10 +177,12 @@ calc_final_kinetic_reaction(struct kinetics *kinetics_ptr)
 			}
 			else
 			{
-				ptr = kinetics_ptr->comps[i].list[j].name;
+				char * temp_name = string_duplicate(kinetics_ptr->comps[i].list[j].name);
+				char * ptr = temp_name;
 				get_elts_in_species(&ptr,
 									coef *
 									kinetics_ptr->comps[i].list[j].coef);
+				free_check_null(temp_name);
 			}
 		}
 		if (use.exchange_ptr != NULL
@@ -216,7 +217,8 @@ calc_final_kinetic_reaction(struct kinetics *kinetics_ptr)
 						 use.surface_ptr->comps[j].rate_name) == 0)
 					{
 						/* found kinetics component */
-						ptr = use.surface_ptr->comps[j].formula;
+						char * temp_formula = string_duplicate(use.surface_ptr->comps[j].formula);
+						char *ptr = temp_formula;
 /* Surface = 0 when m becomes low ...
  */
 						if (0.9 * use.surface_ptr->comps[j].phase_proportion *
@@ -232,6 +234,7 @@ calc_final_kinetic_reaction(struct kinetics *kinetics_ptr)
 												use.surface_ptr->comps[j].
 												phase_proportion);
 						}
+						free_check_null(temp_formula);
 					}
 				}
 			}

@@ -126,7 +126,6 @@ quick_setup(void)
  */
 	int i, j, k, l;
 	char token[MAX_LENGTH], name[MAX_LENGTH];
-	char *ptr, *ptr1;
 
 	for (i = 0; i < count_master; i++)
 	{
@@ -323,22 +322,24 @@ quick_setup(void)
 				x[i]->surface_comp = x[i - 1]->surface_comp;
 
 				/* test that charge and surface match */
-				ptr = x[i]->surface_comp->formula;
+				char * temp_formula = string_duplicate(x[i]->surface_comp->formula);
+				char * ptr = temp_formula;
 				copy_token(token, &ptr, &l);
-				ptr1 = token;
+				char * ptr1 = token;
 				get_elt(&ptr1, name, &l);
 				ptr1 = strchr(name, '_');
 				if (ptr1 != NULL)
 					ptr1[0] = '\0';
 				if (strcmp(name, x[i]->surface_charge->name) != 0)
 				{
+					free_check_null(temp_formula);
 					error_string = sformatf(
 							"Internal error: Surface charge name %s does not match surface component name %s\nTry alphabetical order for surfaces in SURFACE",
 							x[i]->surface_charge->name,
 							x[i]->surface_comp->formula);
 					error_msg(error_string, STOP);
 				}
-
+				free_check_null(temp_formula);
 
 				/* moles picked up from master->total */
 			}
@@ -1871,7 +1872,6 @@ convert_units(struct solution *solution_ptr)
 	struct master *master_ptr;
 	struct conc *tot_ptr;
 	char token[MAX_LENGTH];
-	char *ptr;
 /*
  *   Convert units
  */
@@ -1923,9 +1923,11 @@ convert_units(struct solution *solution_ptr)
 			}
 			else
 			{
-				ptr = tot_ptr->description;
+				char * temp_desc = string_duplicate(tot_ptr->description);
+				char *ptr = temp_desc;
 				copy_token(token, &ptr, &l);
 				master_ptr = master_bsearch(token);
+				free_check_null(temp_desc);
 				if (master_ptr != NULL)
 				{
 					/* use gfw for element redox state */
@@ -2993,8 +2995,10 @@ add_surface_charge_balance(void)
 /*
  *   Include charge balance in list for mass-balance equations
  */
-	ptr = master_ptr->elt->name;
+	char * temp_name = string_duplicate(master_ptr->elt->name);
+	ptr = temp_name;
 	get_secondary_in_species(&ptr, 1.0);
+	free_check_null(temp_name);
 
 	return (OK);
 }
@@ -3010,7 +3014,6 @@ add_cd_music_charge_balances(int n)
  *   the work required to bring charged ions to the surface
  */
 	int i;
-	char *ptr;
 	char token[MAX_LENGTH];
 
 	struct master *master_ptr;
@@ -3045,8 +3048,12 @@ add_cd_music_charge_balances(int n)
 	/*
 	 *   Include charge balance in list for mass-balance equations
 	 */
-	ptr = master_ptr->elt->name;
-	get_secondary_in_species(&ptr, s[n]->dz[0]);
+	{
+		char * temp_name = string_duplicate( master_ptr->elt->name);
+		char *ptr = temp_name;
+		get_secondary_in_species(&ptr, s[n]->dz[0]);
+		free_check_null(temp_name);
+	}
 	/*
 	 *  Find potential unknown for plane 1
 	 */
@@ -3056,8 +3063,12 @@ add_cd_music_charge_balances(int n)
 	/*
 	 *   Include charge balance in list for mass-balance equations
 	 */
-	ptr = master_ptr->elt->name;
-	get_secondary_in_species(&ptr, s[n]->dz[1]);
+	{
+		char * temp_name = string_duplicate( master_ptr->elt->name);
+		char *ptr = temp_name;
+		get_secondary_in_species(&ptr, s[n]->dz[1]);
+		free_check_null(temp_name);
+	}
 	/*
 	 *  Find potential unknown for plane 2
 	 */
@@ -3067,8 +3078,12 @@ add_cd_music_charge_balances(int n)
 	/*
 	 *   Include charge balance in list for mass-balance equations
 	 */
-	ptr = master_ptr->elt->name;
-	get_secondary_in_species(&ptr, s[n]->dz[2]);
+	{
+		char * temp_name = string_duplicate(master_ptr->elt->name);
+		char *ptr = temp_name;
+		get_secondary_in_species(&ptr, s[n]->dz[2]);
+		free_check_null(temp_name);
+	}
 
 	return (OK);
 }
@@ -3357,7 +3372,7 @@ setup_surface(void)
 	struct unknown *unknown_ptr, **unknown_target;
 	char token[MAX_LENGTH], cb_suffix[MAX_LENGTH], psi_suffix[MAX_LENGTH],
 		mass_balance_name[MAX_LENGTH];
-	char *name1, *name2;
+	const char *name1, *name2;
 	int mb_unknown_number, type;
 
 	if (use.surface_ptr == NULL)
@@ -4127,7 +4142,8 @@ setup_solution(void)
 	for (i = 0; solution_ptr->totals[i].description != NULL; i++)
 	{
 		/*              solution_ptr->totals[i].skip = FALSE; */
-		ptr = solution_ptr->totals[i].description;
+		char * temp_desc = string_duplicate(solution_ptr->totals[i].description);
+		ptr = temp_desc;
 		copy_token(token, &ptr, &l);
 		master_ptr = master_bsearch(token);
 		/*
@@ -4144,6 +4160,7 @@ setup_solution(void)
 					solution_ptr->totals[i].input_conc;
 			}
 			/*                      solution_ptr->totals[i].skip = TRUE; */
+			free_check_null(temp_desc);
 			continue;
 		}
 /*
@@ -4154,6 +4171,7 @@ setup_solution(void)
 			if (strcmp(token, "H(1)") != 0 && strcmp(token, "E") != 0)
 			{
 				/*                              solution_ptr->totals[i].skip = TRUE; */
+				free_check_null(temp_desc);
 				continue;
 			}
 		}
@@ -4168,6 +4186,7 @@ setup_solution(void)
 					"Master species not in data base for %s, skipping element.",
 					solution_ptr->totals[i].description);
 			warning_msg(error_string);
+			free_check_null(temp_desc);
 			continue;
 		}
 		if (master_ptr->type != AQ)
@@ -4177,6 +4196,7 @@ setup_solution(void)
 					"Only aqueous concentrations are allowed in solution data, ignoring %s.",
 					solution_ptr->totals[i].description);
 			warning_msg(error_string);
+			free_check_null(temp_desc);
 			continue;
 		}
 /*
@@ -4185,6 +4205,7 @@ setup_solution(void)
 		x[count_unknowns]->master = get_list_master_ptrs(ptr, master_ptr);
 		setup_master_rxn(x[count_unknowns]->master,
 						 &(pe_x[solution_ptr->totals[i].n_pe].rxn));
+		
 /*
  *   Set default unknown data
  */
@@ -4199,7 +4220,9 @@ setup_solution(void)
 /*
  *   Set pointers
  */
-		ptr = solution_ptr->totals[i].description;
+		free_check_null(temp_desc);
+		temp_desc = string_duplicate(solution_ptr->totals[i].description);
+		ptr = temp_desc;
 		copy_token(token, &ptr, &l);
 		str_tolower(token);
 		if (strstr(token, "alk") != NULL)
@@ -4251,12 +4274,14 @@ setup_solution(void)
 				input_error++;
 			}
 		}
+		free_check_null(temp_desc);
 /*
  *   Charge balance unknown
  */
 		if (solution_ptr->totals[i].equation_name != NULL)
 		{
-			ptr = solution_ptr->totals[i].equation_name;
+			char * temp_eq_name = string_duplicate(solution_ptr->totals[i].equation_name);
+			ptr = temp_eq_name;
 			copy_token(token, &ptr, &l);
 			str_tolower(token);
 			if (strstr(token, "charge") != NULL)
@@ -4304,6 +4329,7 @@ setup_solution(void)
 					solution_phase_boundary_unknown = x[count_unknowns];
 				}
 			}
+			free_check_null(temp_eq_name);
 		}
 		count_unknowns++;
 	}
@@ -5047,7 +5073,6 @@ write_mb_eqn_x(void)
 	int count, repeat;
 	int i, count_rxn_orig;
 	int j, k;
-	char *ptr;
 	struct master *master_ptr;
 /*
  *   Rewrite any secondary master species flagged REWRITE
@@ -5089,8 +5114,10 @@ write_mb_eqn_x(void)
 	for (i = 1; i < count_trxn; i++)
 	{
 		j = count_elts;
-		ptr = trxn.token[i].s->name;
+		char * temp_name = string_duplicate(trxn.token[i].s->name);
+		char * ptr = temp_name;
 		get_elts_in_species(&ptr, trxn.token[i].coef);
+		free_check_null(temp_name);
 		for (k = j; k < count_elts; k++)
 		{
 			if (trxn.token[i].s->secondary != NULL)
@@ -5109,13 +5136,17 @@ write_mb_eqn_x(void)
 		}
 		if (trxn.token[i].s->secondary == NULL)
 		{
-			ptr = trxn.token[i].s->primary->elt->name;
+			char * temp_name = string_duplicate(trxn.token[i].s->primary->elt->name);
+			char *ptr = temp_name;
 			get_secondary_in_species(&ptr, trxn.token[i].coef);
+			free_check_null(temp_name);
 		}
 		else
 		{
-			ptr = trxn.token[i].s->secondary->elt->name;
+			char * temp_name = string_duplicate(trxn.token[i].s->secondary->elt->name);
+			ptr = temp_name;
 			get_secondary_in_species(&ptr, trxn.token[i].coef);
+			free_check_null(temp_name);
 		}
 	}
 	if (count_elts > 0)
@@ -5137,7 +5168,6 @@ write_mb_for_species_list(int n)
  *   Original secondary redox states are retained
  */
 	int i;
-	char *ptr;
 /*
  *   Start with secondary reaction
  */
@@ -5152,18 +5182,22 @@ write_mb_for_species_list(int n)
 	{
 		if (trxn.token[i].s->secondary == NULL)
 		{
-			ptr = trxn.token[i].s->primary->elt->name;
+			char * temp_name = string_duplicate(trxn.token[i].s->primary->elt->name);
+			char * ptr = temp_name;
 			get_secondary_in_species(&ptr, trxn.token[i].coef);
+			free_check_null(temp_name);
 		}
 		else
 		{
-			ptr = trxn.token[i].s->secondary->elt->name;
+			char * temp_name = string_duplicate(trxn.token[i].s->secondary->elt->name);
+			char * ptr = temp_name;
 			if (get_secondary_in_species(&ptr, trxn.token[i].coef) == ERROR)
 			{
 				input_error++;
 				error_string = sformatf( "Error parsing %s.", trxn.token[i].s->secondary->elt->name);
 				error_msg(error_string, CONTINUE);
 			}
+			free_check_null(temp_name);
 		}
 	}
 	for (i = 0; i < count_elts; i++)
@@ -5202,7 +5236,6 @@ write_phase_sys_total(int n)
  *   Original secondary redox states are retained
  */
 	int i;
-	char *ptr;
 /*
  *   Start with secondary reaction
  */
@@ -5217,13 +5250,17 @@ write_phase_sys_total(int n)
 	{
 		if (trxn.token[i].s->secondary == NULL)
 		{
-			ptr = trxn.token[i].s->primary->elt->name;
+			char * temp_name = string_duplicate(trxn.token[i].s->primary->elt->name);
+			char *ptr = temp_name;
 			get_secondary_in_species(&ptr, trxn.token[i].coef);
+			free_check_null(temp_name);
 		}
 		else
 		{
-			ptr = trxn.token[i].s->secondary->elt->name;
+			char * temp_name = string_duplicate(trxn.token[i].s->secondary->elt->name);
+			char *ptr = temp_name;
 			get_secondary_in_species(&ptr, trxn.token[i].coef);
+			free_check_null(temp_name);
 		}
 	}
 	for (i = 0; i < count_elts; i++)
@@ -5509,12 +5546,12 @@ save_model(void)
  *   save list of names of solid solutions
  */
 	last_model.s_s_assemblage =
-		(char **) free_check_null(last_model.s_s_assemblage);
+		(const char **) free_check_null(last_model.s_s_assemblage);
 	if (use.s_s_assemblage_ptr != NULL)
 	{
 		last_model.count_s_s_assemblage = use.s_s_assemblage_ptr->count_s_s;
 		last_model.s_s_assemblage =
-			(char **) PHRQ_malloc((size_t) use.s_s_assemblage_ptr->
+			(const char **) PHRQ_malloc((size_t) use.s_s_assemblage_ptr->
 								  count_s_s * sizeof(char *));
 		if (last_model.s_s_assemblage == NULL)
 			malloc_error();
@@ -5535,7 +5572,7 @@ save_model(void)
 	last_model.pp_assemblage =
 		(struct phase **) free_check_null(last_model.pp_assemblage);
 	last_model.add_formula =
-		(char **) free_check_null(last_model.add_formula);
+		(const char **) free_check_null(last_model.add_formula);
 	last_model.si = (LDBLE *) free_check_null(last_model.si);
 	if (use.pp_assemblage_ptr != NULL)
 	{
@@ -5547,7 +5584,7 @@ save_model(void)
 		if (last_model.pp_assemblage == NULL)
 			malloc_error();
 		last_model.add_formula =
-			(char **) PHRQ_malloc((size_t) use.pp_assemblage_ptr->
+			(const char **) PHRQ_malloc((size_t) use.pp_assemblage_ptr->
 								  count_comps * sizeof(char *));
 		if (last_model.add_formula == NULL)
 			malloc_error();
@@ -5576,15 +5613,15 @@ save_model(void)
  *   save data for surface
  */
 	last_model.surface_comp =
-		(char **) free_check_null(last_model.surface_comp);
+		(const char **) free_check_null(last_model.surface_comp);
 	last_model.surface_charge =
-		(char **) free_check_null(last_model.surface_charge);
+		(const char **) free_check_null(last_model.surface_charge);
 	if (use.surface_ptr != NULL)
 	{
 		/* comps */
 		last_model.count_surface_comp = use.surface_ptr->count_comps;
 		last_model.surface_comp =
-			(char **) PHRQ_malloc((size_t) use.surface_ptr->count_comps *
+			(const char **) PHRQ_malloc((size_t) use.surface_ptr->count_comps *
 								  sizeof(char *));
 		if (last_model.surface_comp == NULL)
 			malloc_error();
@@ -5595,7 +5632,7 @@ save_model(void)
 		/* charge */
 		last_model.count_surface_charge = use.surface_ptr->count_charge;
 		last_model.surface_charge =
-			(char **) PHRQ_malloc((size_t) use.surface_ptr->count_charge *
+			(const char **) PHRQ_malloc((size_t) use.surface_ptr->count_charge *
 								  sizeof(char *));
 		if (last_model.surface_charge == NULL)
 			malloc_error();

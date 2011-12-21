@@ -182,7 +182,7 @@ typedef enum {
 /* HSEARCH(3C) */
 typedef struct entry
 {
-	char *key;
+	const char *key;
 	void *data;
 } ENTRY;
 typedef enum
@@ -199,7 +199,7 @@ typedef struct Element
 	 ** as we pretend to pass back only a pointer to ENTRY.
 	 ** {S}he doesn't know what else is in here.
 	 */
-	char *Key;
+	const char *Key;
 	char *Data;
 	struct Element *Next;		/* secret from user    */
 } Element, *Segment;
@@ -243,11 +243,11 @@ struct model
 	struct phase **gas_phase;
 
 	int count_s_s_assemblage;
-	char **s_s_assemblage;
+	const char **s_s_assemblage;
 
 	int count_pp_assemblage;
 	struct phase **pp_assemblage;
-	char **add_formula;
+	const char **add_formula;
 	LDBLE *si;
 
 	/*int diffuse_layer; */
@@ -258,9 +258,9 @@ struct model
 	/*int donnan; */
 	LDBLE thickness;
 	int count_surface_comp;
-	char **surface_comp;
+	const char **surface_comp;
 	int count_surface_charge;
-	char **surface_charge;
+	const char **surface_charge;
 	LDBLE pressure;
 };
 
@@ -268,17 +268,17 @@ struct model
 
 struct name_master
 {
-	char *name;
+	const char *name;
 	struct master *master;
 };
 struct name_species
 {
-	char *name;
+	const char *name;
 	struct species *s;
 };
 struct name_phase
 {
-	char *name;
+	const char *name;
 	struct phase *phase;
 };
 struct punch
@@ -367,7 +367,7 @@ struct surface
 };
 struct surface_comp
 {
-	char *formula;
+	const char *formula;
 	struct elt_list *formula_totals;
 	LDBLE formula_z;
 	LDBLE moles;
@@ -376,14 +376,14 @@ struct surface_comp
 	LDBLE la;
 	int charge;
 	LDBLE cb;
-	char *phase_name;
+	const char *phase_name;
 	LDBLE phase_proportion;
-	char *rate_name;
+	const char *rate_name;
 	LDBLE Dw;					/* diffusion coefficient in water, used in MCD. No transport if 0 */
 };
 struct surface_charge
 {
-	char *name;
+	const char *name;
 	LDBLE specific_area;
 	LDBLE grams;
 	LDBLE charge_balance;
@@ -406,9 +406,9 @@ struct surface_diff_layer
 
 struct Change_Surf
 {
-	char *comp_name;
+	const char *comp_name;
 	LDBLE fraction;
-	char *new_comp_name;
+	const char *new_comp_name;
 	LDBLE new_Dw;
 	int cell_no;
 	int next;
@@ -438,7 +438,7 @@ struct exchange
 };
 struct exch_comp
 {
-	char *formula;
+	const char *formula;
 	LDBLE formula_z;
 	struct elt_list *formula_totals;
 	LDBLE moles;
@@ -446,9 +446,9 @@ struct exch_comp
 	struct elt_list *totals;
 	LDBLE la;
 	LDBLE charge_balance;
-	char *phase_name;
+	const char *phase_name;
 	LDBLE phase_proportion;
-	char *rate_name;
+	const char *rate_name;
 };
 /* ----------------------------------------------------------------------
  *   Kinetics
@@ -473,7 +473,7 @@ struct kinetics
 };
 struct kinetics_comp
 {
-	char *rate_name;
+	const char *rate_name;
 	struct name_coef *list;
 	int count_list;
 	/*    struct phase *phase; */
@@ -483,7 +483,7 @@ struct kinetics_comp
 	LDBLE m0;
 	LDBLE moles;
 	int count_c_params;
-	char **c_params;
+	const char **c_params;
 	int count_d_params;
 	LDBLE *d_params;
 };
@@ -649,12 +649,12 @@ struct inverse
 	struct inv_isotope *i_u;
 	int count_isotope_unknowns;
 	struct isotope *isotope_unknowns;
-	char *netpath;
-	char *pat;
+	const char *netpath;
+	const char *pat;
 };
 struct inv_elts
 {
-	char *name;
+	const char *name;
 	struct master *master;
 	int row;
 	int count_uncertainties;
@@ -662,15 +662,15 @@ struct inv_elts
 };
 struct inv_isotope
 {
-	char *isotope_name;
+	const char *isotope_name;
 	LDBLE isotope_number;
-	char *elt_name;
+	const char *elt_name;
 	int count_uncertainties;
 	LDBLE *uncertainties;
 };
 struct inv_phases
 {
-	char *name;
+	const char *name;
 	struct phase *phase;
 	int column;
 	int constraint;
@@ -707,13 +707,13 @@ struct irrev
 	struct name_coef *list;
 	struct elt_list *elts;
 	LDBLE *steps;
-	char *units;
+	const char *units;
 	int count_steps;
 	int count_list;
 };
 struct name_coef
 {
-	char *name;
+	const char *name;
 	LDBLE coef;
 };
 /*----------------------------------------------------------------------
@@ -740,7 +740,7 @@ struct gas_phase
 struct gas_comp
 {
 	struct phase *phase;
-	char *name;
+	const char *name;
 	LDBLE p_read;
 	LDBLE moles;
 	LDBLE initial_moles;
@@ -763,7 +763,7 @@ struct s_s_assemblage
 };
 struct s_s
 {
-	char *name;
+	const char *name;
 	struct s_s_comp *comps;
 	int count_comps;
 	LDBLE total_moles;
@@ -779,7 +779,7 @@ struct s_s
 };
 struct s_s_comp
 {
-	char *name;
+	const char *name;
 	struct phase *phase;
 	LDBLE initial_moles;
 	LDBLE moles;
@@ -807,8 +807,8 @@ struct s_s_comp
  struct pure_phase
  {
  	struct phase *phase;
- 	char *name;
- 	char *add_formula;
+ 	const char *name;
+ 	const char *add_formula;
  	LDBLE si;
 	LDBLE si_org;
  	LDBLE moles;
@@ -869,7 +869,7 @@ struct list2
  	LDBLE cb;
  	LDBLE mass_water;
  	LDBLE total_alkalinity;
- 	char *units;
+ 	const char *units;
  	struct pe_data *pe;
  	int default_pe;
  	struct conc *totals;
@@ -883,33 +883,33 @@ struct list2
  };
  struct master_activity
  {
- 	char *description;
+ 	const char *description;
  	LDBLE la;
  };
  struct conc
  {
- 	char *description;
+ 	const char *description;
  	/*int skip; */
  	LDBLE moles;
  	LDBLE input_conc;
- 	char *units;
- 	char *equation_name;
+ 	const char *units;
+ 	const char *equation_name;
  	struct phase *phase;
  	LDBLE phase_si;
  	int n_pe;
- 	char *as;
+ 	const char *as;
  	LDBLE gfw;
  };
  struct pe_data
  {
- 	char *name;
+ 	const char *name;
  	struct reaction *rxn;
  };
  struct isotope
  {
  	LDBLE isotope_number;
- 	char *elt_name;
- 	char *isotope_name;
+ 	const char *elt_name;
+ 	const char *isotope_name;
  	LDBLE total;
  	LDBLE ratio;
  	LDBLE ratio_uncertainty;
@@ -965,7 +965,7 @@ struct cell_data
  *---------------------------------------------------------------------- */
 struct element
 {
-	char *name;					/* element name */
+	const char *name;					/* element name */
 	/*    int in; */
 	struct master *master;
 	struct master *primary;
@@ -992,15 +992,15 @@ struct rxn_token
 {
 	struct species *s;
 	LDBLE coef;
-	char *name;
+	const char *name;
 };
 /*----------------------------------------------------------------------
  *   Species
  *---------------------------------------------------------------------- */
 struct species
 {								/* all data pertinent to an aqueous species */
-	char *name;					/* name of species */
-	char *mole_balance;			/* formula for mole balance */
+	const char *name;					/* name of species */
+	const char *mole_balance;			/* formula for mole balance */
 	int in;						/* species used in model if TRUE */
 	int number;
 	struct master *primary;		/* points to master species list, NULL if not primary master */
@@ -1052,7 +1052,7 @@ struct species
 };
 struct logk
 {								/* Named log K's */
-	char *name;					/* name of species */
+	const char *name;					/* name of species */
 	LDBLE lk;					/* log10 k at working temperature */
 	LDBLE log_k[MAX_LOG_K_INDICES];				/* log kt0, delh, 6 coefficients analalytical expression */
 	DELTA_H_UNIT original_units;	/* enum with original delta H units */
@@ -1078,8 +1078,8 @@ struct species_diff_layer
  *---------------------------------------------------------------------- */
 struct phase
 {								/* all data pertinent to a pure solid phase */
-	char *name;					/* name of species */
-	char *formula;				/* chemical formula */
+	const char *name;					/* name of species */
+	const char *formula;				/* chemical formula */
 	int in;						/* species used in model if TRUE */
 	LDBLE lk;					/* log10 k at working temperature */
 	LDBLE logk[MAX_LOG_K_INDICES];				/* log kt0, delh, 6 coefficients analalytical expression */
@@ -1135,7 +1135,7 @@ struct phase
  	struct element *elt;		/* element structure */
  	LDBLE alk;					/* alkalinity of species */
  	LDBLE gfw;					/* default gfw for species */
- 	char *gfw_formula;			/* formula from which to calcuate gfw */
+ 	const char *gfw_formula;			/* formula from which to calcuate gfw */
  	struct unknown *unknown;	/* pointer to unknown structure */
  	struct species *s;			/* pointer to species structure */
  	struct reaction *rxn_primary;	/* reaction writes master species in terms of primary
@@ -1159,7 +1159,7 @@ struct unknown
 	LDBLE delta;
 	LDBLE la;
 	int number;
-	char *description;
+	const char *description;
 	struct master **master;
 	struct phase *phase;
 	LDBLE si;
@@ -1199,7 +1199,7 @@ struct reaction_temp
 };
 struct rxn_token_temp
 {								/* data for equations, aq. species or minerals */
-	char *name;					/* pointer to a species name (formula) */
+	const char *name;					/* pointer to a species name (formula) */
 	LDBLE z;					/* charge on species */
 	struct species *s;
 	struct unknown *unknown;
@@ -1258,7 +1258,7 @@ struct prints
  * ---------------------------------------------------------------------- */
 struct rate
 {
-	char *name;
+	const char *name;
 	char *commands;
 	int new_def;
 	void *linebase;
@@ -1280,8 +1280,8 @@ struct defaults
 {
 	LDBLE temp;
 	LDBLE density;
-	char *units;
-	char *redox;
+	const char *units;
+	const char *redox;
 	LDBLE ph;
 	LDBLE pe;
 	LDBLE water;
@@ -1302,10 +1302,10 @@ struct spread_sheet
  * ---------------------------------------------------------------------- */
 struct master_isotope
 {
-	char *name;
+	const char *name;
 	struct master *master;
 	struct element *elt;
-	char *units;
+	const char *units;
 	LDBLE standard;
 	LDBLE ratio;
 	LDBLE moles;
@@ -1314,7 +1314,7 @@ struct master_isotope
 };
 struct calculate_value
 {
-	char *name;
+	const char *name;
 	LDBLE value;
 	char *commands;
 	int new_def;
@@ -1325,15 +1325,15 @@ struct calculate_value
 };
 struct isotope_ratio
 {
-	char *name;
-	char *isotope_name;
+	const char *name;
+	const char *isotope_name;
 	LDBLE ratio;
 	LDBLE converted_ratio;
 };
 struct isotope_alpha
 {
-	char *name;
-	char *named_logk;
+	const char *name;
+	const char *named_logk;
 	LDBLE value;
 };
 struct system_species
@@ -1346,16 +1346,16 @@ struct system_species
 /* tally.c ------------------------------- */
 struct tally_buffer
 {
-	char *name;
+	const char *name;
 	struct master *master;
 	LDBLE moles;
 	LDBLE gfw;
 };
 struct tally
 {
-	char *name;
+	const char *name;
 	enum entity_type type;
-	char *add_formula;
+	const char *add_formula;
 	LDBLE moles;
 	struct elt_list *formula;
 	/*
@@ -1369,8 +1369,8 @@ struct tally
 /* transport.c ------------------------------- */
 struct spec
 {
-	char *name;					/* name of species */
-	char *aq_name;				/* name of aqueous species in EX species */
+	const char *name;					/* name of species */
+	const char *aq_name;				/* name of aqueous species in EX species */
 	int type;					/* type: AQ or EX */
 	LDBLE a;					/* activity */
 	LDBLE lm;					/* log(concentration) */
@@ -1389,12 +1389,12 @@ struct sol_D
 };
 struct J_ij
 {
-	char *name;
+	const char *name;
 	LDBLE tot1, tot2;
 };
 struct M_S
 {
-	char *name;
+	const char *name;
 	LDBLE tot1, tot2;
 };
 // Pitzer definitions
@@ -1406,7 +1406,7 @@ typedef enum
 
 struct pitz_param
 {
-	char *species[3];
+	const char *species[3];
 	int ispec[3];
 	pitz_param_type type;
 	LDBLE p;
