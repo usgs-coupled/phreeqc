@@ -614,6 +614,7 @@ fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 		case Mix:
 			break;
 		case Temperature:
+		case Pressure:
 			break;
 		case UnKnown:
 			break;
