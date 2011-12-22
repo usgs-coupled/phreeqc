@@ -335,9 +335,7 @@ clean_up(void)
 	phases_hash_table = NULL;
 
 /* strings */
-	free_hash_strings(strings_hash_table);
-	hdestroy_multi(strings_hash_table);
-	strings_hash_table = NULL;
+	strings_map_clear();
 
 /* delete basic interpreter */
 	basic_free();

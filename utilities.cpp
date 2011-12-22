@@ -1038,7 +1038,6 @@ string_duplicate(const char *token)
 	strcpy(str, token);
 	return (str);
 }
-
 /* ---------------------------------------------------------------------- */
 const char * Phreeqc::
 string_hsave(const char *str)
@@ -1049,27 +1048,42 @@ string_hsave(const char *str)
  *
  *      Arguments:
  *         str   input string to save.
- *         l     input, length of str
  *
  *      Returns:
  *         starting address of saved string (str)
  */
-	char *new_string;
-	ENTRY item, *found_item;
-
-	new_string = string_duplicate(str);
-	item.key = new_string;
-	item.data = new_string;
-	found_item = hsearch_multi(strings_hash_table, item, ENTER);
-	if (found_item->key == new_string)
+	std::map<std::string, std::string *>::const_iterator it;
+	it = strings_map.find(str);
+	if (it != strings_map.end())
 	{
-		count_strings++;
-		return (new_string);
+		return (it->second->c_str());
 	}
-	new_string = (char *) free_check_null(new_string);
-	return (found_item->key);
-}
 
+	std::string *stdstr = new std::string(str);
+	strings_map[*stdstr] = stdstr;
+	return(stdstr->c_str());
+}
+/* ---------------------------------------------------------------------- */
+void Phreeqc::
+strings_map_clear()
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Save character string str
+ *
+ *      Arguments:
+ *         str   input string to save.
+ *
+ *      Returns:
+ *         starting address of saved string (str)
+ */
+	std::map<std::string, std::string *>::iterator it;
+	for (it = strings_map.begin(); it != strings_map.end(); it++)
+	{
+		delete it->second;
+	}
+	strings_map.clear();
+}
 /* ---------------------------------------------------------------------- */
 LDBLE Phreeqc::
 under(LDBLE xval)

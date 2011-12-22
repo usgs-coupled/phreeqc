@@ -259,9 +259,8 @@ initialize(void)
 	hcreate_multi((unsigned) max_logk, &logk_hash_table);
 	hcreate_multi((unsigned) max_master_isotope, &master_isotope_hash_table);
 /*
- *   Create hash table for strings
+ *   Create hash tables
  */
-	hcreate_multi((unsigned) max_strings, &strings_hash_table);
 	hcreate_multi((unsigned) max_elements, &elements_hash_table);
 	hcreate_multi((unsigned) max_s, &species_hash_table);
 	hcreate_multi((unsigned) max_phases, &phases_hash_table);

@@ -183,8 +183,6 @@ process_file_names(int argc, char *argv[], std::istream **db_cookie,
 		max_line = MAX_LINE;
 		space((void **) ((void *) &line), INIT, &max_line, sizeof(char));
 		space((void **) ((void *) &line_save), INIT, &max_line, sizeof(char));
-		hcreate_multi(5, &strings_hash_table);
-
 /*
  *   Open error ostream
  */
@@ -347,10 +345,6 @@ process_file_names(int argc, char *argv[], std::istream **db_cookie,
 		user_database = (char *) free_check_null(user_database);
 		line = (char *) free_check_null(line);
 		line_save = (char *) free_check_null(line_save);
-
-		free_hash_strings(strings_hash_table);
-		hdestroy_multi(strings_hash_table);
-		strings_hash_table = NULL;
 
 		*db_cookie = new std::ifstream(db_file, std::ios_base::in);
 		*input_cookie = new std::ifstream(in_file, std::ios_base::in);
