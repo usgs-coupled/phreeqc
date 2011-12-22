@@ -3,6 +3,7 @@
 #include "phqalloc.h"
 #include <stdarg.h>
 #include <assert.h>
+#include "Temperature.h"
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -2241,7 +2242,6 @@ print_using(void)
 	struct pp_assemblage *pp_assemblage_ptr;
 	struct s_s_assemblage *s_s_assemblage_ptr;
 	struct gas_phase *gas_phase_ptr;
-	struct temperature *temperature_ptr;
 	struct irrev *irrev_ptr;
 	struct kinetics *kinetics_ptr;
 	int n;
@@ -2327,9 +2327,9 @@ print_using(void)
 	}
 	if (use.temperature_in == TRUE)
 	{
-		temperature_ptr = temperature_bsearch(use.n_temperature_user, &n);
+		cxxTemperature *temperature_ptr = Utilities::Reactant_find(Reaction_temperature_map, use.n_temperature_user);
 		output_msg(sformatf("Using temperature %d.\t%s\n",
-				   use.n_temperature_user, temperature_ptr->description));
+				   use.n_temperature_user, temperature_ptr->Get_description().c_str()));
 	}
 	if (use.pressure_in == TRUE)
 	{

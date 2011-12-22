@@ -355,26 +355,7 @@ tidy_model(void)
 			}
 		}
 	}
-/*
- *   Duplicate temperature
- */
-	if (new_temperature)
-	{
-		temperature_sort();
-		for (i = 0; i < count_temperature; i++)
-		{
-			if (temperature[i].n_user_end > temperature[i].n_user)
-			{
-				n_user = temperature[i].n_user;
-				last = temperature[i].n_user_end;
-				temperature[i].n_user_end = temperature[i].n_user;
-				for (j = n_user + 1; j <= last; j++)
-				{
-					temperature_duplicate(n_user, j);
-				}
-			}
-		}
-	}
+
 /*
  *   Tidy pitzer information
  */

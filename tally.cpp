@@ -1,5 +1,8 @@
+#include "Utils.h"
 #include "Phreeqc.h"
 #include "phqalloc.h"
+#include "Temperature.h"
+
 
 
 /*   
@@ -1191,17 +1194,14 @@ int Phreeqc::
 set_reaction_temperature(int n_user, LDBLE tc)
 /* ---------------------------------------------------------------------- */
 {
-	int n;
-	struct temperature *temperature_ptr;
-
-	temperature_ptr = temperature_bsearch(n_user, &n);
+	cxxTemperature * temperature_ptr = Utilities::Reactant_find(Reaction_temperature_map, n_user);
 	if (temperature_ptr == NULL)
 		return (ERROR);
-	temperature_ptr->t[0] = tc;
-	temperature_ptr->count_t = 1;
+	temperature_ptr->Get_temps().clear();
+	temperature_ptr->Get_temps().push_back(tc);
+	temperature_ptr->Set_equalIncrements(false);
 	return (OK);
 }
-
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 set_kinetics_time(int n_user, LDBLE step)

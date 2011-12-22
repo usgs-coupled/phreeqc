@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "phqalloc.h"
+#include "Temperature.h"
 
 
 /* ---------------------------------------------------------------------- */
@@ -119,11 +120,9 @@ clean_up(void)
 
 /* temperature */
 
-	for (j = 0; j < count_temperature; j++)
-	{
-		temperature_free(&temperature[j]);
-	}
-	temperature = (struct temperature *) free_check_null(temperature);
+	Reaction_temperature_map.clear();
+
+	Reaction_pressure_map.clear();
 
 /* unknowns */
 
@@ -396,7 +395,6 @@ clean_up(void)
 	count_mix = 0;
 	count_phases = 0;
 	count_s = 0;
-	count_temperature = 0;
 	count_logk = 0;
 	count_master_isotope = 0;
 
@@ -484,13 +482,11 @@ reinitialize(void)
 	}
 	count_irrev = 0;
 
-/* temperature */
+	// Temperature
+	Reaction_temperature_map.clear();
 
-	for (j = 0; j < count_temperature; j++)
-	{
-		temperature_free(&temperature[j]);
-	}
-	count_temperature = 0;
+	// Pressure
+	Reaction_pressure_map.clear();
 	return (OK);
 }
 
@@ -6753,353 +6749,6 @@ surface_sort(void)
 
 /* **********************************************************************
  *
- *   Routines related to structure "temperature"
- *
- * ********************************************************************** */
-/* ---------------------------------------------------------------------- */
-struct temperature * Phreeqc::
-temperature_bsearch(int k, int *n)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Binary search of array temperature to find user number k.
- *   Assumes array temperature is in sort order.
- *
- *   Input: k, user number to find.
- *   Output: n, position in array temperature of user number k.
- *   Return: pointer to temperature structure if found,
- *	   NULL if not found.
- */
-	void *void_ptr;
-	if (count_temperature <= 0)
-	{
-		*n = -999;
-		return (NULL);
-	}
-	void_ptr = (void *)
-		bsearch((char *) &k,
-				(char *) temperature,
-				(size_t) count_temperature,
-				(size_t) sizeof(struct temperature), temperature_compare_int);
-	if (void_ptr == NULL)
-	{
-		*n = -999;
-		return (NULL);
-	}
-	*n = (int) ((struct temperature *) void_ptr - temperature);
-	return ((struct temperature *) void_ptr);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-temperature_compare(const void *ptr1, const void *ptr2)
-/* ---------------------------------------------------------------------- */
-{
-	const struct temperature *temperature_ptr1, *temperature_ptr2;
-	temperature_ptr1 = (const struct temperature *) ptr1;
-	temperature_ptr2 = (const struct temperature *) ptr2;
-	if (temperature_ptr1->n_user > temperature_ptr2->n_user)
-		return (1);
-	if (temperature_ptr1->n_user < temperature_ptr2->n_user)
-		return (-1);
-	return (0);
-
-}
-
-/* ---------------------------------------------------------------------- */
- int Phreeqc::
-temperature_compare_int(const void *ptr1, const void *ptr2)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Compare temperature user numbers
- */
-	const int *nptr1;
-	const struct temperature *nptr2;
-
-	nptr1 = (const int *) ptr1;
-	nptr2 = (const struct temperature *) ptr2;
-	if (*nptr1 > nptr2->n_user)
-		return (1);
-	if (*nptr1 < nptr2->n_user)
-		return (-1);
-	return (0);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-temperature_copy(struct temperature *temperature_old_ptr,
-				 struct temperature *temperature_new_ptr, int n_user_new)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Copies temperature data from temperature_old_ptr to new location, temperature_new_ptr.
- *   Space for the temperature_new_ptr structure must already be malloced.
- *   Space for temperature components is malloced here.
- */
-	int count;
-	char token[MAX_LENGTH];
-/*
- *   Copy old to new
- */
-	memcpy(temperature_new_ptr, temperature_old_ptr,
-		   sizeof(struct temperature));
-/*
- *   Store data for structure temperature
- */
-	temperature_new_ptr->n_user = n_user_new;
-	temperature_new_ptr->n_user_end = n_user_new;
-	sprintf(token, "Temperature defined in simulation %d.", simulation);
-	temperature_new_ptr->description = string_duplicate(token);
-/*
- *   Count temperature components and allocate space
- */
-	if (temperature_old_ptr->count_t < 0)
-	{
-		count = 2;
-	}
-	else
-	{
-		count = temperature_old_ptr->count_t;
-	}
-	temperature_new_ptr->t =
-		(LDBLE *) PHRQ_malloc((size_t) (count) * sizeof(LDBLE));
-	if (temperature_new_ptr->t == NULL)
-		malloc_error();
-	memcpy(temperature_new_ptr->t, temperature_old_ptr->t,
-		   (size_t) (count * sizeof(LDBLE)));
-
-	return (OK);
-}
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-temperature_delete(int n_user_old)
-/* ---------------------------------------------------------------------- */
-/*
- *   Frees space for user number n_user_old, removes structure from
- *   array temperature.
- */
-{
-	int i;
-	int n_old;
-	struct temperature *temperature_ptr_old;
-/*
- *   Find n_user_old in structure array
- */
-	temperature_ptr_old = temperature_bsearch(n_user_old, &n_old);
-	if (temperature_ptr_old != NULL)
-	{
-		/*
-		 *   Delete temperature
-		 */
-		temperature_free(&temperature[n_old]);
-
-		for (i = n_old + 1; i < count_temperature; i++)
-		{
-			memcpy((void *) &temperature[i - 1],
-				   (void *) &temperature[i],
-				   (size_t) sizeof(struct temperature));
-		}
-		count_temperature--;
-	}
-	return (OK);
-}
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-temperature_duplicate(int n_user_old, int n_user_new)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Checks if n_user_new exists, and frees space if it does
- *   Copies temperature[n_user_old] to old n_user_new space if
- *   found or to temperature[count_temperature] if not found.
- *   Temperature array may not be in sort order after the copy.
- */
-	int n_old, n_new, sort;
-	char token[MAX_LENGTH];
-	int count_t;
-	struct temperature *temperature_ptr_old, *temperature_ptr_new;
-/*
- *   Find n_user_old in structure array temperature or make new space
- */
-	if (n_user_old == n_user_new)
-		return (OK);
-	temperature_ptr_old = temperature_bsearch(n_user_old, &n_old);
-	if (temperature_ptr_old == NULL)
-	{
-		error_string = sformatf( "Temperature %d not found.", n_user_old);
-		error_msg(error_string, CONTINUE);
-		input_error++;
-		return (ERROR);
-	}
-/*
- *   Find n_user_old in structure array temperature or make new space
- */
-	sort = FALSE;
-	temperature_ptr_new = temperature_bsearch(n_user_new, &n_new);
-	if (temperature_ptr_new != NULL)
-	{
-		temperature_free(&temperature[n_new]);
-	}
-	else
-	{
-		temperature = (struct temperature *) PHRQ_realloc(temperature,
-														  (size_t)
-														  (count_temperature
-														   +
-														   1) *
-														  sizeof(struct
-																 temperature));
-		if (temperature == NULL)
-			malloc_error();
-		if (n_user_new < temperature[count_temperature - 1].n_user)
-			sort = TRUE;
-		n_new = count_temperature++;
-	}
-/*
- *   Store data for structure temperature
- */
-	count_t = temperature[n_old].count_t;
-	temperature[n_new].n_user = n_user_new;
-	temperature[n_new].n_user_end = n_user_new;
-	sprintf(token, "Temperature defined in simulation %d.", simulation);
-	temperature[n_new].description = string_duplicate(token);
-	temperature[n_new].count_t = count_t;
-	if (count_t < 0)
-		count_t = 2;
-/*
- *   Count temperature components and allocate space
- */
-	temperature[n_new].t = (LDBLE *) PHRQ_malloc((size_t) (count_t) *
-												 sizeof(LDBLE));
-	if (temperature[n_new].t == NULL)
-		malloc_error();
-/*
- *   Write temperature_comp structure for each temperature component
- */
-	memcpy(temperature[n_new].t, temperature[n_old].t,
-		   (size_t) (count_t) * sizeof(LDBLE));
-	if (sort == TRUE)
-		temperature_sort();
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-temperature_free(struct temperature *temperature_ptr)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Free space allocated for temperature structure, does not free temperature_ptr.
- */
-	if (temperature_ptr == NULL)
-		return (ERROR);
-
-	temperature_ptr->description =
-		(char *) free_check_null(temperature_ptr->description);
-	temperature_ptr->t = (LDBLE *) free_check_null(temperature_ptr->t);
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-struct temperature * Phreeqc::
-temperature_search(int n_user, int *n)
-/* ---------------------------------------------------------------------- */
-{
-/*   Linear search of the structure array "temperature" for user number n_user.
- *
- *   Arguments:
- *      n_user  input, user number.
- *      n       output, position in temperature.
- *
- *   Returns:
- *      if found, pointer to temperature structure
- *      if not found, NULL
- */
-	int i;
-	for (i = 0; i < count_temperature; i++)
-	{
-		if (n_user == temperature[i].n_user)
-		{
-			break;
-		}
-	}
-	if (i >= count_temperature)
-	{
-		*n = -999;
-		return (NULL);
-	}
-	*n = i;
-	return (&temperature[i]);
-}
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-temperature_ptr_to_user(struct temperature * temperature_ptr_old, int n_user_new)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Checks if n_user_new exists, and frees space if it does.
- *   Copies temperature_ptr_old to existing space if
- *   found or to temperature[count_temperature] if not found.
- *   Temperature array sort order is maintained.
- */
-	int n_new, sort;
-	struct temperature *temperature_ptr_new;
-/*
- *   Check pointer
- */
-	if (temperature_ptr_old == NULL)
-	{
-		error_string = sformatf( "Temperature pointer is NULL.");
-		error_msg(error_string, CONTINUE);
-		input_error++;
-		return (ERROR);
-	}
-/*
- *   Find n_user_old in structure array temperature or make new space
- */
-	sort = FALSE;
-	temperature_ptr_new = temperature_bsearch(n_user_new, &n_new);
-	if (temperature_ptr_new != NULL)
-	{
-		temperature_free(&temperature[n_new]);
-	}
-	else
-	{
-		temperature = (struct temperature *) PHRQ_realloc(temperature,
-					(size_t) (count_temperature + 1) * sizeof(struct temperature));
-		if (temperature == NULL)
-			malloc_error();
-		if (n_user_new < temperature[count_temperature - 1].n_user)
-			sort = TRUE;
-		n_new = count_temperature++;
-	}
-/*
- *   Copy data
- */
-	temperature_copy(temperature_ptr_old, &temperature[n_new], n_user_new);
-	if (sort == TRUE)
-		temperature_sort();
-	return (OK);
-}
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-temperature_sort(void)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Sort array of temperature structures
- */
-	if (count_temperature > 0)
-	{
-		qsort(temperature, (size_t) count_temperature,
-			  (size_t) sizeof(struct temperature), temperature_compare);
-	}
-	return (OK);
-}
-
-/* **********************************************************************
- *
  *   Routines related to structure "trxn"
  *
  * ********************************************************************** */
@@ -7925,12 +7574,16 @@ entity_exists(char *name, int n_user)
 			return_value = FALSE;
 		}
 		break;
-	case Temperature:			/* Temperature */
-		if (temperature_bsearch(n_user, &i) == NULL)
+	case Temperature:
+		if (Utilities::Reactant_find(Reaction_temperature_map, n_user) == NULL)
 		{
 			return_value = FALSE;
 		}
-		break;
+	case Pressure:
+		if (Utilities::Reactant_find(Reaction_pressure_map, n_user) == NULL)
+		{
+			return_value = FALSE;
+		}
 	case Gas_phase:			/* Gas */
 		if (gas_phase_bsearch(n_user, &i) == NULL)
 		{
@@ -7969,6 +7622,7 @@ get_entity_enum(char *name)
  *	 kinetics,		   7 Kinetics
  *	 mix,			8 Mix
  *	 reaction_temperature	9 Temperature
+ *   reaction_pressure
  *	 unknown		     10 UnKnown
  *
  */
@@ -8004,6 +7658,9 @@ get_entity_enum(char *name)
 		break;
 	case Keywords::KEY_REACTION_TEMPERATURE:		/* Temperature */
 		return (Temperature);
+		break;
+	case Keywords::KEY_REACTION_PRESSURE:		/* Pressure */
+		return (Pressure);
 		break;
 	case Keywords::KEY_GAS_PHASE:					/* Gas */
 		return (Gas_phase);
@@ -9075,42 +8732,6 @@ cxxNameDouble2master_activity(const cxxNameDouble * nd)
 	return (master_activity_ptr);
 }
 
-#include "../Temperature.h"
-struct temperature * Phreeqc::
-cxxTemperature2temperature(const cxxTemperature *temp)
-		//
-		// Builds a temperature structure from instance of cxxTemperature 
-		//
-{
-	struct temperature *temperature_ptr;
-	temperature_ptr = (struct temperature *) PHRQ_malloc(sizeof(struct temperature));
-	if (temperature_ptr == NULL)
-		malloc_error();
-
-	temperature_ptr->description = string_duplicate (temp->Get_description().c_str());
-	temperature_ptr->n_user = temp->Get_n_user();
-	temperature_ptr->n_user_end = temp->Get_n_user_end();
-
-	// temps
-	temperature_ptr->t = NULL;
-	if (temp->Get_temps().size() > 0)
-	{
-		temperature_ptr->t = (LDBLE *) PHRQ_malloc((size_t) (temp->Get_temps().size() * sizeof(double)));
-		if (temperature_ptr->t == NULL)
-			malloc_error();
-		std::copy(temp->Get_temps().begin(), temp->Get_temps().end(), temperature_ptr->t);
-	}
-	if (temp->Get_equalIncrements())
-	{
-		temperature_ptr->count_t = -(int) temp->Get_countTemps();
-	}
-	else
-	{
-		temperature_ptr->count_t = (int) temp->Get_temps().size();
-	}
-	return (temperature_ptr);
-}
-
 #include "../StorageBin.h"
 
 void Phreeqc::
@@ -9217,11 +8838,10 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 	}
 	if (use_ptr->temperature_in == TRUE)
 	{
-		struct temperature *struct_entity = temperature_bsearch(use_ptr->n_temperature_user, &n);
-		if (struct_entity != NULL)
+		cxxTemperature *entity = Utilities::Reactant_find(Reaction_temperature_map, use_ptr->n_pressure_user);
+		if (entity != NULL)
 		{
-			cxxTemperature entity(struct_entity, sb.Get_io());
-			sb.Set_Temperature(use_ptr->n_temperature_user, &entity);
+			sb.Set_Temperature(use_ptr->n_temperature_user, entity);
 		}
 	}
 	if (use_ptr->pressure_in == TRUE)
@@ -9308,10 +8928,21 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	}
 
 	// Temperatures
-	for (i = 0; i < count_temperature; i++)
 	{
-		cxxTemperature entity(&temperature[i], sb.Get_io());
-		sb.Set_Temperature(temperature[i].n_user, &entity );	
+		std::map<int, cxxTemperature>::iterator it;
+		for (it = Reaction_temperature_map.begin(); it != Reaction_temperature_map.end(); it++)
+		{
+			sb.Set_Temperature(it->second.Get_n_user(), &(it->second));	
+		}
+	}
+
+	// Pressures
+	{
+		std::map<int, cxxPressure>::iterator it;
+		for (it = Reaction_pressure_map.begin(); it != Reaction_pressure_map.end(); it++)
+		{
+			sb.Set_Pressure(it->second.Get_n_user(), &(it->second));	
+		}
 	}
 }
 
@@ -9513,10 +9144,15 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
 		std::map < int, cxxTemperature >::const_iterator it = sb.Get_Temperatures().find(n);
 		if (it != sb.Get_Temperatures().end())
 		{
-			struct temperature *temperature_ptr = cxxTemperature2temperature(&(it->second));
-			temperature_ptr_to_user(temperature_ptr, it->first);
-			temperature_free(temperature_ptr);
-			temperature_ptr = (struct temperature *) free_check_null(temperature_ptr);
+			Reaction_temperature_map[n] = it->second;
+		}
+	}
+	// Pressures
+	{
+		std::map < int, cxxPressure >::const_iterator it = sb.Get_Pressures().find(n);
+		if (it != sb.Get_Pressures().end())
+		{
+			Reaction_pressure_map[n] = it->second;
 		}
 	}
 }
@@ -9638,10 +9274,15 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb)
 		std::map < int, cxxTemperature >::const_iterator it = sb.Get_Temperatures().begin();
 		for ( ; it != sb.Get_Temperatures().end(); it++)
 		{
-			struct temperature *temperature_ptr = cxxTemperature2temperature(&(it->second));
-			temperature_ptr_to_user(temperature_ptr, it->first);
-			temperature_free(temperature_ptr);
-			temperature_ptr = (struct temperature *) free_check_null(temperature_ptr);
+			Reaction_temperature_map[it->first] = it->second;
+		}
+	}
+	// Pressures
+	{
+		std::map < int, cxxPressure >::const_iterator it = sb.Get_Pressures().begin();
+		for ( ; it != sb.Get_Pressures().end(); it++)
+		{
+			Reaction_pressure_map[it->first] = it->second;
 		}
 	}
 }

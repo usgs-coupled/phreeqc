@@ -1653,7 +1653,7 @@ set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 /*
  *   Find temperature;  temp retardation is done in step
  */
-	use.temperature_ptr = temperature_bsearch(i, &use.n_temperature);
+	use.temperature_ptr = Utilities::Reactant_find(Reaction_temperature_map, i);
 	if (use.temperature_ptr != NULL)
 	{
 		use.temperature_in = TRUE;
@@ -1829,7 +1829,7 @@ set_reaction(int i, int use_mix, int use_kinetics)
  */
 	if (use.temperature_in == TRUE)
 	{
-		use.temperature_ptr = temperature_bsearch(i, &use.n_temperature);
+		use.temperature_ptr = Utilities::Reactant_find(Reaction_temperature_map, i);
 		if (use.temperature_ptr == NULL)
 		{
 			error_string = sformatf( "TEMPERATURE %d not found.", i);
@@ -1844,7 +1844,7 @@ set_reaction(int i, int use_mix, int use_kinetics)
 		use.pressure_ptr = Utilities::Reactant_find(Reaction_pressure_map, i);
 		if (use.pressure_ptr == NULL)
 		{
-			error_string = sformatf( "pressure %d not found.", i);
+			error_string = sformatf( "PRESSURE %d not found.", i);
 			error_msg(error_string, STOP);
 		}
 	}
@@ -2436,7 +2436,7 @@ set_advection(int i, int use_mix, int use_kinetics, int nsaver)
 /*
  *   Find temperature;  temp retardation is done in step
  */
-	use.temperature_ptr = temperature_bsearch(i, &use.n_temperature);
+	use.temperature_ptr = Utilities::Reactant_find(Reaction_temperature_map, i);
 	if (use.temperature_ptr != NULL)
 	{
 		use.temperature_in = TRUE;

@@ -8,6 +8,7 @@
 #include "SSassemblage.h"
 #include "SSassemblageSS.h"
 #include "NameDouble.h"
+#include "Temperature.h"
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -93,7 +94,8 @@ step(LDBLE step_fraction)
  */
 	if (use.temperature_ptr != NULL)
 	{
-		add_temperature(use.temperature_ptr, step_number);
+		cxxTemperature *t_ptr = (cxxTemperature *) use.temperature_ptr;
+		tc_x = t_ptr->Temperature_for_step(step_number);
 	}
 	if ((state == TRANSPORT) && (transport_step != 0) &&
 		(cell > 0) && (cell != count_cells + 1))
@@ -980,63 +982,6 @@ reaction_calc(struct irrev *irrev_ptr)
 	irrev_ptr->elts = elt_list_save();
 
 	return (return_value);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-add_temperature(struct temperature *temperature_ptr, int step_number)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Determine temperature of reaction step, if reaction_temperature
- *   information is present.
- */
-	int denom;
-	LDBLE tc_temp;
-/*
- *   Find temperature
- */
-	if (temperature_ptr == NULL)
-		return (ERROR);
-	if (temperature_ptr->count_t > 0)
-	{
-		if (step_number > temperature_ptr->count_t)
-		{
-			tc_temp = temperature_ptr->t[temperature_ptr->count_t - 1];
-		}
-		else
-		{
-			tc_temp = temperature_ptr->t[step_number - 1];
-		}
-	}
-	else if (temperature_ptr->count_t < 0)
-	{
-		if (step_number > -temperature_ptr->count_t)
-		{
-			tc_temp = temperature_ptr->t[1];
-		}
-		else
-		{
-			if (-temperature_ptr->count_t <= 1)
-			{
-				denom = 1;
-			}
-			else
-			{
-				denom = -temperature_ptr->count_t - 1;
-			}
-			tc_temp =
-				temperature_ptr->t[0] + (temperature_ptr->t[1] -
-										 temperature_ptr->t[0]) *
-				((LDBLE) (step_number - 1)) / ((LDBLE) denom);
-		}
-	}
-	else
-	{
-		tc_temp = 25.0;
-	}
-	tc_x = tc_temp;
-	return (OK);
 }
 
 /* ---------------------------------------------------------------------- */

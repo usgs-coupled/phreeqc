@@ -6,6 +6,7 @@
 #include "Phreeqc.h"
 #include "phqalloc.h"
 #include "Pressure.h"
+#include "Temperature.h"
 #include "Parser.h"
 
 /* ---------------------------------------------------------------------- */
@@ -7592,173 +7593,6 @@ add_psi_master_species(char *token)
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-read_temperature(void)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *      Reads temperature data for reaction steps
- *
- *      Arguments:
- *	 none
- *
- *      Returns:
- *	 KEYWORD if keyword encountered, input_error may be incremented if
- *		    a keyword is encountered in an unexpected position
- *	 EOF     if eof encountered while reading mass balance concentrations
- *	 ERROR   if error occurred reading data
- *
- */
-	char *ptr;
-	char *description;
-	int n, return_value;
-	int n_user, n_user_end;
-	struct temperature *temperature_ptr;
-/*
- *   Read reaction number
- */
-	ptr = line;
-	read_number_description(ptr, &n_user, &n_user_end, &description);
-/*
- *   Read allocate space for temperature
- */
-	temperature_ptr = temperature_search(n_user, &n);
-	if (temperature_ptr != NULL)
-	{
-		temperature_free(&temperature[n]);
-	}
-	else
-	{
-		n = count_temperature++;
-		temperature =
-			(struct temperature *) PHRQ_realloc(temperature,
-												(size_t) count_temperature *
-												sizeof(struct temperature));
-		if (temperature == NULL)
-			malloc_error();
-	}
-/*
- *   Set use data to first read
- */
-	if (use.temperature_in == FALSE)
-	{
-		use.temperature_in = TRUE;
-		use.n_temperature_user = n_user;
-	}
-/*
- *   Defaults
- */
-	temperature[n].n_user = n_user;
-	temperature[n].n_user_end = n_user_end;
-	temperature[n].description = description;
-	temperature[n].t = (LDBLE *) PHRQ_malloc((size_t) sizeof(LDBLE));
-	if (temperature[n].t == NULL)
-		malloc_error();
-	temperature[n].t[0] = 25.0;
-	temperature[n].count_t = 0;
-/*
- *   Read temperature data
- */
-	for (;;)
-	{
-		return_value =
-			check_line("reaction_temperature", FALSE, TRUE, TRUE, TRUE);
-		/* empty, eof, keyword, print */
-		if (return_value == EOF || return_value == KEYWORD)
-			break;
-/*
- *   Read steps information
- */
-		read_reaction_temps(&(temperature[n]));
-	}
-	return (return_value);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-read_reaction_temps(struct temperature *temperature_ptr)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Read temperature one of two forms:
- *
- *   (1) 25.0  30. 40. 50. 60.
- *
- *   (2) 25.0 100.0 in 4 steps # (25 50 75 100)
- *
- */
-	int i, j, l;
-	int count_t;
-	char *ptr;
-	char token[MAX_LENGTH];
-	LDBLE step;
-
-	ptr = line;
-	count_t = temperature_ptr->count_t;
-/*
- *   Read one or more reaction increments
- */
-	for (;;)
-	{
-		if (copy_token(token, &ptr, &l) == EMPTY)
-		{
-			return (OK);
-		}
-/*
- *   Read next step increment
- */
-		j = sscanf(token, SCANFORMAT, &step);
-		if (j == 1)
-		{
-			count_t++;
-			temperature_ptr->t =
-				(LDBLE *) PHRQ_realloc(temperature_ptr->t,
-									   (size_t) count_t * sizeof(LDBLE));
-			if (temperature_ptr->t == NULL)
-				malloc_error();
-			temperature_ptr->t[temperature_ptr->count_t] = step;
-			temperature_ptr->count_t = count_t;
-		}
-		else
-		{
-			break;
-		}
-	}
-/*
- *  Read number of equal increments, store as negative integer
- */
-	if (count_t != 2)
-	{
-		error_msg
-			("To define equal increments, exactly two temperatures should be defined.",
-			 CONTINUE);
-		error_msg(line_save, CONTINUE);
-		input_error++;
-		return (ERROR);
-	}
-	do
-	{
-		j = sscanf(token, "%d", &i);
-		if (j == 1 && i > 0)
-		{
-			temperature_ptr->count_t = -i;
-			return (OK);
-		}
-		else if (j == 1 && i <= 0)
-		{
-			break;
-		}
-	}
-	while (copy_token(token, &ptr, &l) != EMPTY);
-
-	error_msg("Expecting positive number for calculation of "
-			  "temperature increments.", CONTINUE);
-	error_msg(line_save, CONTINUE);
-	input_error++;
-	return (ERROR);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
 read_title(void)
 /* ---------------------------------------------------------------------- */
 {
@@ -10856,4 +10690,118 @@ cleanup_after_parser(CParser &parser)
 	strcpy(line, parser.line().c_str());
 	strcpy(line_save, parser.line_save().c_str());
 	return return_value;
+}
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+read_temperature(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Reads REACTION_TEMPERATURE data block
+ *
+ *      Arguments:
+ *         none
+ *
+ *      Returns:
+ *         KEYWORD if keyword encountered, input_error may be incremented if
+ *                    a keyword is encountered in an unexpected position
+ *         EOF     if eof encountered while reading mass balance concentrations
+ *         ERROR   if error occurred reading data
+ *
+ */
+	assert(!reading_database());
+
+	// Make instance, set n_user, n_user_end, description
+	cxxTemperature t_react(this->phrq_io);
+	char *ptr = line;
+	char *description;
+	int n_user, n_user_end;
+	read_number_description(ptr, &n_user, &n_user_end, &description);
+	t_react.Set_n_user(n_user);
+	t_react.Set_n_user_end(n_user);
+	t_react.Set_description(description);
+	free_check_null(description);
+
+	/*
+	 *  Make parser
+	 */
+	CParser parser(*phrq_io->get_istream(), this->phrq_io);
+	if (pr.echo_input == FALSE) parser.set_echo_file(CParser::EO_NONE);
+	t_react.read(parser);
+	if (t_react.Get_base_error_count() == 0)
+	{
+		Reaction_temperature_map[n_user] = t_react;
+	}
+
+	if (use.temperature_in == FALSE)
+	{
+		use.temperature_in = TRUE;
+		use.n_temperature_user = t_react.Get_n_user();
+	}
+
+	// Make copies if necessary
+	if (n_user_end > n_user)
+	{
+		int i;
+		for (i = n_user + 1; i <= n_user_end; i++)
+		{
+			Utilities::Reactant_copy(Reaction_temperature_map, n_user, i);
+		}
+	}
+
+	return cleanup_after_parser(parser);
+}
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+read_temperature_raw(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Reads REACTION_TEMPERATURE_RAW data block
+ *
+ *      Arguments:
+ *         none
+ *
+ *      Returns:
+ *         KEYWORD if keyword encountered, input_error may be incremented if
+ *                    a keyword is encountered in an unexpected position
+ *         EOF     if eof encountered while reading mass balance concentrations
+ *         ERROR   if error occurred reading data
+ *
+ */
+	assert(!reading_database());
+
+	cxxTemperature t_react(this->phrq_io);
+	char *ptr = line;
+	char *description;
+	int n_user, n_user_end;
+	read_number_description(ptr, &n_user, &n_user_end, &description);
+	t_react.Set_n_user(n_user);
+	t_react.Set_n_user_end(n_user);
+	t_react.Set_description(description);
+	free_check_null(description);
+	/*
+	 *  Make parser
+	 */
+	CParser parser(*phrq_io->get_istream(), this->phrq_io);
+	if (pr.echo_input == FALSE) parser.set_echo_file(CParser::EO_NONE);
+	t_react.read_raw(parser);
+
+	// Store
+	if (t_react.Get_base_error_count() == 0)
+	{
+		Reaction_temperature_map[n_user] = t_react;
+	}
+
+	// Make copies if necessary
+	if (n_user_end > n_user)
+	{
+		int i;
+		for (i = n_user + 1; i <= n_user_end; i++)
+		{
+			Utilities::Reactant_copy(Reaction_temperature_map, n_user, i);
+		}
+	}
+
+	return cleanup_after_parser(parser);
 }

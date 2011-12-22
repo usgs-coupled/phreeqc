@@ -160,7 +160,7 @@ enum SITES_UNITS
 { SITES_ABSOLUTE, SITES_DENSITY };
 enum entity_type
 { Solution, Reaction, Exchange, Surface, Gas_phase, Pure_phase, Ss_phase,
-	Kinetics, Mix, Temperature, UnKnown
+	Kinetics, Mix, Temperature, Pressure, UnKnown
 };
 
 typedef enum {
@@ -323,17 +323,6 @@ struct punch
 	int user_punch;
 	int charge_balance;
 	int percent_error;
-};
-/* ----------------------------------------------------------------------
- *   Temperatures
- * ---------------------------------------------------------------------- */
-struct temperature
-{
-	int n_user;
-	int n_user_end;
-	char *description;
-	LDBLE *t;
-	int count_t;
 };
 /* ----------------------------------------------------------------------
  *   Surface
@@ -575,8 +564,7 @@ struct Use
 
 	int temperature_in;
 	int n_temperature_user;
-	int n_temperature;
-	struct temperature *temperature_ptr;
+	void *temperature_ptr;
 
 	int inverse_in;
 	int n_inverse_user;

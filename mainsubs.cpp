@@ -3,6 +3,7 @@
 #include "Phreeqc.h"
 #include "phqalloc.h"
 #include "PBasic.h"
+#include "Temperature.h"
 
 #if defined(WINDOWS) || defined(_WINDOWS)
 #include <windows.h>
@@ -92,7 +93,6 @@ initialize(void)
 	count_mix = 0;
 	count_phases = 0;
 	count_s = 0;
-	count_temperature = 0;
 	count_logk = 0;
 	count_master_isotope = 0;
 /*
@@ -216,12 +216,6 @@ initialize(void)
 		(struct solution **) PHRQ_malloc((size_t) MAX_SOLUTION *
 										 sizeof(struct solution *));
 	if (solution == NULL)
-		malloc_error();
-
-	temperature =
-		(struct temperature *) PHRQ_malloc((size_t)
-										   sizeof(struct temperature));
-	if (temperature == NULL)
 		malloc_error();
 
 	title_x = NULL;
@@ -962,8 +956,7 @@ set_use(void)
  */
 	if (use.temperature_in == TRUE)
 	{
-		use.temperature_ptr =
-			temperature_bsearch(use.n_temperature_user, &use.n_temperature);
+		use.temperature_ptr =	Utilities::Reactant_find(Reaction_temperature_map, use.n_temperature_user);
 		if (use.temperature_ptr == NULL)
 		{
 			error_string = sformatf( "Temperature %d not found.",
@@ -1441,8 +1434,11 @@ reactions(void)
 	}
 	if (use.temperature_in == TRUE && use.temperature_ptr != NULL)
 	{
-		if (abs(use.temperature_ptr->count_t) > count_steps)
-			count_steps = abs(use.temperature_ptr->count_t);
+		int count = ((cxxTemperature *) use.temperature_ptr)->Get_countTemps();
+		if (count > count_steps)
+		{
+			count_steps = count;
+		}
 	}
 	if (use.pressure_in == TRUE && use.pressure_ptr != NULL)
 	{
@@ -2740,7 +2736,7 @@ copy_use(int i)
  */
 	if (use.temperature_in == TRUE)
 	{
-		temperature_duplicate(use.n_temperature_user, i);
+		Utilities::Reactant_copy(Reaction_temperature_map, use.n_temperature_user, i);
 	}
 /*
  *   Find pressure
@@ -3061,25 +3057,26 @@ copy_entities(void)
 			}
 		}
 	}
+
 	if (copy_temperature.count > 0)
 	{
 		for (j = 0; j < copy_temperature.count; j++)
 		{
-			if (temperature_bsearch(copy_temperature.n_user[j], &n) != NULL)
+			if (Utilities::Reactant_find(Reaction_temperature_map, copy_temperature.n_user[j]) != NULL)
 			{
-				for (i = copy_temperature.start[j];
-					i <= copy_temperature.end[j]; i++)
+				for (i = copy_temperature.start[j]; i <= copy_temperature.end[j]; i++)
 				{
-					if (i == copy_temperature.n_user[j])
-						continue;
-					temperature_duplicate(copy_temperature.n_user[j], i);
+					if (i != copy_temperature.n_user[j]) 
+					{
+						Utilities::Reactant_copy(Reaction_temperature_map, copy_temperature.n_user[j], i);
+					}
 				}
 			}
 			else
 			{
 				if (verbose == TRUE)
 				{
-					warning_msg("TEMPERATURE to copy not found.");
+					warning_msg("temperature to copy not found.");
 					return_value = ERROR;
 				}
 			}
@@ -3468,7 +3465,6 @@ use_init(void)
 
 	use.temperature_in = FALSE;
 	use.n_temperature_user= -1;
-	use.n_temperature= -1;
 	use.temperature_ptr = NULL;
 
 	use.pressure_in = FALSE;
