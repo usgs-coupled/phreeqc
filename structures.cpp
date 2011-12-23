@@ -8838,7 +8838,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 	}
 	if (use_ptr->temperature_in == TRUE)
 	{
-		cxxTemperature *entity = Utilities::Reactant_find(Reaction_temperature_map, use_ptr->n_pressure_user);
+		cxxTemperature *entity = Utilities::Reactant_find(Reaction_temperature_map, use_ptr->n_temperature_user);
 		if (entity != NULL)
 		{
 			sb.Set_Temperature(use_ptr->n_temperature_user, entity);
