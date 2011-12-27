@@ -1068,12 +1068,12 @@ print_mix(void)
 	if (state == TRANSPORT)
 	{
 		output_msg(sformatf("Mixture %d.\t%s\n\n", use.n_mix_user,
-				   mix_ptr->Get_description()));
+				   mix_ptr->Get_description().c_str()));
 	}
 	else
 	{
 		output_msg(sformatf("Mixture %d.\t%s\n\n", mix_ptr->Get_n_user(),
-				   mix_ptr->Get_description()));
+				   mix_ptr->Get_description().c_str()));
 	}
 	std::map<int, double>::const_iterator cit;
 	for (cit = mix_ptr->Get_mixComps().begin(); cit != mix_ptr->Get_mixComps().end(); cit++)
@@ -2295,12 +2295,12 @@ print_using(void)
 			if (state == TRANSPORT)
 			{
 				output_msg(sformatf("Using mix %d.\t%s\n",
-						   use.n_mix_user, mix_ptr->Get_description()));
+						   use.n_mix_user, mix_ptr->Get_description().c_str()));
 			}
 			else
 			{
 				output_msg(sformatf("Using mix %d.\t%s\n",
-						   use.n_mix_user_orig, mix_ptr->Get_description()));
+						   use.n_mix_user_orig, mix_ptr->Get_description().c_str()));
 			}
 
 		}

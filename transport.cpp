@@ -1901,6 +1901,7 @@ multi_D(LDBLE DDt, int mobile_cell, int stagnant)
 			 *    find the mix ptr for icell and go along the cells that mix with it
 			 */
 			//use.mix_ptr = mix_search(icell, &use.n_mix, FALSE);
+			use.mix_ptr = Utilities::Rxn_find(Rxn_mix_map, icell);
 			if (use.mix_ptr == NULL)
 				continue;
 			first_c = 0;
