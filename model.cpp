@@ -1,5 +1,6 @@
 #include "Phreeqc.h"
 #include "phqalloc.h"
+#include "cxxMix.h"
 
 
 /* ---------------------------------------------------------------------- */
@@ -4745,17 +4746,27 @@ surface_model(void)
 		if (use.mix_ptr != NULL)
 		{
 			mass_water_bulk_x = 0.0;
+			std::map<int, double>::const_iterator cit;
+			for (cit = (( cxxMix *) use.mix_ptr)->Get_mixComps().begin(); cit != (( cxxMix *) use.mix_ptr)->Get_mixComps().end(); cit++)
+			{
+				solution_ptr =	solution_bsearch(cit->first, &n, TRUE);
+				mass_water_bulk_x += solution_ptr->mass_water * cit->second;
+			}
+#ifdef SKIP
 			for (i = 0; i < use.mix_ptr->count_comps; i++)
 			{
 				solution_ptr =
 					solution_bsearch(use.mix_ptr->comps[i].n_solution, &n,
-									 TRUE);
+					TRUE);
 				mass_water_bulk_x +=
 					solution_ptr->mass_water * use.mix_ptr->comps[i].fraction;
 			}
+#endif
 		}
 		else
+		{
 			mass_water_bulk_x = use.solution_ptr->mass_water;
+		}
 		for (i = 0; i < use.surface_ptr->count_charge; i++)
 		{
 			mass_water_bulk_x += use.surface_ptr->charge[i].mass_water;

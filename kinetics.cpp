@@ -15,6 +15,7 @@
 #include "GasPhase.h"
 #include "SSassemblage.h"
 #include "Temperature.h"
+
 #include <map>
 #include <fstream>
 #include "nvector_serial.h"		/* definitions of type N_Vector and macro          */
@@ -1054,6 +1055,24 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 /*	saver();  */ /* reset for printing */
 	if (use_mix == DISP)
 	{
+		//use.mix_ptr = &mix[count_mix - count_cells + i - 1];
+		use.mix_ptr = (void *) Utilities::Rxn_find(Dispersion_mix_map, i);
+		use.mix_in = TRUE;
+		use.n_mix_user = i;
+	}
+	else if ((use_mix == STAG || use_mix == TRUE) && state == TRANSPORT)
+	{
+		//use.mix_ptr = mix_search(i, &use.n_mix, FALSE);
+		use.mix_ptr = (void *) Utilities::Rxn_find(Rxn_mix_map, i);
+		if (use.mix_ptr != NULL)
+		{
+			use.mix_in = TRUE;
+			use.n_mix_user = i;
+		}
+	}
+#ifdef SKIP
+	if (use_mix == DISP)
+	{
 		use.mix_ptr = &mix[count_mix - count_cells + i - 1];
 		use.mix_in = TRUE;
 		use.n_mix_user = i;
@@ -1067,6 +1086,7 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 			use.n_mix_user = i;
 		}
 	}
+#endif
 /*
  *  Restore solution i, if necessary
  */
@@ -1541,14 +1561,16 @@ set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 	use.mix_in = FALSE;
 	if (use_mix == DISP)
 	{
-		use.mix_ptr = &mix[count_mix - count_cells + i - 1];
+		//use.mix_ptr = &mix[count_mix - count_cells + i - 1];
+		use.mix_ptr = (void *) Utilities::Rxn_find(Dispersion_mix_map, i);
 		use.mix_in = TRUE;
 		use.n_mix_user = i;
 		use.n_mix_user_orig = i;
 	}
 	else if (use_mix == STAG && multi_Dflag != TRUE)
 	{
-		use.mix_ptr = mix_search(i, &use.n_mix, FALSE);
+		//use.mix_ptr = mix_search(i, &use.n_mix, FALSE);
+		use.mix_ptr = (void *) Utilities::Rxn_find(Rxn_mix_map, i);
 		if (use.mix_ptr != NULL)
 		{
 			use.mix_in = TRUE;
@@ -1653,7 +1675,7 @@ set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 /*
  *   Find temperature;  temp retardation is done in step
  */
-	use.temperature_ptr = Utilities::Reactant_find(Reaction_temperature_map, i);
+	use.temperature_ptr = Utilities::Rxn_find(Rxn_temperature_map, i);
 	if (use.temperature_ptr != NULL)
 	{
 		use.temperature_in = TRUE;
@@ -1666,7 +1688,7 @@ set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 /*
  *   Find pressure
  */
-	use.pressure_ptr = Utilities::Reactant_find(Reaction_pressure_map, i);
+	use.pressure_ptr = Utilities::Rxn_find(Rxn_pressure_map, i);
 	if (use.pressure_ptr != NULL)
 	{
 		use.pressure_in = TRUE;
@@ -1757,7 +1779,8 @@ set_reaction(int i, int use_mix, int use_kinetics)
 	use.solution_ptr = NULL;
 	if (use_mix == TRUE && use.mix_in == TRUE)
 	{
-		use.mix_ptr = mix_bsearch(i, &use.n_mix);
+		//use.mix_ptr = mix_bsearch(i, &use.n_mix);
+		use.mix_ptr = (void *) Utilities::Rxn_find(Rxn_mix_map, i);
 		if (use.mix_ptr == NULL)
 		{
 			error_string = sformatf( "MIX %d not found.", i);
@@ -1829,7 +1852,7 @@ set_reaction(int i, int use_mix, int use_kinetics)
  */
 	if (use.temperature_in == TRUE)
 	{
-		use.temperature_ptr = Utilities::Reactant_find(Reaction_temperature_map, i);
+		use.temperature_ptr = Utilities::Rxn_find(Rxn_temperature_map, i);
 		if (use.temperature_ptr == NULL)
 		{
 			error_string = sformatf( "TEMPERATURE %d not found.", i);
@@ -1841,7 +1864,7 @@ set_reaction(int i, int use_mix, int use_kinetics)
  */
 	if (use.pressure_in == TRUE)
 	{
-		use.pressure_ptr = Utilities::Reactant_find(Reaction_pressure_map, i);
+		use.pressure_ptr = Utilities::Rxn_find(Rxn_pressure_map, i);
 		if (use.pressure_ptr == NULL)
 		{
 			error_string = sformatf( "PRESSURE %d not found.", i);
@@ -2343,8 +2366,17 @@ set_advection(int i, int use_mix, int use_kinetics, int nsaver)
 
 	use.mix_ptr = NULL;
 	use.mix_in = FALSE;
-	if (use_mix == TRUE &&
-		(use.mix_ptr = mix_search(i, &use.n_mix, FALSE)) != NULL)
+#ifdef SKIP
+	if (use_mix == TRUE && (use.mix_ptr = mix_search(i, &use.n_mix, FALSE)) != NULL)
+	{
+		use.mix_in = TRUE;
+		use.n_mix_user = i;
+		use.n_mix_user_orig = i;
+		use.n_solution_user = i;
+	}
+#endif
+	use.mix_ptr = Utilities::Rxn_find(Rxn_mix_map, i);
+	if (use_mix == TRUE && use.mix_ptr != NULL)
 	{
 		use.mix_in = TRUE;
 		use.n_mix_user = i;
@@ -2436,7 +2468,7 @@ set_advection(int i, int use_mix, int use_kinetics, int nsaver)
 /*
  *   Find temperature;  temp retardation is done in step
  */
-	use.temperature_ptr = Utilities::Reactant_find(Reaction_temperature_map, i);
+	use.temperature_ptr = Utilities::Rxn_find(Rxn_temperature_map, i);
 	if (use.temperature_ptr != NULL)
 	{
 		use.temperature_in = TRUE;
@@ -2449,7 +2481,7 @@ set_advection(int i, int use_mix, int use_kinetics, int nsaver)
 /*
  *   Find pressure
  */
-	use.pressure_ptr = Utilities::Reactant_find(Reaction_pressure_map, i);
+	use.pressure_ptr = Utilities::Rxn_find(Rxn_pressure_map, i);
 	if (use.pressure_ptr != NULL)
 	{
 		use.pressure_in = TRUE;

@@ -8,6 +8,7 @@
 #include "Pressure.h"
 #include "Temperature.h"
 #include "Parser.h"
+#include "cxxMix.h"
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -3538,7 +3539,109 @@ read_master_species(void)
 	}
 	return (j);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+read_mix(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Reads mixing fractions
+ */
+	int n_user, n_user_end;
+	int return_value;
+	int n_solution;
+	LDBLE fraction;
+	int j, i, l;
+	char *ptr;
+	char token[MAX_LENGTH];
+	char *description;
+	//struct mix *mix_ptr;
+	cxxMix temp_mix;
 
+/*
+ *   Read mix number
+ */
+	ptr = line;
+	read_number_description(ptr, &n_user, &n_user_end, &description);
+
+	temp_mix.Set_n_user(n_user);
+	temp_mix.Set_n_user_end(n_user);
+	temp_mix.Set_description(description);
+/*
+ *   Set use data to first read
+ */
+	if (use.mix_in == FALSE)
+	{
+		use.mix_in = TRUE;
+		use.n_mix_user = n_user;
+	}
+/*
+ *   Read mixture data
+ */
+	for (;;)
+	{
+		return_value = check_line("Mixture data", FALSE, TRUE, TRUE, TRUE);
+		/* empty, eof, keyword, print */
+		if (return_value == EOF || return_value == KEYWORD)
+		{
+			break;
+		}
+		ptr = line;
+/*
+ *   Read n_user
+ */
+		i = copy_token(token, &ptr, &l);
+		if (i == DIGIT)
+		{
+			sscanf(token, "%d ", &n_solution);
+		}
+		else
+		{
+			input_error++;
+			error_msg("Expected a solution number in mix input.", CONTINUE);
+			error_msg(line_save, CONTINUE);
+			continue;
+		}
+/*
+ *   Read fraction for solution
+ */
+		copy_token(token, &ptr, &l);
+		j = sscanf(token, SCANFORMAT, &fraction);
+		if (j != 1)
+		{
+			input_error++;
+			error_msg("Expected a mixing fraction.", CONTINUE);
+			error_msg(line_save, CONTINUE);
+			continue;
+		}
+		
+/*
+ *   Save data
+ */
+		temp_mix.Add(n_solution ,fraction);
+	}
+	if (temp_mix.Get_mixComps().size() == 0)
+	{
+		input_error++;
+		error_msg
+			("Must define at least one solution number and mixing fraction for MIX input.",
+			 CONTINUE);
+	}
+	Rxn_mix_map[n_user] = temp_mix;
+
+	// copy if needed
+	if (n_user_end > n_user)
+	{
+		int i;
+		for (i = n_user + 1; i <= n_user_end; i++)
+		{
+			Utilities::Rxn_copy(Rxn_mix_map, n_user, i);
+		}
+	}
+
+	return (return_value);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 read_mix(void)
@@ -3671,6 +3774,7 @@ read_mix(void)
 	mix[n].count_comps = count_comps;
 	return (return_value);
 }
+#endif
 #ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -8210,12 +8314,29 @@ read_print(void)
 			phrq_io->Set_punch_on(pr.punch == TRUE);
 			break;
 		case 19:				/* status */
+#ifdef SKIP
 			pr.status = get_true_false(next_char, TRUE);
 			status_timer = (float) clock();
 			while (isspace((int) *next_char))
 				(next_char)++;
 			if ((isdigit((int) *next_char) || (*next_char == '.')) && get_num(&next_char, &num))
 				status_interval = (int) floor(num);
+#endif
+			{
+				int j;
+				pr.status = get_true_false(next_char, TRUE);
+				j = copy_token(token, &next_char, &l);
+				if  (j == UPPER || j == LOWER)
+				{
+					j = copy_token(token, &next_char, &l);
+				}
+				if (j == DIGIT)
+				{
+					char * tptr = token;
+					get_num(&tptr, &num);
+					status_interval = (int) floor(num);
+				}
+			}
 			if (status_interval < 0)
 				status_interval = 0;
 			break;
@@ -10590,7 +10711,7 @@ read_reaction_pressure(void)
 	atm.read(parser);
 	if (atm.Get_base_error_count() == 0)
 	{
-		Reaction_pressure_map[n_user] = atm;
+		Rxn_pressure_map[n_user] = atm;
 	}
 
 	if (use.pressure_in == FALSE)
@@ -10605,7 +10726,7 @@ read_reaction_pressure(void)
 		int i;
 		for (i = n_user + 1; i <= n_user_end; i++)
 		{
-			Utilities::Reactant_copy(Reaction_pressure_map, n_user, i);
+			Utilities::Rxn_copy(Rxn_pressure_map, n_user, i);
 		}
 	}
 
@@ -10650,7 +10771,7 @@ read_reaction_pressure_raw(void)
 	// Store
 	if (atm.Get_base_error_count() == 0)
 	{
-		Reaction_pressure_map[n_user] = atm;
+		Rxn_pressure_map[n_user] = atm;
 	}
 
 	// Make copies if necessary
@@ -10659,7 +10780,7 @@ read_reaction_pressure_raw(void)
 		int i;
 		for (i = n_user + 1; i <= n_user_end; i++)
 		{
-			Utilities::Reactant_copy(Reaction_pressure_map, n_user, i);
+			Utilities::Rxn_copy(Rxn_pressure_map, n_user, i);
 		}
 	}
 
@@ -10730,7 +10851,7 @@ read_temperature(void)
 	t_react.read(parser);
 	if (t_react.Get_base_error_count() == 0)
 	{
-		Reaction_temperature_map[n_user] = t_react;
+		Rxn_temperature_map[n_user] = t_react;
 	}
 
 	if (use.temperature_in == FALSE)
@@ -10745,7 +10866,7 @@ read_temperature(void)
 		int i;
 		for (i = n_user + 1; i <= n_user_end; i++)
 		{
-			Utilities::Reactant_copy(Reaction_temperature_map, n_user, i);
+			Utilities::Rxn_copy(Rxn_temperature_map, n_user, i);
 		}
 	}
 
@@ -10790,7 +10911,7 @@ read_temperature_raw(void)
 	// Store
 	if (t_react.Get_base_error_count() == 0)
 	{
-		Reaction_temperature_map[n_user] = t_react;
+		Rxn_temperature_map[n_user] = t_react;
 	}
 
 	// Make copies if necessary
@@ -10799,7 +10920,61 @@ read_temperature_raw(void)
 		int i;
 		for (i = n_user + 1; i <= n_user_end; i++)
 		{
-			Utilities::Reactant_copy(Reaction_temperature_map, n_user, i);
+			Utilities::Rxn_copy(Rxn_temperature_map, n_user, i);
+		}
+	}
+
+	return cleanup_after_parser(parser);
+}
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+read_mix_raw(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Reads REACTION_MIX_RAW data block
+ *
+ *      Arguments:
+ *         none
+ *
+ *      Returns:
+ *         KEYWORD if keyword encountered, input_error may be incremented if
+ *                    a keyword is encountered in an unexpected position
+ *         EOF     if eof encountered while reading mass balance concentrations
+ *         ERROR   if error occurred reading data
+ *
+ */
+	assert(!reading_database());
+
+	cxxMix entity(this->phrq_io);
+	char *ptr = line;
+	char *description;
+	int n_user, n_user_end;
+	read_number_description(ptr, &n_user, &n_user_end, &description);
+	entity.Set_n_user(n_user);
+	entity.Set_n_user_end(n_user);
+	entity.Set_description(description);
+	free_check_null(description);
+	/*
+	 *  Make parser
+	 */
+	CParser parser(*phrq_io->get_istream(), this->phrq_io);
+	if (pr.echo_input == FALSE) parser.set_echo_file(CParser::EO_NONE);
+	entity.read_raw(parser);
+
+	// Store
+	if (entity.Get_base_error_count() == 0)
+	{
+		Rxn_mix_map[n_user] = entity;
+	}
+
+	// Make copies if necessary
+	if (n_user_end > n_user)
+	{
+		int i;
+		for (i = n_user + 1; i <= n_user_end; i++)
+		{
+			Utilities::Rxn_copy(Rxn_mix_map, n_user, i);
 		}
 	}
 

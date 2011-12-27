@@ -4,6 +4,7 @@
 #include <stdarg.h>
 #include <assert.h>
 #include "Temperature.h"
+#include "cxxMix.h"
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -1033,8 +1034,9 @@ print_mix(void)
 /*
  *   prints definition of mixing, solution number and multiplier
  */
-	int i, n;
-	struct mix *mix_ptr;
+	int n;
+	//struct mix *mix_ptr;
+	cxxMix * mix_ptr;
 	struct solution *solution_ptr;
 
 	if (pr.use == FALSE || pr.all == FALSE)
@@ -1043,15 +1045,17 @@ print_mix(void)
 		return (OK);
 	if (state == TRANSPORT)
 	{
-		mix_ptr = mix_bsearch(use.n_mix_user, &i);
+		//mix_ptr = mix_bsearch(use.n_mix_user, &i);
+		mix_ptr = Utilities::Rxn_find(Rxn_mix_map, use.n_mix_user);
 	}
 	else
 	{
-		mix_ptr = mix_bsearch(use.n_mix_user_orig, &i);
+		//mix_ptr = mix_bsearch(use.n_mix_user_orig, &i);
+		mix_ptr = Utilities::Rxn_find(Rxn_mix_map, use.n_mix_user_orig);
 	}
 	if (mix_ptr == NULL)
 	{
-		mix_ptr = use.mix_ptr;
+		mix_ptr = (cxxMix *) use.mix_ptr;
 	}
 /*
  *  Print mixture data
@@ -1064,13 +1068,27 @@ print_mix(void)
 	if (state == TRANSPORT)
 	{
 		output_msg(sformatf("Mixture %d.\t%s\n\n", use.n_mix_user,
-				   mix_ptr->description));
+				   mix_ptr->Get_description()));
 	}
 	else
 	{
-		output_msg(sformatf("Mixture %d.\t%s\n\n", mix_ptr->n_user,
-				   mix_ptr->description));
+		output_msg(sformatf("Mixture %d.\t%s\n\n", mix_ptr->Get_n_user(),
+				   mix_ptr->Get_description()));
 	}
+	std::map<int, double>::const_iterator cit;
+	for (cit = mix_ptr->Get_mixComps().begin(); cit != mix_ptr->Get_mixComps().end(); cit++)
+	{
+		solution_ptr = solution_bsearch(cit->first, &n, TRUE);
+		if (solution_ptr == NULL)
+		{
+			input_error++;
+			return (ERROR);
+		}
+		output_msg(sformatf("\t%11.3e Solution %d\t%-55s\n",
+				   (double) cit->second,
+				   cit->first, solution[n]->description));
+	}
+#ifdef SKIP
 	for (i = 0; i < mix_ptr->count_comps; i++)
 	{
 		solution_ptr =
@@ -1084,6 +1102,7 @@ print_mix(void)
 				   (double) mix_ptr->comps[i].fraction,
 				   mix_ptr->comps[i].n_solution, solution[n]->description));
 	}
+#endif
 	output_msg(sformatf("\n"));
 	return (OK);
 }
@@ -2235,7 +2254,8 @@ print_using(void)
 /*
  *   Print entities used in calculation
  */
-	struct mix *mix_ptr;
+	//struct mix *mix_ptr;
+	cxxMix * mix_ptr;
 	struct solution *solution_ptr;
 	struct exchange *exchange_ptr;
 	struct surface *surface_ptr;
@@ -2257,27 +2277,30 @@ print_using(void)
 	{
 		if (state == TRANSPORT)
 		{
-			mix_ptr = mix_bsearch(use.n_mix_user, &n);
+			//mix_ptr = mix_bsearch(use.n_mix_user, &n);
+			mix_ptr = Utilities::Rxn_find(Rxn_mix_map, use.n_mix_user);
 		}
 		else
 		{
-			mix_ptr = mix_bsearch(use.n_mix_user_orig, &n);
+			//mix_ptr = mix_bsearch(use.n_mix_user_orig, &n);
+			mix_ptr = Utilities::Rxn_find(Rxn_mix_map, use.n_mix_user_orig);
 		}
 		if (mix_ptr == NULL)
 		{
-			mix_ptr = use.mix_ptr;
+			//mix_ptr = use.mix_ptr;
+			mix_ptr = (cxxMix *) use.mix_ptr;
 		}
 		if (mix_ptr != NULL)
 		{
 			if (state == TRANSPORT)
 			{
 				output_msg(sformatf("Using mix %d.\t%s\n",
-						   use.n_mix_user, mix_ptr->description));
+						   use.n_mix_user, mix_ptr->Get_description()));
 			}
 			else
 			{
 				output_msg(sformatf("Using mix %d.\t%s\n",
-						   use.n_mix_user_orig, mix_ptr->description));
+						   use.n_mix_user_orig, mix_ptr->Get_description()));
 			}
 
 		}
@@ -2327,13 +2350,13 @@ print_using(void)
 	}
 	if (use.temperature_in == TRUE)
 	{
-		cxxTemperature *temperature_ptr = Utilities::Reactant_find(Reaction_temperature_map, use.n_temperature_user);
+		cxxTemperature *temperature_ptr = Utilities::Rxn_find(Rxn_temperature_map, use.n_temperature_user);
 		output_msg(sformatf("Using temperature %d.\t%s\n",
 				   use.n_temperature_user, temperature_ptr->Get_description().c_str()));
 	}
 	if (use.pressure_in == TRUE)
 	{
-		cxxPressure *pressure_ptr = Utilities::Reactant_find(Reaction_pressure_map, use.n_pressure_user);
+		cxxPressure *pressure_ptr = Utilities::Rxn_find(Rxn_pressure_map, use.n_pressure_user);
 		output_msg(sformatf("Using pressure %d.\t%s\n",
 				   use.n_pressure_user, pressure_ptr->Get_description().c_str()));
 	}

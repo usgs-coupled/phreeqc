@@ -535,7 +535,8 @@ struct Use
 	int mix_in;
 	int n_mix_user;
 	int n_mix;
-	struct mix *mix_ptr;
+	//struct mix *mix_ptr;
+	void * mix_ptr;
 	int n_mix_user_orig;
 
 	int irrev_in;
@@ -666,7 +667,7 @@ struct inv_phases
 	int count_isotopes;
 	struct isotope *isotopes;
 };
-
+#ifdef SKIP
 /*----------------------------------------------------------------------
  *   Mix
  *---------------------------------------------------------------------- */
@@ -683,7 +684,7 @@ struct mix_comp
 	int n_solution;
 	LDBLE fraction;
 };
-
+#endif
 /*----------------------------------------------------------------------
  *   Irreversible reaction
  *---------------------------------------------------------------------- */

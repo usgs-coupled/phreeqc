@@ -9,6 +9,7 @@
 #include "SSassemblageSS.h"
 #include "NameDouble.h"
 #include "Temperature.h"
+#include "cxxMix.h"
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -42,7 +43,7 @@ step(LDBLE step_fraction)
  */
 	if (use.mix_ptr != NULL)
 	{
-		add_mix(use.mix_ptr);
+		add_mix((cxxMix *) use.mix_ptr);
 	}
 	else if (use.solution_ptr != NULL)
 	{
@@ -586,7 +587,64 @@ add_surface(struct surface *surface_ptr)
 	}
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+add_mix(cxxMix *mix_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   calls add_solution to accumulate all data in master->totals
+ *   and other variables.
+ */
+	int n;
+	LDBLE sum_fractions, intensive, extensive;
+	struct solution *solution_ptr;
+	int count_positive;
+	LDBLE sum_positive;
 
+	if (mix_ptr == NULL)
+		return (OK);
+	if (mix_ptr->Get_mixComps().size() == 0)
+		return (OK);
+	sum_fractions = 0.0;
+	sum_positive = 0.0;
+	count_positive = 0;
+	std::map<int, double>::const_iterator it;
+	for (it = mix_ptr->Get_mixComps().begin(); it != mix_ptr->Get_mixComps().end(); it++)
+	{
+		sum_fractions += it->second;
+		if (it->second > 0)
+		{
+			sum_positive += it->second;
+			count_positive++;
+		}
+	}
+	for (it = mix_ptr->Get_mixComps().begin(); it != mix_ptr->Get_mixComps().end(); it++)
+	{
+		solution_ptr =	solution_bsearch(it->first, &n, TRUE);
+		if (solution_ptr == NULL)
+		{
+			input_error++;
+			continue;
+		}
+		extensive = it->second;
+		intensive = extensive / sum_fractions;
+		if (count_positive < (int) mix_ptr->Get_mixComps().size())
+		{
+			if (it->second > 0)
+			{
+				intensive = extensive / sum_positive;
+			}
+			else
+			{
+				intensive = 0;
+			}
+		}
+		add_solution(solution_ptr, extensive, intensive);
+	}
+	return (OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 add_mix(struct mix *mix_ptr)
@@ -645,7 +703,7 @@ add_mix(struct mix *mix_ptr)
 	}
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 add_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr)

@@ -90,7 +90,7 @@ initialize(void)
 	count_elements = 0;
 	count_irrev = 0;
 	count_master = 0;
-	count_mix = 0;
+	//count_mix = 0;
 	count_phases = 0;
 	count_s = 0;
 	count_logk = 0;
@@ -186,10 +186,10 @@ initialize(void)
 	space((void **) ((void *) &mb_unknowns), INIT, &max_mb_unknowns,
 		  sizeof(struct unknown_list));
 
-	mix = (struct mix *) PHRQ_malloc((size_t) sizeof(struct mix));
-	if (mix == NULL)
-		malloc_error();
-	count_mix = 0;
+	//mix = (struct mix *) PHRQ_malloc((size_t) sizeof(struct mix));
+	//if (mix == NULL)
+	//	malloc_error();
+	//count_mix = 0;
 /* !!!! */
 	stag_data = (struct stag_data *) PHRQ_calloc(1, sizeof(struct stag_data));
 	if (stag_data == NULL)
@@ -605,7 +605,7 @@ initialize(void)
 	dbg_pp_assemblage = pp_assemblage;
 	dbg_kinetics = kinetics;
 	dbg_irrev = irrev;
-	dbg_mix = mix;
+	//dbg_mix = mix;
 	dbg_master = master;
 	calculating_deriv = FALSE;
 	numerical_deriv = FALSE;
@@ -849,6 +849,22 @@ set_use(void)
  */
 	if (use.mix_in == TRUE)
 	{
+		use.mix_ptr =(void *) Utilities::Rxn_find(Rxn_mix_map, use.n_mix_user);
+		use.n_mix_user_orig = use.n_mix_user;
+		if (use.mix_ptr == NULL)
+		{
+			error_string = sformatf( "Mix %d not found.",
+					use.n_mix_user);
+			error_msg(error_string, STOP);
+		}
+	}
+	else
+	{
+		use.mix_ptr = NULL;
+	}
+#ifdef SKIP
+	if (use.mix_in == TRUE)
+	{
 		use.mix_ptr = mix_bsearch(use.n_mix_user, &use.n_mix);
 		use.n_mix_user_orig = use.n_mix_user;
 		if (use.mix_ptr == NULL)
@@ -861,6 +877,7 @@ set_use(void)
 	{
 		use.mix_ptr = NULL;
 	}
+#endif
 /*
  *   Find pure phase assemblage
  */
@@ -956,7 +973,7 @@ set_use(void)
  */
 	if (use.temperature_in == TRUE)
 	{
-		use.temperature_ptr =	Utilities::Reactant_find(Reaction_temperature_map, use.n_temperature_user);
+		use.temperature_ptr =	Utilities::Rxn_find(Rxn_temperature_map, use.n_temperature_user);
 		if (use.temperature_ptr == NULL)
 		{
 			error_string = sformatf( "Temperature %d not found.",
@@ -973,7 +990,7 @@ set_use(void)
  */
 	if (use.pressure_in == TRUE)
 	{
-		use.pressure_ptr =	Utilities::Reactant_find(Reaction_pressure_map, use.n_pressure_user);
+		use.pressure_ptr =	Utilities::Rxn_find(Rxn_pressure_map, use.n_pressure_user);
 		if (use.pressure_ptr == NULL)
 		{
 			error_string = sformatf( "pressure %d not found.",	use.n_pressure_user);
@@ -2643,9 +2660,15 @@ copy_use(int i)
 /*
  *   Find mixture
  */
+#ifdef SKIP
 	if (use.mix_in == TRUE)
 	{
 		mix_duplicate(use.n_mix_user, i);
+	}
+#endif
+	if (use.mix_in == TRUE)
+	{
+		Utilities::Rxn_copy(Rxn_mix_map, use.n_mix_user, i);
 	}
 /*
  *   Find solution
@@ -2736,14 +2759,14 @@ copy_use(int i)
  */
 	if (use.temperature_in == TRUE)
 	{
-		Utilities::Reactant_copy(Reaction_temperature_map, use.n_temperature_user, i);
+		Utilities::Rxn_copy(Rxn_temperature_map, use.n_temperature_user, i);
 	}
 /*
  *   Find pressure
  */
 	if (use.pressure_in == TRUE)
 	{
-		Utilities::Reactant_copy(Reaction_pressure_map, use.n_pressure_user, i);
+		Utilities::Rxn_copy(Rxn_pressure_map, use.n_pressure_user, i);
 	}
 /*
  *   Find gas
@@ -2991,6 +3014,31 @@ copy_entities(void)
 	{
 		for (j = 0; j < copy_mix.count; j++)
 		{
+			if (Utilities::Rxn_find(Rxn_mix_map, copy_mix.n_user[j]) != NULL)
+			{
+				for (i = copy_mix.start[j]; i <= copy_mix.end[j]; i++)
+				{
+					if (i != copy_mix.n_user[j]) 
+					{
+						Utilities::Rxn_copy(Rxn_mix_map, copy_mix.n_user[j], i);
+					}
+				}
+			}
+			else
+			{
+				if (verbose == TRUE)
+				{
+					warning_msg("Mix to copy not found.");
+					return_value = ERROR;
+				}
+			}
+		}
+	}
+#ifdef SKIP
+	if (copy_mix.count > 0)
+	{
+		for (j = 0; j < copy_mix.count; j++)
+		{
 			if (mix_bsearch(copy_mix.n_user[j], &n) != NULL)
 			{
 				for (i = copy_mix.start[j]; i <= copy_mix.end[j]; i++)
@@ -3010,6 +3058,7 @@ copy_entities(void)
 			}
 		}
 	}
+#endif
 	if (copy_exchange.count > 0)
 	{
 		for (j = 0; j < copy_exchange.count; j++)
@@ -3062,13 +3111,13 @@ copy_entities(void)
 	{
 		for (j = 0; j < copy_temperature.count; j++)
 		{
-			if (Utilities::Reactant_find(Reaction_temperature_map, copy_temperature.n_user[j]) != NULL)
+			if (Utilities::Rxn_find(Rxn_temperature_map, copy_temperature.n_user[j]) != NULL)
 			{
 				for (i = copy_temperature.start[j]; i <= copy_temperature.end[j]; i++)
 				{
 					if (i != copy_temperature.n_user[j]) 
 					{
-						Utilities::Reactant_copy(Reaction_temperature_map, copy_temperature.n_user[j], i);
+						Utilities::Rxn_copy(Rxn_temperature_map, copy_temperature.n_user[j], i);
 					}
 				}
 			}
@@ -3086,13 +3135,13 @@ copy_entities(void)
 	{
 		for (j = 0; j < copy_pressure.count; j++)
 		{
-			if (Utilities::Reactant_find(Reaction_pressure_map, copy_pressure.n_user[j]) != NULL)
+			if (Utilities::Rxn_find(Rxn_pressure_map, copy_pressure.n_user[j]) != NULL)
 			{
 				for (i = copy_pressure.start[j]; i <= copy_pressure.end[j]; i++)
 				{
 					if (i != copy_pressure.n_user[j]) 
 					{
-						Utilities::Reactant_copy(Reaction_pressure_map, copy_pressure.n_user[j], i);
+						Utilities::Rxn_copy(Rxn_pressure_map, copy_pressure.n_user[j], i);
 					}
 				}
 			}

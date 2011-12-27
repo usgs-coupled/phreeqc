@@ -1195,7 +1195,7 @@ int Phreeqc::
 set_reaction_temperature(int n_user, LDBLE tc)
 /* ---------------------------------------------------------------------- */
 {
-	cxxTemperature * temperature_ptr = Utilities::Reactant_find(Reaction_temperature_map, n_user);
+	cxxTemperature * temperature_ptr = Utilities::Rxn_find(Rxn_temperature_map, n_user);
 	if (temperature_ptr == NULL)
 		return (ERROR);
 	temperature_ptr->Get_temps().clear();

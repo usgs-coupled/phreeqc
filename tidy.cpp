@@ -183,11 +183,12 @@ tidy_model(void)
  *  both mix with stagnant cells and for dispersive mix. 
  *  qsort(mix) then fails. Hence ...
  */
-
+#ifdef SKIP
 	if ((state != TRANSPORT) || (simul_tr < 2) || (stag_data->count_stag == 0))
 	{
 		mix_sort();
 	}
+#endif
 
 /* gas_phase */
 	if (new_gas_phase)

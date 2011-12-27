@@ -4,6 +4,7 @@
 
 #include "phqalloc.h"
 #include "Temperature.h"
+#include "cxxMix.h"
 
 
 /* ---------------------------------------------------------------------- */
@@ -119,10 +120,9 @@ clean_up(void)
 	irrev = (struct irrev *) free_check_null(irrev);
 
 /* temperature */
-
-	Reaction_temperature_map.clear();
-
-	Reaction_pressure_map.clear();
+	Rxn_temperature_map.clear();
+/* pressure */
+	Rxn_pressure_map.clear();
 
 /* unknowns */
 
@@ -133,12 +133,13 @@ clean_up(void)
 	x = (struct unknown **) free_check_null(x);
 
 /* mixtures */
+	Rxn_mix_map.clear();
 
-	for (j = 0; j < count_mix; j++)
-	{
-		mix_free(&mix[j]);
-	}
-	mix = (struct mix *) free_check_null(mix);
+	//for (j = 0; j < count_mix; j++)
+	//{
+	//	mix_free(&mix[j]);
+	//}
+	//mix = (struct mix *) free_check_null(mix);
 
 /* phases */
 
@@ -392,7 +393,7 @@ clean_up(void)
 	count_elements = 0;
 	count_irrev = 0;
 	count_master = 0;
-	count_mix = 0;
+	//count_mix = 0;
 	count_phases = 0;
 	count_s = 0;
 	count_logk = 0;
@@ -483,10 +484,10 @@ reinitialize(void)
 	count_irrev = 0;
 
 	// Temperature
-	Reaction_temperature_map.clear();
+	Rxn_temperature_map.clear();
 
 	// Pressure
-	Reaction_pressure_map.clear();
+	Rxn_pressure_map.clear();
 	return (OK);
 }
 
@@ -3038,7 +3039,7 @@ master_search(char *ptr, int *n)
 	}
 	return (NULL);
 }
-
+#ifdef SKIP
 /* **********************************************************************
  *
  *   Routines related to structure "mix"
@@ -3300,6 +3301,7 @@ mix_search(int n_user, int *n, int print)
 	*n = i;
 	return (&mix[i]);
 }
+
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 mix_ptr_to_user(struct mix *mix_ptr_old, int n_user_new)
@@ -3366,7 +3368,7 @@ mix_sort(void)
 	}
 	return (OK);
 }
-
+#endif
 /* **********************************************************************
  *
  *   Routines related to structure "pe_data"
@@ -7557,10 +7559,14 @@ entity_exists(char *name, int n_user)
 		}
 		break;
 	case Mix:					/* Mix */
-		if (mix_bsearch(n_user, &i) == NULL)
+		if (Utilities::Rxn_find(Rxn_mix_map, n_user) == NULL)
 		{
 			return_value = FALSE;
 		}
+		//if (mix_bsearch(n_user, &i) == NULL)
+		//{
+		//	return_value = FALSE;
+		//}
 		break;
 	case Exchange:				/* Ex */
 		if (exchange_bsearch(n_user, &i) == NULL)
@@ -7575,12 +7581,12 @@ entity_exists(char *name, int n_user)
 		}
 		break;
 	case Temperature:
-		if (Utilities::Reactant_find(Reaction_temperature_map, n_user) == NULL)
+		if (Utilities::Rxn_find(Rxn_temperature_map, n_user) == NULL)
 		{
 			return_value = FALSE;
 		}
 	case Pressure:
-		if (Utilities::Reactant_find(Reaction_pressure_map, n_user) == NULL)
+		if (Utilities::Rxn_find(Rxn_pressure_map, n_user) == NULL)
 		{
 			return_value = FALSE;
 		}
@@ -7751,7 +7757,7 @@ copier_init(struct copier *copier_ptr)
 		(int *) PHRQ_malloc((size_t) (copier_ptr->max * sizeof(int)));
 	return (OK);
 }
-
+#ifdef SKIP
 #include "../cxxMix.h"
 struct mix * Phreeqc::
 cxxMix2mix(const cxxMix * mx)
@@ -7791,7 +7797,7 @@ cxxMix2mix(const cxxMix * mx)
 	mix_ptr->count_comps = (int) mx->Get_mixComps().size();
 	return (mix_ptr);
 }
-
+#endif
 #include "../Exchange.h"
 struct exchange * Phreeqc::
 cxxExchange2exchange(const cxxExchange * ex)
@@ -8745,6 +8751,15 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 	struct Use *use_ptr = &use;
 	if (use.mix_in == TRUE)
 	{
+		cxxMix *entity = Utilities::Rxn_find(Rxn_mix_map, use_ptr->n_mix_user);
+		if (entity != NULL)
+		{
+			sb.Set_Mix(use_ptr->n_mix_user, entity);
+		}
+	}
+#ifdef SKIP
+	if (use.mix_in == TRUE)
+	{
 		struct mix *struct_entity = mix_bsearch(use_ptr->n_mix_user, &n);
 		if (struct_entity != NULL)
 		{
@@ -8764,6 +8779,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 			}
 		}
 	}
+#endif
 	else if (use_ptr->solution_in == TRUE)
 	{
 		struct solution *struct_entity = solution_bsearch(use_ptr->n_solution_user, &n, FALSE);
@@ -8838,7 +8854,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 	}
 	if (use_ptr->temperature_in == TRUE)
 	{
-		cxxTemperature *entity = Utilities::Reactant_find(Reaction_temperature_map, use_ptr->n_temperature_user);
+		cxxTemperature *entity = Utilities::Rxn_find(Rxn_temperature_map, use_ptr->n_temperature_user);
 		if (entity != NULL)
 		{
 			sb.Set_Temperature(use_ptr->n_temperature_user, entity);
@@ -8846,7 +8862,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 	}
 	if (use_ptr->pressure_in == TRUE)
 	{
-		cxxPressure *entity = Utilities::Reactant_find(Reaction_pressure_map, use_ptr->n_pressure_user);
+		cxxPressure *entity = Utilities::Rxn_find(Rxn_pressure_map, use_ptr->n_pressure_user);
 		if (entity != NULL)
 		{
 			sb.Set_Pressure(use_ptr->n_pressure_user, entity);
@@ -8914,12 +8930,20 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	}
 
 	// Mixes
+	{
+		std::map<int, cxxMix>::iterator it;
+		for (it = Rxn_mix_map.begin(); it != Rxn_mix_map.end(); it++)
+		{
+			sb.Set_Mix(it->second.Get_n_user(), &(it->second));	
+		}
+	}
+#ifdef SKIP
 	for (i = 0; i < count_mix; i++)
 	{
 		cxxMix entity(&mix[i], sb.Get_io());
 		sb.Set_Mix(mix[i].n_user, &entity );	
 	}
-
+#endif
 	// Reactions
 	for (i = 0; i < count_irrev; i++)
 	{
@@ -8930,7 +8954,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	// Temperatures
 	{
 		std::map<int, cxxTemperature>::iterator it;
-		for (it = Reaction_temperature_map.begin(); it != Reaction_temperature_map.end(); it++)
+		for (it = Rxn_temperature_map.begin(); it != Rxn_temperature_map.end(); it++)
 		{
 			sb.Set_Temperature(it->second.Get_n_user(), &(it->second));	
 		}
@@ -8939,7 +8963,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	// Pressures
 	{
 		std::map<int, cxxPressure>::iterator it;
-		for (it = Reaction_pressure_map.begin(); it != Reaction_pressure_map.end(); it++)
+		for (it = Rxn_pressure_map.begin(); it != Rxn_pressure_map.end(); it++)
 		{
 			sb.Set_Pressure(it->second.Get_n_user(), &(it->second));	
 		}
@@ -9122,12 +9146,21 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
 		std::map < int, cxxMix >::const_iterator it = sb.Get_Mixes().find(n);
 		if (it != sb.Get_Mixes().end())
 		{
+			Rxn_mix_map[n] = it->second;
+		}
+	}
+#ifdef SKIP
+	{
+		std::map < int, cxxMix >::const_iterator it = sb.Get_Mixes().find(n);
+		if (it != sb.Get_Mixes().end())
+		{
 			struct mix *mix_ptr = cxxMix2mix(&(it->second));
 			mix_ptr_to_user(mix_ptr, it->first);
 			mix_free(mix_ptr);
 			mix_ptr = (struct mix *) free_check_null(mix_ptr);
 		}
 	}
+#endif
 	// Reactions
 	{
 		std::map < int, cxxReaction >::const_iterator it = sb.Get_Reactions().find(n);
@@ -9144,7 +9177,7 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
 		std::map < int, cxxTemperature >::const_iterator it = sb.Get_Temperatures().find(n);
 		if (it != sb.Get_Temperatures().end())
 		{
-			Reaction_temperature_map[n] = it->second;
+			Rxn_temperature_map[n] = it->second;
 		}
 	}
 	// Pressures
@@ -9152,7 +9185,7 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
 		std::map < int, cxxPressure >::const_iterator it = sb.Get_Pressures().find(n);
 		if (it != sb.Get_Pressures().end())
 		{
-			Reaction_pressure_map[n] = it->second;
+			Rxn_pressure_map[n] = it->second;
 		}
 	}
 }
@@ -9252,12 +9285,21 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb)
 		std::map < int, cxxMix >::const_iterator it = sb.Get_Mixes().begin();
 		for ( ; it != sb.Get_Mixes().end(); it++)
 		{
+			Rxn_mix_map[it->first] = it->second;
+		}
+	}
+#ifdef SKIP
+	{
+		std::map < int, cxxMix >::const_iterator it = sb.Get_Mixes().begin();
+		for ( ; it != sb.Get_Mixes().end(); it++)
+		{
 			struct mix *mix_ptr = cxxMix2mix(&(it->second));
 			mix_ptr_to_user(mix_ptr, it->first);
 			mix_free(mix_ptr);
 			mix_ptr = (struct mix *) free_check_null(mix_ptr);
 		}
 	}
+#endif
 	// Reactions
 	{
 		std::map < int, cxxReaction >::const_iterator it = sb.Get_Reactions().begin();
@@ -9274,7 +9316,7 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb)
 		std::map < int, cxxTemperature >::const_iterator it = sb.Get_Temperatures().begin();
 		for ( ; it != sb.Get_Temperatures().end(); it++)
 		{
-			Reaction_temperature_map[it->first] = it->second;
+			Rxn_temperature_map[it->first] = it->second;
 		}
 	}
 	// Pressures
@@ -9282,7 +9324,7 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb)
 		std::map < int, cxxPressure >::const_iterator it = sb.Get_Pressures().begin();
 		for ( ; it != sb.Get_Pressures().end(); it++)
 		{
-			Reaction_pressure_map[it->first] = it->second;
+			Rxn_pressure_map[it->first] = it->second;
 		}
 	}
 }

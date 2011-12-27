@@ -1,3 +1,4 @@
+#include "Utils.h"
 #include "Phreeqc.h"
 #include "phqalloc.h"
 
@@ -15,7 +16,7 @@ transport(void)
 	int max_iter;
 	char token[MAX_LENGTH];
 	LDBLE kin_time, stagkin_time, kin_time_save;
-	struct mix *mix_ptr;
+	//struct mix *mix_ptr;
 	struct surface *surf_ptr, *surf_ptr1;
 	int punch_boolean;
 	LDBLE step_fraction;
@@ -26,7 +27,6 @@ transport(void)
 	diffc_max = 0.0;
 	cb_tol = 1e-9;
 	transp_surf = warn_fixed_Surf = warn_MCD_X = 0;
-
 /*	mass_water_switch = TRUE; */
 /*
  *   Check existence of solutions
@@ -186,20 +186,26 @@ transport(void)
     	warning_msg(token);
    }
  */
+		
+#ifdef SKIP
 		mix_ptr = &mix[0];
 		for (i = 0; i < count_mix; i++)
 			mix_free(mix_ptr++);
 		count_mix = 2 * count_cells;
+#endif
+		Rxn_mix_map.clear();
+
 /*
  * stagnant mix factors go in mix[0 .. count_cells]
  */
-		mix =
-			(struct mix *) PHRQ_realloc(mix,
+#ifdef SKIP
+		mix = (struct mix *) PHRQ_realloc(mix,
 										(size_t) count_mix *
 										sizeof(struct mix));
 		if (mix == NULL)
 			malloc_error();
 		memset(mix, 0, sizeof(struct mix) * count_mix);
+#endif
 	}
 /*
  * mix[] is extended in init_mix(), to accommodate column mix factors
@@ -248,7 +254,6 @@ transport(void)
  * structure stag_data.
  * MIX 'cell_no' in input file can be an alternative for the calculation here.
  */
-
 	if ((stag_data->exch_f > 0) && (stag_data->count_stag == 1))
 	{
 		b = stag_data->th_m / (stag_data->th_m + stag_data->th_im);
@@ -273,37 +278,55 @@ transport(void)
 /*
  * Define C_m = (1 - mix_f_m) * C_m0  +  mix_f_m) * C_im0
  */
-			mix[n].comps =
-				(struct mix_comp *) PHRQ_malloc((size_t) 2 *
-												sizeof(struct mix_comp));
-			if (mix[n].comps == NULL)
-				malloc_error();
-			mix[n].count_comps = 2;
-			mix[n].description = string_duplicate(" ");
-			mix[n].n_user = j;
-			mix[n].n_user_end = j;
-			mix[n].comps[0].n_solution = j;
-			mix[n].comps[0].fraction = 1 - mix_f_m;
-			mix[n].comps[1].n_solution = j_imm;
-			mix[n].comps[1].fraction = mix_f_m * water_m / water_imm;
-			n++;
+			{
+				cxxMix temp_mix;
+				//mix[n].comps =
+				//	(struct mix_comp *) PHRQ_malloc((size_t) 2 *
+				//									sizeof(struct mix_comp));
+				//if (mix[n].comps == NULL)
+				//	malloc_error();
+				//mix[n].count_comps = 2;
+				//mix[n].description = string_duplicate(" ");
+				//mix[n].n_user = j;
+				//mix[n].n_user_end = j;
+				temp_mix.Set_n_user(j);
+				temp_mix.Set_n_user_end(j);
+
+				//mix[n].comps[0].n_solution = j;
+				//mix[n].comps[0].fraction = 1 - mix_f_m;
+				temp_mix.Add(j, 1 - mix_f_m);
+				//mix[n].comps[1].n_solution = j_imm;
+				//mix[n].comps[1].fraction = mix_f_m * water_m / water_imm;
+				temp_mix.Add(j_imm, mix_f_m * water_m / water_imm);
+				Rxn_mix_map[j] = temp_mix;
+				n++;
+			}
 /*
  * Define C_im = mix_f_imm * C_m0  +  (1 - mix_f_imm) * C_im0,  or...
  */
-			mix[n].comps =
-				(struct mix_comp *) PHRQ_malloc((size_t) 2 *
-												sizeof(struct mix_comp));
-			if (mix[n].comps == NULL)
-				malloc_error();
-			mix[n].count_comps = 2;
-			mix[n].description = string_duplicate(" ");
-			mix[n].n_user = j_imm;
-			mix[n].n_user_end = j_imm;
-			mix[n].comps[0].n_solution = j_imm;
-			mix[n].comps[0].fraction = 1 - mix_f_imm;
-			mix[n].comps[1].n_solution = j;
-			mix[n].comps[1].fraction = mix_f_imm * water_imm / water_m;
-			n++;
+			{
+				cxxMix temp_mix;
+				//mix[n].comps =
+				//	(struct mix_comp *) PHRQ_malloc((size_t) 2 *
+				//									sizeof(struct mix_comp));
+				//if (mix[n].comps == NULL)
+				//	malloc_error();
+				//mix[n].count_comps = 2;
+				//mix[n].description = string_duplicate(" ");
+				//mix[n].n_user = j_imm;
+				//mix[n].n_user_end = j_imm;
+				temp_mix.Set_n_user(j_imm);
+				temp_mix.Set_n_user_end(j_imm);
+
+				//mix[n].comps[0].n_solution = j_imm;
+				//mix[n].comps[0].fraction = 1 - mix_f_imm;
+				temp_mix.Add(j_imm, 1 - mix_f_imm);
+				//mix[n].comps[1].n_solution = j;
+				//mix[n].comps[1].fraction = mix_f_imm * water_imm / water_m;
+				temp_mix.Add(j, mix_f_imm * water_imm / water_m);
+				Rxn_mix_map[j_imm] = temp_mix;
+				n++;
+			}
 		}
 
 		if (heat_nmix > 0)
@@ -765,6 +788,37 @@ transport(void)
 /*
  * free mix structures
  */
+	Dispersion_mix_map.clear();
+	if ((stag_data->exch_f > 0) && (stag_data->count_stag == 1))
+	{
+		//mix_ptr = &mix[0];
+		//for (i = 0; i < count_mix; i++)
+		//	mix_free(mix_ptr++);
+		Rxn_mix_map.clear();
+		//count_mix = 0;
+	}
+	//else
+	//{
+		//if (nmix > 0)
+		//{
+			//mix_ptr = &mix[count_mix - count_cells];
+			//for (i = count_mix - count_cells; i < count_mix; i++)
+				//mix_free(mix_ptr++);
+
+			//count_mix -= count_cells;
+			//mix =
+			//	(struct mix *) PHRQ_realloc(mix,
+			//								(size_t) (count_mix +
+			//										  1) *
+			//								sizeof(struct mix));
+			//if (mix == NULL)
+			//	malloc_error();
+		//}
+	//}
+#ifdef SKIP
+/*
+ * free mix structures
+ */
 	if ((stag_data->exch_f > 0) && (stag_data->count_stag == 1))
 	{
 		mix_ptr = &mix[0];
@@ -790,6 +844,7 @@ transport(void)
 				malloc_error();
 		}
 	}
+#endif
 	if (heat_nmix > 0)
 	{
 		heat_mix_array = (LDBLE *) free_check_null(heat_mix_array);
@@ -809,7 +864,213 @@ transport(void)
 	mass_water_switch = FALSE;
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+init_mix(void)
+/* ---------------------------------------------------------------------- */
+{
+	LDBLE dav, lav, mixf, maxmix, corr_disp, diffc_here, mD;
+	int i, l_nmix;
 
+	std::vector<double> m;
+	for(i = 0; i < count_cells + 1; i++)
+	{
+		m.push_back(0);
+	}
+	//LDBLE *m;
+
+	//m = (LDBLE *) PHRQ_malloc((count_cells + 1) * sizeof(LDBLE));
+	//if (m == NULL)
+	//	malloc_error();
+	if (multi_Dflag == TRUE)
+		diffc_here = 0.0;
+	else
+		diffc_here = diffc_tr;
+/*
+ * Define mixing factors among inner cells
+ */
+	corr_disp = 1.;
+	if (correct_disp == TRUE && ishift != 0)
+	{
+		if (bcon_first == 3)
+			corr_disp += 1. / count_cells;
+		if (bcon_last == 3)
+			corr_disp += 1. / count_cells;
+	}
+	maxmix = 0.0;
+
+	for (i = 1; i < count_cells; i++)
+	{
+		lav = (cell_data[i - 1].length + cell_data[i].length) / 2;
+		if (ishift != 0)
+			dav = (cell_data[i - 1].disp + cell_data[i].disp) / 2;
+		else
+			dav = 0;
+
+		mixf = (diffc_here * timest / lav + dav) * corr_disp / cell_data[i].length;
+		if (mixf > maxmix)
+			maxmix = mixf;
+		m[i] = mixf;			/* m[i] has mixf with lower cell */
+		if (multi_Dflag == TRUE)
+		{
+			mD = diffc_max * timest / (lav * lav);
+			if (mD > maxmix)
+				maxmix = mD;
+		}
+	}
+/*
+ * Also for boundary cells
+ */
+	if (bcon_first == 1)
+	{
+		lav = cell_data[0].length;
+		if (ishift != 0)
+			dav = cell_data[0].disp;
+		else
+			dav = 0;
+
+		mixf = (diffc_here * timest / lav + dav) / lav;
+		if (mixf > maxmix)
+			maxmix = mixf;
+		m[0] = 2 * mixf;
+		if (multi_Dflag == TRUE)
+		{
+			mD = diffc_max * timest / (lav * lav);
+			if (mD > maxmix)
+				maxmix = mD;
+		}
+	}
+	else
+		m[0] = 0;
+
+	if (bcon_last == 1)
+	{
+		lav = cell_data[count_cells - 1].length;
+		if (ishift != 0)
+			dav = cell_data[count_cells - 1].disp;
+		else
+			dav = 0;
+
+		mixf = (diffc_here * timest / lav + dav) / lav;
+		if (mixf > maxmix)
+			maxmix = mixf;
+		m[count_cells] = 2 * mixf;
+		if (multi_Dflag == TRUE)
+		{
+			mD = diffc_max * timest / (lav * lav);
+			if (mD > maxmix)
+				maxmix = mD;
+		}
+	}
+	else
+		m[count_cells] = 0;
+
+/*
+ * Find number of mixes
+ */
+	if (maxmix == 0)
+	{
+		l_nmix = 0;
+		if (multi_Dflag == TRUE && mcd_substeps > 1
+			&& stag_data->count_stag > 0)
+			l_nmix = (int) ceil(mcd_substeps);
+	}
+	else
+	{
+		if ((bcon_first == 1) || (bcon_last == 1))
+			l_nmix = 1 + (int) floor(4.5 * maxmix);
+		else
+			l_nmix = 1 + (int) floor(3.0 * maxmix);
+
+		if ((ishift != 0) && ((bcon_first == 1) || (bcon_last == 1)))
+		{
+			if (l_nmix < 2)
+				l_nmix = 2;
+		}
+		if (multi_Dflag == TRUE && mcd_substeps > 1)
+			l_nmix = (int) ceil(l_nmix * mcd_substeps);
+
+		for (i = 0; i <= count_cells; i++)
+			m[i] /= l_nmix;
+	}
+	/*
+	 * Fill mix structure
+	 */
+	
+	if (l_nmix != 0)
+	{
+		//mix = (struct mix *) PHRQ_realloc(mix,
+		//								(size_t) (count_mix +
+		//										  count_cells) *
+		//								sizeof(struct mix));
+		//if (mix == NULL)
+		//	malloc_error();
+		//count_mix += count_cells;
+		//for (n = count_mix - count_cells; n < count_mix; n++)
+		//{
+			//mix[n].description = NULL;
+			//mix[n].count_comps = 3;
+			//mix[n].comps =
+			//	(struct mix_comp *) PHRQ_malloc((size_t) 3 *
+			//									sizeof(struct mix_comp));
+			//if (mix[n].comps == NULL)
+			//	malloc_error();
+		//}
+
+		//n = count_mix - count_cells;
+/*
+ * max_mix brings n_user outside range of active cells
+ * mix[n].n_user = mix[n].n_user_end = -999 has same effect
+ * but max_mix keeps mix in sort order in case mix_bsearch
+ * is used
+ */
+		//if (n - 1 <= 0)
+		//{
+		//	max_mix = 1;
+		//else
+		//	max_mix = mix[n - 1].n_user + 1;
+
+		//if (max_mix < count_cells * (stag_data->count_stag + 1) + 1)
+		//	max_mix = count_cells * (stag_data->count_stag + 1) + 1;
+
+		for (i = 1; i <= count_cells; i++)
+		{
+			cxxMix temp_mix;
+			dav = 0;
+			//count_comps = 0;
+			//mix[n].description = (char *) free_check_null(mix[n].description);
+			//mix[n].description = string_duplicate(" ");
+/*
+ * again, max_mix brings n_user outside range of active cells, etc...
+ */
+			//mix[n].n_user = max_mix + i;
+			//mix[n].n_user_end = max_mix + i;
+			temp_mix.Set_n_user(i);
+			temp_mix.Set_n_user_end(i);
+
+			//mix[n].comps[count_comps].n_solution = i - 1;
+			//mix[n].comps[count_comps].fraction = m[i - 1];
+			temp_mix.Add(i - 1, m[i - 1]);
+
+			dav += m[i - 1];
+			//count_comps++;
+			//mix[n].comps[count_comps].n_solution = i + 1;
+			//mix[n].comps[count_comps].fraction = m[i];
+			temp_mix.Add(i + 1, m[i]);
+
+			dav += m[i];
+			//count_comps++;
+			//mix[n].comps[count_comps].n_solution = i;
+			//mix[n].comps[count_comps].fraction = 1.0 - dav;
+			temp_mix.Add(i, 1.0 - dav);
+			Dispersion_mix_map[i] = temp_mix;
+			//n++;
+		}
+	}
+	//m = (LDBLE *) free_check_null(m);
+	return (l_nmix);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 init_mix(void)
@@ -1002,7 +1263,7 @@ init_mix(void)
 	m = (LDBLE *) free_check_null(m);
 	return (l_nmix);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 mix_stag(int i, LDBLE kin_time, int l_punch, LDBLE step_fraction)
@@ -1639,11 +1900,12 @@ multi_D(LDBLE DDt, int mobile_cell, int stagnant)
 			/*
 			 *    find the mix ptr for icell and go along the cells that mix with it
 			 */
-			use.mix_ptr = mix_search(icell, &use.n_mix, FALSE);
+			//use.mix_ptr = mix_search(icell, &use.n_mix, FALSE);
 			if (use.mix_ptr == NULL)
 				continue;
 			first_c = 0;
-			last_c = use.mix_ptr->count_comps - 1;
+			//last_c = use.mix_ptr->count_comps - 1;
+			last_c = (int) (((cxxMix *) use.mix_ptr)->Get_mixComps().size() - 1);
 		}
 		else
 		{						/* regular column... */
@@ -1661,9 +1923,21 @@ multi_D(LDBLE DDt, int mobile_cell, int stagnant)
 		{
 			if (stagnant)
 			{
-				if ((jcell = use.mix_ptr->comps[i].n_solution) <= icell)
+			std::vector<int> n_solution;
+			std::vector<double> fraction;
+			((cxxMix *) use.mix_ptr)->Vectorize(n_solution, fraction);
+			//std::map<int, double>::const_iterator cit;
+			//for (cit = ((cxxMix *) use.mix_ptr)->Get_mixComps().begin(); cit != ((cxxMix *) use.mix_ptr)->Get_mixComps().end(); cit++)
+			//{
+			//	n_solution.push_back(cit->first);
+			//	fraction.push_back(cit->second);
+			//}
+				//if ((jcell = use.mix_ptr->comps[i].n_solution) <= icell)
+				if ((jcell = n_solution[i]) <= icell)
 					continue;
-				mixf = use.mix_ptr->comps[i].fraction;
+				//mixf = use.mix_ptr->comps[i].fraction;
+
+				mixf = fraction[i];
 				if (mcd_substeps > 1)
 					mixf /= nmix;
 			}
@@ -3128,7 +3402,8 @@ disp_surf(LDBLE DDt)
 	int charge_done, surf1, surf2;
 	LDBLE f1, f2, mixf, mixf_store, mcd_mixf;
 	LDBLE lav, A_ij, por, Dp1, Dp2;
-	struct mix *mix_ptr;
+	//struct mix *mix_ptr;
+	cxxMix * mix_ptr;
 	struct surface *surface_ptr1, *surface_ptr2;
 	LDBLE viscos_f;
 /*
@@ -3186,10 +3461,43 @@ disp_surf(LDBLE DDt)
  * step 2a. Dispersive mixing of mobile surfaces from column cells i2 < i1...
  */
 			if (i1 <= count_cells)
-				mix_ptr = &mix[count_mix - count_cells + i1 - 1];
+				//mix_ptr = &mix[count_mix - count_cells + i1 - 1];
+				mix_ptr = Utilities::Rxn_find(Dispersion_mix_map, i1);
 			else
-				mix_ptr = &mix[count_mix - 1];
+				//mix_ptr = &mix[count_mix - 1];
+				mix_ptr = Utilities::Rxn_find(Dispersion_mix_map, count_cells);
 
+			//std::map<int, double>::const_iterator cit;
+			//for (cit = mix_ptr->Get_mixComps().begin(); cit != mix_ptr->Get_mixComps().end(); cit++)
+			std::vector<int> num;
+			std::vector<LDBLE> frac;
+			mix_ptr->Vectorize(num, frac);
+			for(size_t i3 = 0; i3 < num.size(); i3++)
+			//for (j = 0; j < mix_ptr->count_comps; j++)
+			{
+				if (i1 <= count_cells)
+				{
+					//if (mix_ptr->comps[j].n_solution == i2)
+					//if (cit->first == i2)
+					if (num[i3] == i2)
+					{
+						//mixf = mixf_store = mix_ptr->comps[j].fraction;
+						//mixf = mixf_store = cit->second;
+						mixf = mixf_store = frac[i3];
+						break;
+					}
+				}
+				//else if (mix_ptr->comps[j].n_solution == i1)
+				//else if (cit->first == i1)
+				else if (num[i3] == i1)
+				{
+					//mixf = mixf_store = mix_ptr->comps[j].fraction;
+					//mixf = mixf_store = cit->second;
+					mixf = mixf_store = frac[i3];
+					break;
+				}
+			}
+#ifdef SKIP
 			for (j = 0; j < mix_ptr->count_comps; j++)
 			{
 				if (i1 <= count_cells)
@@ -3206,7 +3514,7 @@ disp_surf(LDBLE DDt)
 					break;
 				}
 			}
-
+#endif
 			/* step 1b. If cell i1 has no surface, get the mobile comps from surface i2... */
 			if (surface[n1].n_user == -99)
 			{
@@ -4198,7 +4506,8 @@ diff_stag_surf(int mobile_cell)
 	int charge_done, surf1, surf2;
 	LDBLE f1, f2, mixf, mixf_store;
 	LDBLE Dp1, Dp2;
-	struct mix *mix_ptr;
+	//struct mix *mix_ptr;
+	cxxMix *mix_ptr;
 	struct surface *surface_ptr1, *surface_ptr2;
 	LDBLE viscos_f;
 /*
@@ -4229,14 +4538,23 @@ diff_stag_surf(int mobile_cell)
 /*
  * step 2a. mix surfaces...
  */
-		mix_ptr = mix_search(i1, &n, FALSE);
+		//mix_ptr = mix_search(i1, &n, FALSE);
+		mix_ptr = Utilities::Rxn_find(Rxn_mix_map, i1);
 		if (mix_ptr == NULL)
 			continue;
 
-		for (j = 0; j < mix_ptr->count_comps; j++)
+		//for (j = 0; j < mix_ptr->count_comps; j++)
+		//std::map<int, double>::const_iterator cit;
+		//for (cit = mix_ptr->Get_mixComps().begin(); cit != mix_ptr->Get_mixComps().end(); cit++)
+		std::vector<int> num;
+		std::vector<double> frac;
+		mix_ptr->Vectorize(num, frac);
+		for (size_t i3 = 0; i3 < num.size(); i3++)
 		{
 
-			if ((i2 = mix_ptr->comps[j].n_solution) <= i1)
+			//if ((i2 = mix_ptr->comps[j].n_solution) <= i1)
+			//if ((i2 = cit->first) <= i1)
+			if ((i2 = num[i3]) <= i1)
 				continue;
 			if (cell_data[i2 - 1].por < multi_Dpor_lim)
 				continue;
@@ -4256,7 +4574,9 @@ diff_stag_surf(int mobile_cell)
 			if (!surf1 && !surf2)
 				continue;
 
-			mixf = mixf_store = mix_ptr->comps[j].fraction;
+			//mixf = mixf_store = mix_ptr->comps[j].fraction;
+			//mixf = mixf_store = cit->second;
+			mixf = mixf_store = frac[i3];;
 
 			/* find the (possibly modified) surface in cell i1... */
 			f1 = 1;
