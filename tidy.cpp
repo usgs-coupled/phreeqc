@@ -3003,7 +3003,7 @@ tidy_kin_exchange(void)
 				input_error++;
 				error_string = sformatf(
 						"Kinetics %d must be defined to use exchange related to kinetic reaction, %s",
-						exchange_ptr->Get_n_user(), comps[j]->Get_formula());
+						exchange_ptr->Get_n_user(), comps[j]->Get_formula().c_str());
 				error_msg(error_string, CONTINUE);
 				continue;
 			}
@@ -3021,7 +3021,7 @@ tidy_kin_exchange(void)
 				input_error++;
 				error_string = sformatf(
 						"Kinetic reaction, %s, related to exchanger, %s, not found in KINETICS %d",
-						comps[j]->Get_rate_name(), comps[j]->Get_formula(), exchange_ptr->Get_n_user());
+						comps[j]->Get_rate_name().c_str(), comps[j]->Get_formula().c_str(), exchange_ptr->Get_n_user());
 				error_msg(error_string, CONTINUE);
 				continue;
 			}
@@ -3237,7 +3237,7 @@ tidy_min_exchange(void)
 				input_error++;
 				error_string = sformatf(
 						"Equilibrium_phases %d must be defined to use exchange related to mineral phase, %s",
-						n, comp_ptr->Get_formula());
+						n, comp_ptr->Get_formula().c_str());
 				error_msg(error_string, CONTINUE);
 				continue;
 			}
@@ -5045,7 +5045,6 @@ tidy_exchange(void)
 			/* Check elements */
 			cxxNameDouble nd = comps[j]->Get_totals();
 			cxxNameDouble::iterator kit = nd.begin();
-			bool found_exchange = false;
 			for (; kit != nd.end(); kit++)
 			{
 				/* Find master species */

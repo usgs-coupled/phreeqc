@@ -6084,7 +6084,7 @@ build_min_exch(void)
 				input_error++;
 				error_string = sformatf(
 						"Did not find unknown for exchange related to mineral %s",
-						comp_ptr->Get_phase_name());
+						comp_ptr->Get_phase_name().c_str());
 				error_msg(error_string, STOP);
 			}
 			if (master_ptr->in == FALSE)
@@ -6102,7 +6102,7 @@ build_min_exch(void)
 					error_string = sformatf(
 							"Resetting number of sites in exchanger %s (=%e) to be consistent with moles of phase %s (=%e).\n%s",
 							master_ptr->s->name, (double) x[j]->moles,
-							comp_ptr->Get_phase_name(),
+							comp_ptr->Get_phase_name().c_str(),
 							(double) (x[k]->moles * elt_list[jj].coef *
 									  comp_ptr->Get_phase_proportion()),
 							"\tHas equilibrium_phase assemblage been redefined?\n");
