@@ -706,7 +706,7 @@ elt_list_NameDouble(void)
  *   Takes data from work space elt_list, makes NameDouble
  */
 	cxxNameDouble nd;
-	for(size_t i = 0; i < count_elts; i++)
+	for(int i = 0; i < count_elts; i++)
 	{
 		nd.add(elt_list[i].elt->name, elt_list[i].coef);
 	}
@@ -7261,7 +7261,7 @@ unknown_alloc(void)
 	unknown_ptr->gas_phase = NULL;
 	unknown_ptr->total = NULL;
 	unknown_ptr->s = NULL;
-	unknown_ptr->exch_comp.clear();
+	unknown_ptr->exch_comp = NULL;
 	unknown_ptr->pure_phase = NULL;
 	unknown_ptr->s_s = NULL;
 	unknown_ptr->s_s_comp = NULL;

@@ -3229,7 +3229,7 @@ setup_exchange(void)
  *   Set unknown data
  */
 				x[count_unknowns]->type = EXCH;
-				x[count_unknowns]->exch_comp = it->first;
+				x[count_unknowns]->exch_comp = string_hsave(it->first.c_str());
 				x[count_unknowns]->description = elt_ptr->name;
 				x[count_unknowns]->moles = it->second;
 				x[count_unknowns]->master = master_ptr_list;
@@ -5991,7 +5991,9 @@ build_min_exch(void)
 
 	if (use.exchange_ptr == NULL)
 		return (OK);
-	cxxExchange * exchange_ptr = Utilities::Rxn_find(Rxn_exchange_map, use.n_exchange_user);
+	cxxExchange *ex_ptr = (cxxExchange *) use.exchange_ptr;
+	int n_user = ex_ptr->Get_n_user();
+	cxxExchange * exchange_ptr = Utilities::Rxn_find(Rxn_exchange_map, n_user);
 	if (exchange_ptr == NULL)
 	{
 		input_error++;
@@ -5999,7 +6001,7 @@ build_min_exch(void)
 				use.n_exchange_user);
 		error_msg(error_string, CONTINUE);
 	}
-	int n_user = exchange_ptr->Get_n_user();
+	n_user = exchange_ptr->Get_n_user();
 	if (!exchange_ptr->Get_related_phases())
 		return (OK);
 	std::vector<cxxExchComp *> comps = exchange_ptr->Vectorize();
@@ -6052,14 +6054,6 @@ build_min_exch(void)
 			error_string = sformatf(
 					"Did not find unknown for master exchange species %s",
 					exchange_master->s->name);
-			error_msg(error_string, CONTINUE);
-		}
-		if (k == -1)
-		{
-			input_error++;
-			error_string = sformatf(
-					"Did not find related phase in unknowns %s",
-					comp_ptr->Get_phase_name().c_str());
 			error_msg(error_string, CONTINUE);
 		}
 		if (j == -1 || k == -1)

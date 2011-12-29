@@ -1159,7 +1159,7 @@ struct unknown
 	struct conc *total;
 	struct species *s;
 	//struct exch_comp *exch_comp;
-	std::string exch_comp;
+	const char * exch_comp;
 	struct pure_phase *pure_phase;
 	struct s_s *s_s;
 	struct s_s_comp *s_s_comp;

@@ -442,8 +442,8 @@ print_exchange(void)
 				output_msg(sformatf(
 						   "\t[%g (mol %s)/(mol kinetic reactant %s)]",
 						   (double) exch_comp->Get_phase_proportion(),
-						   exch_comp->Get_formula(),
-						   exch_comp->Get_rate_name()));
+						   exch_comp->Get_formula().c_str(),
+						   exch_comp->Get_rate_name().c_str()));
 			}
 			output_msg(sformatf("\n\n"));
 			/* Heading for species */
