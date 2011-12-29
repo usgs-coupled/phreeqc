@@ -1,6 +1,7 @@
 #include "Phreeqc.h"
 #include "phqalloc.h"
-
+#include "NameDouble.h"
+#include "Exchange.h"
 #include <time.h>
 
 /* ---------------------------------------------------------------------- */
@@ -27,6 +28,40 @@ add_elt_list(struct elt_list *elt_list_ptr, LDBLE coef)
 	}
 	return (OK);
 }
+
+int Phreeqc::
+add_elt_list(const cxxNameDouble & nd, LDBLE coef)
+/* ---------------------------------------------------------------------- */
+{
+	cxxNameDouble::const_iterator cit = nd.begin();
+	for ( ; cit != nd.end(); cit++)
+	{
+		if (count_elts >= max_elts)
+		{
+			space((void **) ((void *) &elt_list), count_elts, &max_elts,
+				  sizeof(struct elt_list));
+		}
+		elt_list[count_elts].elt = element_store(cit->first.c_str());
+		elt_list[count_elts].coef = cit->second * coef;
+		count_elts++;
+	}
+#ifdef SKIP
+	for (elt_list_ptr1 = elt_list_ptr; elt_list_ptr1->elt != NULL;
+		 elt_list_ptr1++)
+	{
+		if (count_elts >= max_elts)
+		{
+			space((void **) ((void *) &elt_list), count_elts, &max_elts,
+				  sizeof(struct elt_list));
+		}
+		elt_list[count_elts].elt = elt_list_ptr1->elt;
+		elt_list[count_elts].coef = elt_list_ptr1->coef * coef;
+		count_elts++;
+	}
+#endif
+	return (OK);
+}
+
 
 /* ---------------------------------------------------------------------- */
 LDBLE Phreeqc::
@@ -1192,8 +1227,10 @@ status(int count, const char *str)
 		}
 		else if (state == INITIAL_EXCHANGE)
 		{
+			//sprintf(state_str, "Initial exchange %d.",
+			//		(cxxExchange *) use.exchange_ptr->n_user);
 			sprintf(state_str, "Initial exchange %d.",
-					use.exchange_ptr->n_user);
+					((cxxExchange *) (use.exchange_ptr))->Get_n_user());
 		}
 		else if (state == INITIAL_SURFACE)
 		{

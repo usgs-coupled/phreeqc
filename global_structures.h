@@ -408,6 +408,7 @@ struct Charge_Group
 	LDBLE z;
 	LDBLE eq;
 };
+#ifdef SKIP
 /* ----------------------------------------------------------------------
  *   Exchange
  * ---------------------------------------------------------------------- */
@@ -439,6 +440,7 @@ struct exch_comp
 	LDBLE phase_proportion;
 	const char *rate_name;
 };
+#endif
 /* ----------------------------------------------------------------------
  *   Kinetics
  * ---------------------------------------------------------------------- */
@@ -546,8 +548,9 @@ struct Use
 
 	int exchange_in;
 	int n_exchange_user;
-	int n_exchange;
-	struct exchange *exchange_ptr;
+	//int n_exchange;
+	//struct exchange *exchange_ptr;
+	void * exchange_ptr;
 
 	int kinetics_in;
 	int n_kinetics_user;
@@ -1155,7 +1158,8 @@ struct unknown
 	struct gas_phase *gas_phase;
 	struct conc *total;
 	struct species *s;
-	struct exch_comp *exch_comp;
+	//struct exch_comp *exch_comp;
+	std::string exch_comp;
 	struct pure_phase *pure_phase;
 	struct s_s *s_s;
 	struct s_s_comp *s_s_comp;

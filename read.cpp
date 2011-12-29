@@ -9,6 +9,7 @@
 #include "Temperature.h"
 #include "Parser.h"
 #include "cxxMix.h"
+#include "Exchange.h"
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -1015,7 +1016,278 @@ read_exchange_species(void)
 	}
 	return (return_value);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+read_exchange(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Reads exchange data
+ *
+ *      Arguments:
+ *	 none
+ *
+ *      Returns:
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
+ *
+ */
+	int i, j, l;
+	int n_user, n_user_end;
+	LDBLE conc;
+	char *ptr;
+	char *description;
+	char token[MAX_LENGTH], token1[MAX_LENGTH];
+	//struct exchange *exchange_ptr;
 
+	int return_value, opt;
+	char *next_char;
+	const char *opt_list[] = {
+		"equilibrate",			/* 0 */
+		"equil",				/* 1 */
+		"pitzer_exchange_gammas",	/* 2 */
+		"exchange_gammas",		/* 3 */
+		"gammas",				/* 4 */
+		"equilibrium"           /* 5 */
+	};
+	int count_opt_list = 6;
+/*
+ * kin_exch is for exchangers, related to kinetically reacting minerals
+ *    they are defined if "sites" is followed by mineral name:
+ *    Z	 Manganite		('equi' or 'kine')      0.25
+ *    ^Name     ^equi or kinetic mineral ^switch		  ^prop.factor
+ */
+/*
+ *   Read exchange number and description
+ */
+
+	ptr = line;
+	read_number_description(ptr, &n_user, &n_user_end, &description);
+/*
+ *   Default values + n_user, description
+ */
+	cxxExchange temp_exchange;
+	cxxExchComp *comp = NULL;
+	temp_exchange.Set_new_def(true);
+	temp_exchange.Set_n_user(n_user);
+	temp_exchange.Set_n_user_end(n_user_end);
+	temp_exchange.Set_description(description);
+	free_check_null(description);
+/*
+ *   Set use data
+ */
+	if (use.exchange_in == FALSE)
+	{
+		use.exchange_in = TRUE;
+		use.n_exchange_user = n_user;
+	}
+/*
+ *   Read exchange data
+ */
+	return_value = UNKNOWN;
+	for (;;)
+	{
+		opt = get_option(opt_list, count_opt_list, &next_char);
+		switch (opt)
+		{
+		case OPTION_EOF:		/* end of file */
+			return_value = EOF;
+			break;
+		case OPTION_KEYWORD:	/* keyword */
+			return_value = KEYWORD;
+			break;
+		case OPTION_ERROR:
+			input_error++;
+			error_msg("Unknown input in EXCHANGE keyword.", CONTINUE);
+			error_msg(line_save, CONTINUE);
+			break;
+		case 0:				/* equilibrate */
+		case 1:             /* equil */
+		case 5:             /* equilibrium */
+			/*
+			 *   Read solution to equilibrate with
+			 */
+			for (;;)
+			{
+				i = copy_token(token, &next_char, &l);
+				if (i == DIGIT)
+				{
+					int n_solution;
+					sscanf(token, "%d", &n_solution);
+					temp_exchange.Set_n_solution(n_solution);
+					temp_exchange.Set_new_def(true);
+					temp_exchange.Set_solution_equilibria(true);
+					break;
+				}
+				if (i == EMPTY)
+				{
+					error_msg
+						("Expected a solution number with which to equilibrate exchanger.",
+						 CONTINUE);
+					error_msg(line_save, CONTINUE);
+					input_error++;
+					break;
+				}
+			}
+			break;
+		case 2:				/* pitzer_exchange_gammas */
+		case 3:				/* exchange_gammas */
+		case 4:				/* gammas */
+			temp_exchange.Set_pitzer_exchange_gammas(
+				get_true_false(next_char, TRUE) == TRUE);
+			break;
+		case OPTION_DEFAULT:
+			ptr = line;
+			i = copy_token(token, &ptr, &l);
+			/*
+			 *   Species formula is stored in token
+			 */
+			if (i != UPPER && token[0] != '[')
+			{ /* maybe a bit more clear? */
+				error_string = sformatf(
+					"Expected exchanger name to begin with a capital letter, but found:\n %s",
+					line_save);
+				error_msg(error_string, CONTINUE);
+				input_error++;
+				break;
+			}
+			delete comp;
+			comp = new cxxExchComp;
+			comp->Set_formula(token);
+			//exchange[n].comps[count_comps].formula = string_hsave(token);
+			prev_next_char = ptr;
+			i = copy_token(token1, &ptr, &l);
+			if (i == DIGIT)
+			{
+				/*
+				 *   Read exchange concentration
+				 */
+
+				/* exchanger conc. is read directly .. */
+				if (sscanf(token1, SCANFORMAT, &conc) < 1)
+				{
+				error_string = sformatf(
+					"Expected concentration of exchanger, but found:\n %s",
+					line_save);
+					error_msg(error_string, CONTINUE);
+					input_error++;
+					break;
+				}
+				prev_next_char = ptr;
+				j = copy_token(token1, &ptr, &l);
+				if (j == UPPER || j == LOWER)
+				{
+					comp->Set_rate_name(token1);
+					if (copy_token(token1, &ptr, &l) != DIGIT)
+					{
+						error_string = sformatf(
+							"Expected a coefficient to relate exchange to kinetic reaction, but found:\n %s",
+							prev_next_char);
+						error_msg(error_string, CONTINUE);
+						input_error++;
+						break;
+					}
+					LDBLE p;
+					sscanf(token1, SCANFORMAT, &p);
+					comp->Set_phase_proportion(p);
+				}
+				/*
+				 *   Read equilibrium phase name or kinetics rate name
+				 */
+			}
+			else if (i != EMPTY)
+			{
+
+				/* exchanger conc. is related to mineral or kinetics */
+				comp->Set_phase_name(token1);
+				prev_next_char = ptr;
+				j = copy_token(token1, &ptr, &l);
+				if (j != DIGIT)
+				{
+					if (token1[0] == 'K' || token1[0] == 'k')
+					{
+						comp->Set_rate_name(comp->Get_phase_name().c_str());
+						comp->Set_phase_name("");
+					}
+					else if (token1[0] != 'E' && token1[0] != 'e')
+					{
+						error_string = sformatf(
+							"Character string expected to be 'equilibrium_phase' or 'kinetics'\n to relate exchange to mineral or kinetic reaction, but found:\n %s",
+							prev_next_char);
+						error_msg(error_string, CONTINUE);
+						input_error++;
+						break;
+					}
+					prev_next_char = ptr;
+					j = copy_token(token1, &ptr, &l);
+				}
+
+
+				if (j != DIGIT)
+				{
+					error_string = sformatf(
+						"Expected a coefficient to relate exchanger to mineral or kinetic reaction, but found:\n %s",
+						prev_next_char);
+					error_msg(error_string, CONTINUE);
+					input_error++;
+					break;
+				}
+				LDBLE p;
+				sscanf(token1, SCANFORMAT, &p);
+				comp->Set_phase_proportion(p);
+				/* real conc must be defined in tidy_model */
+				conc = 1.0;
+			}
+			else
+			{
+				error_msg
+					("Expected concentration of exchanger, mineral name, or kinetic reaction name.",
+					 CONTINUE);
+				error_msg(line_save, CONTINUE);
+				input_error++;
+				break;
+			}
+			/*
+			 *   Accumulate elements in elt_list
+			 */
+			count_elts = 0;
+			paren_count = 0;
+			ptr = token;
+			get_elts_in_species(&ptr, conc);
+			/*
+			 *   save formula for adjusting number of exchange sites
+			 */
+			ptr = token;
+			LDBLE z;
+			get_token(&ptr, token1, &z, &l);
+			comp->Set_formula_z(z);
+			comp->Set_formula_totals(elt_list_NameDouble()); 
+			/*
+			 *   Save elt_list
+			 */
+			comp->Set_moles(conc);
+			comp->Set_totals(elt_list_NameDouble());
+			comp->Set_charge_balance(0.0);
+			temp_exchange.Get_exchComps()[comp->Get_formula()] = *comp;
+		}
+		if (return_value == EOF || return_value == KEYWORD)
+			break;
+	}
+	Rxn_exchange_map[n_user] = temp_exchange;
+
+	//if (n_user_end > n_user)
+	//{
+	//	for (int i = n_user + 1; i <= n_user_end; i++)
+	//	{
+	//		Utilities::Rxn_copy(Rxn_exchange_map, n_user, i);
+	//	}
+	//}
+	delete comp;
+	return (return_value);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 read_exchange(void)
@@ -1305,7 +1577,7 @@ read_exchange(void)
 	exchange[n].count_comps = count_comps;
 	return (return_value);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 read_exchange_master_species(void)

@@ -2,6 +2,7 @@
 #include "Phreeqc.h"
 #include "phqalloc.h"
 #include "Temperature.h"
+#include "Exchange.h"
 
 
 
@@ -379,7 +380,7 @@ fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 	struct solution *solution_ptr;
 	struct irrev *irrev_ptr;
 	struct pp_assemblage *pp_assemblage_ptr;
-	struct exchange *exchange_ptr;
+	//struct exchange *exchange_ptr;
 	struct surface *surface_ptr;
 	struct s_s_assemblage *s_s_assemblage_ptr;
 	struct gas_phase *gas_phase_ptr;
@@ -487,24 +488,35 @@ fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 			elt_list_to_tally_table(tally_table[i].total[n_buffer]);
 			break;
 		case Exchange:
-			/*
-			 *   fill exchange
-			 */
-			if (n_user[Exchange] < 0)
-				break;
-			exchange_ptr = exchange_bsearch(n_user[Exchange], &n);
-			if (exchange_ptr == NULL)
-				break;
-			count_elts = 0;
-			paren_count = 0;
-			for (j = 0; j < exchange_ptr->count_comps; j++)
 			{
-				add_elt_list(exchange_ptr->comps[j].totals, 1.0);
+				/*
+				*   fill exchange
+				*/
+				if (n_user[Exchange] < 0)
+					break;
+				//exchange_ptr = exchange_bsearch(n_user[Exchange], &n);
+				cxxExchange * exchange_ptr = Utilities::Rxn_find(Rxn_exchange_map, n_user[Exchange]);
+				if (exchange_ptr == NULL)
+					break;
+				count_elts = 0;
+				paren_count = 0;
+				std::vector<cxxExchComp *> comps = exchange_ptr->Vectorize();
+				//for (j = 0; j < exchange_ptr->count_comps; j++)
+				for (j = 0; j < (int) comps.size(); j++)
+				{
+					add_elt_list(comps[j]->Get_totals(), 1.0);
+				}
+#ifdef SKIP
+				for (j = 0; j < exchange_ptr->count_comps; j++)
+				{
+					add_elt_list(exchange_ptr->comps[j].totals, 1.0);
+				}
+#endif
+				qsort(elt_list, (size_t) count_elts,
+					(size_t) sizeof(struct elt_list), elt_list_compare);
+				elt_list_combine();
+				elt_list_to_tally_table(tally_table[i].total[n_buffer]);
 			}
-			qsort(elt_list, (size_t) count_elts,
-				  (size_t) sizeof(struct elt_list), elt_list_compare);
-			elt_list_combine();
-			elt_list_to_tally_table(tally_table[i].total[n_buffer]);
 			break;
 		case Surface:
 			/*
@@ -748,6 +760,19 @@ build_tally_table(void)
 /*
  *   add one for exchangers
  */
+	if (Rxn_exchange_map.size() > 0)
+	{
+		count_tt_exchange = 1;
+		n = count_tally_table_columns;
+		extend_tally_table();
+		tally_table[n].name = string_hsave("Exchange");
+		tally_table[n].type = Exchange;
+	}
+	else
+	{
+		count_tt_exchange = 0;
+	}
+#ifdef SKIP
 	if (count_exchange > 0)
 	{
 		count_tt_exchange = 1;
@@ -760,6 +785,7 @@ build_tally_table(void)
 	{
 		count_tt_exchange = 0;
 	}
+#endif
 /*
  *   add one for surface
  */
@@ -1040,10 +1066,17 @@ add_all_components_tally(void)
 /*
  *   Exchangers
  */
+	std::map<int, cxxExchange>::iterator it = Rxn_exchange_map.begin();
+	for (; it != Rxn_exchange_map.end(); it++)
+	{
+		add_exchange(&it->second);
+	}
+#ifdef SKIP
 	for (i = 0; i < count_exchange; i++)
 	{
 		add_exchange(&exchange[i]);
 	}
+#endif
 /*
  *   Surfaces
  */

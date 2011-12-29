@@ -3,6 +3,7 @@
 
 #include "../NameDouble.h"
 #include "../PBasic.h"
+#include "../Exchange.h"
 
 /* ---------------------------------------------------------------------- */
 LDBLE Phreeqc::
@@ -2843,7 +2844,87 @@ system_species_compare(const void *ptr1, const void *ptr2)
 		return (-1);
 	return (0);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+system_total_solids(cxxExchange *exchange_ptr,
+					struct pp_assemblage *pp_assemblage_ptr,
+					struct gas_phase *gas_phase_ptr,
+					struct s_s_assemblage *s_s_assemblage_ptr,
+					struct surface *surface_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Provides total moles in solid phases
+ */
+	int i, j;
 
+	count_elts = 0;
+	paren_count = 0;
+/*
+ *   find total moles in exchanger
+ */
+	if (exchange_ptr != NULL)
+	{
+		std::map<std::string, cxxExchComp>::iterator it = exchange_ptr->Get_exchComps().begin();
+		for ( ; it != exchange_ptr->Get_exchComps().end(); it++)
+		{
+			add_elt_list(it->second.Get_totals(), 1.0);
+		}
+	}
+#ifdef SKIP
+	if (exchange_ptr != NULL)
+	{
+		for (i = 0; i < exchange_ptr->count_comps; i++)
+		{
+			add_elt_list(exchange_ptr->comps[i].totals, 1.0);
+		}
+	}
+#endif
+	if (surface_ptr != NULL)
+	{
+		for (i = 0; i < surface_ptr->count_comps; i++)
+		{
+			add_elt_list(surface_ptr->comps[i].totals, 1.0);
+		}
+	}
+	if (s_s_assemblage_ptr != NULL)
+	{
+		for (i = 0; i < s_s_assemblage_ptr->count_s_s; i++)
+		{
+			for (j = 0; j < s_s_assemblage_ptr->s_s[i].count_comps; j++)
+			{
+				add_elt_list(s_s_assemblage_ptr->s_s[i].comps[j].phase->
+							 next_elt,
+							 s_s_assemblage_ptr->s_s[i].comps[j].moles);
+			}
+		}
+	}
+	if (gas_phase_ptr != NULL)
+	{
+		for (i = 0; i < gas_phase_ptr->count_comps; i++)
+		{
+			add_elt_list(gas_phase_ptr->comps[i].phase->next_elt,
+						 gas_phase_ptr->comps[i].moles);
+		}
+	}
+	if (pp_assemblage_ptr != NULL)
+	{
+		for (i = 0; i < pp_assemblage_ptr->count_comps; i++)
+		{
+			add_elt_list(pp_assemblage_ptr->pure_phases[i].phase->next_elt,
+						 pp_assemblage_ptr->pure_phases[i].moles);
+		}
+	}
+
+	if (count_elts > 0)
+	{
+		qsort(elt_list, (size_t) count_elts,
+			  (size_t) sizeof(struct elt_list), elt_list_compare);
+		elt_list_combine();
+	}
+	return (OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 system_total_solids(struct exchange *exchange_ptr,
@@ -2914,6 +2995,7 @@ system_total_solids(struct exchange *exchange_ptr,
 	}
 	return (OK);
 }
+#endif
 
 LDBLE Phreeqc::
 iso_value(const char *total_name)

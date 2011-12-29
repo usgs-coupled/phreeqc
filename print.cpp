@@ -5,6 +5,7 @@
 #include <assert.h>
 #include "Temperature.h"
 #include "cxxMix.h"
+#include "Exchange.h"
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -370,7 +371,6 @@ print_eh(void)
 		output_msg(sformatf("\n"));
 	return (OK);
 }
-
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 print_exchange(void)
@@ -380,14 +380,139 @@ print_exchange(void)
  *   Print moles of each exchange species
  */
 	int i;
-	struct exchange *exchange_ptr;
+	//struct exchange *exchange_ptr;
+	cxxExchange * exchange_ptr;
 	const char *name, *name1;
 	struct master *master_ptr;
 	LDBLE dum, dum2;
 /*
  *  Print exchange data
  */
-	exchange_ptr = use.exchange_ptr;
+	exchange_ptr = (cxxExchange *) use.exchange_ptr;
+	if (exchange_ptr == NULL || pr.exchange == FALSE || pr.all == FALSE)
+		return (OK);
+
+	if (state >= REACTION)
+	{
+		print_centered("Exchange composition");
+	}
+/*
+ *   Print list of species
+ */
+
+	s_h2o->lm = s_h2o->la;
+	name = s_hplus->secondary->elt->name;
+	for (i = 0; i < count_species_list; i++)
+	{
+/*
+ *   Get name of master species
+ */
+		if (species_list[i].s->type != EX)
+			continue;
+		if (species_list[i].master_s->secondary != NULL)
+		{
+			master_ptr = species_list[i].master_s->secondary;
+			name1 = species_list[i].master_s->secondary->elt->name;
+		}
+		else
+		{
+			master_ptr = species_list[i].master_s->primary;
+			name1 = species_list[i].master_s->primary->elt->name;
+		}
+/*
+ *   Check if new master species, print total molality
+ */
+		if (name1 != name)
+		{
+			name = name1;
+			output_msg(sformatf("%-14s%12.3e mol", name,
+					   (double) master_ptr->unknown->moles));
+			cxxExchange *exchange_ptr = (cxxExchange *) (use.exchange_ptr);
+			const cxxExchComp *exch_comp = exchange_ptr->ExchComp_find(master_ptr->unknown->exch_comp);
+			assert(exch_comp);
+			if (exch_comp->Get_phase_name().size() > 0)
+			{
+				output_msg(sformatf("\t[%g (mol %s)/(mol %s)]",
+					(double) exch_comp->Get_phase_proportion(),
+					exch_comp->Get_formula().c_str(),
+					exch_comp->Get_phase_name().c_str()));
+			}
+			else if (exch_comp->Get_rate_name().size() > 0)
+			{
+				output_msg(sformatf(
+						   "\t[%g (mol %s)/(mol kinetic reactant %s)]",
+						   (double) exch_comp->Get_phase_proportion(),
+						   exch_comp->Get_formula(),
+						   exch_comp->Get_rate_name()));
+			}
+			output_msg(sformatf("\n\n"));
+			/* Heading for species */
+			output_msg(sformatf("\t%-15s%12s%12s%12s%10s\n", " ", " ",
+					   "Equiv-  ", "Equivalent", "Log "));
+			output_msg(sformatf("\t%-15s%12s%12s%12s%10s\n\n",
+					   "Species", "Moles  ", "alents  ", "Fraction", "Gamma"));
+		}
+/*
+ *   Print species data
+ */
+/* !!!!! */
+		if (master_ptr->total > 1.0e-10)
+		{
+			if (species_list[i].s->equiv != 0.0)
+			{
+				dum = fabs(species_list[i].s->equiv) / master_ptr->total;
+			}
+			else
+			{
+				if (species_list[i].master_s->z == 0)
+				{
+					dum = 1 / master_ptr->total;
+				}
+				else
+				{
+					dum = 1;
+				}
+			}
+			if (species_list[i].master_s->z != 0.0)
+			{
+				dum2 = fabs(species_list[i].master_s->z);
+			}
+			else
+			{
+				dum2 = 1;
+			}
+			output_msg(sformatf("\t%-15s%12.3e%12.3e%12.3e%10.3f\n",
+					   species_list[i].s->name,
+					   (double) species_list[i].s->moles,
+					   (double) (species_list[i].s->moles * dum2 *
+								 species_list[i].s->equiv),
+					   (double) (species_list[i].s->moles *
+								 dum /* / dum2 */ ),
+					   (double) (species_list[i].s->lg - log10(dum))));
+		}
+	}
+	output_msg(sformatf("\n"));
+	return (OK);
+}
+#ifdef SKIP
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+print_exchange(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Print moles of each exchange species
+ */
+	int i;
+	//struct exchange *exchange_ptr;
+	cxxExchange * exchange_ptr;
+	const char *name, *name1;
+	struct master *master_ptr;
+	LDBLE dum, dum2;
+/*
+ *  Print exchange data
+ */
+	exchange_ptr = (cxxExchange *) use.exchange_ptr;
 	if (exchange_ptr == NULL || pr.exchange == FALSE || pr.all == FALSE)
 		return (OK);
 
@@ -492,6 +617,7 @@ print_exchange(void)
 	output_msg(sformatf("\n"));
 	return (OK);
 }
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 print_gas_phase(void)
@@ -2257,7 +2383,7 @@ print_using(void)
 	//struct mix *mix_ptr;
 	cxxMix * mix_ptr;
 	struct solution *solution_ptr;
-	struct exchange *exchange_ptr;
+	//struct exchange *exchange_ptr;
 	struct surface *surface_ptr;
 	struct pp_assemblage *pp_assemblage_ptr;
 	struct s_s_assemblage *s_s_assemblage_ptr;
@@ -2316,10 +2442,19 @@ print_using(void)
  */
 	if (use.exchange_in == TRUE)
 	{
+		//exchange_ptr = exchange_bsearch(use.n_exchange_user, &n);
+		cxxExchange *exchange_ptr = Utilities::Rxn_find(Rxn_exchange_map, use.n_exchange_user);
+		output_msg(sformatf("Using exchange %d.\t%s\n",
+				   use.n_exchange_user, exchange_ptr->Get_description().c_str()));
+	}
+#ifdef SKIP
+	if (use.exchange_in == TRUE)
+	{
 		exchange_ptr = exchange_bsearch(use.n_exchange_user, &n);
 		output_msg(sformatf("Using exchange %d.\t%s\n",
 				   use.n_exchange_user, exchange_ptr->description));
 	}
+#endif
 	if (use.surface_in == TRUE)
 	{
 		surface_ptr = surface_bsearch(use.n_surface_user, &n);

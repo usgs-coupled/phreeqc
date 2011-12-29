@@ -1,7 +1,9 @@
+#include "Utils.h"
 #include "Phreeqc.h"
 #include "phqalloc.h"
 #include <vector>
 #include <assert.h>
+#include "Exchange.h"
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -277,6 +279,37 @@ quick_setup(void)
 		{
 			if (x[i]->type == EXCH)
 			{
+				cxxExchComp *comp_ptr = ((cxxExchange *) use.exchange_ptr)->ExchComp_find(x[i]->exch_comp);
+				if (comp_ptr->Get_rate_name().size() > 0)
+				{
+					cxxNameDouble nd(comp_ptr->Get_totals());
+					cxxNameDouble::iterator it = nd.begin();
+					for ( ; it != nd.end(); it++)
+					{
+						struct element * elt_ptr = element_store(it->first.c_str());
+						assert(elt_ptr);
+						if (elt_ptr->master->type != EX)
+							continue;
+						if (strcmp_nocase
+							(x[i]->description,
+							 elt_ptr->name) == 0)
+						{
+							x[i]->moles = it->second;
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+#ifdef SKIP
+	if (use.exchange_ptr != NULL)
+	{
+		k = 0;
+		for (i = 0; i < count_unknowns; i++)
+		{
+			if (x[i]->type == EXCH)
+			{
 				x[i]->exch_comp = &(use.exchange_ptr->comps[k++]);
 				if (x[i]->exch_comp->rate_name != NULL)
 				{
@@ -298,6 +331,7 @@ quick_setup(void)
 			}
 		}
 	}
+#endif
 /*
  *   surface
  */
@@ -3136,7 +3170,77 @@ rewrite_master_to_secondary(struct master *master_ptr1,
 	trxn_add(master_ptr2->rxn_primary, -coef1 / coef2, TRUE);
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+setup_exchange(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Fill in data for exchanger in unknowns structures
+ */
+	//int i, j;
+	struct master *master_ptr;
+	struct master **master_ptr_list;
 
+	if (use.exchange_ptr == NULL)
+		return (OK);
+	std::vector<cxxExchComp *> comps = ((cxxExchange *) use.exchange_ptr)->Vectorize();
+	for (size_t j = 0; j < comps.size(); j++)
+	{
+		cxxExchComp * comp_ptr = comps[j];
+		cxxNameDouble nd(comp_ptr->Get_totals());
+		cxxNameDouble::iterator it = nd.begin();
+		for ( ; it != nd.end(); it++)
+		{
+/*
+ *   Find master species
+ */
+			//master_ptr = use.exchange_ptr->comps[j].totals[i].elt->master;
+			element * elt_ptr = element_store(it->first.c_str());
+			if (elt_ptr == NULL || elt_ptr->master == NULL)
+			{
+				error_string = sformatf( "Master species not in data "
+						"base for %s, skipping element.",
+						it->first.c_str());
+				input_error++;
+				error_msg(error_string, CONTINUE);
+				continue;
+			}
+			master_ptr = elt_ptr->master;
+			if (master_ptr->type != EX)
+				continue;
+/*
+ *   Check for data already given
+ */
+			if (master_ptr->in != FALSE)
+			{
+				x[master_ptr->unknown->number]->moles +=
+					it->second;
+			}
+			else
+			{
+/*
+ *   Set flags
+ */
+				master_ptr_list = unknown_alloc_master();
+				master_ptr_list[0] = master_ptr;
+				master_ptr->in = TRUE;
+/*
+ *   Set unknown data
+ */
+				x[count_unknowns]->type = EXCH;
+				x[count_unknowns]->exch_comp = it->first;
+				x[count_unknowns]->description = elt_ptr->name;
+				x[count_unknowns]->moles = it->second;
+				x[count_unknowns]->master = master_ptr_list;
+				x[count_unknowns]->master[0]->unknown = x[count_unknowns];
+				count_unknowns++;
+			}
+		}
+	}
+	return (OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 setup_exchange(void)
@@ -3205,6 +3309,7 @@ setup_exchange(void)
 	}
 	return (OK);
 }
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 setup_gas_phase(void)
@@ -4555,7 +4660,7 @@ setup_unknowns(void)
 /*
  *   Counts unknowns and allocates space for unknown structures
  */
-	int i, j;
+	int i;
 	struct solution *solution_ptr;
 
 	solution_ptr = use.solution_ptr;
@@ -4589,6 +4694,33 @@ setup_unknowns(void)
  */
 	if (use.exchange_ptr != NULL)
 	{
+		cxxExchange *exchange_ptr = (cxxExchange *) use.exchange_ptr;
+		std::vector<cxxExchComp *> comps = exchange_ptr->Vectorize();
+		for (size_t j = 0; j < comps.size(); j++)
+		{
+			cxxExchComp * comp_ptr = comps[j];
+			cxxNameDouble nd(comp_ptr->Get_totals());
+			cxxNameDouble::iterator it = nd.begin();
+			for ( ; it != nd.end(); it++)
+			{
+				element * elt_ptr = element_store(it->first.c_str());
+				if (elt_ptr == NULL || elt_ptr->master == NULL)
+				{
+					error_string = sformatf(
+							"Master species missing for element %s",
+							it->first.c_str());
+					error_msg(error_string, STOP);
+				}
+				if (elt_ptr->master->type == EX)
+				{
+					max_unknowns++;
+				}
+			}
+		}
+	}
+#ifdef SKIP
+	if (use.exchange_ptr != NULL)
+	{
 		for (j = 0; j < use.exchange_ptr->count_comps; j++)
 		{
 			for (i = 0; use.exchange_ptr->comps[j].totals[i].elt != NULL; i++)
@@ -4608,6 +4740,7 @@ setup_unknowns(void)
 			}
 		}
 	}
+#endif
 /*
  *   Count surfaces
  */
@@ -5840,7 +5973,176 @@ check_same_model(void)
  */
 	return (TRUE);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+build_min_exch(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Defines proportionality factor between mineral and exchanger to
+ *   jacob0
+ */
+	int j, k, jj;
+	int row;
+	//struct exch_comp *comp_ptr;
+	struct master *master_ptr;
+	struct unknown *unknown_ptr;
+	LDBLE coef;
 
+	if (use.exchange_ptr == NULL)
+		return (OK);
+	cxxExchange * exchange_ptr = Utilities::Rxn_find(Rxn_exchange_map, use.n_exchange_user);
+	if (exchange_ptr == NULL)
+	{
+		input_error++;
+		error_string = sformatf( "Exchange %d not found.",
+				use.n_exchange_user);
+		error_msg(error_string, CONTINUE);
+	}
+	int n_user = exchange_ptr->Get_n_user();
+	if (!exchange_ptr->Get_related_phases())
+		return (OK);
+	std::vector<cxxExchComp *> comps = exchange_ptr->Vectorize();
+	for (size_t i = 0; i < comps.size(); i++)
+	{
+		cxxExchComp * comp_ptr = comps[i];
+		if (comp_ptr->Get_phase_name().size() == 0)
+			continue;
+		// Find exchange master
+		cxxNameDouble nd(comp_ptr->Get_totals());
+		cxxNameDouble::iterator it = nd.begin();
+		struct master *exchange_master = NULL;
+		for ( ; it != nd.end(); it++)
+		{
+			element * elt_ptr = element_store(it->first.c_str());
+			assert (elt_ptr);
+			if (elt_ptr->master->type == EX)
+			{
+				exchange_master = elt_ptr->master;
+			}
+		}
+		if (exchange_master == NULL)
+		{
+			input_error++;
+			error_string = sformatf(
+					"Did not find master exchange species for %s",
+					comp_ptr->Get_formula().c_str());
+			error_msg(error_string, CONTINUE);
+			continue;
+		}
+		/* find unknown number */
+		for (j = count_unknowns - 1; j >= 0; j--)
+		{
+			if (x[j]->type != EXCH)
+				continue;
+			if (x[j]->master[0] == exchange_master)
+				break;
+		}
+		for (k = count_unknowns - 1; k >= 0; k--)
+		{
+			if (x[k]->type != PP)
+				continue;
+			//if (x[k]->phase->name == exchange[n].comps[i].phase_name)
+			if (x[k]->phase->name == string_hsave(comp_ptr->Get_phase_name().c_str()))
+				break;
+		}
+		if (j == -1)
+		{
+			input_error++;
+			error_string = sformatf(
+					"Did not find unknown for master exchange species %s",
+					exchange_master->s->name);
+			error_msg(error_string, CONTINUE);
+		}
+		if (k == -1)
+		{
+			input_error++;
+			error_string = sformatf(
+					"Did not find related phase in unknowns %s",
+					comp_ptr->Get_phase_name().c_str());
+			error_msg(error_string, CONTINUE);
+		}
+		if (j == -1 || k == -1)
+			continue;
+/*
+ *   Build jacobian
+ */
+
+		/* charge balance */
+		store_jacob0(charge_balance_unknown->number, x[k]->number,
+					 comp_ptr->Get_formula_z() * comp_ptr->Get_phase_proportion());
+		store_sum_deltas(&delta[k], &charge_balance_unknown->delta,
+						 -comp_ptr->Get_formula_z() * comp_ptr->Get_phase_proportion());
+
+
+		/* mole balance balance */
+		count_elts = 0;
+		paren_count = 0;
+		add_elt_list(comp_ptr->Get_formula_totals(), 1.0);
+#ifdef COMBINE
+		change_hydrogen_in_elt_list(0);
+#endif
+		for (jj = 0; jj < count_elts; jj++)
+		{
+			master_ptr = elt_list[jj].elt->primary;
+			if (master_ptr == NULL)
+			{
+				input_error++;
+				error_string = sformatf(
+						"Did not find unknown for exchange related to mineral %s",
+						comp_ptr->Get_phase_name());
+				error_msg(error_string, STOP);
+			}
+			if (master_ptr->in == FALSE)
+			{
+				master_ptr = master_ptr->s->secondary;
+			}
+			if (master_ptr->s->type == EX)
+			{
+				if (equal
+					(x[j]->moles,
+					 x[k]->moles * elt_list[jj].coef *
+					 comp_ptr->Get_phase_proportion(),
+					 5.0 * convergence_tolerance) == FALSE)
+				{
+					error_string = sformatf(
+							"Resetting number of sites in exchanger %s (=%e) to be consistent with moles of phase %s (=%e).\n%s",
+							master_ptr->s->name, (double) x[j]->moles,
+							comp_ptr->Get_phase_name(),
+							(double) (x[k]->moles * elt_list[jj].coef *
+									  comp_ptr->Get_phase_proportion()),
+							"\tHas equilibrium_phase assemblage been redefined?\n");
+					warning_msg(error_string);
+					x[j]->moles =
+						x[k]->moles * elt_list[jj].coef *
+						comp_ptr->Get_phase_proportion();
+				}
+			}
+			coef = elt_list[jj].coef;
+			if (master_ptr->s == s_hplus)
+			{
+				row = mass_hydrogen_unknown->number;
+				unknown_ptr = mass_hydrogen_unknown;
+			}
+			else if (master_ptr->s == s_h2o)
+			{
+				row = mass_oxygen_unknown->number;
+				unknown_ptr = mass_oxygen_unknown;
+			}
+			else
+			{
+				row = master_ptr->unknown->number;
+				unknown_ptr = master_ptr->unknown;
+			}
+			store_jacob0(row, x[k]->number,
+						 coef * comp_ptr->Get_phase_proportion());
+			store_sum_deltas(&delta[k], &unknown_ptr->delta,
+							 -coef * comp_ptr->Get_phase_proportion());
+		}
+	}
+	return (OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 build_min_exch(void)
@@ -5977,6 +6279,7 @@ build_min_exch(void)
 	}
 	return (OK);
 }
+#endif
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::

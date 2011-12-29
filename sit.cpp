@@ -1,5 +1,6 @@
 #include "Phreeqc.h"
 #include "phqalloc.h"
+#include "Exchange.h"
 
 
 /* ---------------------------------------------------------------------- */
@@ -1293,7 +1294,7 @@ gammas_sit()
 				{
 					s_x[i]->lg = log10(fabs(s_x[i]->equiv) / s_x[i]->alk);
 				}
-				if (use.exchange_ptr->pitzer_exchange_gammas == TRUE)
+				if (((cxxExchange *) use.exchange_ptr)->Get_pitzer_exchange_gammas())
 				{
 					/* Assume equal gamma's of solute and exchangeable species...  */
 					for (j = 1; s_x[i]->rxn_x->token[j].s != NULL; j++)

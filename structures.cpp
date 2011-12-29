@@ -5,6 +5,7 @@
 #include "phqalloc.h"
 #include "Temperature.h"
 #include "cxxMix.h"
+#include "Exchange.h"
 
 
 /* ---------------------------------------------------------------------- */
@@ -87,12 +88,14 @@ clean_up(void)
 	surface = (struct surface *) free_check_null(surface);
 
 /* exchange */
-
+#ifdef SKIP
 	for (j = 0; j < count_exchange; j++)
 	{
 		exchange_free(&exchange[j]);
 	}
 	exchange = (struct exchange *) free_check_null(exchange);
+#endif
+	Rxn_exchange_map.clear();
 
 /* pp assemblages */
 
@@ -384,7 +387,7 @@ clean_up(void)
 
 	count_solution = 0;
 	count_pp_assemblage = 0;
-	count_exchange = 0;
+	//count_exchange = 0;
 	count_surface = 0;
 	count_gas_phase = 0;
 	count_kinetics = 0;
@@ -438,12 +441,14 @@ reinitialize(void)
 	count_surface = 0;
 
 /* exchange */
-
+#ifdef SKIP
 	for (j = 0; j < count_exchange; j++)
 	{
 		exchange_free(&exchange[j]);
 	}
 	count_exchange = 0;
+#endif
+	Rxn_exchange_map.clear();
 
 /* pp assemblages */
 
@@ -693,6 +698,21 @@ elt_list_print(struct elt_list *elt_list_ptr)
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
+cxxNameDouble Phreeqc::
+elt_list_NameDouble(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Takes data from work space elt_list, makes NameDouble
+ */
+	cxxNameDouble nd;
+	for(size_t i = 0; i < count_elts; i++)
+	{
+		nd.add(elt_list[i].elt->name, elt_list[i].coef);
+	}
+	return (nd);
+}
+/* ---------------------------------------------------------------------- */
 struct elt_list * Phreeqc::
 elt_list_save(void)
 /* ---------------------------------------------------------------------- */
@@ -729,7 +749,7 @@ elt_list_save(void)
 	elt_list_ptr[count_elts].elt = NULL;
 	return (elt_list_ptr);
 }
-
+#ifdef SKIP
 /* **********************************************************************
  *
  *   Routines related to structure "exchange"
@@ -1177,7 +1197,7 @@ exchange_sort(void)
 	}
 	return (OK);
 }
-
+#endif
 /* **********************************************************************
  *
  *   Routines related to structure "gas"
@@ -7241,7 +7261,7 @@ unknown_alloc(void)
 	unknown_ptr->gas_phase = NULL;
 	unknown_ptr->total = NULL;
 	unknown_ptr->s = NULL;
-	unknown_ptr->exch_comp = NULL;
+	unknown_ptr->exch_comp.clear();
 	unknown_ptr->pure_phase = NULL;
 	unknown_ptr->s_s = NULL;
 	unknown_ptr->s_s_comp = NULL;
@@ -7316,8 +7336,11 @@ system_duplicate(int i, int save_old)
 		solution_duplicate(i, save_old);
 	if (pp_assemblage_bsearch(i, &n) != NULL)
 		pp_assemblage_duplicate(i, save_old);
+	Utilities::Rxn_copy(Rxn_exchange_map, i, save_old);
+#ifdef SKIP
 	if (exchange_bsearch(i, &n) != NULL)
 		exchange_duplicate(i, save_old);
+#endif
 	if (surface_bsearch(i, &n) != NULL)
 		surface_duplicate(i, save_old);
 	if (gas_phase_bsearch(i, &n) != NULL)
@@ -7569,10 +7592,16 @@ entity_exists(char *name, int n_user)
 		//}
 		break;
 	case Exchange:				/* Ex */
+		if (Utilities::Rxn_find(Rxn_exchange_map, n_user) == NULL)
+		{
+			return_value = FALSE;
+		}
+#ifdef SKIP
 		if (exchange_bsearch(n_user, &i) == NULL)
 		{
 			return_value = FALSE;
 		}
+#endif
 		break;
 	case Surface:				/* Surface */
 		if (surface_bsearch(n_user, &i) == NULL)
@@ -7798,6 +7827,7 @@ cxxMix2mix(const cxxMix * mx)
 	return (mix_ptr);
 }
 #endif
+#ifdef SKIP
 #include "../Exchange.h"
 struct exchange * Phreeqc::
 cxxExchange2exchange(const cxxExchange * ex)
@@ -7932,7 +7962,7 @@ Get_exch_master(const cxxExchComp * ec)
 	}
 	return (master_ptr);
 }
-
+#endif
 #include "../GasPhase.h"
 struct gas_phase * Phreeqc::
 cxxGasPhase2gas_phase(const cxxGasPhase * gp)
@@ -8800,6 +8830,16 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 	}
 	if (use_ptr->exchange_in == TRUE)
 	{
+		cxxExchange *entity_ptr = Utilities::Rxn_find(Rxn_exchange_map, use_ptr->n_exchange_user);
+		if (entity_ptr != NULL)
+		{
+			//cxxExchange entity(struct_entity, sb.Get_io());
+			sb.Set_Exchange(use_ptr->n_exchange_user, entity_ptr);
+		}
+	}
+#ifdef SKIP
+	if (use_ptr->exchange_in == TRUE)
+	{
 		struct exchange *struct_entity = exchange_bsearch(use_ptr->n_exchange_user, &n);
 		if (struct_entity != NULL)
 		{
@@ -8807,6 +8847,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 			sb.Set_Exchange(use_ptr->n_exchange_user, &entity);
 		}
 	}
+#endif
 	if (use_ptr->surface_in == TRUE)
 	{
 		struct surface *struct_entity = surface_bsearch(use_ptr->n_surface_user, &n);
@@ -8888,12 +8929,20 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	}
 
 	// Exchangers
+	{
+		std::map<int, cxxExchange>::iterator it;
+		for (it = Rxn_exchange_map.begin(); it != Rxn_exchange_map.end(); it++)
+		{
+			sb.Set_Exchange(it->second.Get_n_user(), &(it->second));	
+		}
+	}
+#ifdef SKIP
 	for (i = 0; i < count_exchange; i++)
 	{
 		cxxExchange entity(&exchange[i], sb.Get_io());
 		sb.Set_Exchange(exchange[i].n_user, &entity );
 	}
-
+#endif
 	// GasPhases
 	for (i = 0; i < count_gas_phase; i++)
 	{
@@ -8988,6 +9037,14 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 
 	// Exchangers
 	{
+		cxxExchange *entity_ptr = Utilities::Rxn_find(Rxn_exchange_map, n);
+		if (entity_ptr != NULL)
+		{
+			sb.Set_Exchange(n, entity_ptr);
+		}
+	}
+#ifdef SKIP
+	{
 		if (exchange_bsearch(n, &pos) != NULL)
 		{
 			//this->Exchangers[n] = cxxExchange(&(exchange[pos]), sb.Get_io());
@@ -8997,7 +9054,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 			sb.Set_Exchange(n, &ent);
 		}
 	}
-
+#endif
 	// GasPhases
 	{
 		if (gas_phase_bsearch(n, &pos) != NULL)
@@ -9072,13 +9129,21 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
 		std::map < int, cxxExchange >::const_iterator it = sb.Get_Exchangers().find(n);
 		if (it != sb.Get_Exchangers().end())
 		{
+			Rxn_exchange_map[n] = it->second;
+		}
+	}
+#ifdef SKIP
+	{
+		std::map < int, cxxExchange >::const_iterator it = sb.Get_Exchangers().find(n);
+		if (it != sb.Get_Exchangers().end())
+		{
 			struct exchange *exchange_ptr = cxxExchange2exchange(&it->second);
 			exchange_ptr_to_user(exchange_ptr, it->first);
 			exchange_free(exchange_ptr);
 			exchange_ptr = (struct exchange *) free_check_null(exchange_ptr);
 		}
 	}
-
+#endif
 	// GasPhases
 	{
 		std::map < int, cxxGasPhase >::const_iterator it = sb.Get_GasPhases().find(n);
@@ -9214,12 +9279,21 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb)
 		std::map < int, cxxExchange >::const_iterator it = sb.Get_Exchangers().begin();
 		for ( ; it != sb.Get_Exchangers().end(); it++)
 		{
+			Rxn_exchange_map[it->first] = it->second;
+		}
+	}
+#ifdef SKIP
+	{
+		std::map < int, cxxExchange >::const_iterator it = sb.Get_Exchangers().begin();
+		for ( ; it != sb.Get_Exchangers().end(); it++)
+		{
 			struct exchange *exchange_ptr = cxxExchange2exchange(&it->second);
 			exchange_ptr_to_user(exchange_ptr, it->first);
 			exchange_free(exchange_ptr);
 			exchange_ptr = (struct exchange *) free_check_null(exchange_ptr);
 		}
 	}
+#endif
 
 	// GasPhases
 	{

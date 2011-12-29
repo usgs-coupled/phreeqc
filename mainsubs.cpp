@@ -1,9 +1,12 @@
 #include <time.h>
+#include <assert.h>
 #include "Utils.h"
 #include "Phreeqc.h"
 #include "phqalloc.h"
 #include "PBasic.h"
 #include "Temperature.h"
+#include "Exchange.h"
+#include "ExchComp.h"
 
 #if defined(WINDOWS) || defined(_WINDOWS)
 #include <windows.h>
@@ -61,7 +64,7 @@ initialize(void)
 	/* Use space for all memory allocation */
 	max_solution = MAX_SOLUTION;
 	max_pp_assemblage = MAX_PP_ASSEMBLAGE;
-	max_exchange = MAX_PP_ASSEMBLAGE;
+	//max_exchange = MAX_PP_ASSEMBLAGE;
 	max_surface = MAX_PP_ASSEMBLAGE;
 	max_gas_phase = MAX_PP_ASSEMBLAGE;
 	max_kinetics = MAX_PP_ASSEMBLAGE;
@@ -81,7 +84,7 @@ initialize(void)
 
 	count_solution = 0;
 	count_pp_assemblage = 0;
-	count_exchange = 0;
+	//count_exchange = 0;
 	count_surface = 0;
 	count_gas_phase = 0;
 	count_kinetics = 0;
@@ -142,8 +145,8 @@ initialize(void)
 	space((void **) ((void *) &pp_assemblage), INIT, &max_pp_assemblage,
 		  sizeof(struct pp_assemblage));
 
-	space((void **) ((void *) &exchange), INIT, &max_exchange,
-		  sizeof(struct exchange));
+	//space((void **) ((void *) &exchange), INIT, &max_exchange,
+	//	  sizeof(struct exchange));
 
 	space((void **) ((void *) &surface), INIT, &max_surface,
 		  sizeof(struct surface));
@@ -600,7 +603,7 @@ initialize(void)
 	 */
 	dbg_use = &use;
 	dbg_solution = solution;
-	dbg_exchange = exchange;
+	//dbg_exchange = exchange;
 	dbg_surface = surface;
 	dbg_pp_assemblage = pp_assemblage;
 	dbg_kinetics = kinetics;
@@ -919,6 +922,21 @@ set_use(void)
  */
 	if (use.exchange_in == TRUE)
 	{
+		use.exchange_ptr = Utilities::Rxn_find(Rxn_exchange_map, use.n_exchange_user);
+		if (use.exchange_ptr == NULL)
+		{
+			error_string = sformatf( "Temperature %d not found.",
+					use.n_exchange_user);
+			error_msg(error_string, STOP);
+		}
+	}
+	else
+	{
+		use.exchange_ptr = NULL;
+	}
+#ifdef SKIP
+	if (use.exchange_in == TRUE)
+	{
 		use.exchange_ptr =
 			exchange_bsearch(use.n_exchange_user, &use.n_exchange);
 		if (use.exchange_ptr == NULL)
@@ -932,6 +950,7 @@ set_use(void)
 	{
 		use.exchange_ptr = NULL;
 	}
+#endif
 /*
  *   Find kinetics
  */
@@ -1135,7 +1154,84 @@ initial_solutions(int print)
 	initial_solution_isotopes = FALSE;
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+initial_exchangers(int print)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Go through list of exchangers, make initial calculations
+ *   for any marked "new" that are defined to be in equilibrium with a 
+ *   solution.
+ */
+	int i, converge, converge1;
+	int last, n_user, print1;
+	char token[2 * MAX_LENGTH];
 
+	state = INITIAL_EXCHANGE;
+	set_use();
+	print1 = TRUE;
+	dl_type_x = NO_DL;
+	std::map<int, cxxExchange>::iterator it = Rxn_exchange_map.begin();
+	for ( ; it != Rxn_exchange_map.end(); it++)
+	{
+		if (!it->second.Get_new_def())
+			continue;
+		cxxExchange *exchange_ptr = &(it->second);
+		n_user = exchange_ptr->Get_n_user();
+		last = exchange_ptr->Get_n_user_end();
+		exchange_ptr->Set_n_user_end(n_user);
+		exchange_ptr->Set_new_def(false);
+		if (exchange_ptr->Get_solution_equilibria())
+		{
+			if (print1 == TRUE && print == TRUE)
+			{
+				dup_print("Beginning of initial exchange"
+						  "-composition calculations.", TRUE);
+				print1 = FALSE;
+			}
+			if (print == TRUE)
+			{
+				sprintf(token, "Exchange %d.\t%.350s",
+						exchange_ptr->Get_n_user(), exchange_ptr->Get_description().c_str());
+				dup_print(token, FALSE);
+			}
+			use.exchange_ptr = exchange_ptr;
+			use.solution_ptr = solution_bsearch(exchange_ptr->Get_n_solution(), &i, TRUE);
+			if (use.solution_ptr == NULL)
+			{
+				error_msg
+					("Solution not found for initial exchange calculation",
+					 STOP);
+			}
+
+			prep();
+			k_temp(use.solution_ptr->tc, use.solution_ptr->patm);
+			set(TRUE);
+			converge = model();
+			converge1 = check_residuals();
+			sum_species();
+			species_list_sort();
+			print_exchange();
+			xexchange_save(n_user);
+			punch_all();
+			/* free_model_allocs(); */
+			if (converge == ERROR || converge1 == ERROR)
+			{
+				error_msg
+					("Model failed to converge for initial exchange calculation.",
+					 STOP);
+			}
+		}
+		for (i = n_user + 1; i <= last; i++)
+		{
+			//exchange_duplicate(n_user, i);
+			Utilities::Rxn_copy(Rxn_exchange_map, n_user, i);
+		}
+	}
+	return (OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 initial_exchangers(int print)
@@ -1221,7 +1317,7 @@ initial_exchangers(int print)
 	}
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 initial_gas_phases(int print)
@@ -1644,9 +1740,21 @@ saver(void)
 		xexchange_save(n);
 		for (i = save.n_exchange_user + 1; i <= save.n_exchange_user_end; i++)
 		{
+			//exchange_duplicate(n, i);
+			Utilities::Rxn_copy(Rxn_exchange_map, n, i);
+		}
+	}
+#ifdef SKIP
+	if (save.exchange == TRUE)
+	{
+		n = save.n_exchange_user;
+		xexchange_save(n);
+		for (i = save.n_exchange_user + 1; i <= save.n_exchange_user_end; i++)
+		{
 			exchange_duplicate(n, i);
 		}
 	}
+#endif
 	if (save.surface == TRUE)
 	{
 		n = save.n_surface_user;
@@ -1698,7 +1806,98 @@ saver(void)
 	}
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+xexchange_save(int n_user)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Save exchanger assemblage into structure exchange with user 
+ *   number n_user.
+ */
+	int i, j;
+	char token[MAX_LENGTH];
+	int count_comps;
+	//struct exchange temp_exchange, *exchange_ptr;
 
+	LDBLE charge;
+	if (use.exchange_ptr == NULL)
+		return (OK);
+
+	cxxExchange temp_exchange = *((cxxExchange *) use.exchange_ptr);
+/*
+ *   Store data for structure exchange
+ */
+	temp_exchange.Set_n_user(n_user);
+	temp_exchange.Set_n_user_end(n_user);
+	temp_exchange.Set_new_def(false);
+	sprintf(token, "Exchange assemblage after simulation %d.", simulation);
+	temp_exchange.Set_description(token);
+	temp_exchange.Set_solution_equilibria(false);
+	temp_exchange.Set_n_solution(-999);
+	temp_exchange.Get_exchComps().clear();
+
+/*
+ *   Write exch_comp structure for each exchange component
+ */
+	count_comps = 0;
+	for (i = 0; i < count_unknowns; i++)
+	{
+		if (x[i]->type == EXCH)
+		{
+			const cxxExchComp *comp_ptr = ((cxxExchange *) use.exchange_ptr)->ExchComp_find(x[i]->exch_comp);
+			if (!comp_ptr)
+			{
+				assert(false);
+			}
+			cxxExchComp xcomp = *comp_ptr;
+			xcomp.Set_la(x[i]->master[0]->s->la);
+			xcomp.Set_moles(0);
+/*
+ *   Save element concentrations on exchanger
+ */
+			count_elts = 0;
+			paren_count = 0;
+			charge = 0.0;
+			for (j = 0; j < count_species_list; j++)
+			{
+				if (species_list[j].master_s == x[i]->master[0]->s)
+				{
+					add_elt_list(species_list[j].s->next_elt,
+								 species_list[j].s->moles);
+					charge += species_list[j].s->moles * species_list[j].s->z;
+				}
+			}
+/*
+ *   Keep exchanger related to phase even if none currently in solution
+ */
+			if (xcomp.Get_phase_name().size() != 0 && count_elts == 0)
+			{
+				add_elt_list(x[i]->master[0]->s->next_elt, 1e-20);
+			}
+/*
+ *   Store list
+ */
+			xcomp.Set_charge_balance(charge);
+
+			xcomp.Set_totals(elt_list_NameDouble());
+/* debug
+                        output_msg(sformatf( "Exchange charge_balance: %e\n", charge));
+ */
+			/* update unknown pointer */
+			//x[i]->exch_comp = &(temp_exchange.comps[count_comps]);
+			temp_exchange.Get_exchComps()[x[i]->exch_comp] = xcomp;
+		}
+	}
+/*
+ *   Finish up
+ */
+	Rxn_exchange_map[n_user] = temp_exchange; 
+
+	use.exchange_ptr = NULL;
+	return (OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 xexchange_save(int n_user)
@@ -1820,7 +2019,7 @@ xexchange_save(int n_user)
 	use.exchange_ptr = NULL;
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 xgas_save(int n_user)
@@ -2716,6 +2915,18 @@ copy_use(int i)
  */
 	if (use.exchange_in == TRUE)
 	{
+		Utilities::Rxn_copy(Rxn_exchange_map, use.n_exchange_user, i);
+		save.exchange = TRUE;
+		save.n_exchange_user = i;
+		save.n_exchange_user_end = i;
+	}
+	else
+	{
+		save.exchange = FALSE;
+	}
+#ifdef SKIP
+	if (use.exchange_in == TRUE)
+	{
 		exchange_duplicate(use.n_exchange_user, i);
 		save.exchange = TRUE;
 		save.n_exchange_user = i;
@@ -2725,6 +2936,7 @@ copy_use(int i)
 	{
 		save.exchange = FALSE;
 	}
+#endif
 /*
  *   Find kinetics
  */
@@ -2798,7 +3010,59 @@ copy_use(int i)
 	}
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+step_save_exch(int n_user)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Save exchange composition 
+ *
+ *   input:  n_user is user exchange number of target
+ */
+	int i;
+	int found;
 
+	if (use.exchange_ptr == NULL)
+		return (OK);
+	//exchange_duplicate(use.exchange_ptr->n_user, n_user);
+	//exchange_ptr = exchange_bsearch(n_user, &n);
+	cxxExchange *temp_ptr = Utilities::Rxn_find(Rxn_exchange_map, use.n_exchange_user);
+	assert(temp_ptr);
+	cxxExchange temp_exchange = *temp_ptr;
+
+	for (i = 0; i < count_master; i++)
+	{
+		if (master[i]->s->type != EX)
+			continue;
+		found = FALSE;
+		std::string e(master[i]->elt->name);
+		std::map<std::string, cxxExchComp>::iterator it = temp_exchange.Get_exchComps().begin();
+		for ( ; it != temp_exchange.Get_exchComps().end(); it++)
+		{
+			cxxNameDouble nd = it->second.Get_totals();
+			nd.multiply(0.0);
+			cxxNameDouble::iterator nd_it =nd.find(e);
+			if (nd_it != nd.end())
+			{
+				LDBLE coef;
+				if (master[i]->total <= MIN_TOTAL)
+				{
+					coef = MIN_TOTAL;
+				}
+				else
+				{
+					coef = master[i]->total;
+				}
+				nd.insert(nd_it->first.c_str(), coef);
+			}
+		}
+
+	}
+	Rxn_exchange_map[n_user] = temp_exchange;
+	return (OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 step_save_exch(int n_user)
@@ -2855,6 +3119,7 @@ step_save_exch(int n_user)
 	}
 	return (OK);
 }
+#endif
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -3059,6 +3324,32 @@ copy_entities(void)
 		}
 	}
 #endif
+	
+	if (copy_exchange.count > 0)
+	{
+		for (j = 0; j < copy_exchange.count; j++)
+		{
+			if (Utilities::Rxn_find(Rxn_exchange_map, copy_exchange.n_user[j]) != NULL)
+			{
+				for (i = copy_exchange.start[j]; i <= copy_exchange.end[j];
+					i++)
+				{
+					if (i == copy_exchange.n_user[j])
+						continue;
+					Utilities::Rxn_copy(Rxn_exchange_map, copy_exchange.n_user[j], i);
+				}
+			}
+			else
+			{
+				if (verbose == TRUE)
+				{
+					warning_msg("EXCHANGE to copy not found.");
+					return_value = ERROR;
+				}
+			}
+		}
+	}
+#ifdef SKIP
 	if (copy_exchange.count > 0)
 	{
 		for (j = 0; j < copy_exchange.count; j++)
@@ -3083,6 +3374,7 @@ copy_entities(void)
 			}
 		}
 	}
+#endif
 	if (copy_surface.count > 0)
 	{
 		for (j = 0; j < copy_surface.count; j++)
@@ -3499,7 +3791,7 @@ use_init(void)
 
 	use.exchange_in = FALSE;
 	use.n_exchange_user= -1;
-	use.n_exchange= -1;
+	//use.n_exchange= -1;
 	use.exchange_ptr = NULL;
 
 	use.kinetics_in = FALSE;

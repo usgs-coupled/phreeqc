@@ -1,6 +1,7 @@
 #include "Phreeqc.h"
 #include "phqalloc.h"
 #include "cxxMix.h"
+#include "Exchange.h"
 
 
 /* ---------------------------------------------------------------------- */
@@ -1459,8 +1460,10 @@ ineq(int in_kode)
  *   No moles of exchanger
  */
 	if (use.exchange_ptr != NULL
-		&& (use.exchange_ptr->related_phases == TRUE
-			|| use.exchange_ptr->related_rate == TRUE))
+		//&& (use.exchange_ptr->related_phases == TRUE
+		//	|| use.exchange_ptr->related_rate == TRUE))
+		&& (((cxxExchange *) use.exchange_ptr)->Get_related_phases() ||
+		((cxxExchange *) use.exchange_ptr)->Get_related_rate()))
 	{
 		for (i = 0; i < count_unknowns; i++)
 		{

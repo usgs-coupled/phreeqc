@@ -10,6 +10,7 @@
 #include "NameDouble.h"
 #include "Temperature.h"
 #include "cxxMix.h"
+#include "Exchange.h"
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -74,7 +75,7 @@ step(LDBLE step_fraction)
  */
 	if (use.exchange_ptr != NULL)
 	{
-		add_exchange(use.exchange_ptr);
+		add_exchange((cxxExchange *) use.exchange_ptr);
 	}
 /*
  *   Surface
@@ -419,7 +420,83 @@ add_solution(struct solution *solution_ptr, LDBLE extensive, LDBLE intensive)
 	}
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+add_exchange(cxxExchange *exchange_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Accumulate exchange data in master->totals and _x variables.
+ */
+	struct master *master_ptr;
 
+	if (exchange_ptr == NULL)
+		return (OK);
+/*
+ *   Add element concentrations on exchanger to master species totals
+ */
+	std::vector<cxxExchComp *> comps = exchange_ptr->Vectorize();
+	for (size_t i = 0; i < comps.size(); i++)
+	{
+		cxxExchComp *comp_ptr = comps[i];
+		cxxNameDouble nd(comp_ptr->Get_totals());
+		cxxNameDouble::iterator it = nd.begin();
+		//for (j = 0; exchange_ptr->comps[i].totals[j].elt != NULL; j++)
+		for ( ; it != nd.end(); it++)
+		{
+			struct element *elt_ptr = element_store(it->first.c_str());
+			LDBLE coef = it->second;
+			assert(elt_ptr != NULL && elt_ptr->primary != NULL);
+			master_ptr = elt_ptr->primary;
+			if (master_ptr->s == s_hplus)
+			{
+				total_h_x += coef;
+			}
+			else if (master_ptr->s == s_h2o)
+			{
+				total_o_x += coef;
+			}
+			else
+			{
+				master_ptr->total += coef;
+			}
+		}
+	}
+	if (exchange_ptr->Get_new_def())
+	{
+		for (int i = 0; i < count_master; i++)
+		{
+			if (master[i]->type == EX && master[i]->total > 0)
+			{
+				master[i]->s->la = log10(0.1 * master[i]->total);
+			}
+		}
+	}
+	else
+	{
+		for (size_t i = 0; i < comps.size(); i++)
+		{
+			cxxExchComp *comp_ptr = comps[i];
+			cxxNameDouble nd(comp_ptr->Get_totals());
+			cxxNameDouble::iterator it = nd.begin();
+			//for (j = 0; exchange_ptr->comps[i].totals[j].elt != NULL; j++)
+			for ( ; it != nd.end(); it++)
+			{	
+				struct element *elt_ptr = element_store(it->first.c_str());
+				assert(elt_ptr->master);
+				if (elt_ptr->master->type == EX)
+				{
+					elt_ptr->master->s->la = comps[i]->Get_la();
+				}
+			}
+
+			//exchange_ptr->comps[i].master->s->la = exchange_ptr->comps[i].la;
+			cb_x += comps[i]->Get_charge_balance();
+		}
+	}
+	return (OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 add_exchange(struct exchange *exchange_ptr)
@@ -475,7 +552,7 @@ add_exchange(struct exchange *exchange_ptr)
 	}
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 add_surface(struct surface *surface_ptr)

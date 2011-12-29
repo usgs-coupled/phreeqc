@@ -1,6 +1,6 @@
 #include "Phreeqc.h"
 #include "phqalloc.h"
-
+#include "Exchange.h"
 
 #define ZERO_TOL 1.0e-30
 
@@ -168,10 +168,12 @@ tidy_model(void)
 	}
 
 /* exchangers */
+#ifdef SKIP
 	if (new_exchange)
 	{
 		exchange_sort();
 	}
+#endif
 /* surfaces */
 	if (new_surface)
 	{
@@ -2934,7 +2936,119 @@ tidy_isotopes(void)
 
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+tidy_kin_exchange(void)
+/* ---------------------------------------------------------------------- */
+/*
+ *  If exchanger is related to mineral, exchanger amount is 
+ *  set in proportion
+ */
+{
+	int k;
+	struct kinetics *kinetics_ptr;
+	//struct exch_comp *comp_ptr;
+	//struct master *master_ptr;
+	char *ptr;
+	LDBLE conc;
 
+	//for (i = 0; i < count_exchange; i++)
+	std::map<int, cxxExchange>::iterator it = Rxn_exchange_map.begin();
+	for ( ; it != Rxn_exchange_map.end(); it++)
+	{
+		cxxExchange * exchange_ptr = &(it->second);
+		if (!exchange_ptr->Get_new_def())
+			continue;
+		if (exchange_ptr->Get_n_user() < 0)
+			continue;
+		std::vector<cxxExchComp *> comps = exchange_ptr->Vectorize();
+		// check elements
+		for (size_t j = 0; j < comps.size(); j++)
+		{
+			if (comps[j]->Get_rate_name().size() == 0)
+				continue;
+			/* First find exchange master species */
+			cxxNameDouble nd = comps[j]->Get_totals();
+			cxxNameDouble::iterator kit = nd.begin();
+			bool found_exchange = false;
+			for (; kit != nd.end(); kit++)
+			{
+				/* Find master species */
+				struct element *elt_ptr = element_store(kit->first.c_str());
+				if (elt_ptr == NULL || elt_ptr->master == NULL)
+				{
+					input_error++;
+					error_string = sformatf( "Master species not in data "
+							"base for %s, skipping element.",
+							elt_ptr->name);
+					error_msg(error_string, CONTINUE);
+					continue;
+				}
+				if (elt_ptr->master->type == EX)
+					found_exchange = true;;
+			}
+			if (!found_exchange)
+			{
+				input_error++;
+				error_string = sformatf(
+						"Exchange formula does not contain an exchange master species, %s",
+						comps[j]->Get_formula().c_str());
+				error_msg(error_string, CONTINUE);
+				continue;
+			}
+
+			/* Now find associated kinetic reaction ...  */
+			if ((kinetics_ptr = kinetics_bsearch(exchange_ptr->Get_n_user(), &k)) == NULL)
+			{
+				input_error++;
+				error_string = sformatf(
+						"Kinetics %d must be defined to use exchange related to kinetic reaction, %s",
+						exchange_ptr->Get_n_user(), comps[j]->Get_formula());
+				error_msg(error_string, CONTINUE);
+				continue;
+			}
+			for (k = 0; k < kinetics_ptr->count_comps; k++)
+			{
+				if (strcmp_nocase
+					(comps[j]->Get_rate_name().c_str(),
+					 kinetics_ptr->comps[k].rate_name) == 0)
+				{
+					break;
+				}
+			}
+			if (k == kinetics_ptr->count_comps)
+			{
+				input_error++;
+				error_string = sformatf(
+						"Kinetic reaction, %s, related to exchanger, %s, not found in KINETICS %d",
+						comps[j]->Get_rate_name(), comps[j]->Get_formula(), exchange_ptr->Get_n_user());
+				error_msg(error_string, CONTINUE);
+				continue;
+			}
+
+			/* use database name for phase */
+			comps[j]->Set_rate_name(kinetics_ptr->comps[k].rate_name);
+
+			/* make exchanger concentration proportional to mineral ... */
+			conc = kinetics_ptr->comps[k].m * comps[j]->Get_phase_proportion();
+
+			count_elts = 0;
+			paren_count = 0;
+			{
+				char * temp_formula = string_duplicate(comps[j]->Get_formula().c_str());
+				ptr = temp_formula;
+				get_elts_in_species(&ptr, conc);
+				free_check_null(temp_formula);
+			}
+			comps[j]->Set_totals(elt_list_NameDouble());
+/*
+ *   No check on availability of exchange elements 
+ */
+		}
+	}
+	return (OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 tidy_kin_exchange(void)
@@ -3048,7 +3162,158 @@ tidy_kin_exchange(void)
 	}
 	return (OK);
 }
+#endif
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+tidy_min_exchange(void)
+/* ---------------------------------------------------------------------- */
+/*
+ *  If exchanger is related to mineral, exchanger amount is 
+ *  set in proportion
+ */
+{
+	int k, n, jj;
+	struct pp_assemblage *pp_a_ptr;
+	//struct exch_comp *comp_ptr;
+	//struct master *master_ptr;
+	char *ptr;
+	LDBLE conc;
 
+	//for (i = 0; i < count_exchange; i++)
+	std::map<int, cxxExchange>::iterator it = Rxn_exchange_map.begin();
+	for ( ; it != Rxn_exchange_map.end(); it++)
+	{
+		cxxExchange * exchange_ptr = &(it->second);
+		if (!exchange_ptr->Get_new_def())
+				continue;
+		if (exchange_ptr->Get_n_user() < 0)
+			continue;
+		n = exchange_ptr->Get_n_user();
+		//for (j = 0; j < exchange[i].count_comps; j++)
+		std::vector<cxxExchComp *> comps = exchange_ptr->Vectorize();
+		// check elements
+		for (size_t j = 0; j < comps.size(); j++)
+		{
+			cxxExchComp * comp_ptr = comps[j];
+			if (comp_ptr->Get_phase_name().size() == 0)
+				continue;
+			
+
+			/* First find exchange master species */
+			cxxNameDouble nd = comps[j]->Get_totals();
+			cxxNameDouble::iterator kit = nd.begin();
+			bool found_exchange = false;
+			for (; kit != nd.end(); kit++)
+			{
+				/* Find master species */
+				struct element *elt_ptr = element_store(kit->first.c_str());
+				if (elt_ptr == NULL || elt_ptr->master == NULL)
+				{
+					input_error++;
+					error_string = sformatf( "Master species not in data "
+							"base for %s, skipping element.",
+							kit->first.c_str());
+					error_msg(error_string, CONTINUE);
+					continue;
+				}
+				if (elt_ptr->master->type == EX)
+				{
+					found_exchange = true;;
+				}
+			}
+			if (!found_exchange)
+			{
+				input_error++;
+				error_string = sformatf(
+						"Exchange formula does not contain an exchange master species, %s",
+						comp_ptr->Get_formula().c_str());
+				error_msg(error_string, CONTINUE);
+				continue;
+			}
+
+			/* Now find the mineral on which exchanger depends...  */
+			if ((pp_a_ptr = pp_assemblage_bsearch(n, &k)) == NULL)
+			{
+				input_error++;
+				error_string = sformatf(
+						"Equilibrium_phases %d must be defined to use exchange related to mineral phase, %s",
+						n, comp_ptr->Get_formula());
+				error_msg(error_string, CONTINUE);
+				continue;
+			}
+			for (k = 0; k < pp_a_ptr->count_comps; k++)
+			{
+				if (strcmp_nocase
+					(comp_ptr->Get_phase_name().c_str(),
+					 pp_a_ptr->pure_phases[k].name) == 0)
+				{
+					break;
+				}
+			}
+			if (k == pp_a_ptr->count_comps)
+			{
+				input_error++;
+				error_string = sformatf(
+						"Mineral, %s, related to exchanger, %s, not found in Equilibrium_Phases %d",
+						comp_ptr->Get_phase_name().c_str(), comp_ptr->Get_formula().c_str(), n);
+				error_msg(error_string, CONTINUE);
+				continue;
+			}
+			/* use database name for phase */
+			comp_ptr->Set_phase_name(pp_a_ptr->pure_phases[k].phase->name);
+			/* make exchanger concentration proportional to mineral ... */
+			conc = pp_a_ptr->pure_phases[k].moles * comp_ptr->Get_phase_proportion();
+			count_elts = 0;
+			paren_count = 0;
+			{
+				char * temp_formula = string_duplicate(comp_ptr->Get_formula().c_str());
+				ptr = temp_formula;
+				get_elts_in_species(&ptr, conc);
+				free_check_null(temp_formula);
+			}
+			comp_ptr->Set_totals(elt_list_NameDouble());
+/*
+ *   make sure exchange elements are in phase
+ */
+			count_elts = 0;
+			paren_count = 0;
+			{
+				char * temp_formula = string_duplicate(comp_ptr->Get_formula().c_str());
+				ptr = temp_formula;
+				get_elts_in_species(&ptr, -comp_ptr->Get_phase_proportion());
+				free_check_null(temp_formula);
+			}
+			{
+				char * temp_formula = string_duplicate(pp_a_ptr->pure_phases[k].phase->formula);
+				ptr = temp_formula;
+				get_elts_in_species(&ptr, 1.0);
+				free_check_null(temp_formula);
+			}
+			qsort(elt_list, (size_t) count_elts,
+				  (size_t) sizeof(struct elt_list), elt_list_compare);
+			elt_list_combine();
+			for (jj = 0; jj < count_elts; jj++)
+			{
+				if (elt_list[jj].elt->primary->s->type != EX
+					&& elt_list[jj].coef < 0)
+				{
+					input_error++;
+					error_string = sformatf(
+							"Stoichiometry of exchanger, %s * %g mol sites/mol phase,\n\tmust be a subset of the related phase %s, %s.",
+							comp_ptr->Get_formula().c_str(),
+							(double) comp_ptr->Get_phase_proportion(),
+							pp_a_ptr->pure_phases[k].phase->name,
+							pp_a_ptr->pure_phases[k].phase->formula);
+					error_msg(error_string, CONTINUE);
+					break;
+				}
+			}
+		}
+	}
+	return (OK);
+}
+
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 tidy_min_exchange(void)
@@ -3193,7 +3458,7 @@ tidy_min_exchange(void)
 	}
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 tidy_min_surface(void)
@@ -4753,6 +5018,64 @@ tidy_exchange(void)
  *  set in proportion
  */
 {
+	//int i, j, k;
+	//struct exch_comp *comp_ptr;
+	//struct master *master_ptr;
+
+	//for (i = 0; i < count_exchange; i++)
+	std::map<int, cxxExchange>::iterator it = Rxn_exchange_map.begin();
+	for ( ; it != Rxn_exchange_map.end(); it++)
+	{
+		cxxExchange * exchange_ptr = &(it->second);
+		if (!exchange_ptr->Get_new_def())
+			continue;
+		if (exchange_ptr->Get_n_user() < 0)
+			continue;
+		//for (j = 0; j < exchange[i].count_comps; j++)
+		std::vector<cxxExchComp *> comps = exchange_ptr->Vectorize();
+		// check elements
+		for (size_t j = 0; j < comps.size(); j++)
+		{
+			cxxExchComp * comp_ptr = comps[j];
+			if (comp_ptr->Get_phase_name().size() > 0)
+				continue;
+			if (comp_ptr->Get_rate_name().size() > 0)
+				continue;
+
+			/* Check elements */
+			cxxNameDouble nd = comps[j]->Get_totals();
+			cxxNameDouble::iterator kit = nd.begin();
+			bool found_exchange = false;
+			for (; kit != nd.end(); kit++)
+			{
+				/* Find master species */
+				//master_ptr = comp_ptr->totals[k].elt->primary;
+				/* Find master species */
+				struct element *elt_ptr = element_store(kit->first.c_str());
+				if (elt_ptr == NULL || elt_ptr->master == NULL)
+				{
+					input_error++;
+					error_string = sformatf( "Master species not in data "
+							"base for %s, skipping element.",
+							kit->first.c_str());
+					error_msg(error_string, CONTINUE);
+					break;
+				}
+			}
+		}
+	}
+	return (OK);
+}
+#ifdef SKIP
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+tidy_exchange(void)
+/* ---------------------------------------------------------------------- */
+/*
+ *  If exchanger is related to mineral, exchanger amount is 
+ *  set in proportion
+ */
+{
 	int i, j, k;
 	struct exch_comp *comp_ptr;
 	struct master *master_ptr;
@@ -4791,3 +5114,4 @@ tidy_exchange(void)
 	}
 	return (OK);
 }
+#endif

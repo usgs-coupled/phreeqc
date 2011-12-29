@@ -187,6 +187,30 @@ calc_final_kinetic_reaction(struct kinetics *kinetics_ptr)
 			}
 		}
 		if (use.exchange_ptr != NULL
+			//&& use.exchange_ptr->related_rate == TRUE)
+			&& ((cxxExchange *) use.exchange_ptr)->Get_related_rate())
+		{
+			cxxExchange * exchange_ptr = (cxxExchange *) use.exchange_ptr;
+			std::map<std::string, cxxExchComp>::iterator it = exchange_ptr->Get_exchComps().begin();
+			for ( ; it != exchange_ptr->Get_exchComps().end(); it++)
+			{
+				std::string name(it->second.Get_rate_name());
+
+				if (name.size() > 0)
+				{
+					if (strcmp_nocase
+						(kinetics_ptr->comps[i].rate_name,
+						 name.c_str()) == 0)
+					{
+						/* found kinetics component */
+						add_elt_list(it->second.Get_formula_totals(), -coef*it->second.Get_phase_proportion());
+					}
+				}
+			}
+
+		}
+#ifdef SKIP
+		if (use.exchange_ptr != NULL
 			&& use.exchange_ptr->related_rate == TRUE)
 		{
 			for (j = 0; j < use.exchange_ptr->count_comps; j++)
@@ -207,6 +231,7 @@ calc_final_kinetic_reaction(struct kinetics *kinetics_ptr)
 				}
 			}
 		}
+#endif
 		if (use.surface_ptr != NULL && use.surface_ptr->related_rate == TRUE)
 		{
 			for (j = 0; j < use.surface_ptr->count_comps; j++)
@@ -1458,7 +1483,7 @@ set_and_run(int i, int use_mix, int use_kinetics, int nsaver,
  *   nsaver	   --user number to store solution
  *   step_fraction--fraction of irreversible reaction to add
  */
-	int n, n1, n2, converge;
+	int n,n2, converge;
 	if (state == TRANSPORT || state == PHAST)
 	{
 		set_transport(i, use_mix, use_kinetics, nsaver);
@@ -1489,7 +1514,8 @@ set_and_run(int i, int use_mix, int use_kinetics, int nsaver,
 		/* new */
 		if (use.exchange_ptr != NULL)
 		{
-			use.exchange_ptr = exchange_bsearch(-1, &n1);
+			//use.exchange_ptr = exchange_bsearch(-1, &n1);
+			use.exchange_ptr = Utilities::Rxn_find(Rxn_exchange_map, -1);
 		}
 		if (use.surface_ptr != NULL)
 		{
@@ -1639,7 +1665,8 @@ set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 /*
  *   Find exchange
  */
-	use.exchange_ptr = exchange_bsearch(i, &use.n_exchange);
+	//use.exchange_ptr = exchange_bsearch(i, &use.n_exchange);
+	use.exchange_ptr = Utilities::Rxn_find(Rxn_exchange_map, i);
 	if (use.exchange_ptr != NULL)
 	{
 		use.exchange_in = TRUE;
@@ -1827,7 +1854,8 @@ set_reaction(int i, int use_mix, int use_kinetics)
  */
 	if (use.exchange_in == TRUE)
 	{
-		use.exchange_ptr = exchange_bsearch(i, &use.n_exchange);
+		//use.exchange_ptr = exchange_bsearch(i, &use.n_exchange);
+		use.exchange_ptr = Utilities::Rxn_find(Rxn_exchange_map, i);
 		if (use.exchange_ptr == NULL)
 		{
 			error_string = sformatf( "EXCHANGE %d not found.", i);
@@ -2432,7 +2460,8 @@ set_advection(int i, int use_mix, int use_kinetics, int nsaver)
 /*
  *   Find exchange
  */
-	use.exchange_ptr = exchange_bsearch(i, &use.n_exchange);
+	//use.exchange_ptr = exchange_bsearch(i, &use.n_exchange);
+	use.exchange_ptr = Utilities::Rxn_find(Rxn_exchange_map, i);
 	if (use.exchange_ptr != NULL)
 	{
 		use.exchange_in = TRUE;
