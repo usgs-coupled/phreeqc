@@ -2206,15 +2206,14 @@ xgas_save(int n_user)
 /*
  *   Update amounts
  */
-	for (size_t i = 0 ; i < gas_phase_ptr->Get_gas_comps().size(); i++)
+	for (size_t i = 0 ; i < temp_gas_phase.Get_gas_comps().size(); i++)
 	{
-		cxxGasComp * gc_ptr = &(gas_phase_ptr->Get_gas_comps()[i]);
+		cxxGasComp * gc_ptr = &(temp_gas_phase.Get_gas_comps()[i]);
 		int k;
 		struct phase *phase_ptr = phase_bsearch(gc_ptr->Get_phase_name().c_str(), &k, FALSE);
 		assert(phase_ptr);
 		gc_ptr->Set_moles(phase_ptr->moles_x);
 	}
-
 	Rxn_gas_phase_map[n_user] = temp_gas_phase;
 
 	use.gas_phase_ptr = NULL;

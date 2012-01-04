@@ -2607,10 +2607,10 @@ system_total_elt(const char *total_name)
 	if (use.gas_phase_ptr != NULL)
 	{
 		cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
-		for (size_t j = 0; j < gas_phase_ptr->Get_gas_comps().size(); j++)
+		for (size_t i = 0; i < gas_phase_ptr->Get_gas_comps().size(); i++)
 		{
 			struct phase *phase_ptr = 
-				phase_bsearch(gas_phase_ptr->Get_gas_comps()[j].Get_phase_name().c_str(), &i, FALSE);
+				phase_bsearch(gas_phase_ptr->Get_gas_comps()[i].Get_phase_name().c_str(), &k, FALSE);
 			assert(phase_ptr);
 			if (phase_ptr->in == TRUE)
 			{
