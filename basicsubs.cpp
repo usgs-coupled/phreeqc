@@ -2626,7 +2626,7 @@ system_total_elt(const char *total_name)
 				/*
 				 *   Look for element
 				 */
-				for (j = 0; j < (size_t) count_elts; j++)
+				for (j = 0; j < count_elts; j++)
 				{
 					if (strcmp(elt_list[j].elt->name, total_name) == 0)
 					{
