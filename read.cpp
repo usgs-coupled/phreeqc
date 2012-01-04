@@ -1859,6 +1859,23 @@ read_gas_phase(void)
 		if (return_value == EOF || return_value == KEYWORD)
 			break;
 	}
+
+	// sort components
+	std::map<std::string, cxxGasComp> gc;
+	for (size_t i = 0; i < temp_gas_phase.Get_gas_comps().size(); i++)
+	{
+		cxxGasComp *gc_ptr = &(temp_gas_phase.Get_gas_comps()[i]);
+		gc[gc_ptr->Get_phase_name()] = *gc_ptr;
+	}
+	std::vector<cxxGasComp> vgc;
+	std::map<std::string, cxxGasComp>::iterator it = gc.begin();
+	for ( ; it != gc.end(); it++)
+	{
+		vgc.push_back(it->second);
+	}
+	temp_gas_phase.Set_gas_comps(vgc);
+
+
 	Rxn_gas_phase_map[n_user] = temp_gas_phase;
 
 	return (return_value);
