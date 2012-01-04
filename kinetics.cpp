@@ -2673,9 +2673,12 @@ store_get_equi_reactants(int l, int kin_end)
 		}
 		{
 			cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
-			for (size_t l = 0; l < gas_phase_ptr->Get_gas_comps().size(); l++)
+			if (gas_phase_ptr)
 			{
-				x0_moles[++k] += gas_phase_ptr->Get_gas_comps()[l].Get_moles();
+				for (size_t l = 0; l < gas_phase_ptr->Get_gas_comps().size(); l++)
+				{
+					x0_moles[++k] += gas_phase_ptr->Get_gas_comps()[l].Get_moles();
+				}
 			}
 		}
 #ifdef SKIP

@@ -5014,6 +5014,9 @@ read_reaction(void)
 		}
 	}
 	Rxn_reaction_map[n_user] = temp_reaction;
+	// copy if needed
+	Utilities::Rxn_copies(Rxn_reaction_map, n_user, n_user_end);
+
 	return (return_value);
 }
 
