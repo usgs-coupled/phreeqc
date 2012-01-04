@@ -2,6 +2,7 @@
 #include "phqalloc.h"
 #include "cxxMix.h"
 #include "Exchange.h"
+#include "GasPhase.h"
 
 
 /* ---------------------------------------------------------------------- */
@@ -2041,7 +2042,42 @@ mb_sums(void)
 	}
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+mb_gases(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Determines whether gas_phase equation is needed
+ */
+	gas_in = FALSE;
+	if (gas_unknown == NULL || use.gas_phase_ptr == NULL)
+		return (OK);
+	cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+	if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_PRESSURE)
+	{
+		if (gas_unknown->f > gas_phase_ptr->Get_total_p() + 1e-7 ||
+			gas_unknown->moles > MIN_TOTAL)
+		{
+			gas_in = TRUE;
+			patm_x = gas_phase_ptr->Get_total_p();
 
+		}
+	}
+	else
+	{
+		if (numerical_fixed_volume && (gas_phase_ptr->Get_pr_in() || force_numerical_fixed_volume))
+		{
+			gas_in = TRUE;
+		}
+		else
+		{
+			gas_in = FALSE;
+		}
+	}
+	return (OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 mb_gases(void)
@@ -2076,7 +2112,7 @@ mb_gases(void)
 	}
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 mb_s_s(void)
@@ -2439,6 +2475,199 @@ int Phreeqc::
 calc_gas_pressures(void)
 /* ---------------------------------------------------------------------- */
 {
+	int n_g = 0;
+	LDBLE lp, V_m = 0;
+	struct rxn_token *rxn_ptr;
+	//struct gas_comp *gas_comp_ptr;
+	//struct phase *phase_ptr;
+	//struct phase **phase_ptrs;
+	std::vector<struct phase *> phase_ptrs;
+	bool PR = false, pr_done = false;
+/*
+ *   moles and partial pressures for gases
+ */
+	if (use.gas_phase_ptr == NULL)
+		return (OK);
+	cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+	if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_VOLUME && (gas_phase_ptr->Get_pr_in() || force_numerical_fixed_volume) && numerical_fixed_volume)
+	{
+		if (iterations > 2)
+			return calc_fixed_volume_gas_pressures();
+		else
+			return OK;
+	}
+	if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_VOLUME)
+	{
+		gas_phase_ptr->Set_total_moles(0);
+	}
+
+	//phase_ptrs = new phase *[gas_phase_ptr->Get_gas_comps().size()];
+	for (size_t i = 0; i < gas_phase_ptr->Get_gas_comps().size(); i++)
+	{
+		const cxxGasComp * gas_comp_ptr = &(gas_phase_ptr->Get_gas_comps()[i]);
+		int j;
+		struct phase *phase_ptr = phase_bsearch(gas_comp_ptr->Get_phase_name().c_str(), &j, FALSE);
+		//phase_ptr = use.gas_phase_ptr->comps[i].phase;
+		if (phase_ptr->in == TRUE)
+		{
+			phase_ptrs.push_back(phase_ptr);
+			//phase_ptrs[i] = phase_ptr;
+			if (!PR && phase_ptr->t_c > 0 && phase_ptr->p_c > 0)
+				PR = true;
+			n_g++;
+		}
+		//gas_comp_ptr = &(use.gas_phase_ptr->comps[i]);
+		gas_phase_ptr->Set_total_moles(gas_phase_ptr->Get_total_moles() + phase_ptr->moles_x);
+	}
+	if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_PRESSURE)
+	{
+		if (PR /*&& gas_unknown->gas_phase->total_p > 1 */ && iterations > 2)
+		{
+			calc_PR(phase_ptrs, gas_phase_ptr->Get_total_p(), tk_x, 0);
+		}
+	} else
+	{
+		if (PR && gas_phase_ptr->Get_total_moles() > 0 && iterations > 2)
+		{
+			V_m = gas_phase_ptr->Get_volume() / gas_phase_ptr->Get_total_moles();
+			if (V_m < 0.035)
+			{
+				V_m = 0.035;
+			} else if (V_m > 1e4)
+			{
+				V_m = 1e4;
+			}
+			if (gas_phase_ptr->Get_v_m() > 0.035)
+			{
+				if (V_m < 0.038)
+					V_m = (9. * gas_phase_ptr->Get_v_m() + V_m) / 10;
+				else if (V_m < 0.04)
+					V_m = (6. * gas_phase_ptr->Get_v_m() + V_m) / 7;
+				else if (V_m < 0.07)
+					V_m = (3. * gas_phase_ptr->Get_v_m() + V_m) / 4;
+				else
+					V_m = (1. * gas_phase_ptr->Get_v_m() + V_m) / 2;
+			}
+			//if (iterations > 100)
+			//{
+			//	V_m *= 1.0; /* debug */
+			//}
+			calc_PR(phase_ptrs, 0, tk_x, V_m);
+			pr_done = true;
+			gas_phase_ptr->Set_total_moles(0);
+			if (fabs(gas_phase_ptr->Get_total_p() - patm_x) > 0.01)
+			{
+				same_pressure = FALSE;
+				if (V_m < 0.07)
+					patm_x = (1. * patm_x + gas_phase_ptr->Get_total_p()) / 2;
+				else
+					patm_x = gas_phase_ptr->Get_total_p();
+				k_temp(tc_x, patm_x);
+			}
+		} else
+		{
+			gas_phase_ptr->Set_total_p(0);
+			gas_phase_ptr->Set_total_moles(0);
+		}
+	}
+
+	//for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
+	std::vector<cxxGasComp> gas_comps;
+	for (size_t i = 0; i < gas_phase_ptr->Get_gas_comps().size(); i++)
+	{
+		const cxxGasComp *gas_comp = &(gas_phase_ptr->Get_gas_comps()[i]);
+		int j;
+		struct phase *phase_ptr = phase_bsearch(gas_comp->Get_phase_name().c_str(), &j, FALSE);
+		if (phase_ptr->in == TRUE)
+		{
+			lp = -phase_ptr->lk;
+			for (rxn_ptr = phase_ptr->rxn_x->token + 1; rxn_ptr->s != NULL;
+				 rxn_ptr++)
+			{
+				lp += rxn_ptr->s->la * rxn_ptr->coef;
+			}
+			phase_ptr->p_soln_x = exp(LOG_10 * (lp - phase_ptr->pr_si_f));
+
+			if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_PRESSURE)
+			{
+				phase_ptr->moles_x = phase_ptr->p_soln_x *
+					gas_unknown->moles / gas_phase_ptr->Get_total_p();
+				phase_ptr->fraction_x =
+					phase_ptr->moles_x / gas_unknown->moles;
+			}
+			else
+			{
+				if (pr_done)
+				{
+					lp = phase_ptr->p_soln_x / gas_phase_ptr->Get_total_p() *
+						gas_phase_ptr->Get_volume() / V_m;
+					phase_ptr->moles_x = lp;
+					//if (iterations > 100)
+					//{
+					//	lp *= 1.0; /* debug */
+					//}
+				} else
+				{
+					phase_ptr->moles_x = phase_ptr->p_soln_x *
+						gas_phase_ptr->Get_volume() / (R_LITER_ATM * tk_x);
+					gas_phase_ptr->Set_total_p(gas_phase_ptr->Get_total_p() + phase_ptr->p_soln_x);
+				}
+				gas_phase_ptr->Set_total_moles(gas_phase_ptr->Get_total_moles() +
+					phase_ptr->moles_x);
+			}
+		}
+		else
+		{
+			phase_ptr->moles_x = 0;
+			phase_ptr->fraction_x = 0;
+		}
+	}
+
+	if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_VOLUME && !PR)
+	{
+		/*
+		 * Fixed-volume gas phase reacting with a solution
+		 * Change pressure used in logK to pressure of gas phase
+		 */
+		if (gas_phase_ptr->Get_total_p() > 1500)
+		{
+			gas_phase_ptr->Set_total_moles(0);
+			//for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
+			for (size_t i = 0; i < gas_phase_ptr->Get_gas_comps().size(); i++)
+			{
+				//gas_comp_ptr = &(use.gas_phase_ptr->comps[i]);
+				//phase_ptr = use.gas_phase_ptr->comps[i].phase;
+				const cxxGasComp *gas_comp = &(gas_phase_ptr->Get_gas_comps()[i]);
+				int j;
+				struct phase *phase_ptr = phase_bsearch(gas_comp->Get_phase_name().c_str(), &j, FALSE);
+				if (phase_ptr->in == TRUE)
+				{
+					phase_ptr->moles_x *= 1500.0 / gas_phase_ptr->Get_total_p();
+					gas_phase_ptr->Set_total_moles(gas_phase_ptr->Get_total_moles() +
+						phase_ptr->moles_x);
+				}
+			}
+			gas_phase_ptr->Set_total_p(1500.0);
+		}
+		if (iterations > 1 && fabs(gas_phase_ptr->Get_total_p() - patm_x) > 0.01)
+		{
+			same_pressure = FALSE;
+			if (gas_phase_ptr->Get_total_p() > 1e3)
+				patm_x = (3 * patm_x + gas_phase_ptr->Get_total_p()) / 4;
+			else
+				patm_x = (1 * patm_x + gas_phase_ptr->Get_total_p()) / 2;
+			k_temp(tc_x, patm_x);
+		}
+	}
+
+	return (OK);
+}
+#ifdef SKIP
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+calc_gas_pressures(void)
+/* ---------------------------------------------------------------------- */
+{
 	int i, n_g = 0;
 	LDBLE lp, V_m = 0;
 	struct rxn_token *rxn_ptr;
@@ -2451,6 +2680,7 @@ calc_gas_pressures(void)
  */
 	if (use.gas_phase_ptr == NULL)
 		return (OK);
+
 	if (use.gas_phase_ptr->type == VOLUME && (use.gas_phase_ptr->pr_in || force_numerical_fixed_volume) && numerical_fixed_volume)
 	{
 		if (iterations > 2)
@@ -2615,6 +2845,7 @@ calc_gas_pressures(void)
 	delete phase_ptrs;
 	return (OK);
 }
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 calc_s_s_fractions(void)
@@ -3507,7 +3738,7 @@ reset(void)
 		}
 		else if (x[i]->type == GAS_MOLES)
 		{
-
+			cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
 			/*if (fabs(delta[i]) > epsilon) converge=FALSE; */
 			/*if (gas_in == TRUE && fabs(residual[i]) > epsilon) converge=FALSE; */
 			if (debug_model == TRUE)
@@ -3523,10 +3754,11 @@ reset(void)
 			if (x[i]->moles < MIN_TOTAL)
 				x[i]->moles = MIN_TOTAL;
 
-			if (x[i] == gas_unknown && use.gas_phase_ptr->type == VOLUME && (use.gas_phase_ptr->pr_in || force_numerical_fixed_volume) 
+			if (x[i] == gas_unknown && gas_phase_ptr->Get_type() == cxxGasPhase::GP_VOLUME && 
+				(gas_phase_ptr->Get_pr_in() || force_numerical_fixed_volume) 
 				&& numerical_fixed_volume && !calculating_deriv)
 			{
-					patm_x = use.gas_phase_ptr->total_p;
+					patm_x = gas_phase_ptr->Get_total_p();
 					k_temp(tc_x, patm_x);
 			}
 
@@ -3849,14 +4081,16 @@ residuals(void)
 		}
 		else if (x[i]->type == GAS_MOLES)
 		{
-			
-			if (use.gas_phase_ptr->type == VOLUME && (use.gas_phase_ptr->pr_in || force_numerical_fixed_volume) && numerical_fixed_volume)
+			cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+			if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_VOLUME && 
+				(gas_phase_ptr->Get_pr_in() || force_numerical_fixed_volume) && numerical_fixed_volume)
 			{
 				residual[i] = x[i]->moles - x[i]->phase->moles_x;
 			}
 			else
 			{
-				residual[i] = x[i]->gas_phase->total_p - x[i]->f;
+				//residual[i] = x[i]->gas_phase->total_p - x[i]->f;
+				residual[i] = gas_phase_ptr->Get_total_p() - x[i]->f;
 			}
 
 			if (fabs(residual[i]) > l_toler && gas_in == TRUE)
@@ -5045,10 +5279,12 @@ numerical_jacobian(void)
 	LDBLE *base;
 	LDBLE d, d1, d2;
 	int i, j;
+	cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
 	if (!
 		(numerical_deriv || 
 		(use.surface_ptr != NULL && use.surface_ptr->type == CD_MUSIC) ||
-		(use.gas_phase_ptr != NULL && use.gas_phase_ptr->type == VOLUME && (use.gas_phase_ptr->pr_in || force_numerical_fixed_volume) && numerical_fixed_volume) 
+		(gas_phase_ptr != NULL && gas_phase_ptr->Get_type() == cxxGasPhase::GP_VOLUME && 
+		(gas_phase_ptr->Get_pr_in() || force_numerical_fixed_volume) && numerical_fixed_volume) 
 		))
 		return(OK);
 

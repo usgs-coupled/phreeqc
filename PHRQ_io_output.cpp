@@ -175,7 +175,7 @@ process_file_names(int argc, char *argv[], std::istream **db_cookie,
 	try {
 		if (phrq_io == NULL) 
 		{
-			std::cerr << "No PHRQ_io output handler defined in process_file_names" << std::endl;
+			std::cerr << "No PHRQ_io output handler defined in process_file_names" << "\n";
 		}
 /*
  *   Prep for get_line
@@ -615,7 +615,7 @@ error_msg(const char *err_str, bool stop)
 	if (phrq_io)
 	{
 		std::ostringstream msg;
-		msg << "ERROR: " << err_str << std::endl;
+		msg << "ERROR: " << err_str << "\n";
 
 		phrq_io->output_msg(msg.str().c_str());
 		phrq_io->log_msg(msg.str().c_str());

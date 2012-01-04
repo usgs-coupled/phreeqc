@@ -2,6 +2,7 @@
 #include "Phreeqc.h"
 #include "phqalloc.h"
 #include "Exchange.h"
+#include "GasPhase.h"
 
 
 /* ---------------------------------------------------------------------- */
@@ -1569,7 +1570,7 @@ set_initial_moles(int i)
 /* ---------------------------------------------------------------------- */
 {
 	struct pp_assemblage *pp_assemblage_ptr;
-	struct gas_phase *gas_phase_ptr;
+	//struct gas_phase *gas_phase_ptr;
 	struct kinetics *kinetics_ptr;
 	struct s_s_assemblage *s_s_assemblage_ptr;
 	//struct exchange *exchange_ptr;
@@ -1592,12 +1593,19 @@ set_initial_moles(int i)
 	/*
 	 *   Gas phase
 	 */
-	gas_phase_ptr = gas_phase_bsearch(i, &n);
-	if (gas_phase_ptr != NULL)
+	//gas_phase_ptr = gas_phase_bsearch(i, &n);
 	{
-		for (j = 0; j < gas_phase_ptr->count_comps; j++)
-			gas_phase_ptr->comps[j].initial_moles =
-				gas_phase_ptr->comps[j].moles;
+		cxxGasPhase * gas_phase_ptr = Utilities::Rxn_find(Rxn_gas_phase_map, i);
+		if (gas_phase_ptr != NULL)
+		{
+			std::vector<cxxGasComp> gc = gas_phase_ptr->Get_gas_comps();
+			for (size_t l = 0; l < gc.size(); l++)
+			{
+				//gas_phase_ptr->comps[j].initial_moles =	gas_phase_ptr->comps[j].moles;
+				gc[l].Set_initial_moles(gc[l].Get_moles());
+			}
+			gas_phase_ptr->Set_gas_comps(gc);
+		}
 	}
 	/*
 	 *   Kinetics

@@ -269,13 +269,15 @@ read_solution_spread(void)
 		case 8:				/* unit */
 			if (copy_token(token, &next_char, &l) == EMPTY)
 				break;
-			if (check_units(token, FALSE, FALSE, NULL, TRUE) == OK)
 			{
-				soln_defaults.units = string_hsave(token);
-			}
-			else
-			{
-				input_error++;
+				if (check_units(token, FALSE, FALSE, NULL, TRUE) == OK)
+				{
+					soln_defaults.units = string_hsave(token);
+				}
+				else
+				{
+					input_error++;
+				}
 			}
 			break;
 		case 5:				/* redox */
@@ -657,14 +659,16 @@ spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 		case 8:				/* unit */
 			if (copy_token(token, &next_char, &l) == EMPTY)
 				break;
-			if (check_units(token, FALSE, FALSE, solution[n]->units, TRUE) ==
-				OK)
 			{
-				solution[n]->units = string_hsave(token);
-			}
-			else
-			{
-				input_error++;
+				if (check_units(token, FALSE, FALSE, solution[n]->units, TRUE) ==
+					OK)
+				{
+					solution[n]->units = string_hsave(token);
+				}
+				else
+				{
+					input_error++;
+				}
 			}
 			break;
 		case 5:				/* redox */

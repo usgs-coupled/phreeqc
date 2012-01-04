@@ -10,7 +10,8 @@
 #include "Parser.h"
 #include "cxxMix.h"
 #include "Exchange.h"
-
+#include "GasPhase.h"
+#include "Reaction.h"
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 read_input(void)
@@ -41,8 +42,8 @@ read_input(void)
 	use.pp_assemblage_ptr = NULL;
 	use.mix_in = FALSE;
 	use.mix_ptr = NULL;
-	use.irrev_in = FALSE;
-	use.irrev_ptr = NULL;
+	use.reaction_in = FALSE;
+	use.reaction_ptr = NULL;
 	use.kinetics_in = FALSE;
 	use.kinetics_ptr = NULL;
 	use.exchange_in = FALSE;
@@ -62,7 +63,7 @@ read_input(void)
 
 	save.solution = FALSE;
 	save.mix = FALSE;
-	save.irrev = FALSE;
+	save.reaction = FALSE;
 	save.kinetics = FALSE;
 	save.pp_assemblage = FALSE;
 	save.exchange = FALSE;
@@ -278,7 +279,8 @@ read_input(void)
 			read_solution_raw();
 			break;
 		case Keywords::KEY_EXCHANGE_RAW:		
-			read_exchange_raw();
+			//read_exchange_raw();
+			Utilities::Rxn_read_raw(Rxn_exchange_map, this);
 			break;
 		case Keywords::KEY_SURFACE_RAW:		
 			read_surface_raw();
@@ -293,16 +295,20 @@ read_input(void)
 			read_solid_solutions_raw();
 			break;
 		case Keywords::KEY_GAS_PHASE_RAW:		
-			read_gas_phase_raw();
+			//read_gas_phase_raw();
+			Utilities::Rxn_read_raw(Rxn_gas_phase_map, this);
 			break;
 		case Keywords::KEY_REACTION_RAW:		
-			read_reaction_raw();
+			//read_reaction_raw();
+			Utilities::Rxn_read_raw(Rxn_reaction_map, this);
 			break;
 		case Keywords::KEY_MIX_RAW:		
-			read_mix_raw();
+			//read_mix_raw();
+			Utilities::Rxn_read_raw(Rxn_mix_map, this);
 			break;
 		case Keywords::KEY_REACTION_TEMPERATURE_RAW:
-			read_temperature_raw();
+			//read_temperature_raw();
+			Utilities::Rxn_read_raw(Rxn_temperature_map, this);
 			break;
 		case Keywords::KEY_DUMP:		
 			read_dump();
@@ -314,7 +320,8 @@ read_input(void)
 			read_equilibrium_phases_modify();
 			break;
 		case Keywords::KEY_EXCHANGE_MODIFY:
-			read_exchange_modify();
+			//read_exchange_modify();
+			Utilities::Rxn_read_modify(Rxn_exchange_map, this);
 			break;
 		case Keywords::KEY_SURFACE_MODIFY:
 			read_surface_modify();
@@ -323,7 +330,8 @@ read_input(void)
 			read_solid_solutions_modify();
 			break;
 		case Keywords::KEY_GAS_PHASE_MODIFY:
-			read_gas_phase_modify();
+			//read_gas_phase_modify();
+			Utilities::Rxn_read_modify(Rxn_gas_phase_map, this);
 			break;
 		case Keywords::KEY_KINETICS_MODIFY:
 			read_kinetics_modify();
@@ -335,7 +343,8 @@ read_input(void)
 			read_run_cells();
 			break;
 		case Keywords::KEY_REACTION_MODIFY:
-			read_reaction_modify();
+			//read_reaction_modify();
+			Utilities::Rxn_read_modify(Rxn_reaction_map, this);
 			break;
 		//case LAST_C_KEYWORD + 22:		//reaction_temperature_modify
 		//	keyword[LAST_C_KEYWORD + 22].keycount++;
@@ -348,7 +357,8 @@ read_input(void)
 			read_reaction_pressure();
 			break;
 		case Keywords::KEY_REACTION_PRESSURE_RAW:
-			read_reaction_pressure_raw();
+			//read_reaction_pressure_raw();
+			Utilities::Rxn_read_raw(Rxn_pressure_map, this);
 			break;
 #ifdef SKIP
 		//case Keywords::KEY_REACTION_PRESSURE_MODIFY:
@@ -1683,7 +1693,178 @@ read_exchange_master_species(void)
 	}
 	return (j);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+read_gas_phase(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Reads gas phase data
+ *
+ *      Arguments:
+ *	 none
+ *
+ *      Returns:
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
+ *
+ */
+	int i, j, l;
+	int n_user, n_user_end;
+	char *ptr;
+	char *description;
+	char token[MAX_LENGTH];
+	//struct gas_phase *gas_phase_ptr;
+	cxxGasPhase temp_gas_phase;
+	int return_value, opt;
+	char *next_char;
+	const char *opt_list[] = {
+		"pressure",				/* 0 */
+		"volume",				/* 1 */
+		"temp",					/* 2 */
+		"temperature",			/* 3 */
+		"fixed_pressure",		/* 4 */
+		"fixed_volume",			/* 5 */
+		"equilibrium",			/* 6 */
+		"equilibrate",			/* 7 */
+		"equil"					/* 8 */
+	};
+	int count_opt_list = 9;
+/*
+ *   Read gas_phase number
+ */
+	ptr = line;
+	read_number_description(ptr, &n_user, &n_user_end, &description);
 
+	temp_gas_phase.Set_n_user(n_user);
+	temp_gas_phase.Set_n_user_end(n_user_end);
+	temp_gas_phase.Set_description(description);
+	temp_gas_phase.Set_new_def(true);
+	free_check_null(description);
+/*
+ *   Set use data to first read
+ */
+	if (use.gas_phase_in == FALSE)
+	{
+		use.gas_phase_in = TRUE;
+		use.n_gas_phase_user = n_user;
+	}
+/*
+ *   Read phases
+ */
+	return_value = UNKNOWN;
+	for (;;)
+	{
+		opt = get_option(opt_list, count_opt_list, &next_char);
+		switch (opt)
+		{
+		case OPTION_EOF:		/* end of file */
+			return_value = EOF;
+			break;
+		case OPTION_KEYWORD:	/* keyword */
+			return_value = KEYWORD;
+			break;
+		case OPTION_ERROR:
+			input_error++;
+			error_msg("Unknown input in GAS_PHASE keyword.", CONTINUE);
+			error_msg(line_save, CONTINUE);
+			break;
+		case 0:				/* pressure */
+			sscanf(next_char, SCANFORMAT, &dummy);
+			temp_gas_phase.Set_total_p(dummy);
+			break;
+		case 1:				/* Volume */
+			sscanf(next_char, SCANFORMAT, &dummy);
+			temp_gas_phase.Set_volume(dummy);
+			break;
+		case 2:				/* Temperature */
+		case 3:
+			j = sscanf(next_char, SCANFORMAT, &dummy);
+			if (j == 1)
+			{
+				temp_gas_phase.Set_temperature(dummy + 273.15);
+			}
+			break;
+		case 4:				/* fixed_pressure */
+			temp_gas_phase.Set_type(cxxGasPhase::GP_PRESSURE);
+			break;
+		case 5:				/* fixed_volume */
+			temp_gas_phase.Set_type(cxxGasPhase::GP_VOLUME);
+			break;
+		case 6:				/* equilibrate */
+		case 7:				/* equilibrium */
+		case 8:				/* equil */
+/*
+ *   Read solution to equilibrate with
+ */
+			for (;;)
+			{
+				i = copy_token(token, &next_char, &l);
+				if (i == DIGIT)
+				{
+					sscanf(token, "%d", &l);
+					temp_gas_phase.Set_n_solution(l);
+					temp_gas_phase.Set_new_def(true);
+					temp_gas_phase.Set_solution_equilibria(true);
+					break;
+				}
+				if (i == EMPTY)
+				{
+					error_msg
+						("Expected a solution number with which to equilibrate gas phase.",
+						 CONTINUE);
+					error_msg(line_save, CONTINUE);
+					input_error++;
+					break;
+				}
+			}
+			break;
+		case OPTION_DEFAULT:
+			{
+				cxxGasComp temp_comp;
+				/*
+				*   Read name
+				*/
+				ptr = line;
+				copy_token(token, &ptr, &l);
+				temp_comp.Set_phase_name(token);
+				if ((j = copy_token(token, &ptr, &l)) == EMPTY)
+				{
+					temp_comp.Set_p_read(NAN);
+					break;
+				}
+				/*
+				*   Read initial partial pressure of gas
+				*/
+
+				j = sscanf(token, SCANFORMAT, &dummy);
+				
+				if (j != 1)
+				{
+					error_msg("Expected partial pressure of gas in gas phase.",
+						CONTINUE);
+					error_msg(line_save, CONTINUE);
+					input_error++;
+				}
+				else
+				{
+					temp_comp.Set_p_read(dummy);
+					temp_gas_phase.Get_gas_comps().push_back(temp_comp);
+				}
+			}
+			break;
+		}
+		if (return_value == EOF || return_value == KEYWORD)
+			break;
+	}
+	Rxn_gas_phase_map[n_user] = temp_gas_phase;
+
+	return (return_value);
+}
+
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 read_gas_phase(void)
@@ -1877,7 +2058,7 @@ read_gas_phase(void)
 		  (size_t) sizeof(struct gas_comp), gas_comp_compare);
 	return (return_value);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 read_inverse(void)
@@ -4718,7 +4899,284 @@ read_pure_phases(void)
 
 	return (return_value);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+read_reaction(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Reads reaction data
+ *
+ *      Arguments:
+ *	 none
+ *
+ *      Returns:
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
+ *
+ */
+/*
+ *   Read reaction
+ */
+	int l;
+	char *ptr;
+	char *description;
+	char token[MAX_LENGTH];
+	int return_value;
+	int n_user, n_user_end;
+	
+/*
+ *   Read reaction number
+ */
+	ptr = line;
+	read_number_description(ptr, &n_user, &n_user_end, &description);
 
+/*
+ *   Set use data to first read
+ */
+	if (use.reaction_in == FALSE)
+	{
+		use.reaction_in = TRUE;
+		use.n_reaction_user = n_user;
+	}
+/*
+ *   Defaults
+ */
+	cxxReaction temp_reaction;
+	temp_reaction.Set_n_user(n_user);
+	temp_reaction.Set_n_user_end(n_user_end);
+	temp_reaction.Set_description(description);
+	free_check_null(description);
+/*
+ *   Read reaction data
+ */
+	for (;;)
+	{
+/*
+ *   Read line
+ */
+		return_value = check_line("Reaction data", FALSE, TRUE, TRUE, TRUE);
+		/* empty, eof, keyword, print */
+		if (return_value == EOF || return_value == KEYWORD)
+		{
+			break;
+		}
+		ptr = line;
+		copy_token(token, &ptr, &l);
+		if (isalpha((int) token[0]) || (token[0] == '(') || (token[0] == '['))
+		{
+/*
+ *   Read reactant information
+ */
+			read_reaction_reactants(&temp_reaction);
+		}
+		else
+		{
+/*
+ *   Read steps information
+ */
+			read_reaction_steps(&temp_reaction);
+		}
+	}
+/*
+ *   Default 1 mol of reaction
+ */
+	if (temp_reaction.Get_steps().size() == 0)
+	{
+		std::vector<LDBLE> v;
+		v.push_back(1.0);
+		temp_reaction.Set_steps(v);
+	}
+	if (temp_reaction.Get_equalIncrements())
+	{
+		if (temp_reaction.Get_countSteps() == 0)
+		{
+			temp_reaction.Set_countSteps(1);
+		}
+	}
+	Rxn_reaction_map[n_user] = temp_reaction;
+	return (return_value);
+}
+
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+read_reaction_reactants(cxxReaction *reaction_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Read reactants, may be a chemical formula or a pure_phase name
+ *   followed by relative reaction coefficient, default 1.0.
+ *
+ */
+	std::string token, last_token;
+	LDBLE coef;
+	char *ptr;
+/*
+ *   Read one or more reactants
+ */
+	ptr = line;
+	while (copy_token(token, &ptr) != EMPTY)
+	{
+/*
+ *   Store reactant name, default coefficient
+ */
+		if (isalpha((int) token[0]) || (token[0] == '(') || (token[0] == '['))
+		{
+
+			reaction_ptr->Get_reactantList()[token] = 1.0;
+			last_token = token;
+/*
+ *   Store relative coefficient
+ */
+		}
+		else
+		{
+			int j = sscanf(token.c_str(), SCANFORMAT, &coef);
+			if (j == 1 && last_token.size() > 0)
+			{
+				reaction_ptr->Get_reactantList()[last_token] = coef;
+			}
+			else
+			{
+				error_msg("Reading relative coefficient of reactant.",
+						  CONTINUE);
+				error_msg(line_save, CONTINUE);
+				input_error++;
+			}
+		}
+	}
+	return (OK);
+}
+
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+read_reaction_steps(cxxReaction *reaction_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Read amount(s) of irrev reactions in one of three forms:
+ *
+ *   6 millimoles in 6 steps   or
+ *
+ *   1 2 3 4 5 6 millimoles    or
+ *
+ *   6*1 millimoles
+ *   INCREMENTAL_REACTIONS
+ */
+
+	char *ptr;
+	std::string token, token1;
+
+	ptr = line;
+/*
+ *   Read one or more reaction increments
+ */
+	for (;;)
+	{
+		if (copy_token(token, &ptr) == EMPTY)
+		{
+			return (OK);
+		}
+/*
+ *   Read next step increment
+ */
+/* begin modif 29 july 2005... */
+		if (replace("*", " ", token))
+		{
+			int n;
+			LDBLE value;
+			if (sscanf(token.c_str(), "%d" SCANFORMAT, &n, &value) == 2)
+			{
+				for (int i = 0; i < n; i++)
+				{
+					reaction_ptr->Get_steps().push_back(value);
+				}
+			}
+			else
+			{
+				input_error++;
+				error_msg
+					("Format error in multiple, equal REACTION steps.\nCorrect is (for example): 0.2 4*0.1 2*0.5 0.3\n",
+					 CONTINUE);
+			}
+		}
+		else
+		{
+			LDBLE step;
+			int j = sscanf(token.c_str(), SCANFORMAT, &step);
+			if (j == 1)
+			{
+				reaction_ptr->Get_steps().push_back(step);
+			}
+			else
+			{
+				break;
+			}
+		}
+/* ...end modif 29 july 2005 */
+	}
+/*
+ *   Read units
+ */
+	token1 = token;
+	token1.append("/l");
+	char * t1 = string_duplicate(token1.c_str());
+	if (check_units(t1, FALSE, FALSE, NULL, FALSE) == OK)
+	{
+		replace("/l", "", t1);
+		if (strstr(t1, "Mol") == NULL)
+		{
+			error_string = sformatf( "Units of steps not in moles, %s.", token.c_str());
+			error_msg(error_string, CONTINUE);
+			input_error++;
+			return (ERROR);
+		}
+		else
+		{
+			reaction_ptr->Set_units(t1);
+		}
+		if (copy_token(token, &ptr) == EMPTY)
+		{
+			return (OK);
+		}
+	}
+/*
+ *  Read number of equal increments, store as negative integer
+ */
+	if (reaction_ptr->Get_actualSteps() != 1)
+	{
+		error_msg
+			("To define equal increments, only one reaction increment should be defined.",
+			 CONTINUE);
+		input_error++;
+		return (ERROR);
+	}
+	do
+	{
+		int i;
+		int j = sscanf(token.c_str(), "%d", &i);
+		if (j == 1 && i > 0)
+		{
+			reaction_ptr->Set_countSteps(i);
+			reaction_ptr->Set_equalIncrements(true);
+			return (OK);
+		}
+		else if (j == 1 && i <= 0)
+		{
+			break;
+		}
+	}
+	while (copy_token(token, &ptr) != EMPTY);
+
+	error_msg("Expecting positive number for number of equal "
+			  "increments to add.", CONTINUE);
+	error_msg(line_save, CONTINUE);
+	input_error++;
+	return (ERROR);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 read_reaction(void)
@@ -5038,7 +5496,7 @@ read_reaction_steps(struct irrev *irrev_ptr)
 	input_error++;
 	return (ERROR);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 read_save(void)
@@ -5714,14 +6172,16 @@ read_solution(void)
 		case 8:				/* unit */
 			if (copy_token(token, &next_char, &l) == EMPTY)
 				break;
-			if (check_units(token, FALSE, FALSE, solution[n]->units, TRUE) ==
-				OK)
 			{
-				solution[n]->units = string_hsave(token);
-			}
-			else
-			{
-				input_error++;
+				if (check_units(token, FALSE, FALSE, solution[n]->units, TRUE) ==
+					OK)
+				{
+					solution[n]->units = string_hsave(token);
+				}
+				else
+				{
+					input_error++;
+				}
 			}
 			break;
 		case 5:				/* redox */
@@ -6559,14 +7019,14 @@ read_use(void)
 		}
 		break;
 	case Keywords::KEY_REACTION:					/* Reaction */
-		use.n_irrev_user = n_user;
+		use.n_reaction_user = n_user;
 		if (n_user >= 0)
 		{
-			use.irrev_in = TRUE;
+			use.reaction_in = TRUE;
 		}
 		else
 		{
-			use.irrev_in = FALSE;
+			use.reaction_in = FALSE;
 		}
 		break;
 	case Keywords::KEY_MIX:					/* Mix */
@@ -10892,7 +11352,7 @@ read_copy(void)
 		}
 		copier_add(&copy_solution, n_user, n_user_start, n_user_end);
 		copier_add(&copy_pp_assemblage, n_user, n_user_start, n_user_end);
-		copier_add(&copy_irrev, n_user, n_user_start, n_user_end);
+		copier_add(&copy_reaction, n_user, n_user_start, n_user_end);
 		copier_add(&copy_mix, n_user, n_user_start, n_user_end);
 		copier_add(&copy_exchange, n_user, n_user_start, n_user_end);
 		copier_add(&copy_surface, n_user, n_user_start, n_user_end);
@@ -10909,7 +11369,7 @@ read_copy(void)
 		copier_add(&copy_pp_assemblage, n_user, n_user_start, n_user_end);
 		break;
 	case Keywords::KEY_REACTION:								/* Reaction */
-		copier_add(&copy_irrev, n_user, n_user_start, n_user_end);
+		copier_add(&copy_reaction, n_user, n_user_start, n_user_end);
 		break;
 	case Keywords::KEY_MIX:										/* Mix */
 		copier_add(&copy_mix, n_user, n_user_start, n_user_end);
@@ -10978,7 +11438,8 @@ read_reaction_pressure(void)
 	/*
 	 *  Make parser
 	 */
-	CParser parser(*phrq_io->get_istream(), this->phrq_io);
+	//CParser parser(*phrq_io->get_istream(), this->phrq_io);
+	CParser parser(this->phrq_io);
 	if (pr.echo_input == FALSE) parser.set_echo_file(CParser::EO_NONE);
 	atm.read(parser);
 	if (atm.Get_base_error_count() == 0)
@@ -11025,36 +11486,32 @@ read_reaction_pressure_raw(void)
 	assert(!reading_database());
 
 	cxxPressure atm(this->phrq_io);
-	char *ptr = line;
-	char *description;
-	int n_user, n_user_end;
-	read_number_description(ptr, &n_user, &n_user_end, &description);
-	atm.Set_n_user(n_user);
-	atm.Set_n_user_end(n_user);
-	atm.Set_description(description);
-	free_check_null(description);
+	//char *ptr = line;
+	//char *description;
+	//int n_user, n_user_end;
+	//read_number_description(ptr, &n_user, &n_user_end, &description);
+	//atm.Set_n_user(n_user);
+	//atm.Set_n_user_end(n_user);
+	//atm.Set_description(description);
+	//free_check_null(description);
 	/*
 	 *  Make parser
 	 */
-	CParser parser(*phrq_io->get_istream(), this->phrq_io);
+	//CParser parser(*phrq_io->get_istream(), this->phrq_io);
+	CParser parser(this->phrq_io);
 	if (pr.echo_input == FALSE) parser.set_echo_file(CParser::EO_NONE);
 	atm.read_raw(parser);
 
 	// Store
 	if (atm.Get_base_error_count() == 0)
 	{
-		Rxn_pressure_map[n_user] = atm;
+		Rxn_pressure_map[atm.Get_n_user()] = atm;
 	}
 
 	// Make copies if necessary
-	if (n_user_end > n_user)
-	{
-		int i;
-		for (i = n_user + 1; i <= n_user_end; i++)
-		{
-			Utilities::Rxn_copy(Rxn_pressure_map, n_user, i);
-		}
-	}
+
+	Utilities::Rxn_copies(Rxn_pressure_map, atm.Get_n_user(), atm.Get_n_user_end());
+
 
 	return cleanup_after_parser(parser);
 }
@@ -11118,7 +11575,8 @@ read_temperature(void)
 	/*
 	 *  Make parser
 	 */
-	CParser parser(*phrq_io->get_istream(), this->phrq_io);
+	//CParser parser(*phrq_io->get_istream(), this->phrq_io);
+	CParser parser(this->phrq_io);
 	if (pr.echo_input == FALSE) parser.set_echo_file(CParser::EO_NONE);
 	t_react.read(parser);
 	if (t_react.Get_base_error_count() == 0)
@@ -11144,6 +11602,7 @@ read_temperature(void)
 
 	return cleanup_after_parser(parser);
 }
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 read_temperature_raw(void)
@@ -11176,7 +11635,8 @@ read_temperature_raw(void)
 	/*
 	 *  Make parser
 	 */
-	CParser parser(*phrq_io->get_istream(), this->phrq_io);
+	//CParser parser(*phrq_io->get_istream(), this->phrq_io);
+	CParser parser(this->phrq_io);
 	if (pr.echo_input == FALSE) parser.set_echo_file(CParser::EO_NONE);
 	t_react.read_raw(parser);
 
@@ -11198,6 +11658,8 @@ read_temperature_raw(void)
 
 	return cleanup_after_parser(parser);
 }
+#endif
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 read_mix_raw(void)
@@ -11230,7 +11692,8 @@ read_mix_raw(void)
 	/*
 	 *  Make parser
 	 */
-	CParser parser(*phrq_io->get_istream(), this->phrq_io);
+	//CParser parser(*phrq_io->get_istream(), this->phrq_io);
+	CParser parser(this->phrq_io);
 	if (pr.echo_input == FALSE) parser.set_echo_file(CParser::EO_NONE);
 	entity.read_raw(parser);
 
@@ -11252,3 +11715,4 @@ read_mix_raw(void)
 
 	return cleanup_after_parser(parser);
 }
+#endif

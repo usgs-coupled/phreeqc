@@ -955,9 +955,9 @@ dump_cpp(void)
 	phreeqc2cxxStorageBin(phreeqcBin);
 
 	std::ofstream fs(dump_file_name_cpp.c_str());
-	fs << "# Dumpfile" << std::endl << "# Transport simulation " << simul_tr << "  Shift " << transport_step << std::endl << "#" << std::endl;
+	fs << "# Dumpfile" << "\n" << "# Transport simulation " << simul_tr << "  Shift " << transport_step << "\n" << "#" << "\n";
 	phreeqcBin.dump_raw(fs, 0);
-	fs << "END" << std::endl;
+	fs << "END" << "\n";
 
 	char token[MAX_LENGTH];
 	sprintf(token, "KNOBS\n");

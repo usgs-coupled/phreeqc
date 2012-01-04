@@ -1434,7 +1434,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 		pr.totals = TRUE;
 		pr.species = TRUE;
 		pr.saturation_indices = TRUE;
-		pr.irrev = use.irrev_in;
+		pr.irrev = use.reaction_in;
 		pr.mix = use.mix_in;
 		pr.reaction = TRUE;
 		pr.use = TRUE;
@@ -1527,6 +1527,22 @@ set_and_run(int i, int use_mix, int use_kinetics, int nsaver,
  */
 		if (use.gas_phase_ptr != NULL)
 		{
+			cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+			if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_PRESSURE) 
+			{
+			/*
+			 * Fixed-pressure Gas phase and solution will react 
+			 * Change total pressure of current simulation to pressure 
+			 * of gas phase
+			 */
+				patm_x = gas_phase_ptr->Get_total_p();
+			}
+			/*  fixed volume gas phase is handled in calc_gas_pressures */
+
+		}
+#ifdef SKIP
+		if (use.gas_phase_ptr != NULL)
+		{
 			if (use.gas_phase_ptr->type == PRESSURE) 
 			{
 			/*
@@ -1539,7 +1555,7 @@ set_and_run(int i, int use_mix, int use_kinetics, int nsaver,
 			/*  fixed volume gas phase is handled in calc_gas_pressures */
 
 		}
- 
+#endif
 
 	}
 	/* end new */
@@ -1652,15 +1668,16 @@ set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 /*
  *   Find irreversible reaction
  */
-	use.irrev_ptr = irrev_bsearch(i, &use.n_irrev);
-	if (use.irrev_ptr != NULL)
+	//use.irrev_ptr = irrev_bsearch(i, &use.n_irrev);
+	use.reaction_ptr = Utilities::Rxn_find(Rxn_reaction_map, i);
+	if (use.reaction_ptr != NULL)
 	{
-		use.irrev_in = TRUE;
-		use.n_irrev_user = i;
+		use.reaction_in = TRUE;
+		use.n_reaction_user = i;
 	}
 	else
 	{
-		use.irrev_in = FALSE;
+		use.reaction_in = FALSE;
 	}
 /*
  *   Find exchange
@@ -1728,7 +1745,8 @@ set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 /*
  *   Find gas
  */
-	use.gas_phase_ptr = gas_phase_bsearch(i, &use.n_gas_phase);
+	//use.gas_phase_ptr = gas_phase_bsearch(i, &use.n_gas_phase);
+	use.gas_phase_ptr = Utilities::Rxn_find(Rxn_gas_phase_map, i);
 	if (use.gas_phase_ptr != NULL)
 	{
 		use.gas_phase_in = TRUE;
@@ -1840,10 +1858,11 @@ set_reaction(int i, int use_mix, int use_kinetics)
 /*
  *   Find irreversible reaction
  */
-	if (use.irrev_in == TRUE)
+	if (use.reaction_in == TRUE)
 	{
-		use.irrev_ptr = irrev_bsearch(i, &use.n_irrev);
-		if (use.irrev_ptr == NULL)
+		//use.irrev_ptr = irrev_bsearch(i, &use.n_irrev);
+		use.reaction_ptr = Utilities::Rxn_find(Rxn_reaction_map, i);
+		if (use.reaction_ptr == NULL)
 		{
 			error_string = sformatf( "REACTION %d not found.", i);
 			error_msg(error_string, STOP);
@@ -1904,7 +1923,8 @@ set_reaction(int i, int use_mix, int use_kinetics)
  */
 	if (use.gas_phase_in == TRUE)
 	{
-		use.gas_phase_ptr = gas_phase_bsearch(i, &use.n_gas_phase);
+		//use.gas_phase_ptr = gas_phase_bsearch(i, &use.n_gas_phase);
+		use.gas_phase_ptr = Utilities::Rxn_find(Rxn_gas_phase_map, i);
 		if (use.gas_phase_ptr == NULL)
 		{
 			error_string = sformatf( "GAS_PHASE %d not found.", i);
@@ -2447,15 +2467,16 @@ set_advection(int i, int use_mix, int use_kinetics, int nsaver)
 /*
  *   Find irreversible reaction
  */
-	use.irrev_ptr = irrev_bsearch(i, &use.n_irrev);
-	if (use.irrev_ptr != NULL)
+	//use.irrev_ptr = irrev_bsearch(i, &use.n_irrev);
+	use.reaction_ptr = Utilities::Rxn_find(Rxn_reaction_map, i);
+	if (use.reaction_ptr != NULL)
 	{
-		use.irrev_in = TRUE;
-		use.n_irrev_user = i;
+		use.reaction_in = TRUE;
+		use.n_reaction_user = i;
 	}
 	else
 	{
-		use.irrev_in = FALSE;
+		use.reaction_in = FALSE;
 	}
 /*
  *   Find exchange
@@ -2523,7 +2544,8 @@ set_advection(int i, int use_mix, int use_kinetics, int nsaver)
 /*
  *   Find gas
  */
-	use.gas_phase_ptr = gas_phase_bsearch(i, &use.n_gas_phase);
+	//use.gas_phase_ptr = gas_phase_bsearch(i, &use.n_gas_phase);
+	use.gas_phase_ptr = Utilities::Rxn_find(Rxn_gas_phase_map, i);
 	if (use.gas_phase_ptr != NULL)
 	{
 		use.gas_phase_in = TRUE;
@@ -2598,7 +2620,8 @@ store_get_equi_reactants(int l, int kin_end)
 		use.pp_assemblage_ptr = NULL;
 	if (use.gas_phase_in == TRUE)
 	{
-		use.gas_phase_ptr = gas_phase_bsearch(l, &use.n_gas_phase);
+		//use.gas_phase_ptr = gas_phase_bsearch(l, &use.n_gas_phase);
+		use.gas_phase_ptr = Utilities::Rxn_find(Rxn_gas_phase_map, l);
 	}
 	else
 		use.gas_phase_ptr = NULL;
@@ -2616,7 +2639,14 @@ store_get_equi_reactants(int l, int kin_end)
 		if (use.pp_assemblage_ptr != NULL)
 			count_pp = use.pp_assemblage_ptr->count_comps;
 		if (use.gas_phase_ptr != NULL)
+		{
+			cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+			count_pg = (int) gas_phase_ptr->Get_gas_comps().size();
+		}
+#ifdef SKIP
+		if (use.gas_phase_ptr != NULL)
 			count_pg = use.gas_phase_ptr->count_comps;
+#endif
 		if (use.s_s_assemblage_ptr != NULL)
 		{
 			for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++)
@@ -2641,10 +2671,19 @@ store_get_equi_reactants(int l, int kin_end)
 		{
 			x0_moles[++k] = use.pp_assemblage_ptr->pure_phases[j].moles;
 		}
+		{
+			cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+			for (size_t l = 0; l < gas_phase_ptr->Get_gas_comps().size(); l++)
+			{
+				x0_moles[++k] += gas_phase_ptr->Get_gas_comps()[l].Get_moles();
+			}
+		}
+#ifdef SKIP
 		for (j = 0; j < count_pg; j++)
 		{
 			x0_moles[++k] = use.gas_phase_ptr->comps[j].moles;
 		}
+#endif
 		if (count_s_s != 0)
 		{
 			for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++)
@@ -2668,10 +2707,21 @@ store_get_equi_reactants(int l, int kin_end)
 			use.pp_assemblage_ptr->pure_phases[j].moles = x0_moles[++k];
 			use.pp_assemblage_ptr->pure_phases[j].delta = 0.0;
 		}
+		{
+			cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+			std::vector<cxxGasComp> temp_comps(gas_phase_ptr->Get_gas_comps());
+			for (size_t l = 0; l < temp_comps.size(); l++)
+			{
+				temp_comps[l].Set_moles(x0_moles[++k]);
+			}
+			gas_phase_ptr->Set_gas_comps(temp_comps);
+		}
+#ifdef SKIP
 		for (j = 0; j < count_pg; j++)
 		{
 			use.gas_phase_ptr->comps[j].moles = x0_moles[++k];
 		}
+#endif
 		if (count_s_s != 0)
 		{
 			for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++)

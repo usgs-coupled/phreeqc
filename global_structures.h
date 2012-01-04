@@ -497,9 +497,9 @@ struct save
 	int mix;
 	int n_mix_user;
 	int n_mix_user_end;
-	int irrev;
-	int n_irrev_user;
-	int n_irrev_user_end;
+	int reaction;
+	int n_reaction_user;
+	int n_reaction_user_end;
 	int pp_assemblage;
 	int n_pp_assemblage_user;
 	int n_pp_assemblage_user_end;
@@ -541,10 +541,11 @@ struct Use
 	void * mix_ptr;
 	int n_mix_user_orig;
 
-	int irrev_in;
-	int n_irrev_user;
-	int n_irrev;
-	struct irrev *irrev_ptr;
+	int reaction_in;
+	int n_reaction_user;
+	//int n_irrev;
+	//struct irrev *irrev_ptr;
+	void * reaction_ptr;
 
 	int exchange_in;
 	int n_exchange_user;
@@ -577,8 +578,9 @@ struct Use
 
 	int gas_phase_in;
 	int n_gas_phase_user;
-	int n_gas_phase;
-	struct gas_phase *gas_phase_ptr;
+	//int n_gas_phase;
+	//struct gas_phase *gas_phase_ptr;
+	void * gas_phase_ptr;
 
 	int s_s_assemblage_in;
 	int n_s_s_assemblage_user;
@@ -688,6 +690,7 @@ struct mix_comp
 	LDBLE fraction;
 };
 #endif
+#ifdef SKIP
 /*----------------------------------------------------------------------
  *   Irreversible reaction
  *---------------------------------------------------------------------- */
@@ -703,11 +706,13 @@ struct irrev
 	int count_steps;
 	int count_list;
 };
+#endif
 struct name_coef
 {
 	const char *name;
 	LDBLE coef;
 };
+#ifdef SKIP
 /*----------------------------------------------------------------------
  *   Gas phase
  *---------------------------------------------------------------------- */
@@ -737,7 +742,7 @@ struct gas_comp
 	LDBLE moles;
 	LDBLE initial_moles;
 };
-
+#endif
 /*----------------------------------------------------------------------
  *   Solid solution
  *---------------------------------------------------------------------- */
@@ -1155,7 +1160,8 @@ struct unknown
 	struct master **master;
 	struct phase *phase;
 	LDBLE si;
-	struct gas_phase *gas_phase;
+	//struct gas_phase *gas_phase;
+	int n_gas_phase_user;
 	struct conc *total;
 	struct species *s;
 	//struct exch_comp *exch_comp;

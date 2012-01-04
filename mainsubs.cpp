@@ -7,6 +7,8 @@
 #include "Temperature.h"
 #include "Exchange.h"
 #include "ExchComp.h"
+#include "GasPhase.h"
+#include "Reaction.h"
 
 #if defined(WINDOWS) || defined(_WINDOWS)
 #include <windows.h>
@@ -66,7 +68,7 @@ initialize(void)
 	max_pp_assemblage = MAX_PP_ASSEMBLAGE;
 	//max_exchange = MAX_PP_ASSEMBLAGE;
 	max_surface = MAX_PP_ASSEMBLAGE;
-	max_gas_phase = MAX_PP_ASSEMBLAGE;
+	//max_gas_phase = MAX_PP_ASSEMBLAGE;
 	max_kinetics = MAX_PP_ASSEMBLAGE;
 	max_s_s_assemblage = MAX_PP_ASSEMBLAGE;
 
@@ -86,12 +88,12 @@ initialize(void)
 	count_pp_assemblage = 0;
 	//count_exchange = 0;
 	count_surface = 0;
-	count_gas_phase = 0;
+	//count_gas_phase = 0;
 	count_kinetics = 0;
 	count_s_s_assemblage = 0;
 
 	count_elements = 0;
-	count_irrev = 0;
+	//count_irrev = 0;
 	count_master = 0;
 	//count_mix = 0;
 	count_phases = 0;
@@ -151,8 +153,8 @@ initialize(void)
 	space((void **) ((void *) &surface), INIT, &max_surface,
 		  sizeof(struct surface));
 
-	space((void **) ((void *) &gas_phase), INIT, &max_gas_phase,
-		  sizeof(struct gas_phase));
+	//space((void **) ((void *) &gas_phase), INIT, &max_gas_phase,
+	//	  sizeof(struct gas_phase));
 
 	space((void **) ((void *) &kinetics), INIT, &max_kinetics,
 		  sizeof(struct kinetics));
@@ -174,11 +176,11 @@ initialize(void)
 	if (inverse == NULL)
 		malloc_error();
 	count_inverse = 0;
-
+#ifdef SKIP
 	irrev = (struct irrev *) PHRQ_malloc((size_t) sizeof(struct irrev));
 	if (irrev == NULL)
 		malloc_error();
-
+#endif
 	space((void **) ((void *) &line), INIT, &max_line, sizeof(char));
 
 	space((void **) ((void *) &line_save), INIT, &max_line, sizeof(char));
@@ -579,7 +581,7 @@ initialize(void)
 	copier_init(&copy_gas_phase);
 	copier_init(&copy_kinetics);
 	copier_init(&copy_mix);
-	copier_init(&copy_irrev);
+	copier_init(&copy_reaction);
 	copier_init(&copy_temperature);
 	copier_init(&copy_pressure);
 
@@ -607,7 +609,7 @@ initialize(void)
 	dbg_surface = surface;
 	dbg_pp_assemblage = pp_assemblage;
 	dbg_kinetics = kinetics;
-	dbg_irrev = irrev;
+	//dbg_irrev = irrev;
 	//dbg_mix = mix;
 	dbg_master = master;
 	calculating_deriv = FALSE;
@@ -803,7 +805,7 @@ set_use(void)
  */
 	use.pp_assemblage_ptr = NULL;
 	use.mix_ptr = NULL;
-	use.irrev_ptr = NULL;
+	use.reaction_ptr = NULL;
 	use.exchange_ptr = NULL;
 	use.kinetics_ptr = NULL;
 	use.surface_ptr = NULL;
@@ -820,7 +822,7 @@ set_use(void)
  *   Reaction case
  */
 	if (use.pp_assemblage_in == FALSE &&
-		use.irrev_in == FALSE &&
+		use.reaction_in == FALSE &&
 		use.mix_in == FALSE &&
 		use.exchange_in == FALSE &&
 		use.kinetics_in == FALSE &&
@@ -903,6 +905,21 @@ set_use(void)
 /*
  *   Find irrev reaction
  */
+	if (use.reaction_in == TRUE)
+	{
+		use.reaction_ptr = Utilities::Rxn_find(Rxn_reaction_map, use.n_reaction_user);
+		if (use.reaction_ptr == NULL)
+		{
+			error_string = sformatf( "Reaction %d not found.",
+					use.n_reaction_user);
+			error_msg(error_string, STOP);
+		}
+	}
+	else
+	{
+		use.reaction_ptr = NULL;
+	}
+#ifdef SKIP
 	if (use.irrev_in == TRUE)
 	{
 		use.irrev_ptr = irrev_bsearch(use.n_irrev_user, &use.n_irrev);
@@ -917,6 +934,7 @@ set_use(void)
 	{
 		use.irrev_ptr = NULL;
 	}
+#endif
 /*
  *   Find exchange
  */
@@ -925,7 +943,7 @@ set_use(void)
 		use.exchange_ptr = Utilities::Rxn_find(Rxn_exchange_map, use.n_exchange_user);
 		if (use.exchange_ptr == NULL)
 		{
-			error_string = sformatf( "Temperature %d not found.",
+			error_string = sformatf( "Exchange %d not found.",
 					use.n_exchange_user);
 			error_msg(error_string, STOP);
 		}
@@ -1012,7 +1030,7 @@ set_use(void)
 		use.pressure_ptr =	Utilities::Rxn_find(Rxn_pressure_map, use.n_pressure_user);
 		if (use.pressure_ptr == NULL)
 		{
-			error_string = sformatf( "pressure %d not found.",	use.n_pressure_user);
+			error_string = sformatf( "Pressure %d not found.",	use.n_pressure_user);
 			error_msg(error_string, STOP);
 		}
 	}
@@ -1025,8 +1043,8 @@ set_use(void)
  */
 	if (use.gas_phase_in == TRUE)
 	{
-		use.gas_phase_ptr =
-			gas_phase_bsearch(use.n_gas_phase_user, &use.n_gas_phase);
+		//use.gas_phase_ptr =	gas_phase_bsearch(use.n_gas_phase_user, &use.n_gas_phase);
+		use.gas_phase_ptr = Utilities::Rxn_find(Rxn_gas_phase_map, use.n_gas_phase_user);
 		if (use.gas_phase_ptr == NULL)
 		{
 			error_string = sformatf( "Gas_phase %d not found.",
@@ -1329,6 +1347,137 @@ initial_gas_phases(int print)
  *   solution.
  */
 	int i, converge, converge1;
+	int last, n_user, print1;
+	char token[2 * MAX_LENGTH];
+	struct phase *phase_ptr;
+	struct rxn_token *rxn_ptr;
+	LDBLE lp;
+	bool PR = false;
+
+	state = INITIAL_GAS_PHASE;
+	set_use();
+	print1 = TRUE;
+	dl_type_x = NO_DL;
+	std::map<int, cxxGasPhase>::iterator it = Rxn_gas_phase_map.begin();
+	for ( ; it != Rxn_gas_phase_map.end(); it++)
+	//for (n = 0; n < count_gas_phase; n++)
+	{
+		cxxGasPhase *gas_phase_ptr = &it->second;
+		if (!gas_phase_ptr->Get_new_def())
+			continue;
+		n_user = gas_phase_ptr->Get_n_user();
+		last = gas_phase_ptr->Get_n_user_end();
+		gas_phase_ptr->Set_n_user_end(n_user);
+		gas_phase_ptr->Set_new_def(false);
+		if (gas_phase_ptr->Get_solution_equilibria())
+		{
+			if (print1 == TRUE && print == TRUE)
+			{
+				dup_print("Beginning of initial gas_phase"
+						  "-composition calculations.", TRUE);
+				print1 = FALSE;
+			}
+			if (print == TRUE)
+			{
+				sprintf(token, "Gas_Phase %d.\t%.350s",
+						gas_phase_ptr->Get_n_user(), gas_phase_ptr->Get_description().c_str());
+				dup_print(token, FALSE);
+			}
+
+			/* Try to obtain a solution pointer */ 
+			use.solution_ptr =
+				solution_bsearch(gas_phase_ptr->Get_n_solution(), &i, TRUE);
+			prep();
+			k_temp(use.solution_ptr->tc, use.solution_ptr->patm);
+			set(TRUE);
+			converge = model();
+			converge1 = check_residuals();
+			if (converge == ERROR || converge1 == ERROR)
+			{
+				/* free_model_allocs(); */
+				error_msg
+					("Model failed to converge for initial gas phase calculation.",
+					 STOP);
+			}
+			use.gas_phase_ptr = gas_phase_ptr;
+			gas_phase_ptr->Set_total_p(0);
+			gas_phase_ptr->Set_total_moles(0);
+			for (size_t i = 0; i < gas_phase_ptr->Get_gas_comps().size(); i++)
+			//for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
+			{
+				cxxGasComp * gc_ptr = &(gas_phase_ptr->Get_gas_comps()[i]);
+				//gas_comp_ptr = &(use.gas_phase_ptr->comps[i]);
+				//phase_ptr = gas_comp_ptr->phase;
+				int k;
+				phase_ptr = phase_bsearch(gc_ptr->Get_phase_name().c_str(), &k, FALSE);
+				if (phase_ptr->in == TRUE)
+				{
+					lp = -phase_ptr->lk;
+					for (rxn_ptr = phase_ptr->rxn_x->token + 1;
+						 rxn_ptr->s != NULL; rxn_ptr++)
+					{
+						lp += rxn_ptr->s->la * rxn_ptr->coef;
+					}
+					phase_ptr->p_soln_x = exp(lp * LOG_10);
+					gas_phase_ptr->Set_total_p(gas_phase_ptr->Get_total_p() + phase_ptr->p_soln_x);
+					phase_ptr->moles_x = phase_ptr->p_soln_x *
+						gas_phase_ptr->Get_volume() / (R_LITER_ATM * tk_x);
+					gc_ptr->Set_moles(phase_ptr->moles_x);
+					gas_phase_ptr->Set_total_moles(gas_phase_ptr->Get_total_moles() + phase_ptr->moles_x);
+					if (phase_ptr->p_c || phase_ptr->t_c)
+						PR = true;
+				}
+				else
+				{
+					phase_ptr->moles_x = 0;
+				}
+			}
+			if (fabs(gas_phase_ptr->Get_total_p() - use.solution_ptr->patm) > 5)
+			{
+				sprintf(token, 
+					"WARNING: While initializing gas phase composition by equilibrating:\n%s (%.2f atm) %s (%.2f atm).\n%s.",
+					"         Gas phase pressure",
+					(double) gas_phase_ptr->Get_total_p(),
+					"is not equal to solution-pressure",
+					(double) use.solution_ptr->patm,
+					"         Pressure effects on solubility may be incorrect");
+					dup_print(token, FALSE);
+			}
+
+			print_gas_phase();
+ 			if (PR /*&& use.gas_phase_ptr->total_p > 1.0*/)
+ 				warning_msg("While initializing gas phase composition by equilibrating:\n"
+				"         Found definitions of gas' critical temperature and pressure.\n"
+				"         Going to use Peng-Robinson in subsequent calculations.\n");
+			xgas_save(n_user);
+			punch_all();
+			/* free_model_allocs(); */
+		}
+		for (i = n_user + 1; i <= last; i++)
+		{
+			Utilities::Rxn_copy(Rxn_gas_phase_map, n_user, i);
+		}
+#ifdef SKIP
+		for (i = n_user + 1; i <= last; i++)
+		{
+			gas_phase_duplicate(n_user, i);
+		}
+#endif
+	}
+	return (OK);
+}
+#ifdef SKIP
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+initial_gas_phases(int print)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Go through list of gas_phases, make initial calculations
+ *   for any marked "new" that are defined to be in equilibrium with a 
+ *   solution.
+ */
+	int i, converge, converge1;
 	int n, last, n_user, print1;
 	char token[2 * MAX_LENGTH];
 	struct gas_comp *gas_comp_ptr;
@@ -1437,7 +1586,7 @@ initial_gas_phases(int print)
 	}
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 initial_surfaces(int print)
@@ -1535,10 +1684,11 @@ reactions(void)
  */
 	dup_print("Beginning of batch-reaction calculations.", TRUE);
 	count_steps = 1;
-	if (use.irrev_in == TRUE && use.irrev_ptr != NULL)
+	if (use.reaction_in == TRUE && use.reaction_ptr != NULL)
 	{
-		if (abs(use.irrev_ptr->count_steps) > count_steps)
-			count_steps = abs(use.irrev_ptr->count_steps);
+		cxxReaction *reaction_ptr = (cxxReaction *) use.reaction_ptr;
+		if (reaction_ptr->Get_actualSteps() > count_steps)
+			count_steps = reaction_ptr->Get_actualSteps();
 	}
 	if (use.kinetics_in == TRUE && use.kinetics_ptr != NULL)
 	{
@@ -1771,7 +1921,8 @@ saver(void)
 		for (i = save.n_gas_phase_user + 1; i <= save.n_gas_phase_user_end;
 			 i++)
 		{
-			gas_phase_duplicate(n, i);
+			//gas_phase_duplicate(n, i);
+			Utilities::Rxn_copy(Rxn_gas_phase_map, n, i);
 		}
 	}
 	if (save.s_s_assemblage == TRUE)
@@ -2029,6 +2180,56 @@ xgas_save(int n_user)
  *   Save gas composition into structure gas_phase with user 
  *   number n_user.
  */
+	//int count_comps, n, i;
+	//struct gas_phase temp_gas_phase, *gas_phase_ptr;
+	char token[MAX_LENGTH];
+
+	if (use.gas_phase_ptr == NULL)
+		return (OK);
+	cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+	cxxGasPhase temp_gas_phase(*gas_phase_ptr);
+/*
+ *   Count gases
+ */
+	//size_t count_comps = gas_phase_ptr->Get_gasPhaseComps().size();
+/*
+ *   Store in gas_phase
+ */
+
+	temp_gas_phase.Set_n_user(n_user);
+	temp_gas_phase.Set_n_user_end(n_user);
+	sprintf(token, "Gas phase after simulation %d.", simulation);
+	temp_gas_phase.Set_description(token);
+	temp_gas_phase.Set_new_def(false);
+	temp_gas_phase.Set_solution_equilibria(false);
+	temp_gas_phase.Set_n_solution(-99);
+/*
+ *   Update amounts
+ */
+	for (size_t i = 0 ; i < gas_phase_ptr->Get_gas_comps().size(); i++)
+	{
+		cxxGasComp * gc_ptr = &(gas_phase_ptr->Get_gas_comps()[i]);
+		int k;
+		struct phase *phase_ptr = phase_bsearch(gc_ptr->Get_phase_name().c_str(), &k, FALSE);
+		assert(phase_ptr);
+		gc_ptr->Set_moles(phase_ptr->moles_x);
+	}
+
+	Rxn_gas_phase_map[n_user] = temp_gas_phase;
+
+	use.gas_phase_ptr = NULL;
+	return (OK);
+}
+#ifdef SKIP
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+xgas_save(int n_user)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Save gas composition into structure gas_phase with user 
+ *   number n_user.
+ */
 	int count_comps, n, i;
 	struct gas_phase temp_gas_phase, *gas_phase_ptr;
 	char token[MAX_LENGTH];
@@ -2110,7 +2311,7 @@ xgas_save(int n_user)
 	use.gas_phase_ptr = NULL;
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 xs_s_assemblage_save(int n_user)
@@ -2899,6 +3100,18 @@ copy_use(int i)
 /*
  *   Find irrev reaction
  */
+	if (use.reaction_in == TRUE)
+	{
+		Utilities::Rxn_copy(Rxn_reaction_map, use.n_reaction_user, i);
+		save.reaction = TRUE;
+		save.n_reaction_user = i;
+		save.n_reaction_user_end = i;
+	}
+	else
+	{
+		save.reaction = FALSE;
+	}
+#ifdef SKIP
 	if (use.irrev_in == TRUE)
 	{
 		irrev_duplicate(use.n_irrev_user, i);
@@ -2910,6 +3123,7 @@ copy_use(int i)
 	{
 		save.irrev = FALSE;
 	}
+#endif
 /*
  *   Find exchange
  */
@@ -2985,7 +3199,8 @@ copy_use(int i)
  */
 	if (use.gas_phase_in == TRUE)
 	{
-		gas_phase_duplicate(use.n_gas_phase_user, i);
+		//gas_phase_duplicate(use.n_gas_phase_user, i);
+		Utilities::Rxn_copy(Rxn_gas_phase_map, use.n_gas_phase_user, i);
 		save.gas_phase = TRUE;
 		save.n_gas_phase_user = i;
 		save.n_gas_phase_user_end = i;
@@ -3252,17 +3467,19 @@ copy_entities(void)
 			}
 		}
 	}
-	if (copy_irrev.count > 0)
+	if (copy_reaction.count > 0)
 	{
-		for (j = 0; j < copy_irrev.count; j++)
+		for (j = 0; j < copy_reaction.count; j++)
 		{
-			if (irrev_bsearch(copy_irrev.n_user[j], &n) != NULL)
+			//if (irrev_bsearch(copy_irrev.n_user[j], &n) != NULL)
+			if (Utilities::Rxn_find(Rxn_reaction_map, copy_reaction.n_user[j]) != NULL)
 			{
-				for (i = copy_irrev.start[j]; i <= copy_irrev.end[j]; i++)
+				for (i = copy_reaction.start[j]; i <= copy_reaction.end[j]; i++)
 				{
-					if (i == copy_irrev.n_user[j])
+					if (i == copy_reaction.n_user[j])
 						continue;
-					irrev_duplicate(copy_irrev.n_user[j], i);
+					//irrev_duplicate(copy_irrev.n_user[j], i);
+					Utilities::Rxn_copy(Rxn_reaction_map, copy_reaction.n_user[j], i);
 				}
 			}
 			else
@@ -3451,21 +3668,21 @@ copy_entities(void)
 	{
 		for (j = 0; j < copy_gas_phase.count; j++)
 		{
-			if (gas_phase_bsearch(copy_gas_phase.n_user[j], &n) != NULL)
+			if (Utilities::Rxn_find(Rxn_gas_phase_map, copy_gas_phase.n_user[j]) != NULL)
 			{
 				for (i = copy_gas_phase.start[j]; i <= copy_gas_phase.end[j];
 					i++)
 				{
 					if (i == copy_gas_phase.n_user[j])
 						continue;
-					gas_phase_duplicate(copy_gas_phase.n_user[j], i);
+					Utilities::Rxn_copy(Rxn_gas_phase_map, copy_gas_phase.n_user[j], i);
 				}
 			}
 			else
 			{
 				if (verbose == TRUE)
 				{
-					warning_msg("GAS_PHASE to copy not found.");
+					warning_msg("EXCHANGE to copy not found.");
 					return_value = ERROR;
 				}
 			}
@@ -3529,7 +3746,7 @@ copy_entities(void)
 	copy_gas_phase.count = 0;
 	copy_kinetics.count = 0;
 	copy_mix.count = 0;
-	copy_irrev.count = 0;
+	copy_reaction.count = 0;
 	copy_temperature.count = 0;
 	copy_pressure.count = 0;
 	new_copy = FALSE;
@@ -3743,9 +3960,9 @@ save_init(int i)
 	save.mix = i;
 	save.n_mix_user = i;
 	save.n_mix_user_end = i;
-	save.irrev = i;
-	save.n_irrev_user = i;
-	save.n_irrev_user_end = i;
+	save.reaction = i;
+	save.n_reaction_user = i;
+	save.n_reaction_user_end = i;
 	save.pp_assemblage = i;
 	save.n_pp_assemblage_user = i;
 	save.n_pp_assemblage_user_end = i;
@@ -3784,10 +4001,10 @@ use_init(void)
 	use.mix_ptr = NULL;
 	use.n_mix_user_orig= -1;
 
-	use.irrev_in = FALSE;
-	use.n_irrev_user= -1;
-	use.n_irrev= -1;
-	use.irrev_ptr = NULL;
+	use.reaction_in = FALSE;
+	use.n_reaction_user= -1;
+	//use.n_irrev= -1;
+	use.reaction_ptr = NULL;
 
 	use.exchange_in = FALSE;
 	use.n_exchange_user= -1;
@@ -3819,7 +4036,7 @@ use_init(void)
 
 	use.gas_phase_in = FALSE;
 	use.n_gas_phase_user= -1;
-	use.n_gas_phase= -1;
+	//use.n_gas_phase= -1;
 	use.gas_phase_ptr = NULL;
 
 	use.s_s_assemblage_in = FALSE;

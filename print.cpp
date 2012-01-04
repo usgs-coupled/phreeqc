@@ -6,6 +6,8 @@
 #include "Temperature.h"
 #include "cxxMix.h"
 #include "Exchange.h"
+#include "GasPhase.h"
+#include "Reaction.h"
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -66,7 +68,7 @@ print_all(void)
 	s_h2o->lm = s_h2o->la;
 	print_using();
 	print_mix();
-	print_irrev();
+	print_reaction();
 	print_kinetics();
 	print_user_print();
 	print_gas_phase();
@@ -626,6 +628,149 @@ print_gas_phase(void)
 /*
  *   Prints gas phase composition if present
  */
+	//int j;
+	LDBLE lp, moles, initial_moles, delta_moles;
+	struct rxn_token *rxn_ptr;
+	char info[MAX_LENGTH];
+	bool PR = false;
+
+	if (pr.gas_phase == FALSE || pr.all == FALSE)
+		return (OK);
+	if (use.gas_phase_ptr == NULL)
+		return (OK);
+
+	cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+	if (gas_phase_ptr->Get_v_m() >= 0.035)
+		PR = true;
+	if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_PRESSURE)
+	{
+		if (gas_unknown == NULL)
+			return (OK);
+		if (gas_unknown->moles < 1e-12)
+		{
+			sprintf(info, "Fixed-pressure gas phase %d dissolved completely",
+				   use.n_gas_phase_user);
+			print_centered(info);
+			return (OK);
+		}
+		gas_phase_ptr->Set_total_moles(gas_unknown->moles);
+		gas_phase_ptr->Set_volume(gas_phase_ptr->Get_total_moles() * R_LITER_ATM * tk_x /
+			gas_phase_ptr->Get_total_p());
+		if (PR)
+			gas_phase_ptr->Set_volume(gas_phase_ptr->Get_v_m() * gas_unknown->moles);
+	}
+/*
+ *   Print heading
+ */
+	print_centered("Gas phase");
+	//output_msg(OUTPUT_MESSAGE, "\n");
+	output_msg(sformatf("Total pressure: %5.2f      atmospheres",
+			   (double) gas_phase_ptr->Get_total_p()));
+	if (PR)
+		output_msg("          (Peng-Robinson calculation)\n");
+	else if (gas_phase_ptr->Get_total_p() >= 1500)
+		output_msg(" WARNING: Program's limit.\n");
+	else
+		output_msg(" \n");
+	output_msg(sformatf("    Gas volume: %10.2e liters\n",
+			   (double) gas_phase_ptr->Get_volume()));
+	if(gas_phase_ptr->Get_total_moles() > 0)
+		output_msg(sformatf("  Molar volume: %10.2e liters/mole",
+			   (double) gas_phase_ptr->Get_volume() / gas_phase_ptr->Get_total_moles()));
+	if ((PR && gas_phase_ptr->Get_volume() / gas_phase_ptr->Get_total_moles() <= 0.035) || (PR && gas_phase_ptr->Get_v_m() <= 0.035))
+		output_msg(" WARNING: Program's limit for Peng-Robinson.\n");
+	else
+		output_msg("\n");
+	if (PR)
+	output_msg(sformatf( "   P * Vm / RT: %8.5f  (Compressibility Factor Z) \n",
+				   (double) gas_phase_ptr->Get_total_p() * gas_phase_ptr->Get_v_m() / (R_LITER_ATM * tk_x)));
+
+
+	output_msg(sformatf("\n%68s\n%78s\n", "Moles in gas",
+			   "----------------------------------"));
+	if (gas_phase_ptr->Get_v_m() >= 0.035)
+		output_msg(sformatf( "%-11s%12s%12s%7s%12s%12s%12s\n\n", "Component",
+			   "log P", "P", "phi", "Initial", "Final", "Delta"));
+	else
+		output_msg(sformatf("%-18s%12s%12s%12s%12s%12s\n\n", "Component",
+			   "log P", "P", "Initial", "Final", "Delta"));
+
+	for (size_t j = 0; j < gas_phase_ptr->Get_gas_comps().size(); j++)
+	//for (j = 0; j < use.gas_phase_ptr->count_comps; j++)
+	{
+/*
+ *   Calculate partial pressure
+ */ 
+		cxxGasComp *gc_ptr = &(gas_phase_ptr->Get_gas_comps()[j]);
+		int k;
+		struct phase *phase_ptr = phase_bsearch(gc_ptr->Get_phase_name().c_str(), &k, FALSE);
+		if (phase_ptr->in == TRUE)
+		{
+			lp = -phase_ptr->lk;
+			for (rxn_ptr =
+				 phase_ptr->rxn_x->token + 1;
+				 rxn_ptr->s != NULL; rxn_ptr++)
+			{
+				lp += rxn_ptr->s->la * rxn_ptr->coef;
+			}
+			lp -= phase_ptr->pr_si_f;
+			moles = phase_ptr->moles_x;
+		}
+		else
+		{
+			lp = -99.99;
+			moles = 0;
+			phase_ptr->p_soln_x = 0;
+		}
+/*
+ *   Print gas composition
+ */
+		if (state != TRANSPORT && state != PHAST)
+		{
+			initial_moles = gc_ptr->Get_moles();
+			delta_moles = phase_ptr->moles_x - gc_ptr->Get_moles();
+		}
+		else
+		{
+			initial_moles = gc_ptr->Get_initial_moles();
+			delta_moles = gc_ptr->Get_initial_moles() -
+				gc_ptr->Get_moles();
+		}
+		if (moles <= MIN_TOTAL)
+			moles = 0.0;
+		if (fabs(delta_moles) <= MIN_TOTAL)
+			delta_moles = 0.0;
+		if (PR)
+			output_msg(sformatf("%-11s%12.2f%12.3e%7.3f%12.3e%12.3e%12.3e\n",
+				   phase_ptr->name,
+				   (double) lp,
+				   (double) phase_ptr->p_soln_x,
+				   (double) phase_ptr->pr_phi,
+				   (double) initial_moles, 
+				   (double) moles,
+				   (double) delta_moles));
+		else
+			output_msg(sformatf("%-18s%12.2f%12.3e%12.3e%12.3e%12.3e\n",
+				   phase_ptr->name,
+				   (double) lp,
+				   (double) phase_ptr->p_soln_x,
+				   (double) initial_moles, 
+				   (double) moles,
+				   (double) delta_moles));
+
+	}
+	output_msg("\n");
+	return (OK);
+}
+#ifdef SKIP
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+print_gas_phase(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Prints gas phase composition if present
+ */
 	int j;
 	LDBLE lp, moles, initial_moles, delta_moles;
 	struct rxn_token *rxn_ptr;
@@ -755,7 +900,7 @@ print_gas_phase(void)
 	output_msg("\n");
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 print_s_s_assemblage(void)
@@ -879,7 +1024,67 @@ print_s_s_assemblage(void)
 	output_msg(sformatf("\n"));
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+ int Phreeqc::
+print_reaction(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   prints irreversible reaction as defined and as
+ *   relative moles of each element and total amount
+ *   of reaction
+ */
+	cxxReaction *reaction_ptr;
+	if (pr.use == FALSE || pr.all == FALSE)
+		return (OK);
+	if (state < REACTION || use.reaction_in == FALSE)
+		return (OK);
+	if (state == TRANSPORT && transport_step == 0)
+		return (OK);
+	reaction_ptr = (cxxReaction *) use.reaction_ptr;
+/*
+ *  Print amount of reaction
+ */
+	output_msg(sformatf("Reaction %d.\t%s\n\n", use.n_reaction_user,
+			   reaction_ptr->Get_description().c_str()));
+	output_msg(sformatf(
+			   "\t%11.3e moles of the following reaction have been added:\n\n",
+			   (double) step_x));
+/*
+ *  Print reaction
+ */
+	output_msg(sformatf("\t%-15s%10s\n", " ", "Relative"));
+	output_msg(sformatf("\t%-15s%10s\n\n", "Reactant", "moles"));
+	//for (i = 0; i < irrev_ptr->count_list; i++)
+	cxxNameDouble::const_iterator cit = reaction_ptr->Get_reactantList().begin();
+	for ( ; cit != reaction_ptr->Get_reactantList().end(); cit++)
+	{
+		//output_msg(sformatf("\t%-15s%13.5f\n",
+		//		   irrev_ptr->list[i].name, (double) irrev_ptr->list[i].coef));
+		output_msg(sformatf("\t%-15s%13.5f\n",
+				   cit->first.c_str(), (double) cit->second));
+	}
+	output_msg(sformatf("\n"));
+/*
+ *   Debug
+ */
 
+	output_msg(sformatf("\t%-15s%10s\n", " ", "Relative"));
+	output_msg(sformatf("\t%-15s%10s\n", "Element", "moles"));
+	//for (i = 0; irrev_ptr->elts[i].elt != NULL; i++)
+	cit = reaction_ptr->Get_elementList().begin();
+	for ( ; cit != reaction_ptr->Get_elementList().end(); cit++)
+	{
+		struct element * elt_ptr = element_store(cit->first.c_str());
+		assert(elt_ptr);
+		output_msg(sformatf("\t%-15s%13.5f\n",
+				   elt_ptr->name,
+				   (double) cit->second));
+	}
+	output_msg(sformatf("\n"));
+	return (OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
  int Phreeqc::
 print_irrev(void)
@@ -934,7 +1139,7 @@ print_irrev(void)
 	output_msg(sformatf("\n"));
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
  int Phreeqc::
 print_kinetics(void)
@@ -1302,7 +1507,8 @@ print_saturation_indices(void)
 /* If a fixed pressure gas-phase disappeared, no PR for the SI's of gases... */
 	if (use.gas_phase_ptr != NULL)
 	{
-		if (use.gas_phase_ptr->type == PRESSURE)
+		cxxGasPhase * gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+		if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_PRESSURE)
 		{
 			if (gas_unknown == NULL || gas_unknown->moles < 1e-12)
 				gas = false;
@@ -2387,8 +2593,8 @@ print_using(void)
 	struct surface *surface_ptr;
 	struct pp_assemblage *pp_assemblage_ptr;
 	struct s_s_assemblage *s_s_assemblage_ptr;
-	struct gas_phase *gas_phase_ptr;
-	struct irrev *irrev_ptr;
+	//struct gas_phase *gas_phase_ptr;
+	//struct irrev *irrev_ptr;
 	struct kinetics *kinetics_ptr;
 	int n;
 
@@ -2479,9 +2685,10 @@ print_using(void)
 	}
 	if (use.gas_phase_in == TRUE)
 	{
-		gas_phase_ptr = gas_phase_bsearch(use.n_gas_phase_user, &n);
+		//gas_phase_ptr = gas_phase_bsearch(use.n_gas_phase_user, &n);
+		cxxGasPhase * gas_phase_ptr = Utilities::Rxn_find(Rxn_gas_phase_map, use.n_gas_phase_user);
 		output_msg(sformatf("Using gas phase %d.\t%s\n",
-				   use.n_gas_phase_user, gas_phase_ptr->description));
+				   use.n_gas_phase_user, gas_phase_ptr->Get_description().c_str()));
 	}
 	if (use.temperature_in == TRUE)
 	{
@@ -2495,13 +2702,14 @@ print_using(void)
 		output_msg(sformatf("Using pressure %d.\t%s\n",
 				   use.n_pressure_user, pressure_ptr->Get_description().c_str()));
 	}
-	if (use.irrev_in == TRUE)
+	if (use.reaction_in == TRUE)
 	{
 		if (state != TRANSPORT || transport_step > 0)
 		{
-			irrev_ptr = irrev_bsearch(use.n_irrev_user, &n);
+			//irrev_ptr = irrev_bsearch(use.n_irrev_user, &n);
+			cxxReaction *reaction_ptr = Utilities::Rxn_find(Rxn_reaction_map, use.n_reaction_user); 
 			output_msg(sformatf("Using reaction %d.\t%s\n",
-					   use.n_irrev_user, irrev_ptr->description));
+					   use.n_reaction_user, reaction_ptr->Get_description().c_str()));
 		}
 	}
 	if (use.kinetics_in == TRUE)
@@ -2529,7 +2737,7 @@ punch_gas_phase(void)
 /*
  *   Prints selected gas phase data
  */
-	int i, j;
+	int i;
 	LDBLE p, total_moles, volume;
 	LDBLE moles;
 
@@ -2538,21 +2746,21 @@ punch_gas_phase(void)
 	p = 0.0;
 	total_moles = 0.0;
 	volume = 0.0;
+	cxxGasPhase * gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
 	if (gas_unknown != NULL && use.gas_phase_ptr != NULL)
 	{
-		if (use.gas_phase_ptr->type == PRESSURE)
+		if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_PRESSURE)
 		{
-			use.gas_phase_ptr->total_moles = gas_unknown->moles;
-			use.gas_phase_ptr->volume =
-				use.gas_phase_ptr->total_moles * R_LITER_ATM * tk_x /
-				use.gas_phase_ptr->total_p;
+			gas_phase_ptr->Set_total_moles(gas_unknown->moles);
+			gas_phase_ptr->Set_volume(
+				gas_phase_ptr->Get_total_moles() * R_LITER_ATM * tk_x /
+				gas_phase_ptr->Get_total_p());
 		}
-		p = use.gas_phase_ptr->total_p;
-		total_moles = use.gas_phase_ptr->total_moles;
-		volume =
-			total_moles * R_LITER_ATM * tk_x / use.gas_phase_ptr->total_p;
- 		if (use.gas_phase_ptr->v_m >= 0.035)
- 			volume = use.gas_phase_ptr->v_m >= 0.035 * use.gas_phase_ptr->total_moles;
+		p = gas_phase_ptr->Get_total_p();
+		total_moles = gas_phase_ptr->Get_total_moles();
+		volume = total_moles * R_LITER_ATM * tk_x / gas_phase_ptr->Get_total_p();
+ 		if (gas_phase_ptr->Get_v_m() >= 0.035)
+ 			volume = (gas_phase_ptr->Get_v_m() >= 0.035) * gas_phase_ptr->Get_total_moles();
 	}
 	if (punch.high_precision == FALSE)
 	{
@@ -2569,14 +2777,17 @@ punch_gas_phase(void)
 	for (i = 0; i < punch.count_gases; i++)
 	{
 		moles = 0.0;
-		if (use.gas_phase_ptr != NULL && punch.gases[i].phase != NULL)
+		if (gas_phase_ptr != NULL && punch.gases[i].phase != NULL)
 		{
-			for (j = 0; j < use.gas_phase_ptr->count_comps; j++)
+			for (size_t j = 0; j < gas_phase_ptr->Get_gas_comps().size(); j++)
+			//for (j = 0; j < use.gas_phase_ptr->count_comps; j++)
 			{
-
-				if (use.gas_phase_ptr->comps[j].phase != punch.gases[i].phase)
+				cxxGasComp *gc_ptr = &(gas_phase_ptr->Get_gas_comps()[j]);
+				int k;
+				struct phase *phase_ptr = phase_bsearch(gc_ptr->Get_phase_name().c_str() , &k, FALSE);
+				if (phase_ptr != punch.gases[i].phase)
 					continue;
-				moles = use.gas_phase_ptr->comps[j].phase->moles_x;
+				moles = phase_ptr->moles_x;
 				if (moles <= MIN_TOTAL)
 					moles = 0.0;
 				break;
@@ -3122,7 +3333,7 @@ punch_identifiers(void)
 	}
 	if (punch.rxn == TRUE)
 	{
-		if (state >= REACTION && use.irrev_in == TRUE)
+		if (state >= REACTION && use.reaction_in == TRUE)
 		{
 			if (punch.high_precision == FALSE)
 			{

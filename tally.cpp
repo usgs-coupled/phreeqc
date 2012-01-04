@@ -3,8 +3,8 @@
 #include "phqalloc.h"
 #include "Temperature.h"
 #include "Exchange.h"
-
-
+#include "GasPhase.h"
+#include "Reaction.h"
 
 /*   
      Calling sequence 
@@ -378,12 +378,12 @@ fill_tally_table(int *n_user, int index_conservative, int n_buffer)
  */
 	int i, j, k, n;
 	struct solution *solution_ptr;
-	struct irrev *irrev_ptr;
+	//struct irrev *irrev_ptr;
 	struct pp_assemblage *pp_assemblage_ptr;
 	//struct exchange *exchange_ptr;
 	struct surface *surface_ptr;
 	struct s_s_assemblage *s_s_assemblage_ptr;
-	struct gas_phase *gas_phase_ptr;
+	//struct gas_phase *gas_phase_ptr;
 	struct kinetics *kinetics_ptr;
 	struct kinetics_comp *kinetics_comp_ptr;
 	int found;
@@ -444,6 +444,25 @@ fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 			 */
 			if (n_user[Reaction] < 0)
 				break;
+			{
+				cxxReaction *reaction_ptr = Utilities::Rxn_find(Rxn_reaction_map, n_user[Reaction]);
+				if (reaction_ptr == NULL)
+					break;
+				count_elts = 0;
+				paren_count = 0;
+				if (n_buffer == 1)
+				{
+					moles = reaction_ptr->Get_steps()[0];
+				}
+				else
+				{
+					moles = 0.0;
+				}
+				reaction_calc(reaction_ptr);
+				add_elt_list(reaction_ptr->Get_elementList(), moles);
+				elt_list_to_tally_table(tally_table[i].total[n_buffer]);
+			}
+#ifdef SKIP
 			irrev_ptr = irrev_bsearch(n_user[Reaction], &n);
 			if (irrev_ptr == NULL)
 				break;
@@ -459,6 +478,7 @@ fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 			}
 			add_elt_list(irrev_ptr->elts, moles);
 			elt_list_to_tally_table(tally_table[i].total[n_buffer]);
+#endif
 			break;
 		case Pure_phase:
 			/*
@@ -581,7 +601,35 @@ fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 			 */
 			if (n_user[Gas_phase] < 0)
 				break;
-			gas_phase_ptr = gas_phase_bsearch(n_user[Gas_phase], &n);
+			{
+				//gas_phase_ptr = gas_phase_bsearch(n_user[Gas_phase], &n);
+				cxxGasPhase * gas_phase_ptr = Utilities::Rxn_find(Rxn_gas_phase_map, n_user[Gas_phase]);
+				if (gas_phase_ptr == NULL)
+					break;
+				count_elts = 0;
+				paren_count = 0;
+				const std::vector<cxxGasComp> *gc = &(gas_phase_ptr->Get_gas_comps());
+				for (size_t l = 0; l < gc->size(); l++)
+				{
+					struct phase *phase_ptr = phase_bsearch((*gc)[l].Get_phase_name().c_str(), &k, FALSE);
+
+					add_elt_list(phase_ptr->next_elt,
+						(*gc)[l].Get_moles());
+				}
+				qsort(elt_list, (size_t) count_elts,
+					(size_t) sizeof(struct elt_list), elt_list_compare);
+				elt_list_combine();
+				elt_list_to_tally_table(tally_table[i].total[n_buffer]);
+				break;
+			}
+#ifdef SKIP
+			/*
+			 *   fill in gas phase
+			 */
+			if (n_user[Gas_phase] < 0)
+				break;
+			//gas_phase_ptr = gas_phase_bsearch(n_user[Gas_phase], &n);
+
 			if (gas_phase_ptr == NULL)
 				break;
 			count_elts = 0;
@@ -596,6 +644,7 @@ fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 			elt_list_combine();
 			elt_list_to_tally_table(tally_table[i].total[n_buffer]);
 			break;
+#endif
 		case Kinetics:
 			/*
 			 *   fill in kinetics
@@ -745,7 +794,8 @@ build_tally_table(void)
 /*
  *   add one for reactions
  */
-	if (count_irrev > 0)
+	//if (count_irrev > 0)
+	if (Rxn_reaction_map.size() > 0)
 	{
 		count_tt_reaction = 1;
 		n = count_tally_table_columns;
@@ -804,7 +854,8 @@ build_tally_table(void)
 /*
  *   add one for gases
  */
-	if (count_gas_phase > 0)
+	//if (count_gas_phase > 0)
+	if (Rxn_gas_phase_map.size() > 0)
 	{
 		count_tt_gas_phase = 1;
 		n = count_tally_table_columns;
@@ -1052,10 +1103,19 @@ add_all_components_tally(void)
 /*
  *   add all irrev reactions
  */
+	{
+		std::map<int, cxxReaction>::iterator it = Rxn_reaction_map.begin();
+		for (; it != Rxn_reaction_map.end(); it++)
+		{
+			add_reaction(&it->second, 1, 1.0);
+		}
+	}
+#ifdef SKIP
 	for (i = 0; i < count_irrev; i++)
 	{
 		add_reaction(&irrev[i], 1, 1.0);
 	}
+#endif
 /*
  *   Add pure phases
  */
@@ -1066,10 +1126,12 @@ add_all_components_tally(void)
 /*
  *   Exchangers
  */
-	std::map<int, cxxExchange>::iterator it = Rxn_exchange_map.begin();
-	for (; it != Rxn_exchange_map.end(); it++)
 	{
-		add_exchange(&it->second);
+		std::map<int, cxxExchange>::iterator it = Rxn_exchange_map.begin();
+		for (; it != Rxn_exchange_map.end(); it++)
+		{
+			add_exchange(&it->second);
+		}
 	}
 #ifdef SKIP
 	for (i = 0; i < count_exchange; i++)
@@ -1087,10 +1149,19 @@ add_all_components_tally(void)
 /*
  *   Gases
  */
+	{
+		std::map<int, cxxGasPhase>::iterator it = Rxn_gas_phase_map.begin();
+		for ( ; it != Rxn_gas_phase_map.end(); it++)
+		{
+			add_gas_phase(&it->second);
+		}
+	}
+#ifdef SKIP
 	for (i = 0; i < count_gas_phase; i++)
 	{
 		add_gas_phase(&gas_phase[i]);
 	}
+#endif
 /*
  *   Add solid-solution pure phases
  */
@@ -1212,14 +1283,14 @@ int Phreeqc::
 set_reaction_moles(int n_user, LDBLE moles)
 /* ---------------------------------------------------------------------- */
 {
-	int n;
-	struct irrev *irrev_ptr;
-
-	irrev_ptr = irrev_bsearch(n_user, &n);
-	if (irrev_ptr == NULL)
+	cxxReaction *reaction_ptr = Utilities::Rxn_find(Rxn_reaction_map, n_user);
+	if (reaction_ptr == NULL)
 		return (ERROR);
-	irrev_ptr->steps[0] = moles;
-	irrev_ptr->count_steps = 1;
+	std::vector<LDBLE> v;
+	v.push_back(moles);
+	reaction_ptr->Set_steps(v);
+	reaction_ptr->Set_countSteps(1);
+	reaction_ptr->Set_equalIncrements(true);
 	return (OK);
 }
 

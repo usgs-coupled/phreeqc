@@ -94,7 +94,38 @@ check_line_impl(const char *string, int allow_empty, int allow_eof,
 	check_line_return = i;
 	return (i);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+get_line(void)
+/* ---------------------------------------------------------------------- */
+{
+	PHRQ_io::LINE_TYPE j = phrq_io->get_line();
+	// check_key sets next_keyword
+	//int return_value = check_key(parser.line().c_str());
+	next_keyword = phrq_io->Get_m_next_keyword();
 
+
+	// copy parser line to line and line_save
+	// make sure there is enough space
+	size_t l1 = strlen(phrq_io->Get_m_line().c_str()) + 1;
+	size_t l2 = strlen(phrq_io->Get_m_line_save().c_str()) + 1;
+	size_t l = (l1 > l2) ? l1 : l2;
+	if (l >= (size_t) max_line)
+	{
+		max_line = l * 2;
+		line_save =	(char *) PHRQ_realloc(line_save,
+			(size_t) max_line * sizeof(char));
+		if (line_save == NULL)
+			malloc_error();
+		line = (char *) PHRQ_realloc(line, (size_t) max_line * sizeof(char));
+		if (line == NULL)
+			malloc_error();
+	}
+	strcpy(line, phrq_io->Get_m_line().c_str());
+	strcpy(line_save, phrq_io->Get_m_line_save().c_str());
+	return j;
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 get_line(void)
@@ -338,3 +369,4 @@ add_char_to_line(int *i, char c)
 	*i += 1;
 	return (OK);
 }
+#endif

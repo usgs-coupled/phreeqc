@@ -11,7 +11,8 @@
 #include "Temperature.h"
 #include "cxxMix.h"
 #include "Exchange.h"
-
+#include "GasPhase.h"
+#include "Reaction.h"
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 step(LDBLE step_fraction)
@@ -59,9 +60,10 @@ step(LDBLE step_fraction)
 /*
  *   Reaction
  */
-	if (use.irrev_ptr != NULL)
+	if (use.reaction_ptr != NULL)
 	{
-		add_reaction(use.irrev_ptr, step_number, step_fraction);
+		//add_reaction(use.irrev_ptr, step_number, step_fraction);
+		add_reaction( (cxxReaction *)use.reaction_ptr, step_number, step_fraction);
 	}
 /*
  *   Kinetics
@@ -89,7 +91,8 @@ step(LDBLE step_fraction)
  */
 	if (use.gas_phase_ptr != NULL)
 	{
-		add_gas_phase(use.gas_phase_ptr);
+		cxxGasPhase * gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+		add_gas_phase(gas_phase_ptr);
 	}
 /*
  *   Temperature
@@ -152,7 +155,8 @@ step(LDBLE step_fraction)
  */
 	if (use.gas_phase_ptr != NULL)
 	{
-		gas_phase_check(use.gas_phase_ptr);
+		cxxGasPhase * gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+		gas_phase_check(gas_phase_ptr);
 	}
 	if (use.pp_assemblage_ptr != NULL)
 	{
@@ -929,7 +933,143 @@ check_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr)
 	}
 	return (TRUE);
 }
+ /* ---------------------------------------------------------------------- */
+int Phreeqc::
+add_reaction(cxxReaction *reaction_ptr, int step_number, LDBLE step_fraction)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Add irreversible reaction
+ */
+	char c;
+	struct master *master_ptr;
+/*
+ *   Calculate and save reaction
+ */
+/* !!!!! with kinetics reaction, coeff's may change 
+ *       and reaction_calc must be called ....
+ */
+	if (reaction_ptr == NULL)
+		return OK;
 
+	reaction_calc(reaction_ptr);
+
+/*
+ *   Step size
+ */
+	if (incremental_reactions == FALSE)
+	{
+		//if (irrev_ptr->count_steps > 0)
+		if (!reaction_ptr->Get_equalIncrements() && reaction_ptr->Get_steps().size()> 0 )
+		{
+			if (step_number > (int) reaction_ptr->Get_steps().size())
+			{
+				step_x = reaction_ptr->Get_steps()[reaction_ptr->Get_steps().size() - 1];
+			}
+			else
+			{
+				step_x = reaction_ptr->Get_steps()[step_number - 1];
+			}
+		}
+		else if (reaction_ptr->Get_equalIncrements() && reaction_ptr->Get_steps().size()> 0)
+		{
+			if (step_number > (int) reaction_ptr->Get_actualSteps())
+			{
+				step_x = reaction_ptr->Get_steps()[0];
+			}
+			else
+			{
+				step_x = reaction_ptr->Get_steps()[0] *
+					((LDBLE) step_number) /
+					((LDBLE) (reaction_ptr->Get_actualSteps()));
+			}
+		}
+		else
+		{
+			step_x = 0.0;
+		}
+	}
+	else
+	{
+		/* Incremental reactions */
+		if (!reaction_ptr->Get_equalIncrements() && reaction_ptr->Get_steps().size()> 0)
+		{
+			if (step_number > (int) reaction_ptr->Get_actualSteps())
+			{
+				step_x = reaction_ptr->Get_steps()[reaction_ptr->Get_actualSteps() - 1];
+			}
+			else
+			{
+				step_x = reaction_ptr->Get_steps()[step_number - 1];
+			}
+		}
+		else if (reaction_ptr->Get_equalIncrements() && reaction_ptr->Get_steps().size()> 0)
+		{
+			if (step_number > (int) reaction_ptr->Get_actualSteps())
+			{
+				step_x = 0;
+			}
+			else
+			{
+				step_x = reaction_ptr->Get_steps()[0] / ((LDBLE) (reaction_ptr->Get_actualSteps()));
+			}
+		}
+		else
+		{
+			step_x = 0.0;
+		}
+	}
+/*
+ *   Convert units
+ */
+	//c = irrev_ptr->units[0];
+	c = reaction_ptr->Get_units().c_str()[0];
+	if (c == 'm')
+	{
+		step_x *= 1e-3;
+	}
+	else if (c == 'u')
+	{
+		step_x *= 1e-6;
+	}
+	else if (c == 'n')
+	{
+		step_x *= 1e-9;
+	}
+/*
+ *   Add reaction to totals
+ */
+	//for (i = 0; irrev_ptr->elts[i].elt != NULL; i++)
+	cxxNameDouble::const_iterator it = reaction_ptr->Get_elementList().begin();
+	for ( ; it != reaction_ptr->Get_elementList().end(); it++)
+	{
+		struct element * elt_ptr = element_store(it->first.c_str());
+		LDBLE coef = it->second;
+		if (elt_ptr == NULL)
+		{
+			assert (false);
+		}
+		master_ptr = elt_ptr->primary;
+		if (master_ptr == NULL)
+		{
+			assert (false);
+		}
+		if (master_ptr->s == s_hplus)
+		{
+			total_h_x += coef * step_x * step_fraction;
+		}
+		else if (master_ptr->s == s_h2o)
+		{
+			total_o_x += coef * step_x * step_fraction;
+		}
+		else
+		{
+			master_ptr->total += coef * step_x * step_fraction;
+		}
+	}
+	return (OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 add_reaction(struct irrev *irrev_ptr, int step_number, LDBLE step_fraction)
@@ -1057,7 +1197,75 @@ add_reaction(struct irrev *irrev_ptr, int step_number, LDBLE step_fraction)
 	}
 	return (OK);
 }
+#endif
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+reaction_calc(cxxReaction *reaction_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *    Go through irreversible reaction initially to
+ *    determine a list of elements and amounts in 
+ *    the reaction.
+ */
+	//int i, j, 
+	int return_value;
+	LDBLE coef;
+	//char token[MAX_LENGTH];
+	char *ptr;
+	struct phase *phase_ptr;
+/*
+ *   Go through list and generate list of elements and
+ *   coefficient of elements in reaction
+ */
+	return_value = OK;
+	count_elts = 0;
+	paren_count = 0;
 
+	cxxNameDouble nd(reaction_ptr->Get_reactantList());
+	cxxNameDouble::iterator it;
+	for (it = nd.begin(); it != nd.end(); it++)
+	{
+		coef = it->second;
+		int j;
+		phase_ptr = phase_bsearch(it->first.c_str(), &j, FALSE);
+/*
+ *   Reactant is a pure phase, copy formula into token
+ */
+		if (phase_ptr != NULL)
+		{
+			add_elt_list(phase_ptr->next_elt, coef);
+		}
+		else
+		{
+			//ptr = &(token[0]);
+			char * token = string_duplicate(it->first.c_str());
+			ptr = token;
+			get_elts_in_species(&ptr, coef);
+			free_check_null(token);
+		}
+	}
+/*
+ *   Check that all elements are in database
+ */
+	for (int i = 0; i < count_elts; i++)
+	{
+		if (elt_list[i].elt->master == NULL)
+		{
+			error_string = sformatf(
+					"Element or phase not defined in database, %s.",
+					elt_list[i].elt->name);
+			error_msg(error_string, CONTINUE);
+			input_error++;
+			return_value = ERROR;
+		}
+	}
+	//irrev_ptr->elts = elt_list_save();
+	reaction_ptr->Set_elementList(elt_list_NameDouble());
+
+	return (return_value);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
  int Phreeqc::
 reaction_calc(struct irrev *irrev_ptr)
@@ -1118,7 +1326,76 @@ reaction_calc(struct irrev *irrev_ptr)
 
 	return (return_value);
 }
+#endif
 
+ /* ---------------------------------------------------------------------- */
+int Phreeqc::
+add_gas_phase(cxxGasPhase *gas_phase_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Accumulate gas data in master->totals and _x variables.
+ */
+	int i;
+
+	//struct gas_comp *gas_comp_ptr;
+	struct master *master_ptr;
+
+	if (gas_phase_ptr == NULL)
+		return (OK);
+	//gas_comp_ptr = gas_phase_ptr->comps;
+/*
+ *   calculate reaction
+ */
+	count_elts = 0;
+	paren_count = 0;
+	//for (i = 0; i < gas_phase_ptr->count_comps; i++)
+	for (size_t i = 0; i < gas_phase_ptr->Get_gas_comps().size(); i++)
+	{
+		cxxGasComp *gc_ptr = &(gas_phase_ptr->Get_gas_comps()[i]);
+		int k;
+		struct phase *phase_ptr = phase_bsearch(gc_ptr->Get_phase_name().c_str() , &k, FALSE);
+		assert(phase_ptr);
+
+		add_elt_list(phase_ptr->next_elt, gc_ptr->Get_moles());
+	}
+/*
+ *   Sort elements in reaction and combine
+ */
+	if (count_elts > 0)
+	{
+		qsort(elt_list, (size_t) count_elts,
+			  (size_t) sizeof(struct elt_list), elt_list_compare);
+		elt_list_combine();
+	}
+/*
+ *   Add gas elements to totals
+ */
+	for (i = 0; i < count_elts; i++)
+	{
+		master_ptr = elt_list[i].elt->primary;
+		if (master_ptr->s == s_hplus)
+		{
+			total_h_x += elt_list[i].coef;
+		}
+		else if (master_ptr->s == s_h2o)
+		{
+			total_o_x += elt_list[i].coef;
+		}
+		else
+		{
+			master_ptr->total += elt_list[i].coef;
+		}
+	}
+	if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_PRESSURE && fabs(gas_phase_ptr->Get_total_p() - patm_x) > 0.01)
+	{
+		same_pressure = FALSE;
+		patm_x = gas_phase_ptr->Get_total_p();
+		k_temp(tc_x, patm_x);
+	}
+	return (OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 add_gas_phase(struct gas_phase *gas_phase_ptr)
@@ -1180,7 +1457,7 @@ add_gas_phase(struct gas_phase *gas_phase_ptr)
 	}
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 add_s_s_assemblage(struct s_s_assemblage *s_s_assemblage_ptr)
@@ -1317,7 +1594,69 @@ add_kinetics(struct kinetics *kinetics_ptr)
 	}
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+gas_phase_check(cxxGasPhase *gas_phase_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Check for missing elements
+ */
+	//int i, j;
 
+	//struct gas_comp *gas_comp_ptr;
+	struct master *master_ptr;
+
+	if (gas_phase_ptr == NULL)
+		return (OK);
+	//gas_comp_ptr = gas_phase_ptr->comps;
+/*
+ *   Check that all elements are in solution for phases with zero mass
+ */
+	for (size_t i = 0; i < gas_phase_ptr->Get_gas_comps().size(); i++)
+	//for (i = 0; i < gas_phase_ptr->count_comps; i++)
+	{
+		cxxGasComp *gc_ptr = &(gas_phase_ptr->Get_gas_comps()[i]);
+		int k;
+		struct phase *phase_ptr = phase_bsearch(gc_ptr->Get_phase_name().c_str() , &k, FALSE);
+		count_elts = 0;
+		paren_count = 0;
+		if (gc_ptr->Get_moles() <= 0.0)
+		{
+			add_elt_list(phase_ptr->next_elt, 1.0);
+			for (int j = 0; j < count_elts; j++)
+			{
+				master_ptr = elt_list[j].elt->primary;
+				if (master_ptr->s == s_hplus)
+				{
+					continue;
+				}
+				else if (master_ptr->s == s_h2o)
+				{
+					continue;
+				}
+				else if (master_ptr->total > MIN_TOTAL)
+				{
+					continue;
+				}
+				else
+				{
+					if (state != ADVECTION && state != TRANSPORT
+						&& state != PHAST)
+					{
+						error_string = sformatf(
+								"Element %s is contained in gas %s (which has 0.0 mass),\nbut is not in solution or other phases.",
+								elt_list[j].elt->name,
+								phase_ptr->name);
+						warning_msg(error_string);
+					}
+				}
+			}
+		}
+	}
+	return (OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 gas_phase_check(struct gas_phase *gas_phase_ptr)
@@ -1376,6 +1715,7 @@ gas_phase_check(struct gas_phase *gas_phase_ptr)
 	}
 	return (OK);
 }
+#endif
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::

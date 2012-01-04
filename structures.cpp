@@ -6,7 +6,8 @@
 #include "Temperature.h"
 #include "cxxMix.h"
 #include "Exchange.h"
-
+#include "GasPhase.h"
+#include "Reaction.h"
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -115,13 +116,13 @@ clean_up(void)
 		(struct s_s_assemblage *) free_check_null(s_s_assemblage);
 
 /* irreversible reactions */
-
+#ifdef SKIP
 	for (j = 0; j < count_irrev; j++)
 	{
 		irrev_free(&irrev[j]);
 	}
 	irrev = (struct irrev *) free_check_null(irrev);
-
+#endif
 /* temperature */
 	Rxn_temperature_map.clear();
 /* pressure */
@@ -137,13 +138,13 @@ clean_up(void)
 
 /* mixtures */
 	Rxn_mix_map.clear();
-
-	//for (j = 0; j < count_mix; j++)
-	//{
-	//	mix_free(&mix[j]);
-	//}
-	//mix = (struct mix *) free_check_null(mix);
-
+#ifdef SKIP
+	for (j = 0; j < count_mix; j++)
+	{
+		mix_free(&mix[j]);
+	}
+	mix = (struct mix *) free_check_null(mix);
+#endif
 /* phases */
 
 	for (j = 0; j < count_phases; j++)
@@ -161,11 +162,14 @@ clean_up(void)
 	inverse = (struct inverse *) free_check_null(inverse);
 
 /* gases */
+	Rxn_gas_phase_map.clear();
+#ifdef SKIP
 	for (j = 0; j < count_gas_phase; j++)
 	{
 		gas_phase_free(&gas_phase[j]);
 	};
 	gas_phase = (struct gas_phase *) free_check_null(gas_phase);
+#endif
 
 /* kinetics */
 	for (j = 0; j < count_kinetics; j++)
@@ -259,7 +263,7 @@ clean_up(void)
 	copier_free(&copy_gas_phase);
 	copier_free(&copy_kinetics);
 	copier_free(&copy_mix);
-	copier_free(&copy_irrev);
+	copier_free(&copy_reaction);
 	copier_free(&copy_temperature);
 	copier_free(&copy_pressure);
 
@@ -389,12 +393,12 @@ clean_up(void)
 	count_pp_assemblage = 0;
 	//count_exchange = 0;
 	count_surface = 0;
-	count_gas_phase = 0;
+	//count_gas_phase = 0;
 	count_kinetics = 0;
 	count_s_s_assemblage = 0;
 
 	count_elements = 0;
-	count_irrev = 0;
+	//count_irrev = 0;
 	count_master = 0;
 	//count_mix = 0;
 	count_phases = 0;
@@ -418,7 +422,6 @@ clean_up(void)
 
 	return (OK);
 }
-
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 reinitialize(void)
@@ -467,11 +470,14 @@ reinitialize(void)
 	count_s_s_assemblage = 0;
 
 /* gases */
+	Rxn_gas_phase_map.clear();
+#ifdef SKIP
 	for (j = 0; j < count_gas_phase; j++)
 	{
 		gas_phase_free(&gas_phase[j]);
 	};
 	count_gas_phase = 0;
+#endif
 
 /* kinetics */
 	for (j = 0; j < count_kinetics; j++)
@@ -481,13 +487,13 @@ reinitialize(void)
 	count_kinetics = 0;
 
 /* irreversible reactions */
-
+#ifdef SKIP
 	for (j = 0; j < count_irrev; j++)
 	{
 		irrev_free(&irrev[j]);
 	}
 	count_irrev = 0;
-
+#endif
 	// Temperature
 	Rxn_temperature_map.clear();
 
@@ -1198,6 +1204,7 @@ exchange_sort(void)
 	return (OK);
 }
 #endif
+#ifdef SKIP
 /* **********************************************************************
  *
  *   Routines related to structure "gas"
@@ -1609,7 +1616,7 @@ gas_phase_sort(void)
 	}
 	return (OK);
 }
-
+#endif
 /* **********************************************************************
  *
  *   Routines related to structure "inverse"
@@ -1886,7 +1893,7 @@ inverse_sort(void)
 	}
 	return (OK);
 }
-
+#ifdef SKIP
 /* **********************************************************************
  *
  *   Routines related to structure "irrev"
@@ -2252,7 +2259,7 @@ irrev_sort(void)
 	}
 	return (OK);
 }
-
+#endif
 /* **********************************************************************
  *
  *   Routines related to structure "kinetics"
@@ -7258,7 +7265,7 @@ unknown_alloc(void)
 	unknown_ptr->master = NULL;
 	unknown_ptr->phase = NULL;
 	unknown_ptr->si = 0.0;
-	unknown_ptr->gas_phase = NULL;
+	//unknown_ptr->gas_phase = NULL;
 	unknown_ptr->total = NULL;
 	unknown_ptr->s = NULL;
 	unknown_ptr->exch_comp = NULL;
@@ -7343,8 +7350,11 @@ system_duplicate(int i, int save_old)
 #endif
 	if (surface_bsearch(i, &n) != NULL)
 		surface_duplicate(i, save_old);
+	Utilities::Rxn_copy(Rxn_gas_phase_map, i, save_old);
+#ifdef SKIP
 	if (gas_phase_bsearch(i, &n) != NULL)
 		gas_phase_duplicate(i, save_old);
+#endif
 	if (kinetics_bsearch(i, &n) != NULL)
 		kinetics_duplicate(i, save_old);
 	if (s_s_assemblage_bsearch(i, &n) != NULL)
@@ -7576,7 +7586,8 @@ entity_exists(char *name, int n_user)
 		}
 		break;
 	case Reaction:				/* Reaction */
-		if (irrev_bsearch(n_user, &i) == NULL)
+		//if (irrev_bsearch(n_user, &i) == NULL)
+		if (Utilities::Rxn_find(Rxn_reaction_map, n_user) == NULL)
 		{
 			return_value = FALSE;
 		}
@@ -7620,10 +7631,16 @@ entity_exists(char *name, int n_user)
 			return_value = FALSE;
 		}
 	case Gas_phase:			/* Gas */
+		if (Utilities::Rxn_find(Rxn_gas_phase_map, n_user) == NULL)
+		{
+			return_value = FALSE;
+		}
+#ifdef SKIP
 		if (gas_phase_bsearch(n_user, &i) == NULL)
 		{
 			return_value = FALSE;
 		}
+#endif
 		break;
 	case Kinetics:				/* Kinetics */
 		if (kinetics_bsearch(n_user, &i) == NULL)
@@ -7910,7 +7927,7 @@ Get_exch_master(const cxxExchComp * ec)
 		{
 			std::ostringstream error_oss;
 			error_oss << "Master species not in data base for " << elt_ptr->
-				name << std::endl;
+				name << "\n";
 			//Utilities::error_msg(error_oss.str(), STOP);
 			error_msg(error_oss.str().c_str(), CONTINUE);
 			return (NULL);
@@ -7935,7 +7952,7 @@ Get_exch_master(const cxxExchComp * ec)
 			{
 				std::ostringstream error_oss;
 				error_oss << "Master species not in data base for " <<
-					elt_ptr->name << std::endl;
+					elt_ptr->name << "\n";
 				//Utilities::error_msg(error_oss.str(), STOP);
 				error_msg(error_oss.str().c_str(), CONTINUE);
 				return (NULL);
@@ -7951,7 +7968,7 @@ Get_exch_master(const cxxExchComp * ec)
 		std::ostringstream error_oss;
 		error_oss <<
 			"Exchange formula does not contain an exchange master species, "
-			<< ec->Get_formula() << std::endl;
+			<< ec->Get_formula() << "\n";
 		//Utilities::error_msg(error_oss.str(), CONTINUE);
 		error_msg(error_oss.str().c_str(), CONTINUE);
 
@@ -7963,6 +7980,7 @@ Get_exch_master(const cxxExchComp * ec)
 	return (master_ptr);
 }
 #endif
+#ifdef SKIP
 #include "../GasPhase.h"
 struct gas_phase * Phreeqc::
 cxxGasPhase2gas_phase(const cxxGasPhase * gp)
@@ -8027,7 +8045,7 @@ cxxGasPhaseComp2gas_comp(const cxxGasPhase * gp)
 	}
 	return (gas_comp_ptr);
 }
-
+#endif
 #include "../cxxKinetics.h"
 struct kinetics * Phreeqc::
 cxxKinetics2kinetics(const cxxKinetics * kin)
@@ -8194,7 +8212,7 @@ cxxPPassemblageComp2pure_phase(const std::map < std::string, cxxPPassemblageComp
 	}
 	return (pure_phase_ptr);
 }
-
+#ifdef SKIP
 #include "../Reaction.h"
 struct irrev * Phreeqc::
 cxxReaction2irrev(const cxxReaction * rxn)
@@ -8246,7 +8264,7 @@ cxxReaction2irrev(const cxxReaction * rxn)
 		irrev_ptr->units = string_hsave(rxn->Get_units().c_str());
 	return (irrev_ptr);
 }
-
+#endif
 #include "../Solution.h"
 struct solution * Phreeqc::
 cxxSolution2solution(const cxxSolution * sol)
@@ -8617,7 +8635,7 @@ cxxNameDouble2surface_master(const cxxNameDouble * totals)
 		{
 			std::ostringstream error_oss;
 			error_oss << "Master species not in data base for " << elt_ptr->
-				name << std::endl;
+				name << "\n";
 			error_msg(error_oss.str().c_str(), CONTINUE);
 			return (NULL);
 		}
@@ -8630,8 +8648,8 @@ cxxNameDouble2surface_master(const cxxNameDouble * totals)
 	{
 		std::ostringstream error_oss;
 		error_oss <<
-			"Surface formula does not contain a surface master species, " << std::endl;
-			//this->formula << std::endl;
+			"Surface formula does not contain a surface master species, " << "\n";
+			//this->formula << "\n";
 		error_msg(error_oss.str().c_str(), CONTINUE);
 	}
 	return (master_ptr);
@@ -8859,6 +8877,15 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 	}
 	if (use_ptr->gas_phase_in == TRUE)
 	{
+		cxxGasPhase *entity_ptr = Utilities::Rxn_find(Rxn_gas_phase_map, use_ptr->n_gas_phase_user);
+		if (entity_ptr != NULL)
+		{
+			sb.Set_GasPhase(use_ptr->n_gas_phase_user, entity_ptr);
+		}
+	}
+#ifdef SKIP
+	if (use_ptr->gas_phase_in == TRUE)
+	{
 		struct gas_phase *struct_entity = gas_phase_bsearch(use_ptr->n_gas_phase_user, &n);
 		if (struct_entity != NULL)
 		{
@@ -8866,6 +8893,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 			sb.Set_GasPhase(use_ptr->n_gas_phase_user, &entity);
 		}
 	}
+#endif
 	if (use_ptr->s_s_assemblage_in == TRUE)
 	{
 		struct s_s_assemblage *struct_entity = s_s_assemblage_bsearch(use_ptr->n_s_s_assemblage_user, &n);
@@ -8884,6 +8912,15 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 			sb.Set_Kinetics(use_ptr->n_kinetics_user, &entity);
 		}
 	}
+	if (use_ptr->reaction_in == TRUE)
+	{
+		cxxReaction *entity = Utilities::Rxn_find(Rxn_reaction_map, use_ptr->n_reaction_user);
+		if (entity != NULL)
+		{
+			sb.Set_Reaction(use_ptr->n_reaction_user, entity);
+		}
+	}
+#ifdef SKIP
 	if (use_ptr->irrev_in == TRUE)
 	{
 		struct irrev *struct_entity = irrev_bsearch(use_ptr->n_irrev_user, &n);
@@ -8893,6 +8930,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 			sb.Set_Reaction(use_ptr->n_irrev_user, &entity);
 		}
 	}
+#endif
 	if (use_ptr->temperature_in == TRUE)
 	{
 		cxxTemperature *entity = Utilities::Rxn_find(Rxn_temperature_map, use_ptr->n_temperature_user);
@@ -8944,11 +8982,20 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	}
 #endif
 	// GasPhases
+	{
+		std::map<int, cxxGasPhase>::iterator it;
+		for (it = Rxn_gas_phase_map.begin(); it != Rxn_gas_phase_map.end(); it++)
+		{
+			sb.Set_GasPhase(it->second.Get_n_user(), &(it->second));	
+		}
+	}
+#ifdef SKIP
 	for (i = 0; i < count_gas_phase; i++)
 	{
 		cxxGasPhase entity(&gas_phase[i], sb.Get_io());
 		sb.Set_GasPhase(gas_phase[i].n_user, &entity );
 	}
+#endif
 
 	// Kinetics
 	for (i = 0; i < count_kinetics; i++)
@@ -8994,12 +9041,20 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	}
 #endif
 	// Reactions
+	{
+		std::map<int, cxxReaction>::iterator it;
+		for (it = Rxn_reaction_map.begin(); it != Rxn_reaction_map.end(); it++)
+		{
+			sb.Set_Reaction(it->second.Get_n_user(), &(it->second));	
+		}
+	}
+#ifdef SKIP
 	for (i = 0; i < count_irrev; i++)
 	{
 		cxxReaction entity(&irrev[i], sb.Get_io());
 		sb.Set_Reaction(irrev[i].n_user, &entity );		
 	}
-
+#endif
 	// Temperatures
 	{
 		std::map<int, cxxTemperature>::iterator it;
@@ -9057,6 +9112,14 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 #endif
 	// GasPhases
 	{
+		cxxGasPhase *entity_ptr = Utilities::Rxn_find(Rxn_gas_phase_map, n);
+		if (entity_ptr != NULL)
+		{
+			sb.Set_GasPhase(n, entity_ptr);
+		}
+	}
+#ifdef SKIP
+	{
 		if (gas_phase_bsearch(n, &pos) != NULL)
 		{
 			//this->GasPhases[n] = cxxGasPhase(&(gas_phase[pos]), sb.Get_io());
@@ -9064,7 +9127,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 			sb.Set_GasPhase(n, &ent);
 		}
 	}
-
+#endif
 	// Kinetics
 	{
 		if (kinetics_bsearch(n, &pos) != NULL)
@@ -9149,13 +9212,21 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
 		std::map < int, cxxGasPhase >::const_iterator it = sb.Get_GasPhases().find(n);
 		if (it != sb.Get_GasPhases().end())
 		{
+			Rxn_gas_phase_map[n] = it->second;
+		}
+	}
+#ifdef SKIP
+	{
+		std::map < int, cxxGasPhase >::const_iterator it = sb.Get_GasPhases().find(n);
+		if (it != sb.Get_GasPhases().end())
+		{
 			struct gas_phase *gas_phase_ptr = cxxGasPhase2gas_phase(&it->second);
 			gas_phase_ptr_to_user(gas_phase_ptr, it->first);
 			gas_phase_free(gas_phase_ptr);
 			gas_phase_ptr =	(struct gas_phase *) free_check_null(gas_phase_ptr);
 		}
 	}
-
+#endif
 	// Kinetics
 	{
 		std::map < int, cxxKinetics >::const_iterator it = sb.Get_Kinetics().find(n);
@@ -9231,11 +9302,18 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
 		std::map < int, cxxReaction >::const_iterator it = sb.Get_Reactions().find(n);
 		if (it != sb.Get_Reactions().end())
 		{
+			Rxn_reaction_map[n] = it->second;
+		}
+#ifdef SKIP
+		std::map < int, cxxReaction >::const_iterator it = sb.Get_Reactions().find(n);
+		if (it != sb.Get_Reactions().end())
+		{
 			struct irrev *irrev_ptr = cxxReaction2irrev(&(it->second));
 			irrev_ptr_to_user(irrev_ptr, it->first);
 			irrev_free(irrev_ptr);
 			irrev_ptr = (struct irrev *) free_check_null(irrev_ptr);
 		}
+#endif
 	}
 	// Temperatures
 	{
@@ -9300,13 +9378,21 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb)
 		std::map < int, cxxGasPhase >::const_iterator it = sb.Get_GasPhases().begin();
 		for ( ; it != sb.Get_GasPhases().end(); it++)
 		{
+			Rxn_gas_phase_map[it->first] = it->second;
+		}
+	}
+#ifdef SKIP
+	{
+		std::map < int, cxxGasPhase >::const_iterator it = sb.Get_GasPhases().begin();
+		for ( ; it != sb.Get_GasPhases().end(); it++)
+		{
 			struct gas_phase *gas_phase_ptr = cxxGasPhase2gas_phase(&it->second);
 			gas_phase_ptr_to_user(gas_phase_ptr, it->first);
 			gas_phase_free(gas_phase_ptr);
 			gas_phase_ptr =	(struct gas_phase *) free_check_null(gas_phase_ptr);
 		}
 	}
-
+#endif
 	// Kinetics
 	{
 		std::map < int, cxxKinetics >::const_iterator it = sb.Get_Kinetics().begin();
@@ -9379,10 +9465,13 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb)
 		std::map < int, cxxReaction >::const_iterator it = sb.Get_Reactions().begin();
 		for ( ; it != sb.Get_Reactions().end(); it++)
 		{
+			Rxn_reaction_map[it->first] = it->second;
+#ifdef SKIP
 			struct irrev *irrev_ptr = cxxReaction2irrev(&(it->second));
 			irrev_ptr_to_user(irrev_ptr, it->first);
 			irrev_free(irrev_ptr);
 			irrev_ptr = (struct irrev *) free_check_null(irrev_ptr);
+#endif
 		}
 	}
 	// Temperatures
@@ -9402,4 +9491,5 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb)
 		}
 	}
 }
+
 
