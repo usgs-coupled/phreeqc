@@ -2709,12 +2709,15 @@ store_get_equi_reactants(int l, int kin_end)
 		}
 		{
 			cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
-			std::vector<cxxGasComp> temp_comps(gas_phase_ptr->Get_gas_comps());
-			for (size_t l = 0; l < temp_comps.size(); l++)
+			if (gas_phase_ptr)
 			{
-				temp_comps[l].Set_moles(x0_moles[++k]);
+				std::vector<cxxGasComp> temp_comps(gas_phase_ptr->Get_gas_comps());
+				for (size_t l = 0; l < temp_comps.size(); l++)
+				{
+					temp_comps[l].Set_moles(x0_moles[++k]);
+				}
+				gas_phase_ptr->Set_gas_comps(temp_comps);
 			}
-			gas_phase_ptr->Set_gas_comps(temp_comps);
 		}
 #ifdef SKIP
 		for (j = 0; j < count_pg; j++)
