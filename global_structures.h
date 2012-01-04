@@ -408,39 +408,6 @@ struct Charge_Group
 	LDBLE z;
 	LDBLE eq;
 };
-#ifdef SKIP
-/* ----------------------------------------------------------------------
- *   Exchange
- * ---------------------------------------------------------------------- */
-struct exchange
-{
-	int n_user;
-	int n_user_end;
-	int new_def;
-	char *description;
-	int solution_equilibria;
-	int n_solution;
-	int count_comps;
-	struct exch_comp *comps;
-	int related_phases;
-	int related_rate;
-	int pitzer_exchange_gammas;
-};
-struct exch_comp
-{
-	const char *formula;
-	LDBLE formula_z;
-	struct elt_list *formula_totals;
-	LDBLE moles;
-	struct master *master;
-	struct elt_list *totals;
-	LDBLE la;
-	LDBLE charge_balance;
-	const char *phase_name;
-	LDBLE phase_proportion;
-	const char *rate_name;
-};
-#endif
 /* ----------------------------------------------------------------------
  *   Kinetics
  * ---------------------------------------------------------------------- */
@@ -672,77 +639,11 @@ struct inv_phases
 	int count_isotopes;
 	struct isotope *isotopes;
 };
-#ifdef SKIP
-/*----------------------------------------------------------------------
- *   Mix
- *---------------------------------------------------------------------- */
-struct mix
-{
-	int n_user;
-	int n_user_end;
-	char *description;
-	int count_comps;
-	struct mix_comp *comps;
-};
-struct mix_comp
-{
-	int n_solution;
-	LDBLE fraction;
-};
-#endif
-#ifdef SKIP
-/*----------------------------------------------------------------------
- *   Irreversible reaction
- *---------------------------------------------------------------------- */
-struct irrev
-{
-	int n_user;
-	int n_user_end;
-	char *description;
-	struct name_coef *list;
-	struct elt_list *elts;
-	LDBLE *steps;
-	const char *units;
-	int count_steps;
-	int count_list;
-};
-#endif
 struct name_coef
 {
 	const char *name;
 	LDBLE coef;
 };
-#ifdef SKIP
-/*----------------------------------------------------------------------
- *   Gas phase
- *---------------------------------------------------------------------- */
-struct gas_phase
-{
-	int n_user;
-	int n_user_end;
-	char *description;
-	int new_def;
-	int solution_equilibria;
-	int n_solution;
-	int type;
-	LDBLE total_p;
-	LDBLE total_moles;
-	LDBLE volume;
-	LDBLE v_m; /* molar volume in Peng Robinson */
-	bool pr_in;
-	LDBLE temperature;
-	int count_comps;
-	struct gas_comp *comps;
-};
-struct gas_comp
-{
-	struct phase *phase;
-	const char *name;
-	LDBLE p_read;
-	LDBLE moles;
-	LDBLE initial_moles;
-};
-#endif
 /*----------------------------------------------------------------------
  *   Solid solution
  *---------------------------------------------------------------------- */

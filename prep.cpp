@@ -281,6 +281,7 @@ quick_setup(void)
 /*
  *   exchange
  */
+#ifdef SKIP
 	if (use.exchange_ptr != NULL)
 	{
 		k = 0;
@@ -303,7 +304,7 @@ quick_setup(void)
 							(x[i]->description,
 							 elt_ptr->name) == 0)
 						{
-							x[i]->moles = it->second;
+							//x[i]->moles = it->second;
 							break;
 						}
 					}
@@ -311,6 +312,7 @@ quick_setup(void)
 			}
 		}
 	}
+#endif
 #ifdef SKIP
 	if (use.exchange_ptr != NULL)
 	{
