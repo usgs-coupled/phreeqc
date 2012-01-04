@@ -6131,7 +6131,7 @@ check_same_model(void)
 		cxxGasPhase * gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
 		if (last_model.gas_phase == NULL)
 			return (FALSE);
-		if (last_model.count_gas_phase != gas_phase_ptr->Get_gas_comps().size())
+		if (last_model.count_gas_phase != (int) gas_phase_ptr->Get_gas_comps().size())
 			return (FALSE);
 		for (i = 0; i < (int) gas_phase_ptr->Get_gas_comps().size(); i++)
 		{
