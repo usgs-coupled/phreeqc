@@ -11536,6 +11536,13 @@ int Phreeqc::
 cleanup_after_parser(CParser &parser)
 {
 	// check_key sets next_keyword
+	if (parser.get_m_line_type() == PHRQ_io::LT_EOF)
+	{
+		strcpy(line, "");
+		strcpy(line_save, "");
+		next_keyword = Keywords::KEY_END;
+		return(TRUE); 
+	}
 	int return_value = check_key(parser.line().c_str());
 
 	// copy parser line to line and line_save
