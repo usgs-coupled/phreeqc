@@ -3268,11 +3268,12 @@ step_save_exch(int n_user)
 				{
 					coef = master[i]->total;
 				}
-				nd.insert(nd_it->first.c_str(), coef);
+				nd.add(nd_it->first.c_str(), coef);
 			}
+			it->second.Set_totals(nd);
 		}
-
 	}
+	
 	Rxn_exchange_map[n_user] = temp_exchange;
 	return (OK);
 }

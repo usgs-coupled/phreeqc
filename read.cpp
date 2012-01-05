@@ -1542,6 +1542,7 @@ read_gas_phase(void)
 				if ((j = copy_token(token, &ptr, &l)) == EMPTY)
 				{
 					temp_comp.Set_p_read(NAN);
+					temp_gas_phase.Get_gas_comps().push_back(temp_comp);
 					break;
 				}
 				/*

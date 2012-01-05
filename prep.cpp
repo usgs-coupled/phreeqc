@@ -281,6 +281,7 @@ quick_setup(void)
 /*
  *   exchange
  */
+	// number of moles is set from master->moles above
 #ifdef SKIP
 	if (use.exchange_ptr != NULL)
 	{
@@ -304,37 +305,7 @@ quick_setup(void)
 							(x[i]->description,
 							 elt_ptr->name) == 0)
 						{
-							//x[i]->moles = it->second;
-							break;
-						}
-					}
-				}
-			}
-		}
-	}
-#endif
-#ifdef SKIP
-	if (use.exchange_ptr != NULL)
-	{
-		k = 0;
-		for (i = 0; i < count_unknowns; i++)
-		{
-			if (x[i]->type == EXCH)
-			{
-				x[i]->exch_comp = &(use.exchange_ptr->comps[k++]);
-				if (x[i]->exch_comp->rate_name != NULL)
-				{
-					for (l = 0; x[i]->exch_comp->totals[l].elt != NULL; l++)
-					{
-						if (x[i]->exch_comp->totals[l].elt->master->type !=
-							EX)
-							continue;
-						if (strcmp_nocase
-							(x[i]->description,
-							 x[i]->exch_comp->totals[l].elt->name) == 0)
-						{
-							x[i]->moles = x[i]->exch_comp->totals[l].coef;
-/* printf("%s  moles %e\n", x[i]->description, x[i]->moles); */
+							x[i]->moles = it->second;
 							break;
 						}
 					}
