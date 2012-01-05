@@ -109,19 +109,6 @@ read_isotopes(void)
 			opt_save = OPTION_DEFAULT;
 			break;
 		case 1:				/* total_is_major_isotope */
-#ifdef SKIP
-			if (elt_ptr == NULL)
-			{
-				error_string = sformatf(
-						"The element of which this isotope is a minor isotope has not been defined, %s. ISOTOPES data block.",
-						line);
-				error_msg(error_string, CONTINUE);
-				input_error++;
-				break;
-			}
-			master_isotope_ptr_major->total_is_major =
-				get_true_false(next_char, TRUE);
-#endif
 			error_string = sformatf(
 					"Obsolete identifier. The total of the element must be the sum of all isotopes. ISOTOPES data block.\n%s",
 					line);

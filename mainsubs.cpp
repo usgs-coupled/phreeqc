@@ -176,11 +176,6 @@ initialize(void)
 	if (inverse == NULL)
 		malloc_error();
 	count_inverse = 0;
-#ifdef SKIP
-	irrev = (struct irrev *) PHRQ_malloc((size_t) sizeof(struct irrev));
-	if (irrev == NULL)
-		malloc_error();
-#endif
 	space((void **) ((void *) &line), INIT, &max_line, sizeof(char));
 
 	space((void **) ((void *) &line_save), INIT, &max_line, sizeof(char));
@@ -513,17 +508,6 @@ initialize(void)
 	pr.isotope_alphas = TRUE;
 	pr.hdf = FALSE;
 	pr.alkalinity = FALSE;
-#ifdef SKIP
-	if (phrq_io)
-	{
-		phrq_io->Set_dump_on(true);
-		phrq_io->Set_log_on(false);
-		phrq_io->Set_punch_on(true);
-		phrq_io->Set_error_on (true);
-		phrq_io->Set_output_on(true);
-		phrq_io->Set_screen_on(true);
-	}
-#endif
 	species_list = NULL;
 
 	user_database = NULL;
@@ -867,22 +851,6 @@ set_use(void)
 	{
 		use.mix_ptr = NULL;
 	}
-#ifdef SKIP
-	if (use.mix_in == TRUE)
-	{
-		use.mix_ptr = mix_bsearch(use.n_mix_user, &use.n_mix);
-		use.n_mix_user_orig = use.n_mix_user;
-		if (use.mix_ptr == NULL)
-		{
-			error_string = sformatf( "Mixture %d not found.", use.n_mix_user);
-			error_msg(error_string, STOP);
-		}
-	}
-	else
-	{
-		use.mix_ptr = NULL;
-	}
-#endif
 /*
  *   Find pure phase assemblage
  */
@@ -919,22 +887,6 @@ set_use(void)
 	{
 		use.reaction_ptr = NULL;
 	}
-#ifdef SKIP
-	if (use.irrev_in == TRUE)
-	{
-		use.irrev_ptr = irrev_bsearch(use.n_irrev_user, &use.n_irrev);
-		if (use.irrev_ptr == NULL)
-		{
-			error_string = sformatf( "Irreversible reaction %d not found.",
-					use.n_irrev_user);
-			error_msg(error_string, STOP);
-		}
-	}
-	else
-	{
-		use.irrev_ptr = NULL;
-	}
-#endif
 /*
  *   Find exchange
  */
@@ -952,23 +904,6 @@ set_use(void)
 	{
 		use.exchange_ptr = NULL;
 	}
-#ifdef SKIP
-	if (use.exchange_in == TRUE)
-	{
-		use.exchange_ptr =
-			exchange_bsearch(use.n_exchange_user, &use.n_exchange);
-		if (use.exchange_ptr == NULL)
-		{
-			error_string = sformatf( "Exchange %d not found.",
-					use.n_exchange_user);
-			error_msg(error_string, STOP);
-		}
-	}
-	else
-	{
-		use.exchange_ptr = NULL;
-	}
-#endif
 /*
  *   Find kinetics
  */
@@ -1249,93 +1184,6 @@ initial_exchangers(int print)
 	}
 	return (OK);
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-initial_exchangers(int print)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Go through list of exchangers, make initial calculations
- *   for any marked "new" that are defined to be in equilibrium with a 
- *   solution.
- */
-	int i, converge, converge1;
-	int n, last, n_user, print1;
-	char token[2 * MAX_LENGTH];
-
-	state = INITIAL_EXCHANGE;
-	set_use();
-	print1 = TRUE;
-	dl_type_x = NO_DL;
-	for (n = 0; n < count_exchange; n++)
-	{
-		if (exchange[n].new_def != TRUE)
-			continue;
-		n_user = exchange[n].n_user;
-		last = exchange[n].n_user_end;
-		exchange[n].n_user_end = n_user;
-		if (exchange[n].solution_equilibria == TRUE)
-		{
-			if (print1 == TRUE && print == TRUE)
-			{
-				dup_print("Beginning of initial exchange"
-						  "-composition calculations.", TRUE);
-				print1 = FALSE;
-			}
-			if (print == TRUE)
-			{
-				sprintf(token, "Exchange %d.\t%.350s",
-						exchange[n].n_user, exchange[n].description);
-				dup_print(token, FALSE);
-			}
-			use.exchange_ptr = &(exchange[n]);
-			use.solution_ptr =
-				solution_bsearch(exchange[n].n_solution, &i, TRUE);
-			if (use.solution_ptr == NULL)
-			{
-				error_msg
-					("Solution not found for initial exchange calculation",
-					 STOP);
-			}
-#ifdef PHREEQC_XML
-			{
-				/*
-				   int n;
-				   SAX_StartSystem();
-				   SAX_AddSolution(use.solution_ptr);
-				   SAX_EndSystem();
-				   SAX_UnpackSolutions(SAX_GetXMLStr(), SAX_GetXMLLength());
-				   SAX_cleanup();
-				 */
-			}
-#endif
-			prep();
-			k_temp(use.solution_ptr->tc, use.solution_ptr->patm);
-			set(TRUE);
-			converge = model();
-			converge1 = check_residuals();
-			sum_species();
-			species_list_sort();
-			print_exchange();
-			xexchange_save(n_user);
-			punch_all();
-			/* free_model_allocs(); */
-			if (converge == ERROR || converge1 == ERROR)
-			{
-				error_msg
-					("Model failed to converge for initial exchange calculation.",
-					 STOP);
-			}
-		}
-		for (i = n_user + 1; i <= last; i++)
-		{
-			exchange_duplicate(n_user, i);
-		}
-	}
-	return (OK);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 initial_gas_phases(int print)
@@ -1453,140 +1301,10 @@ initial_gas_phases(int print)
 			punch_all();
 			/* free_model_allocs(); */
 		}
-		for (i = n_user + 1; i <= last; i++)
-		{
-			Utilities::Rxn_copy(Rxn_gas_phase_map, n_user, i);
-		}
-#ifdef SKIP
-		for (i = n_user + 1; i <= last; i++)
-		{
-			gas_phase_duplicate(n_user, i);
-		}
-#endif
+		Utilities::Rxn_copies(Rxn_gas_phase_map, n_user, last);
 	}
 	return (OK);
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-initial_gas_phases(int print)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Go through list of gas_phases, make initial calculations
- *   for any marked "new" that are defined to be in equilibrium with a 
- *   solution.
- */
-	int i, converge, converge1;
-	int n, last, n_user, print1;
-	char token[2 * MAX_LENGTH];
-	struct gas_comp *gas_comp_ptr;
-	struct phase *phase_ptr;
-	struct rxn_token *rxn_ptr;
-	LDBLE lp;
-	bool PR = false;
-
-	state = INITIAL_GAS_PHASE;
-	set_use();
-	print1 = TRUE;
-	dl_type_x = NO_DL;
-	for (n = 0; n < count_gas_phase; n++)
-	{
-		if (gas_phase[n].new_def != TRUE)
-			continue;
-		n_user = gas_phase[n].n_user;
-		last = gas_phase[n].n_user_end;
-		gas_phase[n].n_user_end = n_user;
-		if (gas_phase[n].solution_equilibria == TRUE)
-		{
-			if (print1 == TRUE && print == TRUE)
-			{
-				dup_print("Beginning of initial gas_phase"
-						  "-composition calculations.", TRUE);
-				print1 = FALSE;
-			}
-			if (print == TRUE)
-			{
-				sprintf(token, "Gas_Phase %d.\t%.350s",
-						gas_phase[n].n_user, gas_phase[n].description);
-				dup_print(token, FALSE);
-			}
-
-			/* Try to obtain a solution pointer */ 
-			use.solution_ptr =
-				solution_bsearch(gas_phase[n].n_solution, &i, TRUE);
-			prep();
-			k_temp(use.solution_ptr->tc, use.solution_ptr->patm);
-			set(TRUE);
-			converge = model();
-			converge1 = check_residuals();
-			if (converge == ERROR || converge1 == ERROR)
-			{
-				/* free_model_allocs(); */
-				error_msg
-					("Model failed to converge for initial gas phase calculation.",
-					 STOP);
-			}
-			use.gas_phase_ptr = &(gas_phase[n]);
-			use.gas_phase_ptr->total_p = 0;
-			use.gas_phase_ptr->total_moles = 0;
-			for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
-			{
-				gas_comp_ptr = &(use.gas_phase_ptr->comps[i]);
-				phase_ptr = gas_comp_ptr->phase;
-				if (phase_ptr->in == TRUE)
-				{
-					lp = -phase_ptr->lk;
-					for (rxn_ptr = phase_ptr->rxn_x->token + 1;
-						 rxn_ptr->s != NULL; rxn_ptr++)
-					{
-						lp += rxn_ptr->s->la * rxn_ptr->coef;
-					}
-					gas_comp_ptr->phase->p_soln_x = exp(lp * LOG_10);
-					use.gas_phase_ptr->total_p +=
-						gas_comp_ptr->phase->p_soln_x;
-					gas_comp_ptr->phase->moles_x =
-						gas_comp_ptr->phase->p_soln_x *
-						use.gas_phase_ptr->volume / (R_LITER_ATM * tk_x);
-					gas_comp_ptr->moles = gas_comp_ptr->phase->moles_x;
-					use.gas_phase_ptr->total_moles += gas_comp_ptr->moles;
-					if (phase_ptr->p_c || phase_ptr->t_c)
-						PR = true;
-				}
-				else
-				{
-					gas_comp_ptr->phase->moles_x = 0;
-				}
-			}
-			if (fabs(use.gas_phase_ptr->total_p - use.solution_ptr->patm) > 5)
-			{
-				sprintf(token, 
-					"WARNING: While initializing gas phase composition by equilibrating:\n%s (%.2f atm) %s (%.2f atm).\n%s.",
-					"         Gas phase pressure",
-					(double) use.gas_phase_ptr->total_p,
-					"is not equal to solution-pressure",
-					(double) use.solution_ptr->patm,
-					"         Pressure effects on solubility may be incorrect");
-					dup_print(token, FALSE);
-			}
-
-			print_gas_phase();
- 			if (PR /*&& use.gas_phase_ptr->total_p > 1.0*/)
- 				warning_msg("While initializing gas phase composition by equilibrating:\n"
-				"         Found definitions of gas' critical temperature and pressure.\n"
-				"         Going to use Peng-Robinson in subsequent calculations.\n");
-			xgas_save(n_user);
-			punch_all();
-			/* free_model_allocs(); */
-		}
-		for (i = n_user + 1; i <= last; i++)
-		{
-			gas_phase_duplicate(n_user, i);
-		}
-	}
-	return (OK);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 initial_surfaces(int print)
@@ -1894,17 +1612,6 @@ saver(void)
 			Utilities::Rxn_copy(Rxn_exchange_map, n, i);
 		}
 	}
-#ifdef SKIP
-	if (save.exchange == TRUE)
-	{
-		n = save.n_exchange_user;
-		xexchange_save(n);
-		for (i = save.n_exchange_user + 1; i <= save.n_exchange_user_end; i++)
-		{
-			exchange_duplicate(n, i);
-		}
-	}
-#endif
 	if (save.surface == TRUE)
 	{
 		n = save.n_surface_user;
@@ -2048,129 +1755,6 @@ xexchange_save(int n_user)
 	use.exchange_ptr = NULL;
 	return (OK);
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-xexchange_save(int n_user)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Save exchanger assemblage into structure exchange with user 
- *   number n_user.
- */
-	int i, j, n;
-	char token[MAX_LENGTH];
-	int count_comps;
-	struct exchange temp_exchange, *exchange_ptr;
-	LDBLE charge;
-	if (use.exchange_ptr == NULL)
-		return (OK);
-/*
- *   Store data for structure exchange
- */
-	memcpy(&temp_exchange, use.exchange_ptr, sizeof(struct exchange));
-	temp_exchange.n_user = n_user;
-	temp_exchange.n_user_end = n_user;
-	temp_exchange.new_def = FALSE;
-	sprintf(token, "Exchange assemblage after simulation %d.", simulation);
-	temp_exchange.description = string_duplicate(token);
-	temp_exchange.solution_equilibria = FALSE;
-	temp_exchange.n_solution = -2;
-	temp_exchange.count_comps = 0;
-/*
- *   Count exchange components and allocate space
- */
-	count_comps = 0;
-	for (i = 0; i < count_unknowns; i++)
-	{
-		if (x[i]->type == EXCH)
-			count_comps++;
-	}
-	temp_exchange.comps =
-		(struct exch_comp *) PHRQ_malloc((size_t) (count_comps) *
-										 sizeof(struct exch_comp));
-	if (temp_exchange.comps == NULL)
-		malloc_error();
-	temp_exchange.count_comps = count_comps;
-/*
- *   Write exch_comp structure for each exchange component
- */
-	count_comps = 0;
-	for (i = 0; i < count_unknowns; i++)
-	{
-		if (x[i]->type == EXCH)
-		{
-			memcpy(&temp_exchange.comps[count_comps], x[i]->exch_comp,
-				   sizeof(struct exch_comp));
-			temp_exchange.comps[count_comps].master = x[i]->master[0];
-			temp_exchange.comps[count_comps].la = x[i]->master[0]->s->la;
-			temp_exchange.comps[count_comps].formula_totals =
-				elt_list_dup(x[i]->exch_comp->formula_totals);
-			temp_exchange.comps[count_comps].moles = 0.;
-/*
- *   Save element concentrations on exchanger
- */
-			count_elts = 0;
-			paren_count = 0;
-			charge = 0.0;
-			for (j = 0; j < count_species_list; j++)
-			{
-				if (species_list[j].master_s == x[i]->master[0]->s)
-				{
-					add_elt_list(species_list[j].s->next_elt,
-								 species_list[j].s->moles);
-					charge += species_list[j].s->moles * species_list[j].s->z;
-				}
-			}
-/*
- *   Keep exchanger related to phase even if none currently in solution
- */
-			if (x[i]->exch_comp->phase_name != NULL && count_elts == 0)
-			{
-				add_elt_list(x[i]->master[0]->s->next_elt, 1e-20);
-			}
-/*
- *   Store list
- */
-			temp_exchange.comps[count_comps].charge_balance = charge;
-			temp_exchange.comps[count_comps].totals = elt_list_save();
-/* debug
-                        output_msg(sformatf( "Exchange charge_balance: %e\n", charge));
- */
-			/* update unknown pointer */
-			x[i]->exch_comp = &(temp_exchange.comps[count_comps]);
-			count_comps++;
-		}
-	}
-/*
- *   Finish up
- */
-	exchange_ptr = exchange_bsearch(n_user, &n);
-	if (exchange_ptr == NULL)
-	{
-		n = count_exchange++;
-		space((void **) ((void *) &exchange), count_exchange, &max_exchange,
-			  sizeof(struct exchange));
-	}
-	else
-	{
-		exchange_free(&exchange[n]);
-	}
-	memcpy(&exchange[n], &temp_exchange, sizeof(struct exchange));
-	/* sort only if necessary */
-	if (n == count_exchange - 1 && count_exchange > 1)
-	{
-		if (exchange[n].n_user < exchange[n - 1].n_user)
-		{
-			qsort(exchange,
-				  (size_t) count_exchange,
-				  (size_t) sizeof(struct exchange), exchange_compare);
-		}
-	}
-	use.exchange_ptr = NULL;
-	return (OK);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 xgas_save(int n_user)
@@ -2219,98 +1803,6 @@ xgas_save(int n_user)
 	use.gas_phase_ptr = NULL;
 	return (OK);
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-xgas_save(int n_user)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Save gas composition into structure gas_phase with user 
- *   number n_user.
- */
-	int count_comps, n, i;
-	struct gas_phase temp_gas_phase, *gas_phase_ptr;
-	char token[MAX_LENGTH];
-
-	if (use.gas_phase_ptr == NULL)
-		return (OK);
-/*
- *   Count gases
- */
-	count_comps = use.gas_phase_ptr->count_comps;
-/*
- *   Malloc space and copy
- */
-	temp_gas_phase.comps =
-		(struct gas_comp *) PHRQ_malloc((size_t) count_comps *
-										sizeof(struct gas_comp));
-	if (temp_gas_phase.comps == NULL)
-		malloc_error();
-	memcpy((void *) temp_gas_phase.comps, (void *) use.gas_phase_ptr->comps,
-		   (size_t) count_comps * sizeof(struct gas_comp));
-/*
- *   Store in gas_phase
- */
-
-	temp_gas_phase.n_user = n_user;
-	temp_gas_phase.n_user_end = n_user;
-	sprintf(token, "Gas phase after simulation %d.", simulation);
-	temp_gas_phase.description = string_duplicate(token);
-	temp_gas_phase.new_def = FALSE;
-	temp_gas_phase.solution_equilibria = FALSE;
-	temp_gas_phase.n_solution = -99;
-	temp_gas_phase.type = use.gas_phase_ptr->type;
-	temp_gas_phase.total_p = use.gas_phase_ptr->total_p;
-	temp_gas_phase.total_moles = use.gas_phase_ptr->total_moles;
-	temp_gas_phase.volume = use.gas_phase_ptr->volume;
-	temp_gas_phase.v_m = use.gas_phase_ptr->v_m;
-	temp_gas_phase.pr_in = use.gas_phase_ptr->pr_in;
-	temp_gas_phase.temperature = use.gas_phase_ptr->temperature;
-	temp_gas_phase.count_comps = count_comps;
-/*
- *   Update amounts
- */
-	for (i = 0; i < count_comps; i++)
-	{
-		temp_gas_phase.comps[i].moles =
-			use.gas_phase_ptr->comps[i].phase->moles_x;
-	}
-/*
- *   Finish up
- */
-	gas_phase_ptr = gas_phase_bsearch(n_user, &n);
-	if (gas_phase_ptr == NULL)
-	{
-		n = count_gas_phase++;
-		space((void **) ((void *) &gas_phase), count_gas_phase,
-			  &max_gas_phase, sizeof(struct gas_phase));
-	}
-	else
-	{
-		gas_phase_free(&gas_phase[n]);
-	}
-	memcpy(&gas_phase[n], &temp_gas_phase, sizeof(struct gas_phase));
-
-	/* update unknown pointer */
-	if (gas_unknown != NULL)
-	{
-		gas_unknown->gas_phase = &(gas_phase[n]);
-	}
-	/* sort only if necessary */
-	if (n == count_gas_phase - 1 && count_gas_phase > 1)
-	{
-		if (gas_phase[n].n_user < gas_phase[n - 1].n_user)
-		{
-			qsort(gas_phase,
-				  (size_t) count_gas_phase,
-				  (size_t) sizeof(struct gas_phase), gas_phase_compare);
-		}
-	}
-	use.gas_phase_ptr = NULL;
-	return (OK);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 xs_s_assemblage_save(int n_user)
@@ -3059,12 +2551,6 @@ copy_use(int i)
 /*
  *   Find mixture
  */
-#ifdef SKIP
-	if (use.mix_in == TRUE)
-	{
-		mix_duplicate(use.n_mix_user, i);
-	}
-#endif
 	if (use.mix_in == TRUE)
 	{
 		Utilities::Rxn_copy(Rxn_mix_map, use.n_mix_user, i);
@@ -3110,19 +2596,6 @@ copy_use(int i)
 	{
 		save.reaction = FALSE;
 	}
-#ifdef SKIP
-	if (use.irrev_in == TRUE)
-	{
-		irrev_duplicate(use.n_irrev_user, i);
-		save.irrev = TRUE;
-		save.n_irrev_user = i;
-		save.n_irrev_user_end = i;
-	}
-	else
-	{
-		save.irrev = FALSE;
-	}
-#endif
 /*
  *   Find exchange
  */
@@ -3137,19 +2610,6 @@ copy_use(int i)
 	{
 		save.exchange = FALSE;
 	}
-#ifdef SKIP
-	if (use.exchange_in == TRUE)
-	{
-		exchange_duplicate(use.n_exchange_user, i);
-		save.exchange = TRUE;
-		save.n_exchange_user = i;
-		save.n_exchange_user_end = i;
-	}
-	else
-	{
-		save.exchange = FALSE;
-	}
-#endif
 /*
  *   Find kinetics
  */
@@ -3234,8 +2694,8 @@ step_save_exch(int n_user)
  *
  *   input:  n_user is user exchange number of target
  */
-	int i;
-	int found;
+	//int i;
+	bool found;
 
 	if (use.exchange_ptr == NULL)
 		return (OK);
@@ -3245,11 +2705,11 @@ step_save_exch(int n_user)
 	assert(temp_ptr);
 	cxxExchange temp_exchange = *temp_ptr;
 
-	for (i = 0; i < count_master; i++)
+	for (int i = 0; i < count_master; i++)
 	{
 		if (master[i]->s->type != EX)
 			continue;
-		found = FALSE;
+		found = false;
 		std::string e(master[i]->elt->name);
 		std::map<std::string, cxxExchComp>::iterator it = temp_exchange.Get_exchComps().begin();
 		for ( ; it != temp_exchange.Get_exchComps().end(); it++)
@@ -3257,8 +2717,9 @@ step_save_exch(int n_user)
 			cxxNameDouble nd = it->second.Get_totals();
 			nd.multiply(0.0);
 			cxxNameDouble::iterator nd_it =nd.find(e);
-			if (nd_it != nd.end())
+			if ((!found) && nd_it != nd.end())
 			{
+				found = true;
 				LDBLE coef;
 				if (master[i]->total <= MIN_TOTAL)
 				{
@@ -3268,7 +2729,7 @@ step_save_exch(int n_user)
 				{
 					coef = master[i]->total;
 				}
-				nd.add(nd_it->first.c_str(), coef);
+				nd[nd_it->first.c_str()] = coef;
 			}
 			it->second.Set_totals(nd);
 		}
@@ -3277,64 +2738,6 @@ step_save_exch(int n_user)
 	Rxn_exchange_map[n_user] = temp_exchange;
 	return (OK);
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-step_save_exch(int n_user)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Save solution composition into structure solution with user number
- *   n_user.
- *
- *   input:  n_user is user solution number of target
- */
-	int i, j, k, n;
-	int found;
-	struct exchange *exchange_ptr;
-/*
- *   Malloc space for solution data
- */
-	if (use.exchange_ptr == NULL)
-		return (OK);
-	exchange_duplicate(use.exchange_ptr->n_user, n_user);
-	exchange_ptr = exchange_bsearch(n_user, &n);
-	for (i = 0; i < count_master; i++)
-	{
-		if (master[i]->s->type != EX)
-			continue;
-		found = FALSE;
-		for (j = 0; j < exchange_ptr->count_comps; j++)
-		{
-			for (k = 0; exchange_ptr->comps[j].totals[k].elt != NULL; k++)
-			{
-				if (exchange_ptr->comps[j].totals[k].elt == master[i]->elt)
-				{
-					if (found == FALSE)
-					{
-						found = TRUE;
-						if (master[i]->total <= MIN_TOTAL)
-						{
-							exchange_ptr->comps[j].totals[k].coef = MIN_TOTAL;
-						}
-						else
-						{
-							exchange_ptr->comps[j].totals[k].coef =
-								master[i]->total;
-						}
-						break;
-					}
-					else
-					{
-						exchange_ptr->comps[j].totals[k].coef = 0;
-					}
-				}
-			}
-		}
-	}
-	return (OK);
-}
-#endif
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -3516,31 +2919,6 @@ copy_entities(void)
 			}
 		}
 	}
-#ifdef SKIP
-	if (copy_mix.count > 0)
-	{
-		for (j = 0; j < copy_mix.count; j++)
-		{
-			if (mix_bsearch(copy_mix.n_user[j], &n) != NULL)
-			{
-				for (i = copy_mix.start[j]; i <= copy_mix.end[j]; i++)
-				{
-					if (i == copy_mix.n_user[j])
-						continue;
-					mix_duplicate(copy_mix.n_user[j], i);
-				}
-			}
-			else
-			{
-				if (verbose == TRUE)
-				{
-					warning_msg("MIX to copy not found.");
-					return_value = ERROR;
-				}
-			}
-		}
-	}
-#endif
 	
 	if (copy_exchange.count > 0)
 	{
@@ -3566,32 +2944,6 @@ copy_entities(void)
 			}
 		}
 	}
-#ifdef SKIP
-	if (copy_exchange.count > 0)
-	{
-		for (j = 0; j < copy_exchange.count; j++)
-		{
-			if (exchange_bsearch(copy_exchange.n_user[j], &n) != NULL)
-			{
-				for (i = copy_exchange.start[j]; i <= copy_exchange.end[j];
-					i++)
-				{
-					if (i == copy_exchange.n_user[j])
-						continue;
-					exchange_duplicate(copy_exchange.n_user[j], i);
-				}
-			}
-			else
-			{
-				if (verbose == TRUE)
-				{
-					warning_msg("EXCHANGE to copy not found.");
-					return_value = ERROR;
-				}
-			}
-		}
-	}
-#endif
 	if (copy_surface.count > 0)
 	{
 		for (j = 0; j < copy_surface.count; j++)

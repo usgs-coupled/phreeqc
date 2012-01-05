@@ -21,18 +21,6 @@ calc_all_g(void)
 /*
  *   calculate g for each surface
  */
-#ifdef SKIP
-	if (punch.high_precision == FALSE)
-	{
-		epsilon = 1e-8;
-		G_TOL = 1e-9;
-	}
-	else
-	{
-		epsilon = 1.e-12;
-		G_TOL = 1e-10;
-	}
-#endif
 	epsilon = convergence_tolerance;
 	if (convergence_tolerance >= 1e-8)
 	{

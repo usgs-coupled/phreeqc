@@ -209,29 +209,6 @@ calc_final_kinetic_reaction(struct kinetics *kinetics_ptr)
 			}
 
 		}
-#ifdef SKIP
-		if (use.exchange_ptr != NULL
-			&& use.exchange_ptr->related_rate == TRUE)
-		{
-			for (j = 0; j < use.exchange_ptr->count_comps; j++)
-			{
-				if (use.exchange_ptr->comps[j].rate_name != NULL)
-				{
-					if (strcmp_nocase
-						(kinetics_ptr->comps[i].rate_name,
-						 use.exchange_ptr->comps[j].rate_name) == 0)
-					{
-						/* found kinetics component */
-						add_elt_list(use.exchange_ptr->comps[j].
-									 formula_totals,
-									 -coef *
-									 use.exchange_ptr->comps[j].
-									 phase_proportion);
-					}
-				}
-			}
-		}
-#endif
 		if (use.surface_ptr != NULL && use.surface_ptr->related_rate == TRUE)
 		{
 			for (j = 0; j < use.surface_ptr->count_comps; j++)
@@ -1095,23 +1072,6 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 			use.n_mix_user = i;
 		}
 	}
-#ifdef SKIP
-	if (use_mix == DISP)
-	{
-		use.mix_ptr = &mix[count_mix - count_cells + i - 1];
-		use.mix_in = TRUE;
-		use.n_mix_user = i;
-	}
-	else if ((use_mix == STAG || use_mix == TRUE) && state == TRANSPORT)
-	{
-		use.mix_ptr = mix_search(i, &use.n_mix, FALSE);
-		if (use.mix_ptr != NULL)
-		{
-			use.mix_in = TRUE;
-			use.n_mix_user = i;
-		}
-	}
-#endif
 /*
  *  Restore solution i, if necessary
  */
@@ -1540,23 +1500,6 @@ set_and_run(int i, int use_mix, int use_kinetics, int nsaver,
 			/*  fixed volume gas phase is handled in calc_gas_pressures */
 
 		}
-#ifdef SKIP
-		if (use.gas_phase_ptr != NULL)
-		{
-			if (use.gas_phase_ptr->type == PRESSURE) 
-			{
-			/*
-			 * Fixed-pressure Gas phase and solution will react 
-			 * Change total pressure of current simulation to pressure 
-			 * of gas phase
-			 */
-				patm_x = use.gas_phase_ptr->total_p;
-			}
-			/*  fixed volume gas phase is handled in calc_gas_pressures */
-
-		}
-#endif
-
 	}
 	/* end new */
 	if (use.surface_ptr != NULL)
@@ -2414,15 +2357,6 @@ set_advection(int i, int use_mix, int use_kinetics, int nsaver)
 
 	use.mix_ptr = NULL;
 	use.mix_in = FALSE;
-#ifdef SKIP
-	if (use_mix == TRUE && (use.mix_ptr = mix_search(i, &use.n_mix, FALSE)) != NULL)
-	{
-		use.mix_in = TRUE;
-		use.n_mix_user = i;
-		use.n_mix_user_orig = i;
-		use.n_solution_user = i;
-	}
-#endif
 	use.mix_ptr = Utilities::Rxn_find(Rxn_mix_map, i);
 	if (use_mix == TRUE && use.mix_ptr != NULL)
 	{
@@ -2643,10 +2577,6 @@ store_get_equi_reactants(int l, int kin_end)
 			cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
 			count_pg = (int) gas_phase_ptr->Get_gas_comps().size();
 		}
-#ifdef SKIP
-		if (use.gas_phase_ptr != NULL)
-			count_pg = use.gas_phase_ptr->count_comps;
-#endif
 		if (use.s_s_assemblage_ptr != NULL)
 		{
 			for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++)
@@ -2681,12 +2611,6 @@ store_get_equi_reactants(int l, int kin_end)
 				}
 			}
 		}
-#ifdef SKIP
-		for (j = 0; j < count_pg; j++)
-		{
-			x0_moles[++k] = use.gas_phase_ptr->comps[j].moles;
-		}
-#endif
 		if (count_s_s != 0)
 		{
 			for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++)
@@ -2722,12 +2646,6 @@ store_get_equi_reactants(int l, int kin_end)
 				gas_phase_ptr->Set_gas_comps(temp_comps);
 			}
 		}
-#ifdef SKIP
-		for (j = 0; j < count_pg; j++)
-		{
-			use.gas_phase_ptr->comps[j].moles = x0_moles[++k];
-		}
-#endif
 		if (count_s_s != 0)
 		{
 			for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++)
