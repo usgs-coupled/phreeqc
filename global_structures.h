@@ -177,6 +177,7 @@ typedef enum {
 	vm0,		/* read: molar volume at tc = 0 */
 	vm1,		/* read: coef * tc */
 	vm2,		/* read: coef * tc * tc */
+	kappa,		/* read: compressibility coef * P */
 	MAX_LOG_K_INDICES	/* Keep this definition at the end of the enum */
 } LOG_K_INDICES;
 /* HSEARCH(3C) */

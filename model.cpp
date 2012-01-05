@@ -1038,7 +1038,7 @@ ineq(int in_kode)
 			|| x[i]->type == SURFACE || x[i]->type == SURFACE_CB
 			|| x[i]->type == SURFACE_CB1 || x[i]->type == SURFACE_CB2)
 		{
-/* !!!! */ if (x[i]->moles <= MIN_RELATED_SURFACE
+			if (x[i]->moles <= MIN_RELATED_SURFACE
 			   && (x[i]->type == EXCH || x[i]->type == SURFACE))
 				continue;
 			for (j = 0; j < count_unknowns; j++)
@@ -1646,7 +1646,7 @@ ineq(int in_kode)
 	if (debug_model == TRUE)
 	{
 		output_msg(sformatf( "\nA and B arrays:\n\n"));
-		array_print(ineq_array, l_count_rows, count_unknowns + 1,
+		array_print(ineq_array, l_count_rows, count_unknowns + 2,
 					max_column_count);
 	}
 /*
@@ -2460,7 +2460,7 @@ calc_gas_pressures(void)
 		else
 			return OK;
 	}
-	if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_VOLUME)
+	if (iterations > 2 && gas_phase_ptr->Get_type() == cxxGasPhase::GP_VOLUME)
 	{
 		gas_phase_ptr->Set_total_moles(0);
 	}
@@ -2481,7 +2481,10 @@ calc_gas_pressures(void)
 			n_g++;
 		}
 		//gas_comp_ptr = &(use.gas_phase_ptr->comps[i]);
-		gas_phase_ptr->Set_total_moles(gas_phase_ptr->Get_total_moles() + phase_ptr->moles_x);
+		if (iterations > 2 && gas_phase_ptr->Get_type() == cxxGasPhase::GP_VOLUME)
+		{
+			gas_phase_ptr->Set_total_moles(gas_phase_ptr->Get_total_moles() + phase_ptr->moles_x);
+		}
 	}
 	if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_PRESSURE)
 	{
@@ -2491,34 +2494,44 @@ calc_gas_pressures(void)
 		}
 	} else
 	{
-		if (PR && gas_phase_ptr->Get_total_moles() > 0 && iterations > 2)
+		if (PR)
 		{
-			V_m = gas_phase_ptr->Get_volume() / gas_phase_ptr->Get_total_moles();
-			if (V_m < 0.035)
+			if (gas_phase_ptr->Get_total_moles() > 0)
 			{
-				V_m = 0.035;
-			} else if (V_m > 1e4)
-			{
-				V_m = 1e4;
-			}
-			if (gas_phase_ptr->Get_v_m() > 0.035)
-			{
-				if (V_m < 0.038)
-					V_m = (9. * gas_phase_ptr->Get_v_m() + V_m) / 10;
-				else if (V_m < 0.04)
-					V_m = (6. * gas_phase_ptr->Get_v_m() + V_m) / 7;
-				else if (V_m < 0.07)
-					V_m = (3. * gas_phase_ptr->Get_v_m() + V_m) / 4;
-				else
-					V_m = (1. * gas_phase_ptr->Get_v_m() + V_m) / 2;
-			}
-			//if (iterations > 100)
-			//{
-			//	V_m *= 1.0; /* debug */
-			//}
+				V_m = gas_phase_ptr->Get_volume() / gas_phase_ptr->Get_total_moles();
+				if (V_m < 0.03)
+				{
+					V_m = 0.03;
+				} else if (V_m > 1e4)
+				{
+					V_m = 1e4;
+				}
+				if (gas_phase_ptr->Get_v_m() > 0.03)
+				{
+					if (V_m < 0.04)
+						V_m = (9. * gas_phase_ptr->Get_v_m() + V_m) / 10;
+					else if (V_m < 0.045)
+						V_m = (6. * gas_phase_ptr->Get_v_m() + V_m) / 7;
+					else if (V_m < 0.07)
+						V_m = (3. * gas_phase_ptr->Get_v_m() + V_m) / 4;
+					else
+						V_m = (1. * gas_phase_ptr->Get_v_m() + V_m) / 2;
+				}
+				if (iterations > 99)
+				{
+					//V_m *= 1; /* debug */
+					numerical_fixed_volume = true;
+					switch_numerical = true;
+					warning_msg
+						("Numerical method failed, switching to numerical derivatives.");
+					prep();
+					switch_numerical = false;
+				}
+			} else
+				V_m = 1.0;
 			calc_PR(phase_ptrs, 0, tk_x, V_m);
 			pr_done = true;
-			gas_phase_ptr->Set_total_moles(0);
+
 			if (fabs(gas_phase_ptr->Get_total_p() - patm_x) > 0.01)
 			{
 				same_pressure = FALSE;
@@ -2531,10 +2544,10 @@ calc_gas_pressures(void)
 		} else
 		{
 			gas_phase_ptr->Set_total_p(0);
-			gas_phase_ptr->Set_total_moles(0);
 		}
 	}
 
+	gas_phase_ptr->Set_total_moles(0);
 	//for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
 	std::vector<cxxGasComp> gas_comps;
 	for (size_t i = 0; i < gas_phase_ptr->Get_gas_comps().size(); i++)
@@ -3327,13 +3340,13 @@ reset(void)
 								   (double) x[i]->surface_charge->g[j].dg,
 								   (double) delta[i]));
 					}
-/*appt*/ if (use.surface_ptr->dl_type != DONNAN_DL)
+					if (use.surface_ptr->dl_type != DONNAN_DL)
 					{
 						x[i]->surface_charge->g[j].g +=
 							x[i]->surface_charge->g[j].dg * delta[i];
 					}
 				}
-/*appt*/ if (use.surface_ptr->dl_type == DONNAN_DL)
+				if (use.surface_ptr->dl_type == DONNAN_DL)
 				{
 					calc_all_donnan();
 				}
@@ -3400,6 +3413,11 @@ reset(void)
 			else
 			{
 				mu_x += delta[i];
+				if (patm_x > 1 && fabs(delta[i]) > 1e-3 * mu_x)
+				{
+					same_model = false;
+					k_temp(tc_x, patm_x);
+				}
 			}
 			//if (mu_x > 50) mu_x = 50;
 			if (mu_x <= 1e-8)
@@ -4519,7 +4537,7 @@ revise_guesses(void)
 				{
 					repeat = TRUE;
 					x[i]->master[0]->s->la += 5;
-		  /*!!!!*/ if (x[i]->master[0]->s->la < -999.)
+					if (x[i]->master[0]->s->la < -999.)
 						x[i]->master[0]->s->la = MIN_RELATED_LOG_ACTIVITY;
 				}
 				else if (fail == TRUE && f < 1.5 * fabs(x[i]->moles))
@@ -4648,7 +4666,7 @@ sum_species(void)
 
 		total_h_x += s_x[i]->h * s_x[i]->moles;
 		total_o_x += s_x[i]->o * s_x[i]->moles;
-/* appt */
+
 		if (use.surface_ptr != NULL)
 		{
 			if (use.surface_ptr->debye_lengths > 0 && state >= REACTION
@@ -4756,8 +4774,6 @@ surface_model(void)
 				malloc_error();
 		}
 	}
-/* appt */
-	/*if (state >= REACTION && diffuse_layer_x == TRUE) { */
 	if (state >= REACTION && dl_type_x != NO_DL)
 	{
 		if (use.mix_ptr != NULL)
@@ -4803,11 +4819,7 @@ surface_model(void)
 	if (model() == ERROR)
 		return (ERROR);
 	g_iterations = 0;
-/* appt this is a stop for debugging...
-	if (transport_step == 4 && cell_no == 2)
-		 g_iterations = 0;
- */
-	/*if (use.surface_ptr->donnan == TRUE) { */
+
 	if (use.surface_ptr->dl_type == DONNAN_DL)
 	{
 		do

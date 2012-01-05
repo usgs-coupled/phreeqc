@@ -1022,6 +1022,8 @@ tidy_gas_phase(void)
 				//n_g++;
 			}
 			V_m = calc_PR(phase_ptrs, P, gas_phase_ptr->Get_temperature(), 0);
+			gas_phase_ptr->Set_v_m(V_m);
+			gas_phase_ptr->Set_total_p(P);
 			//V_m = 1.0;
 			//for (j = 0; j < gas_phase[i].count_comps; j++)
 			//{
@@ -1037,6 +1039,7 @@ tidy_gas_phase(void)
 				{
 					gc[j].Set_moles(phase_ptr->moles_x *
 						gas_phase_ptr->Get_volume() / V_m);
+					gas_phase_ptr->Set_total_moles(gas_phase_ptr->Get_total_moles() + gc[j].Get_moles());
 				}
 			}
 			gas_phase_ptr->Set_gas_comps(gc);

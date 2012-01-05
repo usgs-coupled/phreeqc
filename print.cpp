@@ -516,7 +516,7 @@ print_gas_phase(void)
 		return (OK);
 
 	cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
-	if (gas_phase_ptr->Get_v_m() >= 0.035)
+	if (gas_phase_ptr->Get_v_m() >= 0.01)
 		PR = true;
 	if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_PRESSURE)
 	{
@@ -553,7 +553,7 @@ print_gas_phase(void)
 	if(gas_phase_ptr->Get_total_moles() > 0)
 		output_msg(sformatf("  Molar volume: %10.2e liters/mole",
 			   (double) gas_phase_ptr->Get_volume() / gas_phase_ptr->Get_total_moles()));
-	if ((PR && gas_phase_ptr->Get_volume() / gas_phase_ptr->Get_total_moles() <= 0.035) || (PR && gas_phase_ptr->Get_v_m() <= 0.035))
+	if (!numerical_fixed_volume && (PR && gas_phase_ptr->Get_volume() / gas_phase_ptr->Get_total_moles() <= 0.03) || (PR && gas_phase_ptr->Get_v_m() <= 0.03))
 		output_msg(" WARNING: Program's limit for Peng-Robinson.\n");
 	else
 		output_msg("\n");
@@ -564,7 +564,7 @@ print_gas_phase(void)
 
 	output_msg(sformatf("\n%68s\n%78s\n", "Moles in gas",
 			   "----------------------------------"));
-	if (gas_phase_ptr->Get_v_m() >= 0.035)
+	if (gas_phase_ptr->Get_v_m() >= 0.03)
 		output_msg(sformatf( "%-11s%12s%12s%7s%12s%12s%12s\n\n", "Component",
 			   "log P", "P", "phi", "Initial", "Final", "Delta"));
 	else
@@ -1231,7 +1231,7 @@ print_saturation_indices(void)
 			pr_in = "**";
 			PR = true;
 		}
-		else if (fabs(reaction_ptr->logk[delta_v]) > 0.01)
+		else if (fabs(reaction_ptr->logk[delta_v]) > 0.01 && patm_x > 1)
 		{
 			pr_in = "* ";
 			DV = true;
@@ -1242,7 +1242,7 @@ print_saturation_indices(void)
 		output_msg(sformatf("\t%-15s%7.2f%2s%8.2f%8.2f  %s",
 				   phases[i]->name, (double) si, pr_in, (double) iap, (double) lk,
 				   phases[i]->formula));
-		if (fabs(reaction_ptr->logk[delta_v]) > 0.01)
+		if (fabs(reaction_ptr->logk[delta_v]) > 0.01 && patm_x > 1)
 			output_msg(sformatf("\t%s%6.2f%s",
 				   " Delta_V ", reaction_ptr->logk[delta_v], " cm3/mol"));
 		if (gas && phases[i]->pr_in && phases[i]->pr_p)
@@ -2413,8 +2413,8 @@ punch_gas_phase(void)
 		p = gas_phase_ptr->Get_total_p();
 		total_moles = gas_phase_ptr->Get_total_moles();
 		volume = total_moles * R_LITER_ATM * tk_x / gas_phase_ptr->Get_total_p();
- 		if (gas_phase_ptr->Get_v_m() >= 0.035)
- 			volume = (gas_phase_ptr->Get_v_m() >= 0.035) * gas_phase_ptr->Get_total_moles();
+ 		if (gas_phase_ptr->Get_v_m() >= 0.03)
+ 			volume = 0.03 * gas_phase_ptr->Get_total_moles();
 	}
 	if (punch.high_precision == FALSE)
 	{

@@ -49,7 +49,9 @@ prep(void)
  *   X are set.
  */
 
-	if (same_model == FALSE)
+	if (!same_model && !switch_numerical)
+		numerical_fixed_volume = false;
+	if (same_model == FALSE || switch_numerical)
 	{
 		clear();
 		setup_unknowns();
@@ -4311,8 +4313,8 @@ setup_solution(void)
 				phase_ptr = solution_ptr->totals[i].phase;
 				x[count_unknowns]->phase = phase_ptr;
 				x[count_unknowns]->si = solution_ptr->totals[i].phase_si;
-				/* si_org is used for Peng-Robinson gas, with the fugacity
-				   coefficient added later in adjust_pure_phases,
+				/* For Peng-Robinson gas, the fugacity
+				   coefficient is added later in adjust_setup_solution,
 				   when rxn_x has been defined for each phase in the model */
 				if (solution_phase_boundary_unknown == NULL)
 				{
@@ -5294,6 +5296,9 @@ calc_delta_v(reaction *r_ptr, bool phase)
 {
 /* calculate delta_v from molar volumes */
 
+	if (!strcmp(r_ptr->token[0].name, "H2O(g)"))
+		return 0.0;
+
 	int i, p = -1;
 	LDBLE d_v = 0.0;
 
@@ -5320,7 +5325,7 @@ calc_delta_v(reaction *r_ptr, bool phase)
 
 /* ---------------------------------------------------------------------- */
 LDBLE Phreeqc::
-calc_lk_phase(phase *p_ptr, LDBLE TK, LDBLE P)
+calc_lk_phase(phase *p_ptr, LDBLE TK, LDBLE pa)
 /* ---------------------------------------------------------------------- */
 {
 /* 
@@ -5332,11 +5337,11 @@ calc_lk_phase(phase *p_ptr, LDBLE TK, LDBLE P)
 	if (!r_ptr)
 		return 0.0;
 	if (!r_ptr->logk[vm0])
-		return k_calc(r_ptr->logk, TK, P * PASCAL_PER_ATM);
+		return k_calc(r_ptr->logk, TK, pa * PASCAL_PER_ATM);
 
 	int i;
 	LDBLE tc = TK - 273.15;
-	LDBLE d_v = 0.0;
+	LDBLE kp_t, d_v = 0.0;
 
 	for (i = 0; r_ptr->token[i].name; i++)
 	{
@@ -5348,21 +5353,38 @@ calc_lk_phase(phase *p_ptr, LDBLE TK, LDBLE P)
 			continue;
 		if (!strcmp(r_ptr->token[i].s->name, "H2O"))
 		{
-				d_v += r_ptr->token[i].coef * 18.016 / calc_rho_0(tc, P);
+				d_v += r_ptr->token[i].coef * 18.016 / calc_rho_0(tc, pa);
 		}
 		else if (r_ptr->token[i].s->logk[vm0])
+		{
 			d_v += r_ptr->token[i].coef * (r_ptr->token[i].s->logk[vm0] +\
 				(r_ptr->token[i].s->logk[vm1] + r_ptr->token[i].s->logk[vm2] * tc) * tc);
+			if (r_ptr->token[i].s->logk[kappa])
+			{
+				kp_t = r_ptr->token[i].s->logk[kappa];
+				//if (r_ptr->token[i].s->z > 0)
+				//{
+				//	/* correct kappa of cations for temperature until kappa = 0, Table 43.6 */
+				//	kp_t += 4e-5 * (tc - 25);
+				//	if (kp_t > 0)
+				//		kp_t = 0;
+				//}
+				d_v += kp_t * pa;
+			}
+		}
 	}
 	d_v -= p_ptr->logk[vm0] + (p_ptr->logk[vm1] * tc +	p_ptr->logk[vm2] * tc) * tc;
 	r_ptr->logk[delta_v] = d_v;
 
-	return k_calc(r_ptr->logk, TK, P * PASCAL_PER_ATM);
+	if (!strcmp(r_ptr->token[0].name, "H2O(g)"))
+		r_ptr->logk[delta_v] = 0.0;
+
+	return k_calc(r_ptr->logk, TK, pa * PASCAL_PER_ATM);
 }
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-calc_vm(LDBLE tc)
+calc_vm(LDBLE tc, LDBLE pa)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -5370,18 +5392,32 @@ calc_vm(LDBLE tc)
  *  Read.cpp copies millero[0..3] into logk[vm0 + 0..3], or reads them directly with -Vm.
  */
 	int i;
-	/* S_v * Iv^0.5 in the molar volumes of Millero, but see Redlich and Meyer, Chem. Rev. 64, 221.
+	LDBLE kp_t;
+
+	/* S_v * Iv^0.5 is from Redlich and Meyer, Chem. Rev. 64, 221.
 	   Use mu_x for the volume averaged Iv, the difference is negligible....*/
-	//LDBLE Sv_I = 0.5 * (1.444 + (0.016799 + (-8.4055e-6 + 5.5153e-7 * tc) * tc) * tc) * sqrt(mu_x);
+	LDBLE Sv_I = 0.5 * (1.444 + (0.016799 + (-8.4055e-6 + 5.5153e-7 * tc) * tc) * tc) * sqrt(mu_x);
 	for (i = 0; i < count_s_x; i++)
 	{
 		if (!s_x[i]->logk[vm0])
 			continue;
-		//s_x[i]->rxn_x->logk[vm_tc] = fabs(s_x[i]->z) * Sv_I;
-
 		/* the volume terms... */
 		s_x[i]->rxn_x->logk[vm_tc] = s_x[i]->logk[vm0] + (s_x[i]->logk[vm1] + s_x[i]->logk[vm2] * tc) * tc;
+		if (s_x[i]->logk[kappa])
+		{
+			kp_t = s_x[i]->logk[kappa];
+			//if (s_x[i]->z > 0)
+			//{
+			//	/* correct kappa of cations for temperature until kappa = 0, Table 43.6 */
+			//	kp_t += 4e-5 * (tc - 25);
+			//	if (kp_t > 0)
+			//		kp_t = 0;
+			//}
+			s_x[i]->rxn_x->logk[vm_tc] += kp_t * pa;
+		}
 
+		/* the ionic strength term * Iv^0.5... */
+		s_x[i]->rxn_x->logk[vm_tc] += 0.5 * s_x[i]->z * s_x[i]->z * Sv_I;
 		/* plus the volume terms * Iv, take mu_x for Iv... */
 		//s_x[i]->rxn_x->logk[vm_tc] += (s_x[i]->millero[3] + (s_x[i]->millero[4] + s_x[i]->millero[5] * tc) * tc) * mu_x;
 
@@ -5399,8 +5435,7 @@ k_temp(LDBLE tc, LDBLE pa) /* pa - pressure in atm */
  *  Calculates log k's for all species and pure_phases
  */
 /* note... because of mu_x term in the pressure_dependent Vm's, k_temp must be called for iter > 0 
-   for initial solutions.
-   still needs to be checked, left out mu_x terms for now... */
+   */
 	if (same_model == TRUE && same_temperature == TRUE && same_pressure == TRUE)
 		return (OK);
 	int i;
@@ -5410,7 +5445,7 @@ k_temp(LDBLE tc, LDBLE pa) /* pa - pressure in atm */
  */
 	/* calculate relative molar volumes for tc... */
 	rho_0 = calc_rho_0(tc, pa);
-	calc_vm(tc);
+	calc_vm(tc, pa);
 
 	for (i = 0; i < count_s_x; i++)
 	{
