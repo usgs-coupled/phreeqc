@@ -2699,12 +2699,74 @@ step_save_exch(int n_user)
 
 	if (use.exchange_ptr == NULL)
 		return (OK);
+
+	cxxExchange *temp_ptr = Utilities::Rxn_find(Rxn_exchange_map, use.n_exchange_user);
+	assert(temp_ptr);
+
+	// Set all totals to 0.0
+	cxxExchange temp_exchange = *temp_ptr;
+	{
+		std::map<std::string, cxxExchComp>::iterator it = temp_exchange.Get_exchComps().begin();
+		for ( ; it != temp_exchange.Get_exchComps().end(); it++)
+		{
+			it->second.Get_totals().multiply(0.0);
+		}
+	}
+
+	// Set exchange total in one component
+	for (int i = 0; i < count_master; i++)
+	{
+		if (master[i]->s->type != EX)
+			continue;
+		found = false;
+		std::string e(master[i]->elt->name);
+		std::map<std::string, cxxExchComp>::iterator it = temp_exchange.Get_exchComps().begin();
+		for ( ; it != temp_exchange.Get_exchComps().end(); it++)
+		{
+			cxxNameDouble *nd = &(it->second.Get_totals());
+			cxxNameDouble::iterator nd_it = nd->find(e);
+			if (nd_it != nd->end())
+			{
+				LDBLE coef;
+				if (master[i]->total <= MIN_TOTAL)
+				{
+					coef = MIN_TOTAL;
+				}
+				else
+				{
+					coef = master[i]->total;
+				}
+				nd->insert(nd_it->first.c_str(), coef);
+				break;
+			}
+		}
+	}
+	
+	Rxn_exchange_map[n_user] = temp_exchange;
+	return (OK);
+}
+#ifdef SKIP
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+step_save_exch(int n_user)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Save exchange composition 
+ *
+ *   input:  n_user is user exchange number of target
+ */
+	//int i;
+	bool found;
+
+	if (use.exchange_ptr == NULL)
+		return (OK);
 	//exchange_duplicate(use.exchange_ptr->n_user, n_user);
 	//exchange_ptr = exchange_bsearch(n_user, &n);
 	cxxExchange *temp_ptr = Utilities::Rxn_find(Rxn_exchange_map, use.n_exchange_user);
 	assert(temp_ptr);
 	cxxExchange temp_exchange = *temp_ptr;
-
+	
 	for (int i = 0; i < count_master; i++)
 	{
 		if (master[i]->s->type != EX)
@@ -2738,7 +2800,7 @@ step_save_exch(int n_user)
 	Rxn_exchange_map[n_user] = temp_exchange;
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 step_save_surf(int n_user)

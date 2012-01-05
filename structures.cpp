@@ -89,13 +89,6 @@ clean_up(void)
 	surface = (struct surface *) free_check_null(surface);
 
 /* exchange */
-#ifdef SKIP
-	for (j = 0; j < count_exchange; j++)
-	{
-		exchange_free(&exchange[j]);
-	}
-	exchange = (struct exchange *) free_check_null(exchange);
-#endif
 	Rxn_exchange_map.clear();
 
 /* pp assemblages */
@@ -116,15 +109,11 @@ clean_up(void)
 		(struct s_s_assemblage *) free_check_null(s_s_assemblage);
 
 /* irreversible reactions */
-#ifdef SKIP
-	for (j = 0; j < count_irrev; j++)
-	{
-		irrev_free(&irrev[j]);
-	}
-	irrev = (struct irrev *) free_check_null(irrev);
-#endif
+	Rxn_reaction_map.clear();
+
 /* temperature */
 	Rxn_temperature_map.clear();
+
 /* pressure */
 	Rxn_pressure_map.clear();
 
@@ -138,13 +127,7 @@ clean_up(void)
 
 /* mixtures */
 	Rxn_mix_map.clear();
-#ifdef SKIP
-	for (j = 0; j < count_mix; j++)
-	{
-		mix_free(&mix[j]);
-	}
-	mix = (struct mix *) free_check_null(mix);
-#endif
+
 /* phases */
 
 	for (j = 0; j < count_phases; j++)
@@ -163,13 +146,6 @@ clean_up(void)
 
 /* gases */
 	Rxn_gas_phase_map.clear();
-#ifdef SKIP
-	for (j = 0; j < count_gas_phase; j++)
-	{
-		gas_phase_free(&gas_phase[j]);
-	};
-	gas_phase = (struct gas_phase *) free_check_null(gas_phase);
-#endif
 
 /* kinetics */
 	for (j = 0; j < count_kinetics; j++)
@@ -444,13 +420,6 @@ reinitialize(void)
 	count_surface = 0;
 
 /* exchange */
-#ifdef SKIP
-	for (j = 0; j < count_exchange; j++)
-	{
-		exchange_free(&exchange[j]);
-	}
-	count_exchange = 0;
-#endif
 	Rxn_exchange_map.clear();
 
 /* pp assemblages */
@@ -471,13 +440,6 @@ reinitialize(void)
 
 /* gases */
 	Rxn_gas_phase_map.clear();
-#ifdef SKIP
-	for (j = 0; j < count_gas_phase; j++)
-	{
-		gas_phase_free(&gas_phase[j]);
-	};
-	count_gas_phase = 0;
-#endif
 
 /* kinetics */
 	for (j = 0; j < count_kinetics; j++)
@@ -487,13 +449,8 @@ reinitialize(void)
 	count_kinetics = 0;
 
 /* irreversible reactions */
-#ifdef SKIP
-	for (j = 0; j < count_irrev; j++)
-	{
-		irrev_free(&irrev[j]);
-	}
-	count_irrev = 0;
-#endif
+	Rxn_reaction_map.clear();
+
 	// Temperature
 	Rxn_temperature_map.clear();
 
@@ -755,868 +712,6 @@ elt_list_save(void)
 	elt_list_ptr[count_elts].elt = NULL;
 	return (elt_list_ptr);
 }
-#ifdef SKIP
-/* **********************************************************************
- *
- *   Routines related to structure "exchange"
- *
- * ********************************************************************** */
-/* ---------------------------------------------------------------------- */
-struct exchange * Phreeqc::
-exchange_alloc(void)
-/* ---------------------------------------------------------------------- */
-{
-	struct exchange *exchange_ptr;
-	exchange_ptr = (struct exchange *) PHRQ_malloc(sizeof(struct exchange));
-	if (exchange_ptr == NULL)
-		malloc_error();
-
-	exchange_ptr->n_user = -1;
-	exchange_ptr->n_user_end = -1;
-	exchange_ptr->new_def = 0;
-	exchange_ptr->description = NULL;
-	exchange_ptr->solution_equilibria = 0;
-	exchange_ptr->n_solution = 0;
-	exchange_ptr->count_comps = 0;
-	exchange_ptr->comps = NULL;
-	exchange_ptr->related_phases = 0;
-	exchange_ptr->related_rate = 0;
-	exchange_ptr->pitzer_exchange_gammas = 1;
-
-	return (exchange_ptr);
-}
-
-/* ---------------------------------------------------------------------- */
-struct exchange * Phreeqc::
-exchange_bsearch(int k, int *n)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Binary search exchange to find if user exchange number k exists.
- *   Exchange is assumed to be in sort order by user number.
- */
-	void *void_ptr;
-	if (count_exchange == 0)
-	{
-		*n = -999;
-		return (NULL);
-	}
-	void_ptr = (void *)
-		bsearch((char *) &k,
-				(char *) exchange,
-				(size_t) count_exchange,
-				(size_t) sizeof(struct exchange), exchange_compare_int);
-	if (void_ptr == NULL)
-	{
-		*n = -999;
-		return (NULL);
-	}
-	*n = (int) ((struct exchange *) void_ptr - exchange);
-	return ((struct exchange *) void_ptr);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-exchange_comp_compare(const void *ptr1, const void *ptr2)
-/* ---------------------------------------------------------------------- */
-{
-	const struct exch_comp *exch_comp_ptr1, *exch_comp_ptr2;
-	exch_comp_ptr1 = (const struct exch_comp *) ptr1;
-	exch_comp_ptr2 = (const struct exch_comp *) ptr2;
-	return (strcmp_nocase
-			(exch_comp_ptr1->master->elt->name,
-			 exch_comp_ptr2->master->elt->name));
-}
-
-/* ---------------------------------------------------------------------- */
-void Phreeqc::
-exchange_comp_init(struct exch_comp *exch_comp_ptr)
-/* ---------------------------------------------------------------------- */
-{
-	exch_comp_ptr->formula = NULL;
-	exch_comp_ptr->formula_z = 0.0;
-	exch_comp_ptr->formula_totals = NULL;
-	exch_comp_ptr->moles = 0.0;
-	exch_comp_ptr->la = 0.0;
-	exch_comp_ptr->charge_balance = 0.0;
-	exch_comp_ptr->phase_name = NULL;
-	exch_comp_ptr->phase_proportion = 0.0;
-	exch_comp_ptr->rate_name = NULL;
-	return;
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-exchange_compare(const void *ptr1, const void *ptr2)
-/* ---------------------------------------------------------------------- */
-{
-	const struct exchange *exchange_ptr1, *exchange_ptr2;
-	exchange_ptr1 = (const struct exchange *) ptr1;
-	exchange_ptr2 = (const struct exchange *) ptr2;
-	if (exchange_ptr1->n_user > exchange_ptr2->n_user)
-		return (1);
-	if (exchange_ptr1->n_user < exchange_ptr2->n_user)
-		return (-1);
-	return (0);
-
-}
-
-/* ---------------------------------------------------------------------- */
- int Phreeqc::
-exchange_compare_int(const void *ptr1, const void *ptr2)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Compare exchange user numbers
- */
-	const int *nptr1;
-	const struct exchange *nptr2;
-
-	nptr1 = (const int *) ptr1;
-	nptr2 = (const struct exchange *) ptr2;
-	if (*nptr1 > nptr2->n_user)
-		return (1);
-	if (*nptr1 < nptr2->n_user)
-		return (-1);
-	return (0);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-exchange_copy(struct exchange *exchange_old_ptr,
-			  struct exchange *exchange_new_ptr, int n_user_new)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Copies exchange data from exchange_old_ptr to new location, exchange_new_ptr.
- *   Space for the exchange_new_ptr structure must already be malloced.
- *   Space for exchange components is malloced here.
- */
-	int count_comps, i;
-	char token[MAX_LENGTH];
-/*
- *   Store data for structure exchange
- */
-	memcpy(exchange_new_ptr, exchange_old_ptr, sizeof(struct exchange));
-	exchange_new_ptr->n_user = n_user_new;
-	exchange_new_ptr->n_user_end = n_user_new;
-	count_comps = exchange_old_ptr->count_comps;
-	exchange_new_ptr->new_def = exchange_old_ptr->new_def;
-	exchange_new_ptr->solution_equilibria = FALSE;
-	exchange_new_ptr->n_solution = -2;
-	exchange_new_ptr->count_comps = count_comps;
-	sprintf(token, "Exchanger defined in simulation %d.", simulation);
-	exchange_new_ptr->description = string_duplicate(token);
-/*
- *   Count exchange components and allocate space
- */
-	exchange_new_ptr->comps =
-		(struct exch_comp *) PHRQ_malloc((size_t) (count_comps) *
-										 sizeof(struct exch_comp));
-	if (exchange_new_ptr->comps == NULL)
-		malloc_error();
-/*
- *   Write exch_comp structure for each exchange component
- */
-	memcpy(exchange_new_ptr->comps, exchange_old_ptr->comps,
-		   (size_t) (count_comps) * sizeof(struct exch_comp));
-	for (i = 0; i < count_comps; i++)
-	{
-		exchange_new_ptr->comps[i].totals =
-			elt_list_dup(exchange_old_ptr->comps[i].totals);
-		exchange_new_ptr->comps[i].formula_totals =
-			elt_list_dup(exchange_old_ptr->comps[i].formula_totals);
-	}
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-exchange_copy_to_last(int n, int n_user)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Copies an exchange definition from position n to position count_exchange.
- *   New exchange structure is given user number n_user.
- */
-	space((void **) ((void *) &exchange), count_exchange, &max_exchange,
-		  sizeof(struct exchange));
-	exchange_copy(&exchange[n], &exchange[count_exchange], n_user);
-	count_exchange++;
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-exchange_delete(int n_user_old)
-/* ---------------------------------------------------------------------- */
-/*
- *   Frees space for user number n_user_old, removes structure from
- *   array exchange.
- */
-{
-	int i;
-	int n_old;
-	struct exchange *exchange_ptr_old;
-/*
- *   Find n_user_old in structure array
- */
-	exchange_ptr_old = exchange_bsearch(n_user_old, &n_old);
-	if (exchange_ptr_old != NULL)
-	{
-		/*
-		 *   Delete exchange
-		 */
-		exchange_free(&exchange[n_old]);
-
-		for (i = n_old + 1; i < count_exchange; i++)
-		{
-			memcpy((void *) &exchange[i - 1], (void *) &exchange[i],
-				   (size_t) sizeof(struct exchange));
-		}
-		count_exchange--;
-	}
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-exchange_duplicate(int n_user_old, int n_user_new)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Checks if n_user_new exists, and frees space if it does
- *   Copies exchange[n_user_old] to old n_user_new space if
- *   found or to exchange[count_exchange] if not found.
- *   Exchange array may not be in sort order after the copy.
- */
-	int sort;
-	int n_old, n_new;
-	struct exchange *exchange_ptr_old, *exchange_ptr_new;
-/*
- *   Find n_user_old in structure array exchange
- */
-	if (n_user_old == n_user_new)
-		return (OK);
-	exchange_ptr_old = exchange_bsearch(n_user_old, &n_old);
-	if (exchange_ptr_old == NULL)
-	{
-		error_string = sformatf( "Exchange %d not found.", n_user_old);
-		error_msg(error_string, CONTINUE);
-		input_error++;
-		return (ERROR);
-	}
-/*
- *   Find n_user_new in structure array exchange or make new space
- */
-	sort = FALSE;
-	exchange_ptr_new = exchange_bsearch(n_user_new, &n_new);
-	if (exchange_ptr_new != NULL)
-	{
-		exchange_free(exchange_ptr_new);
-	}
-	else
-	{
-		space((void **) ((void *) &exchange), count_exchange, &max_exchange,
-			  sizeof(struct exchange));
-		if (n_user_new < exchange[count_exchange - 1].n_user)
-			sort = TRUE;
-		n_new = count_exchange++;
-	}
-/*
- *   Copy data
- */
-	exchange_copy(&exchange[n_old], &exchange[n_new], n_user_new);
-	if (sort == TRUE)
-		exchange_sort();
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-exchange_free(struct exchange *exchange_ptr)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Frees all data associated with exchange structure.
- */
-	int i;
-	if (exchange_ptr == NULL)
-		return (ERROR);
-/*
- *   Free space allocated for exchange structure
- */
-	exchange_ptr->description =
-		(char *) free_check_null(exchange_ptr->description);
-	for (i = 0; i < exchange_ptr->count_comps; i++)
-	{
-		exchange_ptr->comps[i].totals =
-			(struct elt_list *) free_check_null(exchange_ptr->comps[i].
-												totals);
-		exchange_ptr->comps[i].formula_totals =
-			(struct elt_list *) free_check_null(exchange_ptr->comps[i].
-												formula_totals);
-	}
-	exchange_ptr->comps =
-		(struct exch_comp *) free_check_null(exchange_ptr->comps);
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-exchange_init(struct exchange *exchange_ptr, int n_user, int n_user_end,
-			  const char *description)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Frees all data associated with exchange structure.
- */
-
-	if (exchange_ptr == NULL)
-		return (ERROR);
-	exchange_ptr->n_user = n_user;
-	exchange_ptr->n_user_end = n_user_end;
-	exchange_ptr->new_def = TRUE;
-	exchange_ptr->description = string_duplicate(description);
-	exchange_ptr->solution_equilibria = FALSE;
-	exchange_ptr->n_solution = 0;
-	exchange_ptr->count_comps = 0;
-	exchange_ptr->comps =
-		(struct exch_comp *) PHRQ_malloc(sizeof(struct exch_comp));
-	if (exchange_ptr->comps == NULL)
-		malloc_error();
-	exchange_comp_init(&exchange_ptr->comps[0]);
-	exchange_ptr->related_phases = FALSE;
-	exchange_ptr->related_rate = FALSE;
-	exchange_ptr->pitzer_exchange_gammas = TRUE;
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-exchange_ptr_to_user(struct exchange *exchange_ptr_old, int n_user_new)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Checks if n_user_new exists, and frees space if it does
- *   Copies exchange_old_ptr to old n_user_new space if
- *   found or to exchange[count_exchange] if not found.
- *   Exchange array may not be in sort order after the copy.
- */
-	int sort;
-	int n_new;
-	struct exchange *exchange_ptr_new;
-/*
- *   Find n_user_old in structure array exchange
- */
-	if (exchange_ptr_old == NULL)
-	{
-		error_string = sformatf( "Exchange ptr is NULL");
-		error_msg(error_string, CONTINUE);
-		input_error++;
-		return (ERROR);
-	}
-/*
- *   Find n_user_new in structure array exchange or make new space
- */
-	sort = FALSE;
-	exchange_ptr_new = exchange_bsearch(n_user_new, &n_new);
-	if (exchange_ptr_new == exchange_ptr_old)
-		return (OK);
-	if (exchange_ptr_new != NULL)
-	{
-		exchange_free(exchange_ptr_new);
-	}
-	else
-	{
-		space((void **) ((void *) &exchange), count_exchange, &max_exchange,
-			  sizeof(struct exchange));
-		if (n_user_new < exchange[count_exchange - 1].n_user)
-			sort = TRUE;
-		n_new = count_exchange++;
-	}
-/*
- *   Copy data
- */
-	exchange_copy(exchange_ptr_old, &exchange[n_new], n_user_new);
-	if (sort == TRUE)
-		exchange_sort();
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-struct exchange * Phreeqc::
-exchange_replicate(struct exchange *exchange_old_ptr, int n_user_new)
-/* ---------------------------------------------------------------------- */
-{
-	struct exchange *exchange_ptr;
-	exchange_ptr = exchange_alloc();
-	exchange_copy(exchange_old_ptr, exchange_ptr, n_user_new);
-	return (exchange_ptr);
-}
-
-/* ---------------------------------------------------------------------- */
-struct exchange * Phreeqc::
-exchange_search(int n_user, int *n, int print)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *  Does linear search for user number n_user.
- *  Returns pointer to exchange structure and position number, n,
- *     in exchange array if found.
- *  Returns NULL if not found.
- */
-	int i;
-	for (i = 0; i < count_exchange; i++)
-	{
-		if (n_user == exchange[i].n_user)
-		{
-			break;
-		}
-	}
-	if (i >= count_exchange)
-	{
-		if (print == TRUE)
-		{
-			error_string = sformatf( "Exchange %d not found.", n_user);
-			error_msg(error_string, CONTINUE);
-		}
-		*n = -999;
-		return (NULL);
-	}
-	*n = i;
-	return (&exchange[i]);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-exchange_sort(void)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Sort array of exchange structures
- */
-	if (count_exchange > 0)
-	{
-		qsort(exchange, (size_t) count_exchange,
-			  (size_t) sizeof(struct exchange), exchange_compare);
-	}
-	return (OK);
-}
-#endif
-#ifdef SKIP
-/* **********************************************************************
- *
- *   Routines related to structure "gas"
- *
- * ********************************************************************** */
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-gas_comp_compare(const void *ptr1, const void *ptr2)
-/* ---------------------------------------------------------------------- */
-{
-	const struct gas_comp *gas_comp_ptr1, *gas_comp_ptr2;
-	gas_comp_ptr1 = (const struct gas_comp *) ptr1;
-	gas_comp_ptr2 = (const struct gas_comp *) ptr2;
-	return (strcmp_nocase(gas_comp_ptr1->name, gas_comp_ptr2->name));
-
-}
-
-/* ---------------------------------------------------------------------- */
-struct gas_phase * Phreeqc::
-gas_phase_alloc(void)
-/* ---------------------------------------------------------------------- */
-{
-	struct gas_phase *gas_phase_ptr;
-	gas_phase_ptr =
-		(struct gas_phase *) PHRQ_malloc(sizeof(struct gas_phase));
-	if (gas_phase_ptr == NULL)
-		malloc_error();
-	gas_phase_ptr->n_user = -1;
-	gas_phase_ptr->n_user_end = -1;
-	gas_phase_ptr->description = NULL;
-	gas_phase_ptr->new_def = 0;
-	gas_phase_ptr->solution_equilibria = 0;
-	gas_phase_ptr->n_solution = 0;
-	gas_phase_ptr->type = 0;
-	gas_phase_ptr->total_p = 0;
-	gas_phase_ptr->total_moles = 0;
-	gas_phase_ptr->volume = 0;
-	gas_phase_ptr->v_m = 0.0;
-	gas_phase_ptr->pr_in = false;
-	gas_phase_ptr->temperature = 0;
-	gas_phase_ptr->count_comps = 0;
-	gas_phase_ptr->comps = NULL;
-	return (gas_phase_ptr);
-}
-
-/* ---------------------------------------------------------------------- */
-struct gas_phase * Phreeqc::
-gas_phase_bsearch(int k, int *n)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Binary search gas_phase to find if user gas_phase number k exists.
- *   Assumes array gas_phase is in sort order.
- */
-	void *void_ptr;
-	if (count_gas_phase == 0)
-	{
-		*n = -999;
-		return (NULL);
-	}
-	void_ptr = (void *)
-		bsearch((char *) &k,
-				(char *) gas_phase,
-				(size_t) count_gas_phase,
-				(size_t) sizeof(struct gas_phase), gas_phase_compare_int);
-	if (void_ptr == NULL)
-	{
-		*n = -999;
-		return (NULL);
-	}
-	*n = (int) ((struct gas_phase *) void_ptr - gas_phase);
-	return ((struct gas_phase *) void_ptr);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-gas_phase_compare(const void *ptr1, const void *ptr2)
-/* ---------------------------------------------------------------------- */
-{
-	const struct gas_phase *gas_phase_ptr1, *gas_phase_ptr2;
-	gas_phase_ptr1 = (const struct gas_phase *) ptr1;
-	gas_phase_ptr2 = (const struct gas_phase *) ptr2;
-	if (gas_phase_ptr1->n_user > gas_phase_ptr2->n_user)
-		return (1);
-	if (gas_phase_ptr1->n_user < gas_phase_ptr2->n_user)
-		return (-1);
-	return (0);
-
-}
-
-/* ---------------------------------------------------------------------- */
- int Phreeqc::
-gas_phase_compare_int(const void *ptr1, const void *ptr2)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Compare gas phase user numbers
- */
-	const int *nptr1;
-	const struct gas_phase *nptr2;
-
-	nptr1 = (const int *) ptr1;
-	nptr2 = (const struct gas_phase *) ptr2;
-	if (*nptr1 > nptr2->n_user)
-		return (1);
-	if (*nptr1 < nptr2->n_user)
-		return (-1);
-	return (0);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-gas_phase_copy(struct gas_phase *gas_phase_old_ptr,
-			   struct gas_phase *gas_phase_new_ptr, int n_user_new)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Copies gas_phase structure from gas_phase_old_ptr to new location gas_phase_new_ptr.
- *   Space for a gas_phase structure must already be malloced
- *   Space for gas_phase components is alloced here.
- */
-	int count_comps;
-	char token[MAX_LENGTH];
-/*
- *   Store data for structure gas
- */
-	memcpy(gas_phase_new_ptr, gas_phase_old_ptr,
-		   (size_t) sizeof(struct gas_phase));
-	count_comps = gas_phase_old_ptr->count_comps;
-	gas_phase_new_ptr->n_user = n_user_new;
-	gas_phase_new_ptr->n_user_end = n_user_new;
-	gas_phase_new_ptr->new_def = FALSE;
-	sprintf(token, "Gas defined in simulation %d.", simulation);
-	gas_phase_new_ptr->description = string_duplicate(token);
-/*
- *    Allocate space for gas components
- */
-	gas_phase_new_ptr->comps =
-		(struct gas_comp *) PHRQ_malloc((size_t) (count_comps) *
-										sizeof(struct gas_comp));
-	if (gas_phase_new_ptr->comps == NULL)
-		malloc_error();
-/*
- *   Write gas_comp structure for each gas component
- */
-	memcpy(gas_phase_new_ptr->comps, gas_phase_old_ptr->comps,
-		   (size_t) (count_comps) * sizeof(struct gas_comp));
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-gas_phase_copy_to_last(int n, int n_user)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Copies an gas_phase definition to position count_gas_phase.
- */
-	space((void **) ((void *) &gas_phase), count_gas_phase, &max_gas_phase,
-		  sizeof(struct gas_phase));
-	gas_phase_copy(&gas_phase[n], &gas_phase[count_gas_phase], n_user);
-	count_gas_phase++;
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-gas_phase_delete(int n_user_old)
-/* ---------------------------------------------------------------------- */
-/*
- *   Frees space for user number n_user_old, removes structure from
- *   array gas_phase.
- */
-{
-	int i;
-	int n_old;
-	struct gas_phase *gas_phase_ptr_old;
-/*
- *   Find n_user_old in structure array
- */
-	gas_phase_ptr_old = gas_phase_bsearch(n_user_old, &n_old);
-	if (gas_phase_ptr_old != NULL)
-	{
-		/*
-		 *   Delete gas_phase
-		 */
-		gas_phase_free(&gas_phase[n_old]);
-
-		for (i = n_old + 1; i < count_gas_phase; i++)
-		{
-			memcpy((void *) &gas_phase[i - 1], (void *) &gas_phase[i],
-				   (size_t) sizeof(struct gas_phase));
-		}
-		count_gas_phase--;
-	}
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-gas_phase_duplicate(int n_user_old, int n_user_new)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Checks if n_user_new exists, and frees space if it does
- *   Copies gas_phase[n_user_old] to old n_user_new space if
- *   found or to gas_phase[count_gas_phase] if not found.
- *   Gas_Phase array may not be in sort order after the copy.
- */
-	int n_old, n_new, sort;
-	struct gas_phase *gas_phase_ptr_old, *gas_phase_ptr_new;
-/*
- *   Find n_user_old in structure array gas_phase
- */
-	if (n_user_old == n_user_new)
-		return (OK);
-	gas_phase_ptr_old = gas_phase_bsearch(n_user_old, &n_old);
-	if (gas_phase_ptr_old == NULL)
-	{
-		error_string = sformatf( "Gas_Phase %d not found.", n_user_old);
-		error_msg(error_string, CONTINUE);
-		input_error++;
-		return (ERROR);
-	}
-/*
- *   Find n_user_new in structure array gas_phase or make new space
- */
-	sort = FALSE;
-	gas_phase_ptr_new = gas_phase_bsearch(n_user_new, &n_new);
-	if (gas_phase_ptr_new != NULL)
-	{
-		gas_phase_free(&gas_phase[n_new]);
-	}
-	else
-	{
-		space((void **) ((void *) &gas_phase), count_gas_phase,
-			  &max_gas_phase, sizeof(struct gas_phase));
-		if (n_user_new < gas_phase[count_gas_phase - 1].n_user)
-			sort = TRUE;
-		n_new = count_gas_phase++;
-	}
-/*
- *   Copy data
- */
-	gas_phase_copy(&gas_phase[n_old], &gas_phase[n_new], n_user_new);
-	if (sort == TRUE)
-		gas_phase_sort();
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-gas_phase_free(struct gas_phase *gas_phase_ptr)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Frees space associated with gas_phase_ptr.
- */
-	if (gas_phase_ptr == NULL)
-		return (ERROR);
-/*
- *   Free space allocated for gas_phase structure
- */
-	gas_phase_ptr->description =
-		(char *) free_check_null(gas_phase_ptr->description);
-	gas_phase_ptr->comps =
-		(struct gas_comp *) free_check_null(gas_phase_ptr->comps);
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-gas_phase_init(struct gas_phase *gas_phase_ptr, int n_user, int n_user_end,
-			   char *description)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Frees space associated with gas_phase_ptr.
- */
-	if (gas_phase_ptr == NULL)
-		return (ERROR);
-	gas_phase_ptr->n_user = n_user;
-	gas_phase_ptr->n_user_end = n_user_end;
-	gas_phase_ptr->description = string_duplicate(description);
-	gas_phase_ptr->new_def = TRUE;
-	gas_phase_ptr->solution_equilibria = FALSE;
-	gas_phase_ptr->n_solution = 0;
-	gas_phase_ptr->type = PRESSURE;
-	gas_phase_ptr->total_p = 1.0;
-	gas_phase_ptr->total_moles = 0.0;
-	gas_phase_ptr->volume = 1.0;
-	gas_phase_ptr->v_m = 0.0;
-	gas_phase_ptr->pr_in = false;
-	gas_phase_ptr->temperature = 298.15;
-	gas_phase_ptr->count_comps = 0;
-	gas_phase_ptr->comps =
-		(struct gas_comp *) PHRQ_malloc((size_t) sizeof(struct gas_comp));
-	if (gas_phase_ptr->comps == NULL)
-		malloc_error();
-
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-gas_phase_ptr_to_user(struct gas_phase *gas_phase_ptr_old, int n_user_new)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Checks if n_user_new exists, and frees space if it does
- *   Copies gas_phase_ptr_old to old n_user_new space if
- *   found or to gas_phase[count_gas_phase] if not found.
- *   Gas_Phase array may not be in sort order after the copy.
- */
-	int n_new, sort;
-	struct gas_phase *gas_phase_ptr_new;
-/*
- *   Find n_user_old in structure array gas_phase
- */
-	if (gas_phase_ptr_old == NULL)
-	{
-		error_string = sformatf( "Gas_Phase pointer is NULL.");
-		error_msg(error_string, CONTINUE);
-		input_error++;
-		return (ERROR);
-	}
-/*
- *   Find n_user_new in structure array gas_phase or make new space
- */
-	sort = FALSE;
-	gas_phase_ptr_new = gas_phase_bsearch(n_user_new, &n_new);
-	if (gas_phase_ptr_new == gas_phase_ptr_old)
-		return (OK);
-	if (gas_phase_ptr_new != NULL)
-	{
-		gas_phase_free(&gas_phase[n_new]);
-	}
-	else
-	{
-		space((void **) ((void *) &gas_phase), count_gas_phase,
-			  &max_gas_phase, sizeof(struct gas_phase));
-		if (n_user_new < gas_phase[count_gas_phase - 1].n_user)
-			sort = TRUE;
-		n_new = count_gas_phase++;
-	}
-/*
- *   Copy data
- */
-	gas_phase_copy(gas_phase_ptr_old, &gas_phase[n_new], n_user_new);
-	if (sort == TRUE)
-		gas_phase_sort();
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-struct gas_phase * Phreeqc::
-gas_phase_replicate(struct gas_phase *gas_phase_old_ptr, int n_user_new)
-/* ---------------------------------------------------------------------- */
-{
-	struct gas_phase *gas_phase_ptr;
-	gas_phase_ptr = gas_phase_alloc();
-	gas_phase_copy(gas_phase_old_ptr, gas_phase_ptr, n_user_new);
-	return (gas_phase_ptr);
-}
-
-/* ---------------------------------------------------------------------- */
-struct gas_phase * Phreeqc::
-gas_phase_search(int n_user, int *n)
-/* ---------------------------------------------------------------------- */
-{
-/*   Linear search of the structure array "gas_phase" for user number n_user
- *
- *   Arguments:
- *      n_user  input, user number
- *      n       output, position in gas_phase
- *
- *   Returns:
- *      if found, the address of the gas_phase element
- *      if not found, NULL
- *
- */
-	int i;
-	for (i = 0; i < count_gas_phase; i++)
-	{
-		if (gas_phase[i].n_user == n_user)
-		{
-			*n = i;
-			return (&(gas_phase[i]));
-		}
-	}
-/*
- *   Gas_phase not found
- */
-	return (NULL);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-gas_phase_sort(void)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Sort array of gas_phase structures
- */
-	if (count_gas_phase > 0)
-	{
-		qsort(gas_phase, (size_t) count_gas_phase,
-			  (size_t) sizeof(struct gas_phase), gas_phase_compare);
-	}
-	return (OK);
-}
-#endif
 /* **********************************************************************
  *
  *   Routines related to structure "inverse"
@@ -1893,373 +988,6 @@ inverse_sort(void)
 	}
 	return (OK);
 }
-#ifdef SKIP
-/* **********************************************************************
- *
- *   Routines related to structure "irrev"
- *
- * ********************************************************************** */
-/* ---------------------------------------------------------------------- */
-struct irrev * Phreeqc::
-irrev_bsearch(int k, int *n)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Search irrev to find if user irrev number k exists.
- *   Uses binary search, assumes array irrev is in sort order.
- */
-	void *void_ptr;
-	if (count_irrev == 0)
-	{
-		*n = -999;
-		return (NULL);
-	}
-	void_ptr = (void *)
-		bsearch((char *) &k,
-				(char *) irrev,
-				(size_t) count_irrev,
-				(size_t) sizeof(struct irrev), irrev_compare_int);
-	if (void_ptr == NULL)
-	{
-		*n = -999;
-		return (NULL);
-	}
-	*n = (int) ((struct irrev *) void_ptr - irrev);
-	return ((struct irrev *) void_ptr);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-irrev_compare(const void *ptr1, const void *ptr2)
-/* ---------------------------------------------------------------------- */
-{
-	const struct irrev *irrev_ptr1, *irrev_ptr2;
-	irrev_ptr1 = (const struct irrev *) ptr1;
-	irrev_ptr2 = (const struct irrev *) ptr2;
-	if (irrev_ptr1->n_user > irrev_ptr2->n_user)
-		return (1);
-	if (irrev_ptr1->n_user < irrev_ptr2->n_user)
-		return (-1);
-	return (0);
-
-}
-
-/* ---------------------------------------------------------------------- */
- int Phreeqc::
-irrev_compare_int(const void *ptr1, const void *ptr2)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Compare irrev user numbers
- */
-	const int *nptr1;
-	const struct irrev *nptr2;
-
-	nptr1 = (const int *) ptr1;
-	nptr2 = (const struct irrev *) ptr2;
-	if (*nptr1 > nptr2->n_user)
-		return (1);
-	if (*nptr1 < nptr2->n_user)
-		return (-1);
-	return (0);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-irrev_copy(struct irrev *irrev_old_ptr, struct irrev *irrev_new_ptr,
-		   int n_user_new)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Copies irrev structure from irrev_old_ptr to new location irrev_new_ptr.
- *   Space for a irrev structure must already be malloced
- *   Space for irrev components is alloced here.
- */
-	int count_list, count_steps;
-	char token[MAX_LENGTH];
-/*
- *   Store data for structure gas
- */
-	memcpy(irrev_new_ptr, irrev_old_ptr, (size_t) sizeof(struct irrev));
-	irrev_new_ptr->n_user = n_user_new;
-	irrev_new_ptr->n_user_end = n_user_new;
-	sprintf(token, "Reaction defined in simulation %d.", simulation);
-	irrev_new_ptr->description = string_duplicate(token);
-	count_list = irrev_old_ptr->count_list;
-	count_steps = irrev_old_ptr->count_steps;
-/*
- *   Allocate space
- */
-	irrev_new_ptr->list =
-		(struct name_coef *) PHRQ_malloc((size_t) (count_list) *
-										 sizeof(struct name_coef));
-	if (irrev_new_ptr->list == NULL)
-		malloc_error();
-	memcpy(irrev_new_ptr->list, irrev_old_ptr->list,
-		   (size_t) (count_list) * sizeof(struct name_coef));
-	if (count_steps < 0)
-		count_steps = 1;
-	irrev_new_ptr->steps =
-		(LDBLE *) PHRQ_malloc((size_t) (count_steps) * sizeof(LDBLE));
-	if (irrev_new_ptr->steps == NULL)
-		malloc_error();
-	memcpy(irrev_new_ptr->steps, irrev_old_ptr->steps,
-		   (size_t) (count_steps) * sizeof(LDBLE));
-
-	if (irrev_old_ptr->elts != NULL)
-	{
-		irrev_new_ptr->elts = elt_list_dup(irrev_old_ptr->elts);
-	}
-	else
-	{
-		irrev_new_ptr->elts = NULL;
-	}
-	return (OK);
-}
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-irrev_delete(int n_user_old)
-/* ---------------------------------------------------------------------- */
-/*
- *   Frees space for user number n_user_old, removes structure from
- *   array irrev.
- */
-{
-	int i;
-	int n_old;
-	struct irrev *irrev_ptr_old;
-/*
- *   Find n_user_old in structure array
- */
-	irrev_ptr_old = irrev_bsearch(n_user_old, &n_old);
-	if (irrev_ptr_old != NULL)
-	{
-		/*
-		 *   Delete irrev
-		 */
-		irrev_free(&irrev[n_old]);
-
-		for (i = n_old + 1; i < count_irrev; i++)
-		{
-			memcpy((void *) &irrev[i - 1],
-				   (void *) &irrev[i],
-				   (size_t) sizeof(struct irrev));
-		}
-		count_irrev--;
-	}
-	return (OK);
-}
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-irrev_duplicate(int n_user_old, int n_user_new)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Finds irrev structure with user number n_user_old,
- *   copies data to irrev structure with user number n_user_new.
- *   If n_user_new already exists, it is overwritten and sort order
- *      is maintained.
- *   If n_user_new does not exist, a new structure is allocated; sort
- *      order may not be preserved.
- */
-	int n_old, n_new, sort;
-	char token[MAX_LENGTH];
-	int count_steps, count_list;
-	struct irrev *irrev_ptr_old, *irrev_ptr_new;
-/*
- *   Find n_user_old in structure array irrev_assemblage or make new space
- */
-	if (n_user_old == n_user_new)
-		return (OK);
-	irrev_ptr_old = irrev_bsearch(n_user_old, &n_old);
-	if (irrev_ptr_old == NULL)
-	{
-		error_string = sformatf( "Irreversible reaction %d not found.",
-				n_user_old);
-		error_msg(error_string, CONTINUE);
-		input_error++;
-		return (ERROR);
-	}
-/*
- *   Find n_user_old in structure array irrev or make new space
- */
-	sort = FALSE;
-	irrev_ptr_new = irrev_bsearch(n_user_new, &n_new);
-	if (irrev_ptr_new != NULL)
-	{
-		irrev_free(irrev_ptr_new);
-	}
-	else
-	{
-		irrev =
-			(struct irrev *) PHRQ_realloc(irrev,
-										  (size_t) (count_irrev +
-													1) *
-										  sizeof(struct irrev));
-		if (irrev == NULL)
-			malloc_error();
-		if (n_user_new < irrev[count_irrev - 1].n_user)
-			sort = TRUE;
-		n_new = count_irrev++;
-	}
-/*
- *   Store data for structure irrev
- */
-	count_steps = irrev[n_old].count_steps;
-	irrev[n_new].n_user = n_user_new;
-	irrev[n_new].n_user_end = n_user_new;
-	sprintf(token, "Irreversible reaction defined in simulation %d.",
-			simulation);
-	irrev[n_new].description = string_duplicate(token);
-	irrev[n_new].units = irrev[n_old].units;
-	irrev[n_new].count_steps = count_steps;
-	count_list = irrev[n_old].count_list;
-	irrev[n_new].count_list = irrev[n_old].count_list;
-/*
- *   Allocate space
- */
-	irrev[n_new].list =
-		(struct name_coef *) PHRQ_malloc((size_t) (count_list) *
-										 sizeof(struct name_coef));
-	if (irrev[n_new].list == NULL)
-		malloc_error();
-	memcpy(irrev[n_new].list, irrev[n_old].list,
-		   (size_t) (count_list) * sizeof(struct name_coef));
-
-	if (count_steps < 0)
-		count_steps = 1;
-	irrev[n_new].steps =
-		(LDBLE *) PHRQ_malloc((size_t) (count_steps) * sizeof(LDBLE));
-	if (irrev[n_new].steps == NULL)
-		malloc_error();
-	memcpy(irrev[n_new].steps, irrev[n_old].steps,
-		   (size_t) (count_steps) * sizeof(LDBLE));
-
-	if (irrev[n_old].elts != NULL)
-	{
-		irrev[n_new].elts = elt_list_dup(irrev[n_old].elts);
-	}
-	else
-	{
-		irrev[n_new].elts = NULL;
-	}
-	if (sort == TRUE)
-		irrev_sort();
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-irrev_free(struct irrev *irrev_ptr)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Free memory pointed to by an irrev structure.
- */
-	if (irrev_ptr == NULL)
-		return (ERROR);
-/*
- *   Free space allocated for irrev structure
- */
-	irrev_ptr->description = (char *) free_check_null(irrev_ptr->description);
-	irrev_ptr->list = (struct name_coef *) free_check_null(irrev_ptr->list);
-	irrev_ptr->elts = (struct elt_list *) free_check_null(irrev_ptr->elts);
-	irrev_ptr->steps = (LDBLE *) free_check_null(irrev_ptr->steps);
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-struct irrev * Phreeqc::
-irrev_search(int n_user, int *n)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Linear search for irrev user number n_user.
- *   If found, n is position in irrev array and pointer to irrev structure
- *      is returned
- *   If not found, NULL is returned.
- */
-	int i;
-	for (i = 0; i < count_irrev; i++)
-	{
-		if (n_user == irrev[i].n_user)
-		{
-			break;
-		}
-	}
-	if (i >= count_irrev)
-	{
-		*n = -999;
-		return (NULL);
-	}
-	*n = i;
-	return (&irrev[i]);
-}
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-irrev_ptr_to_user(struct irrev *irrev_ptr_old, int n_user_new)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Copies data to irrev structure with user number n_user_new.
- *   If n_user_new already exists, it is overwritten.
- *   Sort order is maintained.
- */
-	int n_new, sort;
-	struct irrev  *irrev_ptr_new;
-/*
- *   Check pointer
- */
-	if (irrev_ptr_old == NULL)
-	{
-		error_string = sformatf( "Irreversible reaction pointer is NULL.");
-		error_msg(error_string, CONTINUE);
-		input_error++;
-		return (ERROR);
-	}
-/*
- *   Find n_user_old in structure array irrev or make new space
- */
-	sort = FALSE;
-	irrev_ptr_new = irrev_bsearch(n_user_new, &n_new);
-	if (irrev_ptr_new != NULL)
-	{
-		irrev_free(irrev_ptr_new);
-	}
-	else
-	{
-		irrev =	(struct irrev *) PHRQ_realloc(irrev, (size_t) (count_irrev + 1) * sizeof(struct irrev));
-		if (irrev == NULL)
-			malloc_error();
-		if (n_user_new < irrev[count_irrev - 1].n_user)
-			sort = TRUE;
-		n_new = count_irrev++;
-	}
-/*
- *   Copy data
- */
-
-	irrev_copy(irrev_ptr_old, &irrev[n_new], n_user_new);
-	if (sort == TRUE)
-		irrev_sort();
-	return (OK);
-}
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-irrev_sort(void)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Sort array of irrev structures
- */
-	if (count_irrev > 0)
-	{
-		qsort(irrev, (size_t) count_irrev, (size_t) sizeof(struct irrev),
-			  irrev_compare);
-	}
-	return (OK);
-}
-#endif
 /* **********************************************************************
  *
  *   Routines related to structure "kinetics"
@@ -3066,336 +1794,6 @@ master_search(char *ptr, int *n)
 	}
 	return (NULL);
 }
-#ifdef SKIP
-/* **********************************************************************
- *
- *   Routines related to structure "mix"
- *
- * ********************************************************************** */
-/* ---------------------------------------------------------------------- */
-struct mix * Phreeqc::
-mix_bsearch(int k, int *n)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Search mix to find if user mix number k exists.
- *   Uses binary search, assumes array mix is in sort order.
- */
-	void *void_ptr;
-	if (count_mix == 0)
-	{
-		*n = -999;
-		return (NULL);
-	}
-	void_ptr = (void *)
-		bsearch((char *) &k,
-				(char *) mix,
-				(size_t) count_mix,
-				(size_t) sizeof(struct mix), mix_compare_int);
-	if (void_ptr == NULL)
-	{
-		*n = -999;
-		return (NULL);
-	}
-	*n = (int) ((struct mix *) void_ptr - mix);
-	return ((struct mix *) void_ptr);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-mix_compare(const void *ptr1, const void *ptr2)
-/* ---------------------------------------------------------------------- */
-{
-	const struct mix *mix_ptr1, *mix_ptr2;
-	mix_ptr1 = (const struct mix *) ptr1;
-	mix_ptr2 = (const struct mix *) ptr2;
-	if (mix_ptr1->n_user > mix_ptr2->n_user)
-		return (1);
-	if (mix_ptr1->n_user < mix_ptr2->n_user)
-		return (-1);
-	return (0);
-
-}
-
-/* ---------------------------------------------------------------------- */
- int Phreeqc::
-mix_compare_int(const void *ptr1, const void *ptr2)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Compare mix user numbers
- */
-	const int *nptr1;
-	const struct mix *nptr2;
-
-	nptr1 = (const int *) ptr1;
-	nptr2 = (const struct mix *) ptr2;
-	if (*nptr1 > nptr2->n_user)
-		return (1);
-	if (*nptr1 < nptr2->n_user)
-		return (-1);
-	return (0);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-mix_copy(struct mix *mix_old_ptr, struct mix *mix_new_ptr, int n_user_new)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Copies mix data from mix_old_ptr to new location, mix_new_ptr.
- *   Space for the mix_new_ptr structure must already be malloced.
- *   Space for mix components is malloced here.
- */
-	char token[MAX_LENGTH];
-/*
- *   Copy old to new
- */
-	memcpy(mix_new_ptr, mix_old_ptr, sizeof(struct mix));
-/*
- *   Store data for structure mix
- */
-	mix_new_ptr->n_user = n_user_new;
-	mix_new_ptr->n_user_end = n_user_new;
-	sprintf(token, "Mix defined in simulation %d.", simulation);
-	mix_new_ptr->description = string_duplicate(token);
-/*
- *   Count mix components and allocate space
- */
-	mix_new_ptr->comps =
-		(struct mix_comp *) PHRQ_malloc((size_t) (mix_old_ptr->count_comps) *
-										sizeof(struct mix_comp));
-	if (mix_new_ptr->comps == NULL)
-		malloc_error();
-	memcpy(mix_new_ptr->comps, mix_old_ptr->comps,
-		   (size_t) (mix_old_ptr->count_comps) * sizeof(struct mix_comp));
-
-	return (OK);
-}
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-mix_delete(int n_user_old)
-/* ---------------------------------------------------------------------- */
-/*
- *   Frees space for user number n_user_old, removes structure from
- *   array mix.
- */
-{
-	int i;
-	int n_old;
-	struct mix *mix_ptr_old;
-/*
- *   Find n_user_old in structure array
- */
-	mix_ptr_old = mix_bsearch(n_user_old, &n_old);
-	if (mix_ptr_old != NULL)
-	{
-		/*
-		 *   Delete mix
-		 */
-		mix_free(&mix[n_old]);
-
-		for (i = n_old + 1; i < count_mix; i++)
-		{
-			memcpy((void *) &mix[i - 1],
-				   (void *) &mix[i],
-				   (size_t) sizeof(struct mix));
-		}
-		count_mix--;
-	}
-	return (OK);
-}
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-mix_duplicate(int n_user_old, int n_user_new)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Checks if n_user_new exists, and frees space if it does
- *   Copies mix[n_user_old] to old n_user_new space if
- *   found or to mix[count_mix] if not found.
- *   Mix array may not be in sort order after the copy.
- */
-	int n_old, n_new, sort;
-	char token[MAX_LENGTH];
-	int count_comps;
-	struct mix *mix_ptr_old, *mix_ptr_new;
-/*
- *   Find n_user_old in structure array mix or make new space
- */
-	if (n_user_old == n_user_new)
-		return (OK);
-	mix_ptr_old = mix_bsearch(n_user_old, &n_old);
-	if (mix_ptr_old == NULL)
-	{
-		error_string = sformatf( "Mix %d not found.", n_user_old);
-		error_msg(error_string, CONTINUE);
-		input_error++;
-		return (ERROR);
-	}
-/*
- *   Find n_user_old in structure array mix or make new space
- */
-	sort = FALSE;
-	mix_ptr_new = mix_bsearch(n_user_new, &n_new);
-	if (mix_ptr_new != NULL)
-	{
-		mix_free(&(mix[n_new]));
-	}
-	else
-	{
-		mix =
-			(struct mix *) PHRQ_realloc(mix,
-										(size_t) (count_mix +
-												  1) * sizeof(struct mix));
-		if (mix == NULL)
-			malloc_error();
-		if (n_user_new < mix[count_mix - 1].n_user)
-			sort = TRUE;
-		n_new = count_mix++;
-	}
-/*
- *   Store data for structure mix
- */
-	memcpy(&mix[n_new], &mix[n_old], sizeof(struct mix));
-	count_comps = mix[n_old].count_comps;
-	mix[n_new].n_user = n_user_new;
-	mix[n_new].n_user_end = n_user_new;
-	sprintf(token, "Mix defined in simulation %d.", simulation);
-	mix[n_new].description = string_duplicate(token);
-/*
- *   Count mix components and allocate space
- */
-	mix[n_new].comps =
-		(struct mix_comp *) PHRQ_malloc((size_t) (count_comps) *
-										sizeof(struct mix_comp));
-	if (mix[n_new].comps == NULL)
-		malloc_error();
-/*
- *   Write mix_comp structure for each mix component
- */
-	memcpy(mix[n_new].comps, mix[n_old].comps,
-		   (size_t) (count_comps) * sizeof(struct mix_comp));
-	if (sort == TRUE)
-		mix_sort();
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-mix_free(struct mix *mix_ptr)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Free space allocated for mixture structure.
- */
-	if (mix_ptr == NULL)
-		return (ERROR);
-
-	mix_ptr->description = (char *) free_check_null(mix_ptr->description);
-	mix_ptr->comps = (struct mix_comp *) free_check_null(mix_ptr->comps);
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-struct mix * Phreeqc::
-mix_search(int n_user, int *n, int print)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Linear search of mix array for user number n_user.
- *   Returns pointer to mix structure if found, n is set to position in mix array.
- *   Returns NULL if not found.
- */
-	int i;
-	for (i = 0; i < count_mix; i++)
-	{
-		if (n_user == mix[i].n_user)
-		{
-			break;
-		}
-	}
-	if (i >= count_mix)
-	{
-		if (print == TRUE)
-		{
-			error_string = sformatf( "Mix %d not found.", n_user);
-			error_msg(error_string, CONTINUE);
-		}
-		*n = -999;
-		return (NULL);
-	}
-	*n = i;
-	return (&mix[i]);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-mix_ptr_to_user(struct mix *mix_ptr_old, int n_user_new)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Checks if n_user_new exists, and frees space if it does
- *   Copies mix_ptr_old to n_user_new space if
- *   found or to mix[count_mix] if not found.
- *   Mix array sort order is maintained.
- */
-	int n_new, sort;
-	struct mix *mix_ptr_new;
-/*
- *   Check pointer
- */
-	if (mix_ptr_old == NULL)
-	{
-		error_string = sformatf( "Mix pointer is NULL.");
-		error_msg(error_string, CONTINUE);
-		input_error++;
-		return (ERROR);
-	}
-/*
- *   Find n_user_new in structure array mix or make new space
- */
-	sort = FALSE;
-	mix_ptr_new = mix_bsearch(n_user_new, &n_new);
-	if (mix_ptr_new != NULL)
-	{
-		mix_free(&(mix[n_new]));
-	}
-	else
-	{
-		mix = (struct mix *) PHRQ_realloc(mix, (size_t) (count_mix + 1) * sizeof(struct mix));
-		if (mix == NULL)
-			malloc_error();
-		if (n_user_new < mix[count_mix - 1].n_user)
-			sort = TRUE;
-		n_new = count_mix++;
-	}
-/*
- *   Store data for structure mix
- */
-	mix_copy(mix_ptr_old, &mix[n_new], n_user_new);
-
-	if (sort == TRUE)
-		mix_sort();
-	return (OK);
-}
-
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-mix_sort(void)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Sort array of mix structures
- */
-	if (count_mix > 0)
-	{
-		qsort(mix, (size_t) count_mix, (size_t) sizeof(struct mix),
-			  mix_compare);
-	}
-	return (OK);
-}
-#endif
 /* **********************************************************************
  *
  *   Routines related to structure "pe_data"
@@ -7343,18 +5741,14 @@ system_duplicate(int i, int save_old)
 		solution_duplicate(i, save_old);
 	if (pp_assemblage_bsearch(i, &n) != NULL)
 		pp_assemblage_duplicate(i, save_old);
+
 	Utilities::Rxn_copy(Rxn_exchange_map, i, save_old);
-#ifdef SKIP
-	if (exchange_bsearch(i, &n) != NULL)
-		exchange_duplicate(i, save_old);
-#endif
+
 	if (surface_bsearch(i, &n) != NULL)
 		surface_duplicate(i, save_old);
+
 	Utilities::Rxn_copy(Rxn_gas_phase_map, i, save_old);
-#ifdef SKIP
-	if (gas_phase_bsearch(i, &n) != NULL)
-		gas_phase_duplicate(i, save_old);
-#endif
+
 	if (kinetics_bsearch(i, &n) != NULL)
 		kinetics_duplicate(i, save_old);
 	if (s_s_assemblage_bsearch(i, &n) != NULL)
@@ -7607,12 +6001,6 @@ entity_exists(char *name, int n_user)
 		{
 			return_value = FALSE;
 		}
-#ifdef SKIP
-		if (exchange_bsearch(n_user, &i) == NULL)
-		{
-			return_value = FALSE;
-		}
-#endif
 		break;
 	case Surface:				/* Surface */
 		if (surface_bsearch(n_user, &i) == NULL)
@@ -7635,12 +6023,6 @@ entity_exists(char *name, int n_user)
 		{
 			return_value = FALSE;
 		}
-#ifdef SKIP
-		if (gas_phase_bsearch(n_user, &i) == NULL)
-		{
-			return_value = FALSE;
-		}
-#endif
 		break;
 	case Kinetics:				/* Kinetics */
 		if (kinetics_bsearch(n_user, &i) == NULL)
@@ -7803,249 +6185,6 @@ copier_init(struct copier *copier_ptr)
 		(int *) PHRQ_malloc((size_t) (copier_ptr->max * sizeof(int)));
 	return (OK);
 }
-#ifdef SKIP
-#include "../cxxMix.h"
-struct mix * Phreeqc::
-cxxMix2mix(const cxxMix * mx)
-		//
-		// Builds a mix structure from instance of cxxMix 
-		//
-{
-	struct mix *mix_ptr;
-	if (mx == NULL) return NULL;
-	mix_ptr = (struct mix *) PHRQ_malloc(sizeof(struct mix));
-	if (mix_ptr == NULL)
-		malloc_error();
-
-	mix_ptr->description = string_duplicate (mx->Get_description().c_str());
-	mix_ptr->n_user = mx->Get_n_user();
-	mix_ptr->n_user_end = mx->Get_n_user_end();
-
-	// comps
-	mix_ptr->comps = NULL;
-	if (mx->Get_mixComps().size() > 0)
-	{
-		int i = 0;
-		mix_ptr->comps =
-			(struct mix_comp *)
-			PHRQ_malloc((size_t)
-						(mx->Get_mixComps().size() * sizeof(struct mix_comp)));
-		if (mix_ptr->comps == NULL)
-			malloc_error();
-		for (std::map < int, double >::const_iterator it = mx->Get_mixComps().begin();
-			 it != mx->Get_mixComps().end(); it++)
-		{
-			mix_ptr->comps[i].n_solution = it->first;
-			mix_ptr->comps[i].fraction = it->second;
-			i++;
-		}
-	}
-	mix_ptr->count_comps = (int) mx->Get_mixComps().size();
-	return (mix_ptr);
-}
-#endif
-#ifdef SKIP
-#include "../Exchange.h"
-struct exchange * Phreeqc::
-cxxExchange2exchange(const cxxExchange * ex)
-		//
-		// Builds a exchange structure from instance of cxxExchange
-		//
-{
-	struct exchange *exchange_ptr = exchange_alloc();
-
-	exchange_ptr->description = string_duplicate (ex->Get_description().c_str());
-	exchange_ptr->n_user = ex->Get_n_user();
-	exchange_ptr->n_user_end = ex->Get_n_user_end();
-	exchange_ptr->new_def = FALSE;
-	exchange_ptr->solution_equilibria = FALSE;
-	exchange_ptr->n_solution = -2;
-	exchange_ptr->related_phases = (int) ex->Get_related_phases();
-	exchange_ptr->related_rate = (int) ex->Get_related_rate();
-	exchange_ptr->pitzer_exchange_gammas = (int) ex->Get_pitzer_exchange_gammas();
-	exchange_ptr->count_comps = (int) ex->Get_exchComps().size();
-	exchange_ptr->comps = (struct exch_comp *) free_check_null(exchange_ptr->comps);
-	exchange_ptr->comps = cxxExchComp2exch_comp(&(ex->Get_exchComps()));
-	return (exchange_ptr);
-}
-
-#include "../Exchange.h"
-struct exch_comp * Phreeqc::
-cxxExchComp2exch_comp(const std::map < std::string, cxxExchComp > * el)
-		//
-		// Builds exch_comp structure from of cxxExchComp 
-		//
-{
-	struct exch_comp *exch_comp_ptr =
-		(struct exch_comp *) PHRQ_malloc((size_t) (el->size() * sizeof(struct exch_comp)));
-	if (exch_comp_ptr == NULL)
-		malloc_error();
-
-	int i = 0;
-	for (std::map < std::string, cxxExchComp >::const_iterator it = el->begin(); it != el->end();
-		 ++it)
-	{
-		if ((*it).second.Get_formula().size() == 0)
-			exch_comp_ptr[i].formula = NULL;
-		else
-			exch_comp_ptr[i].formula = string_hsave((*it).second.Get_formula().c_str());
-		exch_comp_ptr[i].formula_z = (*it).second.Get_formula_z();
-		exch_comp_ptr[i].totals = cxxNameDouble2elt_list(&((*it).second.Get_totals()));
-		exch_comp_ptr[i].moles = (*it).second.Get_moles();
-		exch_comp_ptr[i].formula_totals = cxxNameDouble2elt_list(&((*it).second.Get_formula_totals()));
-		exch_comp_ptr[i].la = (*it).second.Get_la();
-		exch_comp_ptr[i].charge_balance = (*it).second.Get_charge_balance();
-		if ((*it).second.Get_phase_name().size() == 0)
-			exch_comp_ptr[i].phase_name = NULL;
-		else
-			exch_comp_ptr[i].phase_name = string_hsave((*it).second.Get_phase_name().c_str());
-		exch_comp_ptr[i].phase_proportion = (*it).second.Get_phase_proportion();
-		if ((*it).second.Get_rate_name().size() == 0)
-			exch_comp_ptr[i].rate_name = NULL;
-		else
-			exch_comp_ptr[i].rate_name = string_hsave((*it).second.Get_rate_name().c_str());
-		exch_comp_ptr[i].master = Get_exch_master(&(*it).second);
-		i++;
-	}
-	return (exch_comp_ptr);
-}
-
-struct master * Phreeqc::
-Get_exch_master(const cxxExchComp * ec)
-{
-	struct master *master_ptr = NULL;
-	const cxxNameDouble &totals = ec->Get_totals();
-	for (std::map < std::string, LDBLE >::const_iterator it =
-		 totals.begin(); it != totals.end(); it++)
-	{
-
-		/* Find master species */
-		const char *eltName = string_hsave(it->first.c_str());
-		assert(it->first.size() != 0);
-		struct element *elt_ptr = element_store(eltName);
-		if (elt_ptr->master == NULL)
-		{
-			std::ostringstream error_oss;
-			error_oss << "Master species not in data base for " << elt_ptr->
-				name << "\n";
-			//Utilities::error_msg(error_oss.str(), STOP);
-			error_msg(error_oss.str().c_str(), CONTINUE);
-			return (NULL);
-		}
-		if (elt_ptr->master->type != EX)
-			continue;
-		master_ptr = elt_ptr->master;
-		break;
-	}
-	if (master_ptr == NULL)
-	{
-		const cxxNameDouble &formula_totals = ec->Get_formula_totals();
-		for (std::map < std::string, LDBLE >::const_iterator it =
-			 formula_totals.begin(); it != formula_totals.end(); it++)
-		{
-
-			/* Find master species */
-			const char *eltName = string_hsave(it->first.c_str());
-			assert(it->first.size() != 0);
-			struct element *elt_ptr = element_store(eltName);
-			if (elt_ptr->master == NULL)
-			{
-				std::ostringstream error_oss;
-				error_oss << "Master species not in data base for " <<
-					elt_ptr->name << "\n";
-				//Utilities::error_msg(error_oss.str(), STOP);
-				error_msg(error_oss.str().c_str(), CONTINUE);
-				return (NULL);
-			}
-			if (elt_ptr->master->type != EX)
-				continue;
-			master_ptr = elt_ptr->master;
-			break;
-		}
-	}
-	if (master_ptr == NULL)
-	{
-		std::ostringstream error_oss;
-		error_oss <<
-			"Exchange formula does not contain an exchange master species, "
-			<< ec->Get_formula() << "\n";
-		//Utilities::error_msg(error_oss.str(), CONTINUE);
-		error_msg(error_oss.str().c_str(), CONTINUE);
-
-		std::ostringstream oss;
-		ec->dump_raw(oss, 0);
-		std::cerr << oss.str();
-
-	}
-	return (master_ptr);
-}
-#endif
-#ifdef SKIP
-#include "../GasPhase.h"
-struct gas_phase * Phreeqc::
-cxxGasPhase2gas_phase(const cxxGasPhase * gp)
-		//
-		// Builds a gas_phase structure from instance of cxxGasPhase 
-		//
-{
-	struct gas_phase *gas_phase_ptr = gas_phase_alloc();
-
-	gas_phase_ptr->description = string_duplicate (gp->Get_description().c_str());
-	gas_phase_ptr->n_user = gp->Get_n_user();
-	gas_phase_ptr->n_user_end = gp->Get_n_user_end();
-	gas_phase_ptr->new_def = FALSE;
-	gas_phase_ptr->solution_equilibria = FALSE;
-	gas_phase_ptr->n_solution = -2;
-	if (gp->Get_type() == cxxGasPhase::GP_PRESSURE)
-	{
-		gas_phase_ptr->type = PRESSURE;
-	}
-	else
-	{
-		gas_phase_ptr->type = VOLUME;
-	}
-	gas_phase_ptr->total_p = gp->Get_total_p();
-	gas_phase_ptr->volume = gp->Get_volume();
-	gas_phase_ptr->v_m = gp->Get_v_m();
-	gas_phase_ptr->pr_in = gp->Get_pr_in();
-	gas_phase_ptr->temperature = 273.15;
-
-	// comps
-	gas_phase_ptr->count_comps = (int) gp->Get_gasPhaseComps().size();
-	gas_phase_ptr->comps =
-		(struct gas_comp *) free_check_null(gas_phase_ptr->comps);
-	gas_phase_ptr->comps = cxxGasPhaseComp2gas_comp(gp);
-
-	return (gas_phase_ptr);
-}
-
-struct gas_comp * Phreeqc::
-cxxGasPhaseComp2gas_comp(const cxxGasPhase * gp)
-{
-	struct gas_comp *gas_comp_ptr = NULL;
-	if (gp->Get_gasPhaseComps().size() > 0)
-	{
-		int i = 0;
-		int n;
-		gas_comp_ptr = (struct gas_comp *)
-			PHRQ_malloc((size_t) (gp->Get_gasPhaseComps().size() * sizeof(struct gas_comp)));
-		if (gas_comp_ptr == NULL)
-			malloc_error();
-		for (cxxNameDouble::const_iterator it = gp->Get_gasPhaseComps().begin();
-			 it != gp->Get_gasPhaseComps().end(); it++)
-		{
-			gas_comp_ptr[i].name = string_hsave(it->first.c_str());
-			assert(it->first.size() != 0);
-			gas_comp_ptr[i].phase = phase_bsearch(it->first.c_str(), &n, TRUE);
-			gas_comp_ptr[i].p_read = 0;
-			gas_comp_ptr[i].moles = it->second;
-			gas_comp_ptr[i].initial_moles = 0;
-			i++;
-		}
-	}
-	return (gas_comp_ptr);
-}
-#endif
 #include "../cxxKinetics.h"
 struct kinetics * Phreeqc::
 cxxKinetics2kinetics(const cxxKinetics * kin)
@@ -8212,59 +6351,6 @@ cxxPPassemblageComp2pure_phase(const std::map < std::string, cxxPPassemblageComp
 	}
 	return (pure_phase_ptr);
 }
-#ifdef SKIP
-#include "../Reaction.h"
-struct irrev * Phreeqc::
-cxxReaction2irrev(const cxxReaction * rxn)
-		//
-		// Builds a irrev structure from instance of cxxReaction 
-		//
-{
-	struct irrev *irrev_ptr;
-	irrev_ptr = (struct irrev *) PHRQ_malloc(sizeof(struct irrev));
-	if (irrev_ptr == NULL)
-		malloc_error();
-
-	irrev_ptr->description = string_duplicate (rxn->Get_description().c_str());
-	irrev_ptr->n_user = rxn->Get_n_user();
-	irrev_ptr->n_user_end = rxn->Get_n_user_end();
-
-	irrev_ptr->list = cxxNameDouble2name_coef(&rxn->Get_reactantList());
-	irrev_ptr->count_list = (int) rxn->Get_reactantList().size();
-	if (rxn->Get_elementList().size() > 0)
-	{
-		irrev_ptr->elts = cxxNameDouble2elt_list(&rxn->Get_elementList());
-	}
-	else
-	{
-		// NULL value causes reaction stoichiometry to be calculated
-		irrev_ptr->elts = NULL;
-	}
-	// steps
-	irrev_ptr->steps = NULL;
-	if (rxn->Get_steps().size() > 0)
-	{
-		irrev_ptr->steps =
-			(LDBLE *) PHRQ_malloc((size_t) (rxn->Get_steps().size() * sizeof(double)));
-		if (irrev_ptr->steps == NULL)
-			malloc_error();
-		std::copy(rxn->Get_steps().begin(), rxn->Get_steps().end(), irrev_ptr->steps);
-	}
-	if (rxn->Get_equalIncrements())
-	{
-		irrev_ptr->count_steps = -rxn->Get_countSteps();
-	}
-	else
-	{
-		irrev_ptr->count_steps = (int) rxn->Get_steps().size();
-	}
-	if (rxn->Get_units().size() == 0)
-		irrev_ptr->units = NULL;
-	else
-		irrev_ptr->units = string_hsave(rxn->Get_units().c_str());
-	return (irrev_ptr);
-}
-#endif
 #include "../Solution.h"
 struct solution * Phreeqc::
 cxxSolution2solution(const cxxSolution * sol)
@@ -8805,29 +6891,6 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 			sb.Set_Mix(use_ptr->n_mix_user, entity);
 		}
 	}
-#ifdef SKIP
-	if (use.mix_in == TRUE)
-	{
-		struct mix *struct_entity = mix_bsearch(use_ptr->n_mix_user, &n);
-		if (struct_entity != NULL)
-		{
-			cxxMix entity(struct_entity, sb.Get_io());
-			sb.Set_Mix(use_ptr->n_mix_user, &entity);
-
-			std::map<int, double> c = (sb.Get_Mix(use_ptr->n_mix_user)->Get_mixComps());
-			std::map<int, double>::iterator it;
-			for (it = c.begin(); it != c.end(); it++)
-			{
-				struct solution *struct_entity1 = solution_bsearch(it->first, &n, FALSE);
-				if (struct_entity1 != NULL)
-				{
-					cxxSolution entity1(struct_entity1, sb.Get_io());
-					sb.Set_Solution(it->first, &entity1);
-				}
-			}
-		}
-	}
-#endif
 	else if (use_ptr->solution_in == TRUE)
 	{
 		struct solution *struct_entity = solution_bsearch(use_ptr->n_solution_user, &n, FALSE);
@@ -8855,17 +6918,6 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 			sb.Set_Exchange(use_ptr->n_exchange_user, entity_ptr);
 		}
 	}
-#ifdef SKIP
-	if (use_ptr->exchange_in == TRUE)
-	{
-		struct exchange *struct_entity = exchange_bsearch(use_ptr->n_exchange_user, &n);
-		if (struct_entity != NULL)
-		{
-			cxxExchange entity(struct_entity, sb.Get_io());
-			sb.Set_Exchange(use_ptr->n_exchange_user, &entity);
-		}
-	}
-#endif
 	if (use_ptr->surface_in == TRUE)
 	{
 		struct surface *struct_entity = surface_bsearch(use_ptr->n_surface_user, &n);
@@ -8883,17 +6935,6 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 			sb.Set_GasPhase(use_ptr->n_gas_phase_user, entity_ptr);
 		}
 	}
-#ifdef SKIP
-	if (use_ptr->gas_phase_in == TRUE)
-	{
-		struct gas_phase *struct_entity = gas_phase_bsearch(use_ptr->n_gas_phase_user, &n);
-		if (struct_entity != NULL)
-		{
-			cxxGasPhase entity(struct_entity, sb.Get_io());
-			sb.Set_GasPhase(use_ptr->n_gas_phase_user, &entity);
-		}
-	}
-#endif
 	if (use_ptr->s_s_assemblage_in == TRUE)
 	{
 		struct s_s_assemblage *struct_entity = s_s_assemblage_bsearch(use_ptr->n_s_s_assemblage_user, &n);
@@ -8920,17 +6961,6 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 			sb.Set_Reaction(use_ptr->n_reaction_user, entity);
 		}
 	}
-#ifdef SKIP
-	if (use_ptr->irrev_in == TRUE)
-	{
-		struct irrev *struct_entity = irrev_bsearch(use_ptr->n_irrev_user, &n);
-		if (struct_entity != NULL)
-		{
-			cxxReaction entity(struct_entity, sb.Get_io());
-			sb.Set_Reaction(use_ptr->n_irrev_user, &entity);
-		}
-	}
-#endif
 	if (use_ptr->temperature_in == TRUE)
 	{
 		cxxTemperature *entity = Utilities::Rxn_find(Rxn_temperature_map, use_ptr->n_temperature_user);
@@ -8974,13 +7004,6 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 			sb.Set_Exchange(it->second.Get_n_user(), &(it->second));	
 		}
 	}
-#ifdef SKIP
-	for (i = 0; i < count_exchange; i++)
-	{
-		cxxExchange entity(&exchange[i], sb.Get_io());
-		sb.Set_Exchange(exchange[i].n_user, &entity );
-	}
-#endif
 	// GasPhases
 	{
 		std::map<int, cxxGasPhase>::iterator it;
@@ -8989,13 +7012,6 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 			sb.Set_GasPhase(it->second.Get_n_user(), &(it->second));	
 		}
 	}
-#ifdef SKIP
-	for (i = 0; i < count_gas_phase; i++)
-	{
-		cxxGasPhase entity(&gas_phase[i], sb.Get_io());
-		sb.Set_GasPhase(gas_phase[i].n_user, &entity );
-	}
-#endif
 
 	// Kinetics
 	for (i = 0; i < count_kinetics; i++)
@@ -9033,13 +7049,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 			sb.Set_Mix(it->second.Get_n_user(), &(it->second));	
 		}
 	}
-#ifdef SKIP
-	for (i = 0; i < count_mix; i++)
-	{
-		cxxMix entity(&mix[i], sb.Get_io());
-		sb.Set_Mix(mix[i].n_user, &entity );	
-	}
-#endif
+
 	// Reactions
 	{
 		std::map<int, cxxReaction>::iterator it;
@@ -9048,13 +7058,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 			sb.Set_Reaction(it->second.Get_n_user(), &(it->second));	
 		}
 	}
-#ifdef SKIP
-	for (i = 0; i < count_irrev; i++)
-	{
-		cxxReaction entity(&irrev[i], sb.Get_io());
-		sb.Set_Reaction(irrev[i].n_user, &entity );		
-	}
-#endif
+
 	// Temperatures
 	{
 		std::map<int, cxxTemperature>::iterator it;
@@ -9098,18 +7102,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 			sb.Set_Exchange(n, entity_ptr);
 		}
 	}
-#ifdef SKIP
-	{
-		if (exchange_bsearch(n, &pos) != NULL)
-		{
-			//this->Exchangers[n] = cxxExchange(&(exchange[pos]), sb.Get_io());
-			//cxxExchange entity = cxxExchange(&(exchange[pos]), sb.Get_io());
-			//sb.setExchange(n, &entity );
-			cxxExchange ent(&(exchange[pos]), sb.Get_io());
-			sb.Set_Exchange(n, &ent);
-		}
-	}
-#endif
+
 	// GasPhases
 	{
 		cxxGasPhase *entity_ptr = Utilities::Rxn_find(Rxn_gas_phase_map, n);
@@ -9118,16 +7111,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 			sb.Set_GasPhase(n, entity_ptr);
 		}
 	}
-#ifdef SKIP
-	{
-		if (gas_phase_bsearch(n, &pos) != NULL)
-		{
-			//this->GasPhases[n] = cxxGasPhase(&(gas_phase[pos]), sb.Get_io());
-			cxxGasPhase ent(&(gas_phase[pos]), sb.Get_io());
-			sb.Set_GasPhase(n, &ent);
-		}
-	}
-#endif
+
 	// Kinetics
 	{
 		if (kinetics_bsearch(n, &pos) != NULL)
@@ -9195,18 +7179,7 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
 			Rxn_exchange_map[n] = it->second;
 		}
 	}
-#ifdef SKIP
-	{
-		std::map < int, cxxExchange >::const_iterator it = sb.Get_Exchangers().find(n);
-		if (it != sb.Get_Exchangers().end())
-		{
-			struct exchange *exchange_ptr = cxxExchange2exchange(&it->second);
-			exchange_ptr_to_user(exchange_ptr, it->first);
-			exchange_free(exchange_ptr);
-			exchange_ptr = (struct exchange *) free_check_null(exchange_ptr);
-		}
-	}
-#endif
+
 	// GasPhases
 	{
 		std::map < int, cxxGasPhase >::const_iterator it = sb.Get_GasPhases().find(n);
@@ -9215,18 +7188,7 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
 			Rxn_gas_phase_map[n] = it->second;
 		}
 	}
-#ifdef SKIP
-	{
-		std::map < int, cxxGasPhase >::const_iterator it = sb.Get_GasPhases().find(n);
-		if (it != sb.Get_GasPhases().end())
-		{
-			struct gas_phase *gas_phase_ptr = cxxGasPhase2gas_phase(&it->second);
-			gas_phase_ptr_to_user(gas_phase_ptr, it->first);
-			gas_phase_free(gas_phase_ptr);
-			gas_phase_ptr =	(struct gas_phase *) free_check_null(gas_phase_ptr);
-		}
-	}
-#endif
+
 	// Kinetics
 	{
 		std::map < int, cxxKinetics >::const_iterator it = sb.Get_Kinetics().find(n);
@@ -9285,18 +7247,7 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
 			Rxn_mix_map[n] = it->second;
 		}
 	}
-#ifdef SKIP
-	{
-		std::map < int, cxxMix >::const_iterator it = sb.Get_Mixes().find(n);
-		if (it != sb.Get_Mixes().end())
-		{
-			struct mix *mix_ptr = cxxMix2mix(&(it->second));
-			mix_ptr_to_user(mix_ptr, it->first);
-			mix_free(mix_ptr);
-			mix_ptr = (struct mix *) free_check_null(mix_ptr);
-		}
-	}
-#endif
+
 	// Reactions
 	{
 		std::map < int, cxxReaction >::const_iterator it = sb.Get_Reactions().find(n);
@@ -9304,16 +7255,6 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
 		{
 			Rxn_reaction_map[n] = it->second;
 		}
-#ifdef SKIP
-		std::map < int, cxxReaction >::const_iterator it = sb.Get_Reactions().find(n);
-		if (it != sb.Get_Reactions().end())
-		{
-			struct irrev *irrev_ptr = cxxReaction2irrev(&(it->second));
-			irrev_ptr_to_user(irrev_ptr, it->first);
-			irrev_free(irrev_ptr);
-			irrev_ptr = (struct irrev *) free_check_null(irrev_ptr);
-		}
-#endif
 	}
 	// Temperatures
 	{
@@ -9360,18 +7301,6 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb)
 			Rxn_exchange_map[it->first] = it->second;
 		}
 	}
-#ifdef SKIP
-	{
-		std::map < int, cxxExchange >::const_iterator it = sb.Get_Exchangers().begin();
-		for ( ; it != sb.Get_Exchangers().end(); it++)
-		{
-			struct exchange *exchange_ptr = cxxExchange2exchange(&it->second);
-			exchange_ptr_to_user(exchange_ptr, it->first);
-			exchange_free(exchange_ptr);
-			exchange_ptr = (struct exchange *) free_check_null(exchange_ptr);
-		}
-	}
-#endif
 
 	// GasPhases
 	{
@@ -9381,18 +7310,7 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb)
 			Rxn_gas_phase_map[it->first] = it->second;
 		}
 	}
-#ifdef SKIP
-	{
-		std::map < int, cxxGasPhase >::const_iterator it = sb.Get_GasPhases().begin();
-		for ( ; it != sb.Get_GasPhases().end(); it++)
-		{
-			struct gas_phase *gas_phase_ptr = cxxGasPhase2gas_phase(&it->second);
-			gas_phase_ptr_to_user(gas_phase_ptr, it->first);
-			gas_phase_free(gas_phase_ptr);
-			gas_phase_ptr =	(struct gas_phase *) free_check_null(gas_phase_ptr);
-		}
-	}
-#endif
+
 	// Kinetics
 	{
 		std::map < int, cxxKinetics >::const_iterator it = sb.Get_Kinetics().begin();
@@ -9448,30 +7366,13 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb)
 			Rxn_mix_map[it->first] = it->second;
 		}
 	}
-#ifdef SKIP
-	{
-		std::map < int, cxxMix >::const_iterator it = sb.Get_Mixes().begin();
-		for ( ; it != sb.Get_Mixes().end(); it++)
-		{
-			struct mix *mix_ptr = cxxMix2mix(&(it->second));
-			mix_ptr_to_user(mix_ptr, it->first);
-			mix_free(mix_ptr);
-			mix_ptr = (struct mix *) free_check_null(mix_ptr);
-		}
-	}
-#endif
+
 	// Reactions
 	{
 		std::map < int, cxxReaction >::const_iterator it = sb.Get_Reactions().begin();
 		for ( ; it != sb.Get_Reactions().end(); it++)
 		{
 			Rxn_reaction_map[it->first] = it->second;
-#ifdef SKIP
-			struct irrev *irrev_ptr = cxxReaction2irrev(&(it->second));
-			irrev_ptr_to_user(irrev_ptr, it->first);
-			irrev_free(irrev_ptr);
-			irrev_ptr = (struct irrev *) free_check_null(irrev_ptr);
-#endif
 		}
 	}
 	// Temperatures
