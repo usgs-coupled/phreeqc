@@ -770,27 +770,6 @@ find_gas_comp(const char *gas_comp_name)
 	}
 	return (0);
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-LDBLE Phreeqc::
-find_gas_comp(const char *gas_comp_name)
-/* ---------------------------------------------------------------------- */
-{
-	int i;
-
-	if (use.gas_phase_in == FALSE || use.gas_phase_ptr == NULL)
-		return (0);
-	for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
-	{
-		if (strcmp_nocase(use.gas_phase_ptr->comps[i].name, gas_comp_name) ==
-			0)
-		{
-			return (use.gas_phase_ptr->comps[i].phase->moles_x);
-		}
-	}
-	return (0);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 LDBLE Phreeqc::
 find_gas_p(void)
@@ -808,24 +787,6 @@ find_gas_p(void)
 	}
 	return (gas_phase_ptr->Get_total_p());
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-LDBLE Phreeqc::
-find_gas_p(void)
-/* ---------------------------------------------------------------------- */
-{
-	if (use.gas_phase_in == FALSE || use.gas_phase_ptr == NULL)
-		return (0);
-	if (use.gas_phase_ptr->type == PRESSURE)
-	{
-		if (gas_unknown == NULL)
-			return (0);
-		if (gas_unknown->moles < 1e-12)
-			return (0);
-	}
-	return (use.gas_phase_ptr->total_p);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 LDBLE Phreeqc::
 find_gas_vm(void)
@@ -844,25 +805,6 @@ find_gas_vm(void)
 	// also for non-PR gas phases...
 	return (gas_phase_ptr->Get_volume() / gas_phase_ptr->Get_total_moles());
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-LDBLE Phreeqc::
-find_gas_vm(void)
-/* ---------------------------------------------------------------------- */
-{
-	if (use.gas_phase_in == FALSE || use.gas_phase_ptr == NULL)
-		return (0);
-	if (use.gas_phase_ptr->type == PRESSURE)
-	{
-		if (gas_unknown == NULL)
-			return (0);
-		if (gas_unknown->moles < 1e-12)
-			return (0);
-	}
-	// also for non-PR gas phases...
-	return (use.gas_phase_ptr->volume / use.gas_phase_ptr->total_moles);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 LDBLE Phreeqc::
 find_misc1(const char *s_s_name)
@@ -1280,47 +1222,6 @@ sum_match_gases(const char *mytemplate, const char *name)
 	}
 	return (tot);
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-LDBLE Phreeqc::
-sum_match_gases(const char *mytemplate, const char *name)
-/* ---------------------------------------------------------------------- */
-{
-	int i;
-	LDBLE tot;
-	struct elt_list *next_elt;
-
-	if (use.gas_phase_in == FALSE || use.gas_phase_ptr == NULL)
-		return (0);
-	tot = 0;
-	for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
-	{
-		if (match_elts_in_species
-			(use.gas_phase_ptr->comps[i].phase->formula, mytemplate) == TRUE)
-		{
-			if (name == NULL)
-			{
-				tot += use.gas_phase_ptr->comps[i].phase->moles_x;
-			}
-			else
-			{
-				for (next_elt = use.gas_phase_ptr->comps[i].phase->next_elt;
-					 next_elt->elt != NULL; next_elt++)
-				{
-					if (strcmp(next_elt->elt->name, name) == 0)
-					{
-						tot +=
-							next_elt->coef *
-							use.gas_phase_ptr->comps[i].phase->moles_x;
-						break;
-					}
-				}
-			}
-		}
-	}
-	return (tot);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 LDBLE Phreeqc::
 sum_match_species(const char *mytemplate, const char *name)
@@ -2318,36 +2219,6 @@ system_total_gas(void)
 	}
 	return (OK);
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-system_total_gas(void)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Provides total moles in system and lists of species/phases in sort order
- */
-	int i;
-
-/*
- *   find total in gas phase
- */
-	if (use.gas_phase_ptr == NULL)
-		return (OK);
-	for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
-	{
-		sys[count_sys].name =
-			string_duplicate(use.gas_phase_ptr->comps[i].phase->name);
-		sys[count_sys].moles = use.gas_phase_ptr->comps[i].phase->moles_x;
-		sys_tot += sys[count_sys].moles;
-		sys[count_sys].type = string_duplicate("gas");
-		count_sys++;
-		space((void **) ((void *) &sys), count_sys, &max_sys,
-			  sizeof(struct system_species));
-	}
-	return (OK);
-}
-#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 system_total_s_s(void)
@@ -2643,47 +2514,6 @@ system_total_elt(const char *total_name)
 			}
 		}
 	}
-#ifdef SKIP
-	if (use.gas_phase_ptr != NULL)
-	{
-		for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
-		{
-			if (use.gas_phase_ptr->comps[i].phase->in == TRUE)
-			{
-				count_elts = 0;
-				paren_count = 0;
-				add_elt_list(use.gas_phase_ptr->comps[i].phase->next_elt,
-							 use.gas_phase_ptr->comps[i].phase->moles_x);
-
-				if (count_elts > 0)
-				{
-					qsort(elt_list, (size_t) count_elts,
-						  (size_t) sizeof(struct elt_list), elt_list_compare);
-					elt_list_combine();
-				}
-				/*
-				 *   Look for element
-				 */
-				for (j = 0; j < count_elts; j++)
-				{
-					if (strcmp(elt_list[j].elt->name, total_name) == 0)
-					{
-						sys[count_sys].name =
-							string_duplicate(use.gas_phase_ptr->comps[i].
-											 phase->name);
-						sys[count_sys].moles = elt_list[j].coef;
-						sys_tot += sys[count_sys].moles;
-						sys[count_sys].type = string_duplicate("gas");
-						count_sys++;
-						space((void **) ((void *) &sys), count_sys, &max_sys,
-							  sizeof(struct system_species));
-						break;
-					}
-				}
-			}
-		}
-	}
-#endif
 	return (OK);
 }
 
@@ -2953,48 +2783,6 @@ system_total_elt_secondary(const char *total_name)
 			}
 		}
 	}
-#ifdef SKIP
-	if (use.gas_phase_ptr != NULL)
-	{
-		for (i = 0; i < use.gas_phase_ptr->count_comps; i++)
-		{
-			if (use.gas_phase_ptr->comps[i].phase->in == TRUE)
-			{
-				count_elts = 0;
-				paren_count = 0;
-				add_elt_list(use.gas_phase_ptr->comps[i].phase->
-							 next_sys_total,
-							 use.gas_phase_ptr->comps[i].phase->moles_x);
-
-				if (count_elts > 0)
-				{
-					qsort(elt_list, (size_t) count_elts,
-						  (size_t) sizeof(struct elt_list), elt_list_compare);
-					elt_list_combine();
-				}
-				/*
-				 *   Look for element
-				 */
-				for (j = 0; j < count_elts; j++)
-				{
-					if (strcmp(elt_list[j].elt->name, total_name) == 0)
-					{
-						sys[count_sys].name =
-							string_duplicate(use.gas_phase_ptr->comps[i].
-											 phase->name);
-						sys[count_sys].moles = elt_list[j].coef;
-						sys_tot += sys[count_sys].moles;
-						sys[count_sys].type = string_duplicate("gas");
-						count_sys++;
-						space((void **) ((void *) &sys), count_sys, &max_sys,
-							  sizeof(struct system_species));
-						break;
-					}
-				}
-			}
-		}
-	}
-#endif
 	return (OK);
 }
 
@@ -3089,15 +2877,6 @@ system_total_solids(cxxExchange *exchange_ptr,
 			add_elt_list(it->second.Get_totals(), 1.0);
 		}
 	}
-#ifdef SKIP
-	if (exchange_ptr != NULL)
-	{
-		for (i = 0; i < exchange_ptr->count_comps; i++)
-		{
-			add_elt_list(exchange_ptr->comps[i].totals, 1.0);
-		}
-	}
-#endif
 	if (surface_ptr != NULL)
 	{
 		for (i = 0; i < surface_ptr->count_comps; i++)
@@ -3126,16 +2905,6 @@ system_total_solids(cxxExchange *exchange_ptr,
 			add_elt_list(phase_ptr->next_elt, gas_phase_ptr->Get_gas_comps()[j].Get_moles());
 		}
 	}
-#ifdef SKIP
-	if (gas_phase_ptr != NULL)
-	{
-		for (i = 0; i < gas_phase_ptr->count_comps; i++)
-		{
-			add_elt_list(gas_phase_ptr->comps[i].phase->next_elt,
-						 gas_phase_ptr->comps[i].moles);
-		}
-	}
-#endif
 	if (pp_assemblage_ptr != NULL)
 	{
 		for (i = 0; i < pp_assemblage_ptr->count_comps; i++)
@@ -3153,78 +2922,6 @@ system_total_solids(cxxExchange *exchange_ptr,
 	}
 	return (OK);
 }
-#ifdef SKIP
-/* ---------------------------------------------------------------------- */
-int Phreeqc::
-system_total_solids(struct exchange *exchange_ptr,
-					struct pp_assemblage *pp_assemblage_ptr,
-					struct gas_phase *gas_phase_ptr,
-					struct s_s_assemblage *s_s_assemblage_ptr,
-					struct surface *surface_ptr)
-/* ---------------------------------------------------------------------- */
-{
-/*
- *   Provides total moles in solid phases
- */
-	int i, j;
-
-	count_elts = 0;
-	paren_count = 0;
-/*
- *   find total moles in exchanger
- */
-	if (exchange_ptr != NULL)
-	{
-		for (i = 0; i < exchange_ptr->count_comps; i++)
-		{
-			add_elt_list(exchange_ptr->comps[i].totals, 1.0);
-		}
-	}
-	if (surface_ptr != NULL)
-	{
-		for (i = 0; i < surface_ptr->count_comps; i++)
-		{
-			add_elt_list(surface_ptr->comps[i].totals, 1.0);
-		}
-	}
-	if (s_s_assemblage_ptr != NULL)
-	{
-		for (i = 0; i < s_s_assemblage_ptr->count_s_s; i++)
-		{
-			for (j = 0; j < s_s_assemblage_ptr->s_s[i].count_comps; j++)
-			{
-				add_elt_list(s_s_assemblage_ptr->s_s[i].comps[j].phase->
-							 next_elt,
-							 s_s_assemblage_ptr->s_s[i].comps[j].moles);
-			}
-		}
-	}
-	if (gas_phase_ptr != NULL)
-	{
-		for (i = 0; i < gas_phase_ptr->count_comps; i++)
-		{
-			add_elt_list(gas_phase_ptr->comps[i].phase->next_elt,
-						 gas_phase_ptr->comps[i].moles);
-		}
-	}
-	if (pp_assemblage_ptr != NULL)
-	{
-		for (i = 0; i < pp_assemblage_ptr->count_comps; i++)
-		{
-			add_elt_list(pp_assemblage_ptr->pure_phases[i].phase->next_elt,
-						 pp_assemblage_ptr->pure_phases[i].moles);
-		}
-	}
-
-	if (count_elts > 0)
-	{
-		qsort(elt_list, (size_t) count_elts,
-			  (size_t) sizeof(struct elt_list), elt_list_compare);
-		elt_list_combine();
-	}
-	return (OK);
-}
-#endif
 
 LDBLE Phreeqc::
 iso_value(const char *total_name)
