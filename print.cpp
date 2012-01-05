@@ -2275,17 +2275,14 @@ print_using(void)
 	{
 		if (state == TRANSPORT)
 		{
-			//mix_ptr = mix_bsearch(use.n_mix_user, &n);
 			mix_ptr = Utilities::Rxn_find(Rxn_mix_map, use.n_mix_user);
 		}
 		else
 		{
-			//mix_ptr = mix_bsearch(use.n_mix_user_orig, &n);
 			mix_ptr = Utilities::Rxn_find(Rxn_mix_map, use.n_mix_user_orig);
 		}
 		if (mix_ptr == NULL)
 		{
-			//mix_ptr = use.mix_ptr;
 			mix_ptr = (cxxMix *) use.mix_ptr;
 		}
 		if (mix_ptr != NULL)
@@ -2314,19 +2311,10 @@ print_using(void)
  */
 	if (use.exchange_in == TRUE)
 	{
-		//exchange_ptr = exchange_bsearch(use.n_exchange_user, &n);
 		cxxExchange *exchange_ptr = Utilities::Rxn_find(Rxn_exchange_map, use.n_exchange_user);
 		output_msg(sformatf("Using exchange %d.\t%s\n",
 				   use.n_exchange_user, exchange_ptr->Get_description().c_str()));
 	}
-#ifdef SKIP
-	if (use.exchange_in == TRUE)
-	{
-		exchange_ptr = exchange_bsearch(use.n_exchange_user, &n);
-		output_msg(sformatf("Using exchange %d.\t%s\n",
-				   use.n_exchange_user, exchange_ptr->description));
-	}
-#endif
 	if (use.surface_in == TRUE)
 	{
 		surface_ptr = surface_bsearch(use.n_surface_user, &n);
