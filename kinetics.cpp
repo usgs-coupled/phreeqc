@@ -2628,7 +2628,7 @@ store_get_equi_reactants(int l, int kin_end)
 	else
 	{
 		k = -1;
-		if (pp_assemblage_ptr)
+		if (pp_assemblage_ptr && count_pp > 0)
 		{
 			std::map<std::string, cxxPPassemblageComp>::iterator it;
 			it =  pp_assemblage_ptr->Get_pp_assemblage_comps().begin();
@@ -2647,7 +2647,7 @@ store_get_equi_reactants(int l, int kin_end)
 #endif
 		{
 			cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
-			if (gas_phase_ptr)
+			if (gas_phase_ptr && count_pg)
 			{
 				std::vector<cxxGasComp> temp_comps(gas_phase_ptr->Get_gas_comps());
 				for (size_t l = 0; l < temp_comps.size(); l++)

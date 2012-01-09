@@ -3522,7 +3522,8 @@ tidy_min_surface(void)
 			}
 			/* use database name for phase */
 			//comp_ptr->phase_name = pp_a_ptr->pure_phases[k].phase->name;
-			comp_ptr->phase_name = string_hsave(jit->first.c_str());
+			//comp_ptr->phase_name = string_hsave(jit->first.c_str());
+			comp_ptr->phase_name = phase_ptr->name;
 			/* make surface concentration proportional to mineral ... */
 			conc =	jit->second.Get_moles() * comp_ptr->phase_proportion;
 #ifdef SKIP_MUSIC
