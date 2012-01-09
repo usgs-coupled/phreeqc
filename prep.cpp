@@ -5,6 +5,7 @@
 #include <assert.h>
 #include "Exchange.h"
 #include "GasPhase.h"
+#include "PPassemblage.h"
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 prep(void)
@@ -187,16 +188,19 @@ quick_setup(void)
 	{
 		if (x[i]->type == PP)
 		{
-			x[i]->moles = use.pp_assemblage_ptr->pure_phases[j].moles;
+			cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+			std::map<std::string, cxxPPassemblageComp>::iterator it;
+			it =  pp_assemblage_ptr->Get_pp_assemblage_comps().find(x[i]->pp_assemblage_comp_name);
+			assert(it != pp_assemblage_ptr->Get_pp_assemblage_comps().end());
+			cxxPPassemblageComp * comp_ptr = &(it->second);
+
+			x[i]->moles = comp_ptr->Get_moles();
 			/* A. Crapsi */
-			x[i]->si    = use.pp_assemblage_ptr->pure_phases[j].si;
-			x[i]->delta = use.pp_assemblage_ptr->pure_phases[j].delta;
+			x[i]->si    = comp_ptr->Get_si();
+			x[i]->delta = comp_ptr->Get_delta();
 			/* End A. Crapsi */
-			x[i]->dissolve_only =
-				use.pp_assemblage_ptr->pure_phases[j].dissolve_only;
-			use.pp_assemblage_ptr->pure_phases[j].delta = 0.0;
-			x[i]->pure_phase = &(use.pp_assemblage_ptr->pure_phases[j]);
-			j++;
+			x[i]->dissolve_only = comp_ptr->Get_dissolve_only() ? TRUE : FALSE;
+			comp_ptr->Set_delta(0.0);
 		}
 	}
 	// Need to update SIs for gases
@@ -1417,7 +1421,191 @@ build_model(void)
 	save_model();
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+build_pure_phases(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Includes calculation of inverse saturation index in sum_mb.
+ *   Puts coefficients in iap and mass balance equations for each phase.
+ */
+	//int i;
+	//int stop, j, k, l;
+	//char token[MAX_LENGTH];
+	bool stop;
+	std::string token;
+	char *ptr;
+	struct master *master_ptr;
+	struct rxn_token *rxn_ptr;
+/*
+ *   Build into sums the logic to calculate inverse saturation indices for
+ *   pure phases
+ */
+	if (pure_phase_unknown == NULL)
+		return (OK);
 
+	cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+/*
+ *   Calculate inverse saturation index
+ */
+	for (int i = 0; i < count_unknowns; i++)
+	{
+		if (x[i]->type != PP || x[i]->phase->rxn_x == NULL)
+			continue;
+		if (pure_phase_unknown == NULL)
+			pure_phase_unknown = x[i];
+
+		store_mb(&(x[i]->phase->lk), &(x[i]->f), 1.0);
+		store_mb(&(x[i]->si), &(x[i]->f), 1.0);
+
+		for (rxn_ptr = x[i]->phase->rxn_x->token + 1; rxn_ptr->s != NULL;
+			 rxn_ptr++)
+		{
+			store_mb(&(rxn_ptr->s->la), &(x[i]->f), -rxn_ptr->coef);
+		}
+	}
+	for (int i = 0; i < count_unknowns; i++)
+	{
+/*
+ *  rxn_x is null if an element in phase is not in solution
+ */
+		if (x[i]->type != PP || x[i]->phase->rxn_x == NULL)
+			continue;
+/*
+ *   Put coefficients into IAP equations
+ */
+		for (rxn_ptr = x[i]->phase->rxn_x->token + 1; rxn_ptr->s != NULL;
+			 rxn_ptr++)
+		{
+			if (rxn_ptr->s->secondary != NULL
+				&& rxn_ptr->s->secondary->in == TRUE)
+			{
+				master_ptr = rxn_ptr->s->secondary;
+			}
+			else
+			{
+				master_ptr = rxn_ptr->s->primary;
+			}
+			if (master_ptr == NULL || master_ptr->unknown == NULL)
+				continue;
+			store_jacob0(x[i]->number, master_ptr->unknown->number,
+						 rxn_ptr->coef);
+		}
+/*
+ *   Put coefficients into mass balance equations
+ */
+		count_elts = 0;
+		paren_count = 0;
+		cxxPPassemblageComp * comp_ptr = pp_assemblage_ptr->Find(x[i]->pp_assemblage_comp_name);
+		if (comp_ptr->Get_add_formula().size() > 0)
+		{
+			char * char_name = string_duplicate(comp_ptr->Get_add_formula().c_str());
+			ptr = char_name;
+			get_elts_in_species(&ptr, 1.0);
+			free_check_null(char_name);
+		}
+		else
+		{
+			char * char_name = string_duplicate(x[i]->phase->formula);
+			ptr = char_name;
+			get_elts_in_species(&ptr, 1.0);
+			free_check_null(char_name);
+		}
+/*
+ *   Go through elements in phase
+ */
+
+#ifdef COMBINE
+		change_hydrogen_in_elt_list(0);
+#endif
+		for (int j = 0; j < count_elts; j++)
+		{
+
+			if (strcmp(elt_list[j].elt->name, "H") == 0
+				&& mass_hydrogen_unknown != NULL)
+			{
+				store_jacob0(mass_hydrogen_unknown->number, x[i]->number,
+							 -elt_list[j].coef);
+				store_sum_deltas(&(delta[i]), &mass_hydrogen_unknown->delta,
+								 elt_list[j].coef);
+
+			}
+			else if (strcmp(elt_list[j].elt->name, "O") == 0
+					 && mass_oxygen_unknown != NULL)
+			{
+				store_jacob0(mass_oxygen_unknown->number, x[i]->number,
+							 -elt_list[j].coef);
+				store_sum_deltas(&(delta[i]), &mass_oxygen_unknown->delta,
+								 elt_list[j].coef);
+
+			}
+			else
+			{
+				master_ptr = elt_list[j].elt->primary;
+				if (master_ptr->in == FALSE)
+				{
+					master_ptr = master_ptr->s->secondary;
+				}
+				if (master_ptr == NULL || master_ptr->in == FALSE)
+				{
+					if (state != ADVECTION && state != TRANSPORT
+						&& state != PHAST)
+					{
+						error_string = sformatf(
+								"Element in phase, %s, is not in model.",
+								x[i]->phase->name);
+						warning_msg(error_string);
+					}
+					if (master_ptr != NULL)
+					{
+						master_ptr->s->la = -999.9;
+					}
+/*
+ *   Master species is in model
+ */
+				}
+				else if (master_ptr->in == TRUE)
+				{
+					store_jacob0(master_ptr->unknown->number, x[i]->number,
+								 -elt_list[j].coef);
+					store_sum_deltas(&delta[i], &master_ptr->unknown->delta,
+									 elt_list[j].coef);
+/*
+ *   Master species in equation needs to be rewritten
+ */
+				}
+				else if (master_ptr->in == REWRITE)
+				{
+					stop = false;
+					for (int k = 0; k < count_unknowns; k++)
+					{
+						if (x[k]->type != MB)
+							continue;
+						for (int l = 0; x[k]->master[l] != NULL; l++)
+						{
+							if (x[k]->master[l] == master_ptr)
+							{
+								store_jacob0(x[k]->master[0]->unknown->
+											 number, x[i]->number,
+											 -elt_list[j].coef);
+								store_sum_deltas(&delta[i],
+												 &x[k]->master[0]->unknown->
+												 delta, elt_list[j].coef);
+								stop = TRUE;
+								break;
+							}
+						}
+						if (stop == TRUE)
+							break;
+					}
+				}
+			}
+		}
+	}
+	return (OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 build_pure_phases(void)
@@ -1595,7 +1783,7 @@ build_pure_phases(void)
 	}
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 build_solution_phase_boundaries(void)
@@ -4036,6 +4224,49 @@ int Phreeqc::
 setup_pure_phases(void)
 /* ---------------------------------------------------------------------- */
 {
+	LDBLE si_org;
+/*
+ *   Fills in data for pure_phase assemglage in unknown structure
+ */
+
+	if (use.pp_assemblage_ptr == NULL)
+		return (OK);
+	cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+/*
+ *   Setup unknowns
+ */
+	std::map<std::string, cxxPPassemblageComp>::iterator it;
+	it =  pp_assemblage_ptr->Get_pp_assemblage_comps().begin();
+	for ( ; it != pp_assemblage_ptr->Get_pp_assemblage_comps().end(); it++)
+	{
+		cxxPPassemblageComp * comp_ptr = &(it->second);
+		int j;
+		struct phase * phase_ptr = phase_bsearch(it->first.c_str(), &j, FALSE);
+		assert(phase_ptr);
+		x[count_unknowns]->type = PP;
+		x[count_unknowns]->description = string_hsave(comp_ptr->Get_name().c_str());
+		x[count_unknowns]->pp_assemblage_comp_name = x[count_unknowns]->description;
+		x[count_unknowns]->moles = comp_ptr->Get_moles();
+		x[count_unknowns]->phase = phase_ptr;
+		x[count_unknowns]->si = comp_ptr->Get_si();
+		si_org = comp_ptr->Get_si_org();
+		/* si_org is used for Peng-Robinson gas, with the fugacity
+		   coefficient added later in adjust_pure_phases,
+		   when rxn_x has been defined for each phase in the model */
+		x[count_unknowns]->delta = comp_ptr->Get_delta();	
+		x[count_unknowns]->dissolve_only = comp_ptr->Get_dissolve_only();
+		if (pure_phase_unknown == NULL)
+			pure_phase_unknown = x[count_unknowns];
+		count_unknowns++;
+	}
+	return (OK);
+}
+#ifdef SKIP
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+setup_pure_phases(void)
+/* ---------------------------------------------------------------------- */
+{
 	int i;
 	struct phase *phase_ptr;
 	LDBLE si_org;
@@ -4074,6 +4305,7 @@ setup_pure_phases(void)
 	}
 	return (OK);
 }
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 adjust_setup_pure_phases(void)
@@ -4088,6 +4320,7 @@ adjust_setup_pure_phases(void)
 
 	if (use.pp_assemblage_ptr == NULL)
 		return (OK);
+	cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
 /*
  *   Adjust si for gases
  */
@@ -4098,7 +4331,8 @@ adjust_setup_pure_phases(void)
 		{
 			phase_ptr = x[i]->phase;
 			phase_ptrs.push_back(phase_ptr);
-			si_org = x[i]->pure_phase->si_org;
+			cxxPPassemblageComp * comp_ptr = pp_assemblage_ptr->Find(x[i]->pp_assemblage_comp_name);
+			si_org = comp_ptr->Get_si_org();
 			if (phase_ptr->p_c > 0 && phase_ptr->t_c > 0)
 			{
 				p = exp(si_org * LOG_10);
@@ -4570,7 +4804,10 @@ setup_unknowns(void)
  */
 	if (use.pp_assemblage_ptr != NULL)
 	{
-		max_unknowns += use.pp_assemblage_ptr->count_comps;
+		cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+		max_unknowns += (int) pp_assemblage_ptr->Get_pp_assemblage_comps().size();
+		//max_unknowns += use.pp_assemblage_ptr->count_comps;
+
 /*
 		for (i = 0; use.pp_assemblage_ptr->pure_phases[i].name != NULL; i++ ) {
 			max_unknowns++;
@@ -5613,6 +5850,45 @@ save_model(void)
 	last_model.si = (LDBLE *) free_check_null(last_model.si);
 	if (use.pp_assemblage_ptr != NULL)
 	{
+		cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+		last_model.count_pp_assemblage = (int) pp_assemblage_ptr->Get_pp_assemblage_comps().size();
+		last_model.pp_assemblage =
+			(struct phase **) PHRQ_malloc((size_t) last_model.count_pp_assemblage *
+										  sizeof(struct phase *));
+		if (last_model.pp_assemblage == NULL)
+			malloc_error();
+		last_model.add_formula =
+			(const char **) PHRQ_malloc((size_t)last_model.count_pp_assemblage * sizeof(char *));
+		if (last_model.add_formula == NULL)
+			malloc_error();
+		last_model.si =
+			(LDBLE *) PHRQ_malloc((size_t) last_model.count_pp_assemblage * sizeof(LDBLE));
+		if (last_model.si == NULL)
+			malloc_error();
+		std::map<std::string, cxxPPassemblageComp>::iterator it;
+		it =  pp_assemblage_ptr->Get_pp_assemblage_comps().begin();
+		i = 0;
+		for ( ; it != pp_assemblage_ptr->Get_pp_assemblage_comps().end(); it++)
+		{
+			int j;
+			struct phase * phase_ptr = phase_bsearch(it->first.c_str(), &j, false);
+			assert(phase_ptr);
+			last_model.pp_assemblage[i] = phase_ptr;
+			last_model.add_formula[i] = string_hsave(it->second.Get_add_formula().c_str());
+			last_model.si[i] = it->second.Get_si();
+			i++;
+		}
+	}
+	else
+	{
+		last_model.count_pp_assemblage = 0;
+		last_model.pp_assemblage = NULL;
+		last_model.add_formula = NULL;
+		last_model.si = NULL;
+	}
+#ifdef SKIP
+	if (use.pp_assemblage_ptr != NULL)
+	{
 		last_model.count_pp_assemblage = use.pp_assemblage_ptr->count_comps;
 		last_model.pp_assemblage =
 			(struct phase **) PHRQ_malloc((size_t) use.pp_assemblage_ptr->
@@ -5646,6 +5922,7 @@ save_model(void)
 		last_model.add_formula = NULL;
 		last_model.si = NULL;
 	}
+#endif
 /*
  *   save data for surface
  */
@@ -5814,6 +6091,44 @@ check_same_model(void)
  */
 	if (use.pp_assemblage_ptr != NULL)
 	{
+		cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+		if (last_model.count_pp_assemblage != (int) pp_assemblage_ptr->Get_pp_assemblage_comps().size())
+			return (FALSE);
+
+		std::map<std::string, cxxPPassemblageComp>::iterator it;
+		it =  pp_assemblage_ptr->Get_pp_assemblage_comps().begin();
+		i = 0;
+		for ( ; it != pp_assemblage_ptr->Get_pp_assemblage_comps().end(); it++)
+		{
+			int j;
+			struct phase * phase_ptr = phase_bsearch(it->first.c_str(), &j, FALSE);
+			assert(phase_ptr); 
+			if (last_model.pp_assemblage[i] != phase_ptr)
+			{
+				return (FALSE);
+			}
+			if (last_model.add_formula[i] !=
+				string_hsave(it->second.Get_add_formula().c_str()))
+			{
+				return (FALSE);
+			}
+			i++;
+			/* A. Crapsi
+			if (last_model.si[i] != use.pp_assemblage_ptr->pure_phases[i].si)
+			{
+				return (FALSE);
+			}
+			*/
+		}
+	}
+	else
+	{
+		if (last_model.pp_assemblage != NULL)
+			return (FALSE);
+	}
+#ifdef SKIP
+	if (use.pp_assemblage_ptr != NULL)
+	{
 		if (last_model.count_pp_assemblage !=
 			use.pp_assemblage_ptr->count_comps)
 			return (FALSE);
@@ -5842,6 +6157,7 @@ check_same_model(void)
 		if (last_model.pp_assemblage != NULL)
 			return (FALSE);
 	}
+#endif
 /*
  *   Check surface
  */

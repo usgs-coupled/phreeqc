@@ -3,7 +3,7 @@
 #include "phqalloc.h"
 #include "Exchange.h"
 #include "GasPhase.h"
-
+#include "PPassemblage.h"
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -1569,7 +1569,7 @@ int Phreeqc::
 set_initial_moles(int i)
 /* ---------------------------------------------------------------------- */
 {
-	struct pp_assemblage *pp_assemblage_ptr;
+	//struct pp_assemblage *pp_assemblage_ptr;
 	//struct gas_phase *gas_phase_ptr;
 	struct kinetics *kinetics_ptr;
 	struct s_s_assemblage *s_s_assemblage_ptr;
@@ -1579,6 +1579,22 @@ set_initial_moles(int i)
 	/*
 	 *   Pure phase assemblage
 	 */
+	{
+		cxxPPassemblage * pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, i);
+		if (pp_assemblage_ptr != NULL)
+		{
+			std::map<std::string, cxxPPassemblageComp>::iterator it;
+			it =  pp_assemblage_ptr->Get_pp_assemblage_comps().begin();
+			for ( ; it != pp_assemblage_ptr->Get_pp_assemblage_comps().end(); it++)
+			{
+				//gas_phase_ptr->comps[j].initial_moles =	gas_phase_ptr->comps[j].moles;
+				it->second.Set_initial_moles(it->second.Get_moles());
+				if (it->second.Get_initial_moles() < 0)
+					it->second.Set_initial_moles(0.0);
+			}
+		}
+	}
+#ifdef SKIP
 	pp_assemblage_ptr = pp_assemblage_bsearch(i, &n);
 	if (pp_assemblage_ptr != NULL)
 	{
@@ -1590,6 +1606,7 @@ set_initial_moles(int i)
 				pp_assemblage_ptr->pure_phases[j].initial_moles = 0;
 		}
 	}
+#endif
 	/*
 	 *   Gas phase
 	 */

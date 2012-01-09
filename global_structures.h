@@ -499,8 +499,9 @@ struct Use
 
 	int pp_assemblage_in;
 	int n_pp_assemblage_user;
-	int n_pp_assemblage;
-	struct pp_assemblage *pp_assemblage_ptr;
+	//int n_pp_assemblage;
+	//struct pp_assemblage *pp_assemblage_ptr;
+	void *pp_assemblage_ptr;
 
 	int mix_in;
 	int n_mix_user;
@@ -689,7 +690,7 @@ struct s_s_comp
 	LDBLE log10_fraction_x;
 	LDBLE dn, dnc, dnb;
 };
-
+#ifdef SKIP
 /*----------------------------------------------------------------------
  *   Pure-phase assemblage
  *---------------------------------------------------------------------- */
@@ -717,7 +718,7 @@ struct s_s_comp
  	int dissolve_only;
  	int precipitate_only;
 };
-
+#endif
 /*----------------------------------------------------------------------
  *   Species_list
  *---------------------------------------------------------------------- */
@@ -1068,7 +1069,8 @@ struct unknown
 	struct species *s;
 	//struct exch_comp *exch_comp;
 	const char * exch_comp;
-	struct pure_phase *pure_phase;
+	//struct pure_phase *pure_phase;
+	const char *pp_assemblage_comp_name;
 	struct s_s *s_s;
 	struct s_s_comp *s_s_comp;
 	int s_s_comp_number;

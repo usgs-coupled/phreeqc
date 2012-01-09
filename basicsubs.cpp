@@ -5,6 +5,7 @@
 #include "../PBasic.h"
 #include "../Exchange.h"
 #include "../GasPhase.h"
+#include "PPassemblage.h"
 
 /* ---------------------------------------------------------------------- */
 LDBLE Phreeqc::
@@ -710,7 +711,7 @@ LDBLE Phreeqc::
 equi_phase(const char *phase_name)
 /* ---------------------------------------------------------------------- */
 {
-	int i, j;
+	int j;
 
 	if (use.pp_assemblage_in == FALSE || use.pp_assemblage_ptr == NULL)
 		return (0);
@@ -718,7 +719,7 @@ equi_phase(const char *phase_name)
 	{
 		if (x[j]->type != PP)
 			continue;
-		if (strcmp_nocase(x[j]->pure_phase->name, phase_name) == 0)
+		if (strcmp_nocase(x[j]->pp_assemblage_comp_name, phase_name) == 0)
 		{
 			break;
 		}
@@ -726,6 +727,7 @@ equi_phase(const char *phase_name)
 /*
  *   Print pure phase assemblage data
  */
+#ifdef SKIP
 	if (j == count_unknowns)
 	{
 		/* if not an unknown */
@@ -735,6 +737,22 @@ equi_phase(const char *phase_name)
 				(use.pp_assemblage_ptr->pure_phases[i].name, phase_name) == 0)
 			{
 				return (use.pp_assemblage_ptr->pure_phases[i].moles);
+			}
+		}
+	}
+#endif
+	cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+	if (j == count_unknowns)
+	{
+		/* if not an unknown */
+		std::map<std::string, cxxPPassemblageComp>::iterator it;
+		it =  pp_assemblage_ptr->Get_pp_assemblage_comps().begin();
+		for ( ; it != pp_assemblage_ptr->Get_pp_assemblage_comps().end(); it++)
+		{
+			if (strcmp_nocase
+				(it->second.Get_name().c_str(), phase_name) == 0)
+			{
+				return (it->second.Get_moles());
 			}
 		}
 	}
@@ -2395,15 +2413,20 @@ system_total_elt(const char *total_name)
  */
 	if (use.pp_assemblage_in == TRUE && use.pp_assemblage_ptr != NULL)
 	{
+		cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
 		for (i = 0; i < count_unknowns; i++)
 		{
 			if (x[i]->type != PP)
 				continue;
-			if (x[i]->pure_phase->add_formula != NULL)
+			std::map<std::string, cxxPPassemblageComp>::iterator it;
+			it =  pp_assemblage_ptr->Get_pp_assemblage_comps().find(x[i]->pp_assemblage_comp_name);
+			if (it->second.Get_add_formula().size() > 0)
 				continue;
 			count_elts = 0;
 			paren_count = 0;
-			add_elt_list(x[i]->pure_phase->phase->next_elt, x[i]->moles);
+			int j;
+			struct phase * phase_ptr = phase_bsearch(x[i]->pp_assemblage_comp_name, &j, FALSE);
+			add_elt_list(phase_ptr->next_elt, x[i]->moles);
 			if (count_elts > 0)
 			{
 				qsort(elt_list, (size_t) count_elts,
@@ -2415,7 +2438,7 @@ system_total_elt(const char *total_name)
 				if (strcmp(elt_list[j].elt->name, total_name) == 0)
 				{
 					sys[count_sys].name =
-						string_duplicate(x[i]->pure_phase->name);
+						string_duplicate(phase_ptr->name);
 					sys[count_sys].moles = elt_list[j].coef;
 					sys_tot += sys[count_sys].moles;
 					sys[count_sys].type = string_duplicate("equi");
@@ -2660,16 +2683,22 @@ system_total_elt_secondary(const char *total_name)
  */
 	if (use.pp_assemblage_in == TRUE && use.pp_assemblage_ptr != NULL)
 	{
+		cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
 		for (i = 0; i < count_unknowns; i++)
 		{
 			if (x[i]->type != PP)
 				continue;
-			if (x[i]->pure_phase->add_formula != NULL)
+			//if (x[i]->pure_phase->add_formula != NULL)
+			//	continue;
+			std::map<std::string, cxxPPassemblageComp>::iterator it;
+			it =  pp_assemblage_ptr->Get_pp_assemblage_comps().find(x[i]->pp_assemblage_comp_name);
+			if (it->second.Get_add_formula().size() > 0)
 				continue;
 			count_elts = 0;
 			paren_count = 0;
-			add_elt_list(x[i]->pure_phase->phase->next_sys_total,
-						 x[i]->moles);
+			int j;
+			struct phase * phase_ptr = phase_bsearch(x[i]->pp_assemblage_comp_name, &j, FALSE);
+			add_elt_list(phase_ptr->next_sys_total,	 x[i]->moles);
 			if (count_elts > 0)
 			{
 				qsort(elt_list, (size_t) count_elts,
@@ -2681,7 +2710,7 @@ system_total_elt_secondary(const char *total_name)
 				if (strcmp(elt_list[j].elt->name, total_name) == 0)
 				{
 					sys[count_sys].name =
-						string_duplicate(x[i]->pure_phase->name);
+						string_duplicate(phase_ptr->name);
 					sys[count_sys].moles = elt_list[j].coef;
 					sys_tot += sys[count_sys].moles;
 					sys[count_sys].type = string_duplicate("equi");
@@ -2853,7 +2882,7 @@ system_species_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 system_total_solids(cxxExchange *exchange_ptr,
-					struct pp_assemblage *pp_assemblage_ptr,
+					cxxPPassemblage *pp_assemblage_ptr,
 					cxxGasPhase *gas_phase_ptr,
 					struct s_s_assemblage *s_s_assemblage_ptr,
 					struct surface *surface_ptr)
@@ -2907,11 +2936,20 @@ system_total_solids(cxxExchange *exchange_ptr,
 	}
 	if (pp_assemblage_ptr != NULL)
 	{
-		for (i = 0; i < pp_assemblage_ptr->count_comps; i++)
+		std::map<std::string, cxxPPassemblageComp>::iterator it;
+		it =  pp_assemblage_ptr->Get_pp_assemblage_comps().begin();
+		for ( ; it != pp_assemblage_ptr->Get_pp_assemblage_comps().end(); it++)
 		{
-			add_elt_list(pp_assemblage_ptr->pure_phases[i].phase->next_elt,
-						 pp_assemblage_ptr->pure_phases[i].moles);
+			int j;
+			struct phase * phase_ptr = phase_bsearch(it->first.c_str(), &j, FALSE);
+			add_elt_list(phase_ptr->next_elt,
+						 it->second.Get_moles());
 		}
+		//for (i = 0; i < pp_assemblage_ptr->count_comps; i++)
+		//{
+		//	add_elt_list(pp_assemblage_ptr->pure_phases[i].phase->next_elt,
+		//				 pp_assemblage_ptr->pure_phases[i].moles);
+		//}
 	}
 
 	if (count_elts > 0)

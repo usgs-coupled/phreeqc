@@ -12,6 +12,8 @@
 #include "Exchange.h"
 #include "GasPhase.h"
 #include "Reaction.h"
+#include "PPassemblage.h"
+
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 read_input(void)
@@ -123,7 +125,8 @@ read_input(void)
 			read_phases();
 			break;
 		case Keywords::KEY_EQUILIBRIUM_PHASES:
-			read_pure_phases();
+			//read_pure_phases();
+			read_pp_assemblage();
 			break;
 		case Keywords::KEY_REACTION:
 			read_reaction();
@@ -286,7 +289,8 @@ read_input(void)
 			read_surface_raw();
 			break;
 		case Keywords::KEY_EQUILIBRIUM_PHASES_RAW:		
-			read_equilibrium_phases_raw();
+			//read_equilibrium_phases_raw();
+			Utilities::Rxn_read_raw(Rxn_pp_assemblage_map, this);
 			break;
 		case Keywords::KEY_KINETICS_RAW:
 			read_kinetics_raw();
@@ -317,7 +321,8 @@ read_input(void)
 			read_solution_modify();
 			break;
 		case Keywords::KEY_EQUILIBRIUM_PHASES_MODIFY:
-			read_equilibrium_phases_modify();
+			//read_equilibrium_phases_modify();
+			Utilities::Rxn_read_modify(Rxn_pp_assemblage_map, this);
 			break;
 		case Keywords::KEY_EXCHANGE_MODIFY:
 			//read_exchange_modify();
@@ -3952,7 +3957,197 @@ read_phases(void)
 	}
 	return (return_value);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+read_pp_assemblage(void)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *      Reads pp_assemblage data
+ *
+ *      Arguments:
+ *	 none
+ *
+ *      Returns:
+ *	 KEYWORD if keyword encountered, input_error may be incremented if
+ *		    a keyword is encountered in an unexpected position
+ *	 EOF     if eof encountered while reading mass balance concentrations
+ *	 ERROR   if error occurred reading data
+ *
+ */
+	//int j, n, l, return_value;
+	int j;
+	int return_value;
+	//int count_pure_phases;
+	int n_user, n_user_end;
+	char *ptr;
+	char *description;
+	//char token[MAX_LENGTH];
+	std::string token;
+	int opt, opt_save;
+	char *next_char;
+	const char *opt_list[] = {
+		"force_equality"		/* 0 */
+	};
+	int count_opt_list = 1;
 
+	ptr = line;
+	/*
+	 *   Read pp_assemblage number
+	 */
+	read_number_description(ptr, &n_user, &n_user_end, &description);
+	/*
+	 *   Find pp_assemblage or realloc space for pp_assemblage
+	 */
+	cxxPPassemblage temp_pp_assemblage;
+	cxxPPassemblage *pp_assemblage_ptr = &(temp_pp_assemblage);
+	cxxPPassemblageComp *comp = NULL;
+	std::map<std::string, cxxPPassemblageComp> comps;
+	temp_pp_assemblage.Set_new_def(true);
+	temp_pp_assemblage.Set_n_user(n_user);
+	temp_pp_assemblage.Set_n_user_end(n_user_end);
+	temp_pp_assemblage.Set_description(description);
+	free_check_null(description);
+	/*
+	 *   Set use data to first read
+	 */
+	if (use.pp_assemblage_in == FALSE)
+	{
+		use.pp_assemblage_in = TRUE;
+		use.n_pp_assemblage_user = n_user;
+	}
+	/*
+	 *  Read equilibrium phase data
+	 */
+	opt_save = OPTION_DEFAULT;
+	return_value = UNKNOWN;
+	for (;;)
+	{
+		opt = get_option(opt_list, count_opt_list, &next_char);
+		if (opt == OPTION_DEFAULT)
+		{
+			opt = opt_save;
+		}
+		switch (opt)
+		{
+		case OPTION_EOF:		/* end of file */
+			return_value = EOF;
+			break;
+		case OPTION_KEYWORD:	/* keyword */
+			return_value = KEYWORD;
+			break;
+		case OPTION_ERROR:
+			input_error++;
+			error_msg("Unknown input in EQUILIBRIUM_PHASES keyword.", CONTINUE);
+			error_msg(line_save, CONTINUE);
+			break;
+		case 0:				/* force_equality */
+			if (comp == NULL)
+			{
+				error_msg
+					("Force_equality defined before equilibrium phase has been defined.",
+					 CONTINUE);
+				error_msg(line_save, CONTINUE);
+				input_error++;
+			}
+			else
+			{
+				comp->Set_force_equality(get_true_false(next_char, TRUE) == TRUE);
+			}
+			break;
+		case OPTION_DEFAULT:
+			/*
+			 *   Make space, set default
+			 */
+			if (comp)
+			{
+				comps[comp->Get_name()] = *comp;
+			}
+			delete comp;
+			comp = new cxxPPassemblageComp;
+			/*
+			 *   Read name
+			 */
+			ptr = line;
+			copy_token(token, &ptr);
+			comp->Set_name(token.c_str());
+
+			if ((j = copy_token(token, &ptr)) == EMPTY)
+				continue;
+			/*
+			 *   Read saturation index
+			 */
+			j = sscanf(token.c_str(), SCANFORMAT, &dummy);
+			comp->Set_si(dummy);
+			comp->Set_si_org(dummy);
+			if (j != 1)
+			{
+				error_msg("Expected saturation index.", CONTINUE);
+				error_msg(line_save, CONTINUE);
+				input_error++;
+				continue;
+			}
+			/*
+			 *   Adding a reaction to the phase boundary
+			 */
+			if ((j = copy_token(token, &ptr)) == EMPTY)
+				continue;
+			if (j == UPPER || j == LOWER)
+			{
+				comp->Set_add_formula(token.c_str());
+				j = copy_token(token, &ptr);
+			}
+			/*
+			 *   Read amount
+			 */
+			if (j == EMPTY)
+				continue;
+			j = sscanf(token.c_str(), SCANFORMAT, &dummy);
+			comp->Set_moles(dummy);
+			if (j != 1)
+			{
+				error_msg("Expected amount of mineral.", CONTINUE);
+				error_msg(line_save, CONTINUE);
+				input_error++;
+				continue;
+			}
+			if ((j = copy_token(token, &ptr)) == EMPTY)
+				continue;
+			Utilities::str_tolower(token);
+			if (strstr(token.c_str(), "d") == token.c_str())
+			{
+				comp->Set_dissolve_only(true);
+				comp->Set_precipitate_only(false);
+			} else if (strstr(token.c_str(), "p") == token.c_str())
+			{
+				comp->Set_precipitate_only(true);
+				comp->Set_dissolve_only(false);
+			}
+			else
+			{
+				error_msg
+					("Unexpected data at end of equilibrium-phase definition.",
+					 CONTINUE);
+				input_error++;
+				continue;
+			}
+			break;
+		}
+		if (return_value == EOF || return_value == KEYWORD)
+			break;
+	}
+	if (comp)
+	{
+		comps[comp->Get_name()] = *comp;
+		delete comp;
+		comp = NULL;
+	}
+	temp_pp_assemblage.Set_pp_assemblage_comps(comps);
+	Rxn_pp_assemblage_map[n_user] = temp_pp_assemblage;
+
+	return (return_value);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 read_pure_phases(void)
@@ -4173,6 +4368,7 @@ read_pure_phases(void)
 
 	return (return_value);
 }
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 read_reaction(void)

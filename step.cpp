@@ -1,7 +1,7 @@
 #include "Phreeqc.h"
 #include "phqalloc.h"
 
-
+#include "Utils.h"
 #include "StorageBin.h"
 #include "Solution.h"
 #include "PPassemblage.h"
@@ -13,6 +13,8 @@
 #include "Exchange.h"
 #include "GasPhase.h"
 #include "Reaction.h"
+#include "PPassemblage.h"
+
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 step(LDBLE step_fraction)
@@ -28,7 +30,7 @@ step(LDBLE step_fraction)
  */
 	LDBLE difftemp;
 	int step_number;
-	struct pp_assemblage *pp_assemblage_save = NULL;
+	cxxPPassemblage *pp_assemblage_save = NULL;
 	struct s_s_assemblage *s_s_assemblage_save = NULL;
 /*
  *   Zero out global solution data
@@ -126,6 +128,13 @@ step(LDBLE step_fraction)
  */
 	if (use.pp_assemblage_ptr != NULL)
 	{
+		cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+		pp_assemblage_save = new cxxPPassemblage(*pp_assemblage_ptr);
+		add_pp_assemblage(pp_assemblage_ptr);
+	}
+#ifdef SKIP
+	if (use.pp_assemblage_ptr != NULL)
+	{
 		pp_assemblage_save =
 			(struct pp_assemblage *)
 			PHRQ_malloc(sizeof(struct pp_assemblage));
@@ -135,6 +144,7 @@ step(LDBLE step_fraction)
 						   use.pp_assemblage_ptr->n_user);
 		add_pp_assemblage(use.pp_assemblage_ptr);
 	}
+#endif
 /*
  *   Solid solutions
  */
@@ -160,7 +170,8 @@ step(LDBLE step_fraction)
 	}
 	if (use.pp_assemblage_ptr != NULL)
 	{
-		pp_assemblage_check(use.pp_assemblage_ptr);
+		cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+		pp_assemblage_check(pp_assemblage_ptr);
 	}
 	if (use.s_s_assemblage_ptr != NULL)
 	{
@@ -174,12 +185,8 @@ step(LDBLE step_fraction)
 		/* reset moles and deltas */
 		if (use.pp_assemblage_ptr != NULL)
 		{
-			pp_assemblage_free(use.pp_assemblage_ptr);
-			pp_assemblage_copy(pp_assemblage_save, use.pp_assemblage_ptr,
-							   use.pp_assemblage_ptr->n_user);
-			pp_assemblage_free(pp_assemblage_save);
-			pp_assemblage_save =
-				(struct pp_assemblage *) free_check_null(pp_assemblage_save);
+			Rxn_pp_assemblage_map[pp_assemblage_save->Get_n_user()] = *pp_assemblage_save;
+			use.pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, pp_assemblage_save->Get_n_user());
 		}
 		if (use.s_s_assemblage_ptr != NULL)
 		{
@@ -204,9 +211,11 @@ step(LDBLE step_fraction)
  */
 	if (pp_assemblage_save != NULL)
 	{
-		pp_assemblage_free(pp_assemblage_save);
-		pp_assemblage_save =
-			(struct pp_assemblage *) free_check_null(pp_assemblage_save);
+		//pp_assemblage_free(pp_assemblage_save);
+		//pp_assemblage_save =
+		//	(struct pp_assemblage *) free_check_null(pp_assemblage_save);
+		delete pp_assemblage_save;
+		pp_assemblage_save = NULL;
 	}
 	if (s_s_assemblage_save != NULL)
 	{
@@ -230,8 +239,9 @@ step(LDBLE step_fraction)
 		sys_bin.Set_Solution(-1, soln);
 		if (use.pp_assemblage_in)
 		{
-			cxxPPassemblage pp(use.pp_assemblage_ptr, phrq_io);
-			sys_bin.Set_PPassemblage(-1, pp);
+			//cxxPPassemblage pp(use.pp_assemblage_ptr, phrq_io);
+			cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+			sys_bin.Set_PPassemblage(-1, *pp_assemblage_ptr);
 		}
 		if (use.s_s_assemblage_in)
 		{
@@ -243,9 +253,10 @@ step(LDBLE step_fraction)
 		cxxNameDouble sys_tots = sys_bin.Get_System().Get_Totals();
 		if (use.pp_assemblage_in)
 		{
-			cxxPPassemblage *pp = sys_bin.Get_PPassemblage(-1);
-			std::map <std::string, cxxPPassemblageComp>::const_iterator it; 
-			for (it = pp->Get_ppAssemblageComps().begin(); it != pp->Get_ppAssemblageComps().end(); it++)
+			cxxPPassemblage *pp_assemblage_ptr = sys_bin.Get_PPassemblage(-1);
+			std::map<std::string, cxxPPassemblageComp>::iterator it;
+			it =  pp_assemblage_ptr->Get_pp_assemblage_comps().begin();
+			for ( ; it != pp_assemblage_ptr->Get_pp_assemblage_comps().end(); it++)
 			{
 				int n;
 				struct phase *p_ptr = phase_bsearch((it->first).c_str(), &n, FALSE);
@@ -670,6 +681,135 @@ add_mix(cxxMix *mix_ptr)
 }
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
+add_pp_assemblage(cxxPPassemblage *pp_assemblage_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Add a small amount of each phase if necessary to insure
+ *   all elements exist in solution.
+ */
+	int i;
+	LDBLE amount_to_add, total;
+	char token[MAX_LENGTH];
+	char *ptr;
+	//struct pure_phase *pure_phase_ptr;
+	struct master *master_ptr;
+	//struct phase *phase_ptr;
+	//LDBLE p, t;
+
+	//pure_phase_ptr = pp_assemblage_ptr->pure_phases;
+
+	// Should be be done when it gets to prep (modified quick_setup in case same_model).
+	//for (j = 0; j < pp_assemblage_ptr->count_comps; j++)
+	//{
+	//	phase_ptr = pure_phase_ptr[j].phase;
+	//	if (/*pure_phase_ptr[j].si_org > 0 && */phase_ptr->p_c > 0 && phase_ptr->t_c > 0)
+	//	{
+	//		p = exp(pure_phase_ptr[j].si_org * LOG_10);
+	//		t = tc_x + 273.15;
+	//		if (!phase_ptr->pr_in || p != phase_ptr->pr_p || t != phase_ptr->pr_tk)
+	//		{
+	//			calc_PR(&phase_ptr, 1, p, t, 0);
+	//		}
+	//		pure_phase_ptr[j].si = pure_phase_ptr[j].si_org + phase_ptr->pr_si_f;
+	//	}
+	//}
+
+	if (check_pp_assemblage(pp_assemblage_ptr) == OK)
+		return (OK);
+/*
+ *   Go through list and generate list of elements and
+ *   coefficient of elements in reaction
+ */
+	count_elts = 0;
+	paren_count = 0;
+/*
+ *   Check that all elements are in solution for phases with greater than zero mass
+ */
+	std::map<std::string, cxxPPassemblageComp>::iterator it;
+	it =  pp_assemblage_ptr->Get_pp_assemblage_comps().begin();
+	for ( ; it != pp_assemblage_ptr->Get_pp_assemblage_comps().end(); it++)
+	{
+		cxxPPassemblageComp * comp_ptr = &(it->second);
+		if (comp_ptr->Get_precipitate_only()) continue;
+		int l;
+		struct phase * phase_ptr = phase_bsearch(it->first.c_str(), &l, FALSE);
+		count_elts = 0;
+		paren_count = 0;
+		amount_to_add = 0.0;
+		comp_ptr->Set_delta(0.0);
+		if (comp_ptr->Get_add_formula().size() > 0)
+		{
+			strcpy(token, comp_ptr->Get_add_formula().c_str());
+			ptr = &(token[0]);
+			get_elts_in_species(&ptr, 1.0);
+		}
+		else
+		{
+			strcpy(token, phase_ptr->formula);
+			add_elt_list(phase_ptr->next_elt, 1.0);
+		}
+		if (comp_ptr->Get_moles() > 0.0)
+		{
+			for (i = 0; i < count_elts; i++)
+			{
+				master_ptr = elt_list[i].elt->primary;
+				if (master_ptr->s == s_hplus)
+				{
+					continue;
+				}
+				else if (master_ptr->s == s_h2o)
+				{
+					continue;
+				}
+				else if (master_ptr->total > MIN_TOTAL)
+				{
+					continue;
+				}
+				else
+				{
+					total = (-master_ptr->total + 1e-10) / elt_list[i].coef;
+					if (amount_to_add < total)
+					{
+						amount_to_add = total;
+					}
+				}
+			}
+			if (comp_ptr->Get_moles() < amount_to_add)
+			{
+				amount_to_add =comp_ptr->Get_moles();
+			}
+		}
+		if (amount_to_add > 0.0)
+		{
+			comp_ptr->Set_moles(comp_ptr->Get_moles() - amount_to_add);
+			comp_ptr->Set_delta(amount_to_add);
+/*
+ *   Add reaction to totals
+ */
+			for (i = 0; i < count_elts; i++)
+			{
+				master_ptr = elt_list[i].elt->primary;
+				if (master_ptr->s == s_hplus)
+				{
+					total_h_x += elt_list[i].coef * amount_to_add;
+				}
+				else if (master_ptr->s == s_h2o)
+				{
+					total_o_x += elt_list[i].coef * amount_to_add;
+				}
+				else
+				{
+					master_ptr->total += elt_list[i].coef * amount_to_add;
+				}
+			}
+		}
+	}
+	return (OK);
+}
+#ifdef SKIP
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
 add_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -792,7 +932,39 @@ add_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr)
 	}
 	return (OK);
 }
+#endif
+/* ---------------------------------------------------------------------- */
+ int Phreeqc::
+check_pp_assemblage(cxxPPassemblage *pp_assemblage_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Check list of all elements in pure_phase assemblage to see
+ *   if all are in model. Return true if all are present,
+ *   Return false if one or more is missing.
+ */
+	struct master *master_ptr;
 
+	cxxNameDouble nd = pp_assemblage_ptr->Get_eltList();
+	cxxNameDouble::iterator it;
+	for (it = nd.begin(); it != nd.end(); it++)
+	{
+		struct element *elt_ptr = element_store(it->first.c_str());
+		if (elt_ptr == NULL || elt_ptr->primary == NULL)
+		{
+			return FALSE;
+		}
+
+		master_ptr = elt_ptr->primary;
+		if (master_ptr->s == s_h2o || master_ptr->s == s_hplus)
+			continue;
+		if (master_ptr->total > MIN_TOTAL)
+			continue;
+		return (FALSE);
+	}
+	return (TRUE);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
  int Phreeqc::
 check_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr)
@@ -816,6 +988,7 @@ check_pp_assemblage(struct pp_assemblage *pp_assemblage_ptr)
 	}
 	return (TRUE);
 }
+#endif
  /* ---------------------------------------------------------------------- */
 int Phreeqc::
 add_reaction(cxxReaction *reaction_ptr, int step_number, LDBLE step_fraction)
@@ -1286,6 +1459,95 @@ gas_phase_check(cxxGasPhase *gas_phase_ptr)
 }
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
+pp_assemblage_check(cxxPPassemblage *pp_assemblage_ptr)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Check for missing elements
+ */
+	//int i, j, k;
+	//char token[MAX_LENGTH];
+	std::string token;
+	char *ptr;
+	//struct pure_phase *pure_phase_ptr;
+	struct master *master_ptr;
+
+	if (check_pp_assemblage(pp_assemblage_ptr) == OK)
+		return (OK);
+/*
+ *   Check that all elements are in solution for phases with zero mass
+ */
+	std::map<std::string, cxxPPassemblageComp>::iterator it;
+	it =  pp_assemblage_ptr->Get_pp_assemblage_comps().begin();
+	for ( ; it != pp_assemblage_ptr->Get_pp_assemblage_comps().end(); it++)
+	{
+		cxxPPassemblageComp * comp_ptr = &(it->second);
+		int l;
+		struct phase * phase_ptr = phase_bsearch(it->first.c_str(), &l, FALSE);
+		count_elts = 0;
+		paren_count = 0;
+		if (comp_ptr->Get_moles() <= 0.0)
+		{
+			comp_ptr->Set_delta(0.0);
+			if (comp_ptr->Get_add_formula().size() > 0)
+			{
+				token = comp_ptr->Get_add_formula();
+				ptr = &(token[0]);
+				get_elts_in_species(&ptr, 1.0);
+			}
+			else
+			{
+				token = phase_ptr->formula;
+				//strcpy(token, pure_phase_ptr[j].phase->formula);
+				add_elt_list(phase_ptr->next_elt, 1.0);
+			}
+			for (int i = 0; i < count_elts; i++)
+			{
+				master_ptr = elt_list[i].elt->primary;
+				if (master_ptr->s == s_hplus)
+				{
+					continue;
+				}
+				else if (master_ptr->s == s_h2o)
+				{
+					continue;
+				}
+				else if (master_ptr->total > MIN_TOTAL)
+				{
+					continue;
+				}
+				else
+				{
+					if (state != ADVECTION && state != TRANSPORT
+						&& state != PHAST)
+					{
+						error_string = sformatf(
+								"Element %s is contained in %s (which has 0.0 mass),"
+								"\t\nbut is not in solution or other phases.",
+								elt_list[i].elt->name,
+								phase_ptr->name);
+						warning_msg(error_string);
+					}
+/*
+ *   Make la's of all master species for the element small, so SI will be small
+ *   and no mass transfer will be calculated
+ */
+					for (int k = 0; k < count_master; k++)
+					{
+						if (master[k]->elt->primary == master_ptr)
+						{
+							master[k]->s->la = -9999.999;
+						}
+					}
+				}
+			}
+		}
+	}
+	return (OK);
+}
+#ifdef SKIP
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
 pp_assemblage_check(struct pp_assemblage *pp_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -1366,7 +1628,7 @@ pp_assemblage_check(struct pp_assemblage *pp_assemblage_ptr)
 	}
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 s_s_assemblage_check(struct s_s_assemblage *s_s_assemblage_ptr)

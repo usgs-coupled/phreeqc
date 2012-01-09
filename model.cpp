@@ -3,7 +3,7 @@
 #include "cxxMix.h"
 #include "Exchange.h"
 #include "GasPhase.h"
-
+#include "PPassemblage.h"
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -402,6 +402,63 @@ check_residuals(void)
 		}
 		else if (x[i]->type == PP)
 		{
+			cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+			cxxPPassemblageComp * comp_ptr = pp_assemblage_ptr->Find(x[i]->pp_assemblage_comp_name);
+			if (comp_ptr->Get_add_formula().size() == 0)
+			//if (x[i]->pure_phase->add_formula == NULL)
+			{
+				if (x[i]->dissolve_only == TRUE)
+				{
+					if ((residual[i] > epsilon && x[i]->moles > 0.0)
+						||
+						((residual[i] < -epsilon
+						  && (comp_ptr->Get_initial_moles() - x[i]->moles) >
+						  0)))
+					{
+						log_msg(sformatf(
+								   "%20s Dissolve_only pure phase has not converged. \tResidual: %e\n",
+								   x[i]->description, (double) residual[i]));
+					}
+				}
+				else
+				{
+					if ((residual[i] >= epsilon
+						 && x[i]->moles > 0.0) /* || stop_program == TRUE */ )
+					{
+						remove_unstable_phases = TRUE;
+						log_msg(sformatf(
+								   "%20s Pure phase has not converged. \tResidual: %e\n",
+								   x[i]->description, (double) residual[i]));
+					}
+					else if (residual[i] <= -epsilon)
+					{
+						error_string = sformatf(
+								"%20s Pure phase has not converged. "
+								"\tResidual: %e\n", x[i]->description,
+								(double) residual[i]);
+						error_msg(error_string, CONTINUE);
+					}
+				}
+			}
+			else
+			{
+				if ((fabs(residual[i]) >= epsilon
+					 && x[i]->moles > 0.0) /* || stop_program == TRUE */ )
+				{
+					log_msg(sformatf(
+							   "%s, Pure phase has not converged. \tResidual: %e\n",
+							   x[i]->description, (double) residual[i]));
+					error_string = sformatf(
+							"%s, Pure phase with add formula has not converged.\n\t SI may be a local minimum."
+							"\tResidual: %e\n", x[i]->description,
+							(double) residual[i]);
+					warning_msg(error_string);
+				}
+			}
+		}
+#ifdef SKIP
+		else if (x[i]->type == PP)
+		{
 			if (x[i]->pure_phase->add_formula == NULL)
 			{
 				if (x[i]->dissolve_only == TRUE)
@@ -453,6 +510,7 @@ check_residuals(void)
 				}
 			}
 		}
+#endif
 		else if (x[i]->type == EXCH)
 		{
 			if (				/* stop_program == TRUE || */
@@ -931,6 +989,9 @@ ineq(int in_kode)
 /*
  *   Special case for removing unstable phases
  */
+	cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+	cxxPPassemblageComp * comp_ptr;
+
 	if (remove_unstable_phases == TRUE)
 	{
 		if (debug_model == TRUE)
@@ -940,6 +1001,36 @@ ineq(int in_kode)
 		}
 		for (i = 0; i < count_unknowns; i++)
 		{
+
+			if (x[i]->type == PP)
+			{
+				std::map<std::string, cxxPPassemblageComp>::iterator it;
+				it =  pp_assemblage_ptr->Get_pp_assemblage_comps().find(x[i]->pp_assemblage_comp_name);
+				assert(it != pp_assemblage_ptr->Get_pp_assemblage_comps().end());
+				if (residual[i] > 0e-8 && x[i]->moles > 0 &&
+					it->second.Get_add_formula().size() == 0
+					&& x[i]->dissolve_only == FALSE)
+				{
+					/*
+					*   Set mass transfer to all of phase
+					*/
+					delta[i] = x[i]->moles;
+				}
+				else
+				{
+					delta[i] = 0.0;
+				}
+				if (debug_model == TRUE)
+				{
+					output_msg(sformatf( "%6d  %-12.12s %10.2e\n", i,
+						x[i]->description, (double) delta[i]));
+				}
+			}
+		}
+#ifdef SKIP
+		for (i = 0; i < count_unknowns; i++)
+		{
+
 			if (x[i]->type == PP && residual[i] > 0e-8 && x[i]->moles > 0 &&
 				x[i]->pure_phase->add_formula == NULL
 				&& x[i]->dissolve_only == FALSE)
@@ -959,6 +1050,7 @@ ineq(int in_kode)
 						   x[i]->description, (double) delta[i]));
 			}
 		}
+#endif
 		remove_unstable_phases = FALSE;
 		return (OK);
 	}
@@ -1165,6 +1257,58 @@ ineq(int in_kode)
  */
 		if (x[i]->type == PP)
 		{
+			std::map<std::string, cxxPPassemblageComp>::iterator it;
+			it =  pp_assemblage_ptr->Get_pp_assemblage_comps().find(x[i]->pp_assemblage_comp_name);
+			/* not in model, ignore */
+			if (x[i]->phase->in == FALSE)
+				continue;
+			if (it->second.Get_force_equality())
+				continue;
+			/*   Undersaturated and no mass, ignore */
+			if (x[i]->f > 0e-8 && x[i]->moles <= 0
+				&& it->second.Get_add_formula().size() == 0)
+			{
+				continue;
+			}
+			else if (x[i]->f < 0e-8 && x[i]->dissolve_only == TRUE
+					 && (x[i]->moles - it->second.Get_initial_moles() >= 0))
+			{
+				continue;
+			}
+			else
+			{
+				/*   Copy in saturation index equation (has mass or supersaturated) */
+				memcpy((void *) &(ineq_array[l_count_rows * max_column_count]),
+					   (void *) &(array[i * (count_unknowns + 1)]),
+					   (size_t) (count_unknowns + 1) * sizeof(LDBLE));
+				back_eq[l_count_rows] = i;
+				if (it->second.Get_add_formula().size() == 0
+					&& x[i]->dissolve_only == FALSE)
+				{
+					res[l_count_rows] = 1.0;
+				}
+/*
+ *   If infeasible solution on first attempt, remove constraints on IAP
+ */
+				if (pp_scale != 1)
+				{
+					for (j = 0; j < count_unknowns + 1; j++)
+					{
+						ineq_array[l_count_rows * max_column_count + j] *=
+							pp_scale;
+					}
+				}
+
+				if (in_kode != 1)
+				{
+					res[l_count_rows] = 0.0;
+				}
+				l_count_rows++;
+			}
+		}
+#ifdef SKIP
+		if (x[i]->type == PP)
+		{
 			/* not in model, ignore */
 			if (x[i]->pure_phase->phase->in == FALSE)
 				continue;
@@ -1212,6 +1356,7 @@ ineq(int in_kode)
 				l_count_rows++;
 			}
 		}
+#endif
 		else if (x[i]->type == ALK || x[i]->type == SOLUTION_PHASE_BOUNDARY)
 		{
 /*
@@ -1263,6 +1408,18 @@ ineq(int in_kode)
  */
 	for (i = 0; i < count_unknowns; i++)
 	{
+		comp_ptr = NULL;
+		cxxPPassemblageComp *comp_ptr1 = NULL;
+		if (x[i]->type == PP)
+		{
+			comp_ptr = pp_assemblage_ptr->Find(x[i]->pp_assemblage_comp_name);
+		}
+		if ((x[i]->type == SURFACE_CB || x[i]->type == SURFACE_CB1
+				 || x[i]->type == SURFACE_CB2)
+				&& x[i - 1]->phase_unknown != NULL)
+		{
+			comp_ptr1 = pp_assemblage_ptr->Find(x[i-1]->pp_assemblage_comp_name);
+		}
 		if (x[i]->type != SOLUTION_PHASE_BOUNDARY &&
 			x[i]->type != ALK &&
 			x[i]->type != GAS_MOLES && x[i]->type != S_S_MOLES
@@ -1270,7 +1427,7 @@ ineq(int in_kode)
 			&& x[i]->type != SLACK
 			)
 		{
-			if (x[i]->type == PP && x[i]->pure_phase->force_equality == FALSE)
+			if (x[i]->type == PP && !comp_ptr->Get_force_equality())
 				continue;
 			if (x[i]->type == MH && pitzer_model == TRUE && pitzer_pe == FALSE)
 				continue;
@@ -1294,7 +1451,7 @@ ineq(int in_kode)
 			if (x[i]->type == SURFACE && x[i]->phase_unknown != NULL &&
 /*			    x[i]->phase_unknown->f > 0e-8 && */
 				x[i]->phase_unknown->moles <= MIN_RELATED_SURFACE &&
-				x[i]->phase_unknown->pure_phase->add_formula == NULL)
+				comp_ptr->Get_add_formula().size() == 0)
 				continue;
 			if ((x[i]->type == SURFACE_CB || x[i]->type == SURFACE_CB1
 				 || x[i]->type == SURFACE_CB2)
@@ -1302,7 +1459,7 @@ ineq(int in_kode)
 /*			    x[i-1]->phase_unknown->f > 0e-8 && */
 /*			    x[i-1]->phase_unknown->moles <= MIN_RELATED_SURFACE && */
 				x[i]->surface_charge->grams <= MIN_RELATED_SURFACE &&
-				x[i - 1]->phase_unknown->pure_phase->add_formula == NULL)
+				comp_ptr1->Get_add_formula().size() == 0)
 				continue;
 			memcpy((void *) &(ineq_array[l_count_rows * max_column_count]),
 				   (void *) &(array[i * (count_unknowns + 1)]),
@@ -1338,12 +1495,13 @@ ineq(int in_kode)
 		{
 			if (x[i]->type == PP)
 			{
+				comp_ptr = pp_assemblage_ptr->Find(x[i]->pp_assemblage_comp_name);
 				/* not in model, ignore */
-				if (x[i]->pure_phase->phase->in == FALSE)
+				if (x[i]->phase->in == FALSE)
 					continue;
 				/*   No moles and undersaturated, ignore */
 				if (x[i]->moles <= 0.0 && x[i]->f > 0e-8 &&
-					x[i]->pure_phase->add_formula == NULL)
+					comp_ptr->Get_add_formula().size() == 0)
 				{
 					continue;
 					/*   No moles of pure phase present, must precipitate */
@@ -1353,7 +1511,7 @@ ineq(int in_kode)
 					delta1[i] = -1.0;
 				}
 				else if (x[i]->f < 0e-8 && x[i]->dissolve_only == TRUE
-						 && (x[i]->moles - x[i]->pure_phase->initial_moles >=
+						 && (x[i]->moles - comp_ptr->Get_initial_moles() >=
 							 0))
 				{
 					continue;
@@ -1382,7 +1540,7 @@ ineq(int in_kode)
 					ineq_array[l_count_rows * max_column_count + i] = -1.0;
 					ineq_array[l_count_rows * max_column_count +
 							   count_unknowns] =
-						x[i]->pure_phase->initial_moles - x[i]->moles;
+						comp_ptr->Get_initial_moles() - x[i]->moles;
 					back_eq[l_count_rows] = i;
 					l_count_rows++;
 				}
@@ -1433,9 +1591,10 @@ ineq(int in_kode)
 		{
 			if (x[i]->type == PP)
 			{
+				comp_ptr = pp_assemblage_ptr->Find(x[i]->pp_assemblage_comp_name);
 				if ((x[i]->moles <= 0.0 && x[i]->f > 0e-8 &&
-					 x[i]->pure_phase->add_formula == NULL)
-					|| x[i]->pure_phase->phase->in == FALSE)
+					 comp_ptr->Get_add_formula().size() == 0)
+					|| x[i]->phase->in == FALSE)
 				{
 					for (j = 0; j < l_count_rows; j++)
 					{
@@ -1445,7 +1604,7 @@ ineq(int in_kode)
 				if (x[i]->dissolve_only == TRUE)
 				{
 					if (x[i]->f < 0e-8
-						&& (x[i]->moles - x[i]->pure_phase->initial_moles >=
+						&& (x[i]->moles - comp_ptr->Get_initial_moles() >=
 							0))
 					{
 						for (j = 0; j < l_count_rows; j++)
@@ -1486,6 +1645,44 @@ ineq(int in_kode)
 	{
 		for (i = 0; i < count_unknowns; i++)
 		{
+			comp_ptr = NULL;
+			cxxPPassemblageComp * comp_ptr1 = NULL;
+			if (x[i]->phase_unknown != NULL)
+			{
+				comp_ptr = pp_assemblage_ptr->Find(x[i]->phase_unknown->pp_assemblage_comp_name);
+			}
+			if (x[i-1]->phase_unknown != NULL)
+			{
+				comp_ptr1 = pp_assemblage_ptr->Find(x[i-1]->phase_unknown->pp_assemblage_comp_name);
+			}
+			if ((x[i]->type == SURFACE && x[i]->phase_unknown != NULL &&
+/*			     x[i]->phase_unknown->f > 0e-8 && */
+				 x[i]->phase_unknown->moles <= MIN_RELATED_SURFACE &&
+				 comp_ptr->Get_add_formula().size() == 0) ||
+				((x[i]->type == SURFACE_CB || x[i]->type == SURFACE_CB1
+				  || x[i]->type == SURFACE_CB2)
+				 && x[i - 1]->phase_unknown != NULL &&
+/*			     x[i-1]->phase_unknown->f > 0e-8 && */
+				 x[i]->surface_charge->grams <= MIN_RELATED_SURFACE &&
+				 comp_ptr->Get_add_formula().size() == 0))
+			{
+				for (j = 0; j < l_count_rows; j++)
+				{
+					ineq_array[j * max_column_count + i] = 0.0;
+				}
+			}
+		}
+	}
+#ifdef SKIP
+/*
+ *   No moles of surface
+ */
+	if (use.surface_ptr != NULL
+		&& (use.surface_ptr->related_phases == TRUE
+			|| use.surface_ptr->related_rate == TRUE))
+	{
+		for (i = 0; i < count_unknowns; i++)
+		{
 			if ((x[i]->type == SURFACE && x[i]->phase_unknown != NULL &&
 /*			     x[i]->phase_unknown->f > 0e-8 && */
 				 x[i]->phase_unknown->moles <= MIN_RELATED_SURFACE &&
@@ -1504,7 +1701,7 @@ ineq(int in_kode)
 			}
 		}
 	}
-
+#endif
 /*
  *   No moles of surface
  */
@@ -2888,6 +3085,9 @@ reset(void)
 /*
  *   Calculate interphase mass transfers
  */
+	cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+	cxxPPassemblageComp * comp_ptr;
+
 	step_up = log(step_size_now);
 	factor = 1.;
 
@@ -2901,6 +3101,7 @@ reset(void)
 		{
 			if (x[i]->type == PP || x[i]->type == S_S_MOLES)
 			{
+
 				if (delta[i] < -1e8)
 				{
 					delta[i] = -10.;
@@ -2911,15 +3112,18 @@ reset(void)
 				}
 				if (x[i]->dissolve_only == TRUE)
 				{
+					assert (x[i]->type == PP);
+					comp_ptr = pp_assemblage_ptr->Find(x[i]->pp_assemblage_comp_name);
+					assert(comp_ptr);
 					if ((delta[i] < 0.0)
 						&& (-delta[i] >
-							(x[i]->pure_phase->initial_moles - x[i]->moles)))
+							(comp_ptr->Get_initial_moles() - x[i]->moles)))
 					{
-						if ((x[i]->pure_phase->initial_moles - x[i]->moles) !=
+						if ((comp_ptr->Get_initial_moles() - x[i]->moles) !=
 							0.0)
 						{
 							f0 = fabs(delta[i] /
-									  (x[i]->pure_phase->initial_moles -
+									  (comp_ptr->Get_initial_moles() -
 									   x[i]->moles));
 							if (f0 > factor)
 							{
@@ -2930,8 +3134,7 @@ reset(void)
 											   x[i]->description,
 											   (double) delta[i],
 											   (double) x[i]->moles,
-											   (double) x[i]->pure_phase->
-											   initial_moles));
+											   (double) comp_ptr->Get_initial_moles()));
 								}
 								factor = f0;
 							}
@@ -3507,6 +3710,7 @@ reset(void)
 		}
 		else if (x[i]->type == PP)
 		{
+			comp_ptr = pp_assemblage_ptr->Find(x[i]->pp_assemblage_comp_name);
 			/*if (fabs(delta[i]) > epsilon) converge=FALSE; */
 			if (debug_model == TRUE)
 			{
@@ -3529,8 +3733,8 @@ reset(void)
 			if (x[i]->dissolve_only == TRUE)
 			{
 				if (equal
-					(x[i]->moles, x[i]->pure_phase->initial_moles, ineq_tol))
-					x[i]->moles = x[i]->pure_phase->initial_moles;
+					(x[i]->moles, comp_ptr->Get_initial_moles(), ineq_tol))
+					x[i]->moles = comp_ptr->Get_initial_moles();
 			}
 			/*if (fabs(x[i]->moles) < MIN_RELATED_SURFACE) x[i]->moles = 0.0; */
 		}
@@ -3649,6 +3853,7 @@ residuals(void)
 	LDBLE sigmaddl, negfpsirt;
 	int print_fail;
 
+	cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
 	print_fail = FALSE;
 	sum_residual = 0.0;
 	sigmaddl = 0;
@@ -3832,14 +4037,15 @@ residuals(void)
 		}
 		else if (x[i]->type == PP)
 		{
+			cxxPPassemblageComp * comp_ptr = pp_assemblage_ptr->Find(x[i]->pp_assemblage_comp_name);
 			residual[i] = x[i]->f * LOG_10;
-			if (x[i]->pure_phase->add_formula == NULL)
+			if (comp_ptr->Get_add_formula().size() == 0)
 			{
 				if (x[i]->dissolve_only == TRUE)
 				{
 					if ((residual[i] > l_toler && x[i]->moles > 0.0)
 						|| (residual[i] < -l_toler
-							&& (x[i]->pure_phase->initial_moles -
+							&& (comp_ptr->Get_initial_moles() -
 								x[i]->moles) > 0))
 					{
 						if (print_fail)
@@ -5328,10 +5534,13 @@ set_inert_moles(void)
 {
 	int j;
 	if (use.pp_assemblage_ptr == NULL) return;
+	cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+	
 	for (j = 0; j < count_unknowns; j++)
 	{
 		if (x[j]->type != PP) continue;
-		if (x[j]->pure_phase->precipitate_only)
+		cxxPPassemblageComp * comp_ptr = pp_assemblage_ptr->Find(x[j]->pp_assemblage_comp_name); 
+		if (comp_ptr->Get_precipitate_only())
 		{
 			x[j]->inert_moles = x[j]->moles;
 			x[j]->moles = 0;
@@ -5345,10 +5554,12 @@ unset_inert_moles()
 {
 	int j;
 	if (use.pp_assemblage_ptr == NULL) return;
+	cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
 	for (j = 0; j < count_unknowns; j++)
 	{
 		if (x[j]->type != PP) continue;
-		if (x[j]->pure_phase->precipitate_only)
+		cxxPPassemblageComp * comp_ptr = pp_assemblage_ptr->Find(x[j]->pp_assemblage_comp_name); 
+		if (comp_ptr->Get_precipitate_only())
 		{
 			x[j]->moles += x[j]->inert_moles;
 			x[j]->inert_moles = 0;

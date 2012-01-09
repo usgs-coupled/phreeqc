@@ -9,6 +9,7 @@
 #include "ExchComp.h"
 #include "GasPhase.h"
 #include "Reaction.h"
+#include "PPassemblage.h"
 
 #if defined(WINDOWS) || defined(_WINDOWS)
 #include <windows.h>
@@ -65,7 +66,7 @@ initialize(void)
 	LOG_10 = log(10.0);
 	/* Use space for all memory allocation */
 	max_solution = MAX_SOLUTION;
-	max_pp_assemblage = MAX_PP_ASSEMBLAGE;
+	//max_pp_assemblage = MAX_PP_ASSEMBLAGE;
 	//max_exchange = MAX_PP_ASSEMBLAGE;
 	max_surface = MAX_PP_ASSEMBLAGE;
 	//max_gas_phase = MAX_PP_ASSEMBLAGE;
@@ -85,7 +86,7 @@ initialize(void)
 	max_master_isotope = MAX_ELTS;
 
 	count_solution = 0;
-	count_pp_assemblage = 0;
+	//count_pp_assemblage = 0;
 	//count_exchange = 0;
 	count_surface = 0;
 	//count_gas_phase = 0;
@@ -144,8 +145,8 @@ initialize(void)
 /*
  *   Allocate space
  */
-	space((void **) ((void *) &pp_assemblage), INIT, &max_pp_assemblage,
-		  sizeof(struct pp_assemblage));
+	//space((void **) ((void *) &pp_assemblage), INIT, &max_pp_assemblage,
+	//	  sizeof(struct pp_assemblage));
 
 	//space((void **) ((void *) &exchange), INIT, &max_exchange,
 	//	  sizeof(struct exchange));
@@ -591,7 +592,7 @@ initialize(void)
 	dbg_solution = solution;
 	//dbg_exchange = exchange;
 	dbg_surface = surface;
-	dbg_pp_assemblage = pp_assemblage;
+	//dbg_pp_assemblage = pp_assemblage;
 	dbg_kinetics = kinetics;
 	//dbg_irrev = irrev;
 	//dbg_mix = mix;
@@ -857,9 +858,10 @@ set_use(void)
  */
 	if (use.pp_assemblage_in == TRUE)
 	{
-		use.pp_assemblage_ptr =
-			pp_assemblage_bsearch(use.n_pp_assemblage_user,
-								  &use.n_pp_assemblage);
+		use.pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, use.n_pp_assemblage_user);
+		//use.pp_assemblage_ptr =
+		//	pp_assemblage_bsearch(use.n_pp_assemblage_user,
+		//						  &use.n_pp_assemblage);
 		if (use.pp_assemblage_ptr == NULL)
 		{
 			error_string = sformatf( "Pure phase assemblage %d not found.",
@@ -1597,11 +1599,12 @@ saver(void)
 	{
 		n = save.n_pp_assemblage_user;
 		xpp_assemblage_save(n);
-		for (i = save.n_pp_assemblage_user + 1;
-			 i <= save.n_pp_assemblage_user_end; i++)
-		{
-			pp_assemblage_duplicate(n, i);
-		}
+		Utilities::Rxn_copies(Rxn_pp_assemblage_map, save.n_pp_assemblage_user, save.n_pp_assemblage_user_end);
+		//for (i = save.n_pp_assemblage_user + 1;
+		//	 i <= save.n_pp_assemblage_user_end; i++)
+		//{
+		//	pp_assemblage_duplicate(n, i);
+		//}
 	}
 	if (save.exchange == TRUE)
 	{
@@ -1893,7 +1896,48 @@ xs_s_assemblage_save(int n_user)
 	use.s_s_assemblage_ptr = NULL;
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+xpp_assemblage_save(int n_user)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Save pure_phase assemblage into instance of cxxPPassemblage with user 
+ *   number n_user.
+ */
+	std::string token;
+	cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+	if (use.pp_assemblage_ptr == NULL)
+		return (OK);
 
+	cxxPPassemblage temp_pp_assemblage(*pp_assemblage_ptr);
+
+	temp_pp_assemblage.Set_n_user(n_user);
+	temp_pp_assemblage.Set_n_user_end(n_user);
+	std::ostringstream desc;
+	desc << "Pure-phase assemblage after simulation " << simulation << ".";
+	temp_pp_assemblage.Set_description(desc.str().c_str());
+	temp_pp_assemblage.Set_new_def(false);
+/*
+ *   Update amounts
+ */
+	for (int j = 0; j < count_unknowns; j++)
+	{
+		if (x[j]->type != PP)
+			continue;
+		cxxPPassemblageComp *comp = temp_pp_assemblage.Find(x[j]->pp_assemblage_comp_name);
+		comp->Set_moles(x[j]->moles);
+		comp->Set_delta(0.0);
+	}
+/*
+ *   Finish up
+ */
+
+	Rxn_pp_assemblage_map[n_user] = temp_pp_assemblage;
+	use.pp_assemblage_ptr = NULL;
+	return (OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 xpp_assemblage_save(int n_user)
@@ -1978,7 +2022,7 @@ xpp_assemblage_save(int n_user)
 	use.pp_assemblage_ptr = NULL;
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 xsolution_save(int n_user)
@@ -2574,7 +2618,8 @@ copy_use(int i)
  */
 	if (use.pp_assemblage_in == TRUE)
 	{
-		pp_assemblage_duplicate(use.n_pp_assemblage_user, i);
+		//pp_assemblage_duplicate(use.n_pp_assemblage_user, i);
+		Utilities::Rxn_copy(Rxn_pp_assemblage_map, use.n_pp_assemblage_user, i);
 		save.pp_assemblage = TRUE;
 		save.n_pp_assemblage_user = i;
 		save.n_pp_assemblage_user_end = i;
@@ -2912,15 +2957,16 @@ copy_entities(void)
 	{
 		for (j = 0; j < copy_pp_assemblage.count; j++)
 		{
-			if (pp_assemblage_bsearch(copy_pp_assemblage.n_user[j], &n) !=
-				NULL)
+			//if (pp_assemblage_bsearch(copy_pp_assemblage.n_user[j], &n) != NULL)
+			if (Utilities::Rxn_find(Rxn_pp_assemblage_map, copy_pp_assemblage.n_user[j]) != NULL)
 			{
 				for (i = copy_pp_assemblage.start[j];
 					i <= copy_pp_assemblage.end[j]; i++)
 				{
 					if (i == copy_pp_assemblage.n_user[j])
 						continue;
-					pp_assemblage_duplicate(copy_pp_assemblage.n_user[j], i);
+					//pp_assemblage_duplicate(copy_pp_assemblage.n_user[j], i);
+					Utilities::Rxn_copy(Rxn_pp_assemblage_map, copy_pp_assemblage.n_user[j], i);
 				}
 			}
 			else
@@ -3407,7 +3453,7 @@ use_init(void)
 
 	use.pp_assemblage_in = FALSE;
 	use.n_pp_assemblage_user= -1;
-	use.n_pp_assemblage= -1;
+	//use.n_pp_assemblage= -1;
 	use.pp_assemblage_ptr = NULL;
 
 	use.mix_in = FALSE;

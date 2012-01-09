@@ -8,6 +8,7 @@
 #include "Exchange.h"
 #include "GasPhase.h"
 #include "Reaction.h"
+#include "PPassemblage.h"
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -1284,6 +1285,7 @@ print_pp_assemblage(void)
 		return (OK);
 	if (pure_phase_unknown == NULL)
 		return (OK);
+	cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
 /*
  *   Print heading
  */
@@ -1299,6 +1301,7 @@ print_pp_assemblage(void)
 	{
 		if (x[j]->type != PP)
 			continue;
+		cxxPPassemblageComp * comp_ptr = pp_assemblage_ptr->Find(x[j]->pp_assemblage_comp_name);
 /*
  *   Print saturation index
  */
@@ -1360,17 +1363,17 @@ print_pp_assemblage(void)
 		if (state != TRANSPORT && state != PHAST)
 		{
 			sprintf(token, "  %11.3e %11.3e %11.3e",
-					(double) (x[j]->pure_phase->moles +
-							  x[j]->pure_phase->delta), (double) x[j]->moles,
-					(double) (x[j]->moles - x[j]->pure_phase->moles -
-							  x[j]->pure_phase->delta));
+					(double) (comp_ptr->Get_moles() +
+							  comp_ptr->Get_delta()), (double) x[j]->moles,
+					(double) (x[j]->moles - comp_ptr->Get_moles() -
+							  comp_ptr->Get_delta()));
 		}
 		else
 		{
 			sprintf(token, " %11.3e %11.3e %11.3e",
-					(double) x[j]->pure_phase->initial_moles,
+					(double) comp_ptr->Get_initial_moles(),
 					(double) x[j]->moles,
-					(double) (x[j]->moles - x[j]->pure_phase->initial_moles));
+					(double) (x[j]->moles - comp_ptr->Get_initial_moles()));
 		}
 		if (x[j]->moles <= 0.0)
 		{
@@ -1379,14 +1382,14 @@ print_pp_assemblage(void)
 				token[13 + k] = ' ';
 			}
 		}
-		if (x[j]->pure_phase->add_formula == NULL)
+		if (comp_ptr->Get_add_formula().size() == 0)
 		{
 			output_msg(sformatf("%37s\n", token));
 		}
 		else
 		{
 			output_msg(sformatf("\n	 %-18s%-15s%36s\n",
-					   x[j]->pure_phase->add_formula, " is reactant", token));
+					   comp_ptr->Get_add_formula().c_str(), " is reactant", token));
 		}
 	}
 	if (PR)
@@ -2257,7 +2260,7 @@ print_using(void)
 	struct solution *solution_ptr;
 	//struct exchange *exchange_ptr;
 	struct surface *surface_ptr;
-	struct pp_assemblage *pp_assemblage_ptr;
+	//struct pp_assemblage *pp_assemblage_ptr;
 	struct s_s_assemblage *s_s_assemblage_ptr;
 	//struct gas_phase *gas_phase_ptr;
 	//struct irrev *irrev_ptr;
@@ -2323,10 +2326,10 @@ print_using(void)
 	}
 	if (use.pp_assemblage_in == TRUE)
 	{
-		pp_assemblage_ptr =
-			pp_assemblage_bsearch(use.n_pp_assemblage_user, &n);
+		//pp_assemblage_ptr = pp_assemblage_bsearch(use.n_pp_assemblage_user, &n);
+		cxxPPassemblage * pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, use.n_pp_assemblage_user);
 		output_msg(sformatf("Using pure phase assemblage %d.\t%s\n",
-				   use.n_pp_assemblage_user, pp_assemblage_ptr->description));
+				   use.n_pp_assemblage_user, pp_assemblage_ptr->Get_description().c_str()));
 	}
 	if (use.s_s_assemblage_in == TRUE)
 	{
@@ -2654,7 +2657,7 @@ punch_pp_assemblage(void)
  */
 	int i, j;
 	LDBLE moles, delta_moles;
-
+	cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
 	for (i = 0; i < punch.count_pure_phases; i++)
 	{
 		delta_moles = 0;
@@ -2665,23 +2668,24 @@ punch_pp_assemblage(void)
 			{
 				if (x == NULL || x[j]->type != PP)
 					continue;
+				cxxPPassemblageComp * comp_ptr = pp_assemblage_ptr->Find(x[j]->pp_assemblage_comp_name);
 /*
  *   Print pure phase assemblage data
  */
-				if (punch.pure_phases[i].phase != x[j]->pure_phase->phase)
+				if (punch.pure_phases[i].phase != x[j]->phase)
 					continue;
 				if (state != TRANSPORT && state != PHAST)
 				{
 					moles = x[j]->moles;
 					delta_moles =
-						x[j]->moles - x[j]->pure_phase->moles -
-						x[j]->pure_phase->delta;
+						x[j]->moles - comp_ptr->Get_moles() -
+						comp_ptr->Get_delta();
 				}
 				else
 				{
 					moles = x[j]->moles;
 					delta_moles =
-						x[j]->moles - x[j]->pure_phase->initial_moles;
+						x[j]->moles - comp_ptr->Get_initial_moles();
 				}
 				break;
 			}

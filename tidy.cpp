@@ -3,6 +3,7 @@
 #include "phqalloc.h"
 #include "Exchange.h"
 #include "GasPhase.h"
+#include "PPassemblage.h"
 #define ZERO_TOL 1.0e-30
 
 /* ---------------------------------------------------------------------- */
@@ -156,12 +157,13 @@ tidy_model(void)
 		qsort(phases, (size_t) count_phases, (size_t) sizeof(struct phase *), phase_compare);
 
 	}
+#ifdef SKIP
 /* pure_phases */
 	if (new_pp_assemblage)
 	{
 		pp_assemblage_sort();
 	}
-
+#endif
 /* solid solutions */
 	if (new_s_s_assemblage)
 	{
@@ -1528,7 +1530,96 @@ tidy_phases(void)
 
 	return (OK);
 }
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+tidy_pp_assemblage(void)
+/* ---------------------------------------------------------------------- */
+{
+	//int i, j, k, l, n_user, first, last;
+	//struct phase *phase_ptr;
+	LDBLE coef;
+	char *ptr;
+/*
+ *   Find pointers for pure phases
+ */
+	std::map<int, cxxPPassemblage>::iterator it;
+	it = Rxn_pp_assemblage_map.begin();
+	for ( ; it != Rxn_pp_assemblage_map.end(); it++)
+	{
+		cxxPPassemblage *pp_assemblage_ptr = &(it->second);
+		count_elts = 0;
+		paren_count = 0;
+		coef = 1.0;
+		pp_assemblage_ptr->Set_new_def(false);
 
+		std::map<std::string, cxxPPassemblageComp>::iterator it;
+		it =  pp_assemblage_ptr->Get_pp_assemblage_comps().begin();
+		for ( ; it != pp_assemblage_ptr->Get_pp_assemblage_comps().end(); it++)
+		{
+			int k;
+			struct phase *phase_ptr = phase_bsearch(it->first.c_str(), &k, FALSE);
+			if (phase_ptr == NULL)
+			{
+				input_error++;
+				error_string = sformatf( "Phase not found in data base, %s.",
+						it->first.c_str());
+				error_msg(error_string, CONTINUE);
+				continue;
+			}
+			else
+			{
+				//pp_assemblage[i].pure_phases[j].phase = phase_ptr;
+				add_elt_list(phase_ptr->next_elt, coef);
+
+			}
+			if (it->second.Get_add_formula().size() > 0)
+			{
+				int first = count_elts;
+				phase_ptr =	phase_bsearch(it->second.Get_add_formula().c_str(), &k, FALSE);
+				if (phase_ptr != NULL)
+				{
+					//pp_assemblage[i].pure_phases[j].add_formula = phase_ptr->formula;
+					it->second.Set_add_formula(phase_ptr->formula);
+				}
+				{
+					char * temp_add = string_duplicate(it->second.Get_add_formula().c_str());
+					ptr = temp_add;
+					get_elts_in_species(&ptr, coef);
+					free_check_null(temp_add);
+				}
+				/* check that all elements are in the database */
+				for (int l = first; l < count_elts; l++)
+				{
+					if (elt_list[l].elt->master == NULL)
+					{
+						input_error++;
+						error_string = sformatf(
+								"Element \"%s\" in alternative phase for \"%s\" in EQUILIBRIUM_PHASES not found in database.",
+								elt_list[l].elt->name,
+								it->first.c_str());
+						error_msg(error_string, CONTINUE);
+					}
+				}
+			}
+		}
+
+/*
+ *   Store list with all elements in phases and add formulae
+ */
+		pp_assemblage_ptr->Set_eltList(elt_list_NameDouble());
+/*
+ *   Duplicate pure phases if necessary
+ */
+
+		int n_user = pp_assemblage_ptr->Get_n_user();
+		int n_user_end = pp_assemblage_ptr->Get_n_user_end();
+		pp_assemblage_ptr->Set_n_user_end(n_user);
+		Utilities::Rxn_copies(Rxn_pp_assemblage_map, n_user, n_user_end);
+
+	}
+	return (OK);
+}
+#ifdef SKIP
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 tidy_pp_assemblage(void)
@@ -1628,7 +1719,7 @@ tidy_pp_assemblage(void)
 	}
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 tidy_s_s_assemblage(void)
@@ -3030,6 +3121,158 @@ tidy_min_exchange(void)
  *  set in proportion
  */
 {
+	int n, jj;
+	//struct pp_assemblage *pp_a_ptr;
+	//struct exch_comp *comp_ptr;
+	//struct master *master_ptr;
+	char *ptr;
+	LDBLE conc;
+
+	//for (i = 0; i < count_exchange; i++)
+	std::map<int, cxxExchange>::iterator it = Rxn_exchange_map.begin();
+	for ( ; it != Rxn_exchange_map.end(); it++)
+	{
+		cxxExchange * exchange_ptr = &(it->second);
+		if (!exchange_ptr->Get_new_def())
+				continue;
+		if (exchange_ptr->Get_n_user() < 0)
+			continue;
+		n = exchange_ptr->Get_n_user();
+		//for (j = 0; j < exchange[i].count_comps; j++)
+		std::vector<cxxExchComp *> comps = exchange_ptr->Vectorize();
+		// check elements
+		for (size_t j = 0; j < comps.size(); j++)
+		{
+			cxxExchComp * comp_ptr = comps[j];
+			if (comp_ptr->Get_phase_name().size() == 0)
+				continue;
+			
+
+			/* First find exchange master species */
+			cxxNameDouble nd = comps[j]->Get_totals();
+			cxxNameDouble::iterator kit = nd.begin();
+			bool found_exchange = false;
+			for (; kit != nd.end(); kit++)
+			{
+				/* Find master species */
+				struct element *elt_ptr = element_store(kit->first.c_str());
+				if (elt_ptr == NULL || elt_ptr->master == NULL)
+				{
+					input_error++;
+					error_string = sformatf( "Master species not in data "
+							"base for %s, skipping element.",
+							kit->first.c_str());
+					error_msg(error_string, CONTINUE);
+					continue;
+				}
+				if (elt_ptr->master->type == EX)
+				{
+					found_exchange = true;;
+				}
+			}
+			if (!found_exchange)
+			{
+				input_error++;
+				error_string = sformatf(
+						"Exchange formula does not contain an exchange master species, %s",
+						comp_ptr->Get_formula().c_str());
+				error_msg(error_string, CONTINUE);
+				continue;
+			}
+			cxxPPassemblage *pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, n);
+			/* Now find the mineral on which exchanger depends...  */
+			if (pp_assemblage_ptr == NULL)
+			{
+				input_error++;
+				error_string = sformatf(
+						"Equilibrium_phases %d must be defined to use exchange related to mineral phase, %s",
+						n, comp_ptr->Get_formula().c_str());
+				error_msg(error_string, CONTINUE);
+				continue;
+			}
+			std::map<std::string, cxxPPassemblageComp>::iterator jit;
+			jit =  pp_assemblage_ptr->Get_pp_assemblage_comps().begin();
+			for ( ; jit != pp_assemblage_ptr->Get_pp_assemblage_comps().end(); jit++)
+			{
+				if (strcmp_nocase(comp_ptr->Get_phase_name().c_str(), jit->first.c_str()) == 0)
+				{
+					break;
+				}
+			}
+			if (jit == pp_assemblage_ptr->Get_pp_assemblage_comps().end() )
+			{
+				input_error++;
+				error_string = sformatf(
+						"Mineral, %s, related to exchanger, %s, not found in Equilibrium_Phases %d",
+						comp_ptr->Get_phase_name().c_str(), comp_ptr->Get_formula().c_str(), n);
+				error_msg(error_string, CONTINUE);
+				continue;
+			}
+			/* use database name for phase */
+			comp_ptr->Set_phase_name(jit->first.c_str());
+			/* make exchanger concentration proportional to mineral ... */
+			conc = jit->second.Get_moles() * comp_ptr->Get_phase_proportion();
+			count_elts = 0;
+			paren_count = 0;
+			{
+				char * temp_formula = string_duplicate(comp_ptr->Get_formula().c_str());
+				ptr = temp_formula;
+				get_elts_in_species(&ptr, conc);
+				free_check_null(temp_formula);
+			}
+			comp_ptr->Set_totals(elt_list_NameDouble());
+/*
+ *   make sure exchange elements are in phase
+ */
+			count_elts = 0;
+			paren_count = 0;
+			{
+				char * temp_formula = string_duplicate(comp_ptr->Get_formula().c_str());
+				ptr = temp_formula;
+				get_elts_in_species(&ptr, -comp_ptr->Get_phase_proportion());
+				free_check_null(temp_formula);
+			}
+			int l;
+			struct phase *phase_ptr = phase_bsearch(jit->first.c_str(), &l, FALSE);
+			{
+				char * temp_formula = string_duplicate(phase_ptr->formula);
+				ptr = temp_formula;
+				get_elts_in_species(&ptr, 1.0);
+				free_check_null(temp_formula);
+			}
+			qsort(elt_list, (size_t) count_elts,
+				  (size_t) sizeof(struct elt_list), elt_list_compare);
+			elt_list_combine();
+			for (jj = 0; jj < count_elts; jj++)
+			{
+				if (elt_list[jj].elt->primary->s->type != EX
+					&& elt_list[jj].coef < 0)
+				{
+					input_error++;
+					error_string = sformatf(
+							"Stoichiometry of exchanger, %s * %g mol sites/mol phase,\n\tmust be a subset of the related phase %s, %s.",
+							comp_ptr->Get_formula().c_str(),
+							(double) comp_ptr->Get_phase_proportion(),
+							phase_ptr->name,
+							phase_ptr->formula);
+					error_msg(error_string, CONTINUE);
+					break;
+				}
+			}
+		}
+	}
+	return (OK);
+}
+#ifdef SKIP
+/* ---------------------------------------------------------------------- */
+int Phreeqc::
+tidy_min_exchange(void)
+/* ---------------------------------------------------------------------- */
+/*
+ *  If exchanger is related to mineral, exchanger amount is 
+ *  set in proportion
+ */
+{
 	int k, n, jj;
 	struct pp_assemblage *pp_a_ptr;
 	//struct exch_comp *comp_ptr;
@@ -3170,6 +3413,7 @@ tidy_min_exchange(void)
 	}
 	return (OK);
 }
+#endif
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -3181,7 +3425,7 @@ tidy_min_surface(void)
  */
 {
 	int i, j, k, n, jj;
-	struct pp_assemblage *pp_a_ptr;
+	//struct pp_assemblage *pp_a_ptr;
 	struct surface_comp *comp_ptr;
 	struct master *master_ptr;
 	char *ptr;
@@ -3232,7 +3476,9 @@ tidy_min_surface(void)
 			}
 
 			/* Now find the mineral on which surface depends...  */
-			if ((pp_a_ptr = pp_assemblage_bsearch(n, &k)) == NULL)
+			cxxPPassemblage * pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, n);
+			//if ((pp_a_ptr = pp_assemblage_bsearch(n, &k)) == NULL)
+			if (pp_assemblage_ptr == NULL)
 			{
 				input_error++;
 				error_string = sformatf(
@@ -3241,16 +3487,19 @@ tidy_min_surface(void)
 				error_msg(error_string, CONTINUE);
 				continue;
 			}
-			for (k = 0; k < pp_a_ptr->count_comps; k++)
+			std::map<std::string, cxxPPassemblageComp>::iterator jit;
+			jit =  pp_assemblage_ptr->Get_pp_assemblage_comps().begin();
+			for ( ; jit != pp_assemblage_ptr->Get_pp_assemblage_comps().end(); jit++)
 			{
-				if (strcmp_nocase
-					(comp_ptr->phase_name,
-					 pp_a_ptr->pure_phases[k].name) == 0)
+			//for (k = 0; k < pp_a_ptr->count_comps; k++)
+			//{
+				if (strcmp_nocase(comp_ptr->phase_name,
+					 jit->first.c_str()) == 0)
 				{
 					break;
 				}
 			}
-			if (k == pp_a_ptr->count_comps)
+			if (jit == pp_assemblage_ptr->Get_pp_assemblage_comps().end())
 			{
 				input_error++;
 				error_string = sformatf(
@@ -3259,20 +3508,22 @@ tidy_min_surface(void)
 				error_msg(error_string, CONTINUE);
 				continue;
 			}
-			if (pp_a_ptr->pure_phases[k].phase == NULL)
+			int l;
+			struct phase *phase_ptr = phase_bsearch(jit->first.c_str(), &l, FALSE);
+			if (phase_ptr == NULL)
 			{
 				input_error++;
 				error_string = sformatf(
 						"Mineral, %s, related to surface, %s, not found in database.",
-						pp_a_ptr->pure_phases[k].name, comp_ptr->formula);
+						jit->first.c_str(), comp_ptr->formula);
 				error_msg(error_string, CONTINUE);
 				continue;
 			}
 			/* use database name for phase */
-			comp_ptr->phase_name = pp_a_ptr->pure_phases[k].phase->name;
+			//comp_ptr->phase_name = pp_a_ptr->pure_phases[k].phase->name;
+			comp_ptr->phase_name = string_hsave(jit->first.c_str());
 			/* make surface concentration proportional to mineral ... */
-			conc =
-				pp_a_ptr->pure_phases[k].moles * comp_ptr->phase_proportion;
+			conc =	jit->second.Get_moles() * comp_ptr->phase_proportion;
 #ifdef SKIP_MUSIC
 			comp_ptr->cb = conc * comp_ptr->formula_z;
 #endif
@@ -3290,8 +3541,7 @@ tidy_min_surface(void)
 			comp_ptr->totals = elt_list_save();
 
 			/* area */
-			surface[i].charge[comp_ptr->charge].grams =
-				pp_a_ptr->pure_phases[k].moles;
+			surface[i].charge[comp_ptr->charge].grams = jit->second.Get_moles();
 /*
  *   make sure surface elements are in phase
  *   logically necessary for mass balance and to avoid negative concentrations when dissolving phase
@@ -3299,7 +3549,7 @@ tidy_min_surface(void)
 			count_elts = 0;
 			paren_count = 0;
 			{
-				char * temp_formula = string_duplicate(pp_a_ptr->pure_phases[k].phase->formula);
+				char * temp_formula = string_duplicate(phase_ptr->formula);
 				ptr = temp_formula;
 				get_elts_in_species(&ptr, 1.0);
 				free_check_null(temp_formula);
@@ -3362,8 +3612,8 @@ tidy_min_surface(void)
 							elt_list[jj].elt->name,
 							comp_ptr->master->s->name,
 							(double) comp_ptr->phase_proportion,
-							pp_a_ptr->pure_phases[k].phase->name,
-							pp_a_ptr->pure_phases[k].phase->formula);
+							phase_ptr->name,
+							phase_ptr->formula);
 					error_msg(error_string, CONTINUE);
 					break;
 				}

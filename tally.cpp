@@ -5,6 +5,7 @@
 #include "Exchange.h"
 #include "GasPhase.h"
 #include "Reaction.h"
+#include "PPassemblage.h"
 
 /*   
      Calling sequence 
@@ -379,7 +380,7 @@ fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 	int i, j, k, n;
 	struct solution *solution_ptr;
 	//struct irrev *irrev_ptr;
-	struct pp_assemblage *pp_assemblage_ptr;
+	//struct pp_assemblage *pp_assemblage_ptr;
 	//struct exchange *exchange_ptr;
 	struct surface *surface_ptr;
 	struct s_s_assemblage *s_s_assemblage_ptr;
@@ -486,26 +487,31 @@ fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 			 */
 			if (n_user[Pure_phase] < 0)
 				break;
-			pp_assemblage_ptr = pp_assemblage_bsearch(n_user[Pure_phase], &n);
-			if (pp_assemblage_ptr == NULL)
-				break;
-			for (j = 0; j < pp_assemblage_ptr->count_comps; j++)
 			{
-				if (pp_assemblage_ptr->pure_phases[j].name ==
-					tally_table[i].name)
+				cxxPPassemblage * pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, n_user[Pure_phase]);
+				//pp_assemblage_ptr = pp_assemblage_bsearch(n_user[Pure_phase], &n);
+				if (pp_assemblage_ptr == NULL)
 					break;
-				if (strcmp_nocase
-					(pp_assemblage_ptr->pure_phases[j].name,
-					 tally_table[i].name) == 0)
+				//for (j = 0; j < pp_assemblage_ptr->count_comps; j++)
+				std::map<std::string, cxxPPassemblageComp>::iterator it;
+				it =  pp_assemblage_ptr->Get_pp_assemblage_comps().begin();
+				for ( ; it != pp_assemblage_ptr->Get_pp_assemblage_comps().end(); it++)
+				{
+					if (string_hsave(it->second.Get_name().c_str()) ==
+						tally_table[i].name)
+						break;
+					if (strcmp_nocase(it->second.Get_name().c_str(),
+						tally_table[i].name) == 0)
+						break;
+				}
+				if (it == pp_assemblage_ptr->Get_pp_assemblage_comps().end())
 					break;
+				count_elts = 0;
+				paren_count = 0;
+				moles = it->second.Get_moles();
+				add_elt_list(tally_table[i].formula, moles);
+				elt_list_to_tally_table(tally_table[i].total[n_buffer]);
 			}
-			if (j >= pp_assemblage_ptr->count_comps)
-				break;
-			count_elts = 0;
-			paren_count = 0;
-			moles = pp_assemblage_ptr->pure_phases[j].moles;
-			add_elt_list(tally_table[i].formula, moles);
-			elt_list_to_tally_table(tally_table[i].total[n_buffer]);
 			break;
 		case Exchange:
 			{
@@ -753,8 +759,8 @@ build_tally_table(void)
 	int count_tt_reaction, count_tt_exchange, count_tt_surface,
 		count_tt_gas_phase;
 	int count_tt_pure_phase, count_tt_ss_phase, count_tt_kinetics;
-	struct pp_assemblage *pp_assemblage_ptr;
-	struct pure_phase *pure_phase_ptr;
+	//struct pp_assemblage *pp_assemblage_ptr;
+	//struct pure_phase *pure_phase_ptr;
 	struct s_s_assemblage *s_s_assemblage_ptr;
 	struct s_s *s_s_ptr;
 	struct s_s_comp *s_s_comp_ptr;
@@ -871,6 +877,69 @@ build_tally_table(void)
  *   Count pure phases
  */
 	count_tt_pure_phase = 0;
+	//if (count_pp_assemblage > 0)
+	if (Rxn_pp_assemblage_map.size() > 0)
+	{
+		/* 
+		 * Go through all pure phases in pure phase assemblages
+		 */
+		//for (i = 0; i < count_pp_assemblage; i++)
+		std::map<int, cxxPPassemblage>::iterator it;
+		for (it = Rxn_pp_assemblage_map.begin(); it != Rxn_pp_assemblage_map.end(); it++)
+		{
+			//pp_assemblage_ptr = &pp_assemblage[i];
+			cxxPPassemblage * pp_assemblage_ptr = &(it->second);
+			std::map<std::string, cxxPPassemblageComp>::iterator jit;
+			jit =  pp_assemblage_ptr->Get_pp_assemblage_comps().begin();
+			for ( ; jit != pp_assemblage_ptr->Get_pp_assemblage_comps().end(); jit++)
+			{
+				cxxPPassemblageComp * comp_ptr = &(jit->second);
+				int l;
+				struct phase * phase_ptr = phase_bsearch(jit->first.c_str(), &l, FALSE);
+				/* 
+				 * check if already in tally_table
+				 */
+				for (k = 1; k < count_tally_table_columns; k++)
+				{
+					if (tally_table[k].type == Pure_phase &&
+						tally_table[k].name == phase_ptr->name &&
+						tally_table[k].add_formula ==
+						string_hsave(comp_ptr->Get_add_formula().c_str()))
+						break;
+				}
+				if (k < count_tally_table_columns)
+					continue;
+				/*
+				 * Add to table
+				 */
+				count_tt_pure_phase++;
+				n = count_tally_table_columns;
+				extend_tally_table();
+				tally_table[n].name = phase_ptr->name;
+				tally_table[n].type = Pure_phase;
+				tally_table[n].add_formula = string_hsave(comp_ptr->Get_add_formula().c_str());
+				count_elts = 0;
+				paren_count = 0;
+				if (comp_ptr->Get_add_formula().size() > 0)
+				{
+					strcpy(token, comp_ptr->Get_add_formula().c_str());
+					ptr = &(token[0]);
+					get_elts_in_species(&ptr, 1.0);
+				}
+				else
+				{
+					strcpy(token, phase_ptr->formula);
+					add_elt_list(phase_ptr->next_elt, 1.0);
+				}
+				qsort(elt_list, (size_t) count_elts,
+					  (size_t) sizeof(struct elt_list), elt_list_compare);
+				elt_list_combine();
+				tally_table[n].formula = elt_list_save();
+			}
+		}
+	}
+#ifdef SKIP
+	count_tt_pure_phase = 0;
 	if (count_pp_assemblage > 0)
 	{
 		/* 
@@ -924,11 +993,12 @@ build_tally_table(void)
 			}
 		}
 	}
+#endif
 /*
  *   Add solid-solution pure phases
  */
 	count_tt_ss_phase = 0;
-	if (count_pp_assemblage > 0)
+	if (count_s_s_assemblage > 0)
 	{
 		/* 
 		 * Go through all components of all solid solutions in solid-solution assemblages
@@ -1119,10 +1189,19 @@ add_all_components_tally(void)
 /*
  *   Add pure phases
  */
+	{
+		std::map<int, cxxPPassemblage>::iterator it = Rxn_pp_assemblage_map.begin();
+		for (; it != Rxn_pp_assemblage_map.end(); it++)
+		{
+			add_pp_assemblage(&(it->second));
+		}
+	}
+#ifdef SKIP
 	for (i = 0; i < count_pp_assemblage; i++)
 	{
 		add_pp_assemblage(&pp_assemblage[i]);
 	}
+#endif
 /*
  *   Exchangers
  */

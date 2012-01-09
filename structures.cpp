@@ -8,6 +8,7 @@
 #include "Exchange.h"
 #include "GasPhase.h"
 #include "Reaction.h"
+#include "PPassemblage.h"
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -92,12 +93,14 @@ clean_up(void)
 	Rxn_exchange_map.clear();
 
 /* pp assemblages */
-
+	Rxn_pp_assemblage_map.clear();
+#ifdef SKIP
 	for (j = 0; j < count_pp_assemblage; j++)
 	{
 		pp_assemblage_free(&pp_assemblage[j]);
 	}
 	pp_assemblage = (struct pp_assemblage *) free_check_null(pp_assemblage);
+#endif
 
 /* s_s assemblages */
 
@@ -366,7 +369,7 @@ clean_up(void)
 #endif
 
 	count_solution = 0;
-	count_pp_assemblage = 0;
+	//count_pp_assemblage = 0;
 	//count_exchange = 0;
 	count_surface = 0;
 	//count_gas_phase = 0;
@@ -423,13 +426,14 @@ reinitialize(void)
 	Rxn_exchange_map.clear();
 
 /* pp assemblages */
-
+	Rxn_pp_assemblage_map.clear();
+#ifdef SKIP
 	for (j = 0; j < count_pp_assemblage; j++)
 	{
 		pp_assemblage_free(&pp_assemblage[j]);
 	}
 	count_pp_assemblage = 0;
-
+#endif
 /* s_s assemblages */
 
 	for (j = 0; j < count_s_s_assemblage; j++)
@@ -2210,7 +2214,7 @@ phase_store(const char *name)
 
 	return (phases[n]);
 }
-
+#ifdef SKIP
 /* **********************************************************************
  *
  *   Routines related to structure "pp_assemblage"
@@ -2626,7 +2630,7 @@ pure_phase_compare(const void *ptr1, const void *ptr2)
 	return (strcmp_nocase(pure_phase_ptr1->name, pure_phase_ptr2->name));
 
 }
-
+#endif
 /* **********************************************************************
  *
  *   Routines related to structure "rates"
@@ -5667,7 +5671,7 @@ unknown_alloc(void)
 	unknown_ptr->total = NULL;
 	unknown_ptr->s = NULL;
 	unknown_ptr->exch_comp = NULL;
-	unknown_ptr->pure_phase = NULL;
+	//unknown_ptr->pure_phase = NULL;
 	unknown_ptr->s_s = NULL;
 	unknown_ptr->s_s_comp = NULL;
 	unknown_ptr->s_s_comp_number = 0;
@@ -5739,8 +5743,10 @@ system_duplicate(int i, int save_old)
 
 	if (solution_bsearch(i, &n, TRUE) != NULL)
 		solution_duplicate(i, save_old);
-	if (pp_assemblage_bsearch(i, &n) != NULL)
-		pp_assemblage_duplicate(i, save_old);
+
+	//if (pp_assemblage_bsearch(i, &n) != NULL)
+	//	pp_assemblage_duplicate(i, save_old);
+	Utilities::Rxn_copy(Rxn_pp_assemblage_map, i, save_old);
 
 	Utilities::Rxn_copy(Rxn_exchange_map, i, save_old);
 
@@ -5974,7 +5980,8 @@ entity_exists(char *name, int n_user)
 		}
 		break;
 	case Pure_phase:			/* Pure phases */
-		if (pp_assemblage_bsearch(n_user, &i) == NULL)
+		//if (pp_assemblage_bsearch(n_user, &i) == NULL)
+		if (Utilities::Rxn_find(Rxn_pp_assemblage_map, n_user) == NULL)
 		{
 			return_value = FALSE;
 		}
@@ -6291,7 +6298,7 @@ cxxKineticsComp2kinetics_comp(const std::list < cxxKineticsComp > *el)
 	}
 	return (kinetics_comp_ptr);
 }
-
+#ifdef SKIP
 #include "../PPassemblage.h"
 struct pp_assemblage * Phreeqc::
 cxxPPassemblage2pp_assemblage(const cxxPPassemblage * pp)
@@ -6351,6 +6358,7 @@ cxxPPassemblageComp2pure_phase(const std::map < std::string, cxxPPassemblageComp
 	}
 	return (pure_phase_ptr);
 }
+#endif
 #include "../Solution.h"
 struct solution * Phreeqc::
 cxxSolution2solution(const cxxSolution * sol)
@@ -6902,6 +6910,15 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 	}
 	if (use_ptr->pp_assemblage_in == TRUE)
 	{
+		cxxPPassemblage *entity_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, use_ptr->n_pp_assemblage_user);
+		if (entity_ptr != NULL)
+		{
+			sb.Set_PPassemblage(use_ptr->n_pp_assemblage_user, entity_ptr);
+		}
+	}
+	#ifdef SKIP
+	if (use_ptr->pp_assemblage_in == TRUE)
+	{
 		struct pp_assemblage *struct_entity = pp_assemblage_bsearch(use_ptr->n_pp_assemblage_user, &n);
 		if (struct_entity != NULL)
 		{
@@ -6909,6 +6926,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 			sb.Set_PPassemblage(use_ptr->n_pp_assemblage_user, &entity);
 		}
 	}
+	#endif
 	if (use_ptr->exchange_in == TRUE)
 	{
 		cxxExchange *entity_ptr = Utilities::Rxn_find(Rxn_exchange_map, use_ptr->n_exchange_user);
@@ -7021,12 +7039,20 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	}
 
 	// PPassemblages
+	{
+		std::map<int, cxxPPassemblage>::iterator it;
+		for (it = Rxn_pp_assemblage_map.begin(); it != Rxn_pp_assemblage_map.end(); it++)
+		{
+			sb.Set_PPassemblage(it->second.Get_n_user(), &(it->second));	
+		}
+	}
+#ifdef SKIP
 	for (i = 0; i < count_pp_assemblage; i++)
 	{
 		cxxPPassemblage entity(&pp_assemblage[i], sb.Get_io());
 		sb.Set_PPassemblage(pp_assemblage[i].n_user, &entity );
 	}
-
+#endif
 	// SSassemblages
 	for (i = 0; i < count_s_s_assemblage; i++)
 	{
@@ -7124,6 +7150,14 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 
 	// PPassemblages
 	{
+		cxxPPassemblage *entity_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, n);
+		if (entity_ptr != NULL)
+		{
+			sb.Set_PPassemblage(n, entity_ptr);
+		}
+	}
+#ifdef SKIP
+	{
 		if (pp_assemblage_bsearch(n, &pos) != NULL)
 		{
 			//this->PPassemblages[n] = cxxPPassemblage(&(pp_assemblage[pos]), sb.Get_io());
@@ -7131,7 +7165,7 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 			sb.Set_PPassemblage(n, &ent);
 		}
 	}
-
+#endif
 	// SSassemblages
 	{
 		if (s_s_assemblage_bsearch(n, &pos) != NULL)
@@ -7203,6 +7237,14 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
 
 	// PPassemblages
 	{
+		std::map < int, cxxPPassemblage >::const_iterator it = sb.Get_PPassemblages().find(n);
+		if (it != sb.Get_PPassemblages().end())
+		{
+			Rxn_pp_assemblage_map[n] = it->second;
+		}
+	}
+#ifdef SKIP
+	{
 		std::map < int, cxxPPassemblage >::const_iterator it =
 			sb.Get_PPassemblages().find(n);
 		if (it != sb.Get_PPassemblages().end())
@@ -7213,7 +7255,7 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
 			pp_assemblage_ptr =	(struct pp_assemblage *) free_check_null(pp_assemblage_ptr);
 		}
 	}
-
+#endif
 	// SSassemblages
 	{
 		std::map < int, cxxSSassemblage >::const_iterator it =
@@ -7328,13 +7370,21 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb)
 		std::map < int, cxxPPassemblage >::const_iterator it = sb.Get_PPassemblages().begin();
 		for ( ; it != sb.Get_PPassemblages().end(); it++)
 		{
+			Rxn_pp_assemblage_map[it->first] = it->second;
+		}
+	}
+#ifdef SKIP
+	{
+		std::map < int, cxxPPassemblage >::const_iterator it = sb.Get_PPassemblages().begin();
+		for ( ; it != sb.Get_PPassemblages().end(); it++)
+		{
 			struct pp_assemblage *pp_assemblage_ptr = cxxPPassemblage2pp_assemblage(&(it->second));
 			pp_assemblage_ptr_to_user(pp_assemblage_ptr, it->first);
 			pp_assemblage_free(pp_assemblage_ptr);
 			pp_assemblage_ptr =	(struct pp_assemblage *) free_check_null(pp_assemblage_ptr);
 		}
 	}
-
+#endif
 	// SSassemblages
 	{
 		std::map < int, cxxSSassemblage >::const_iterator it = sb.Get_SSassemblages().begin();
