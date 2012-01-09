@@ -4000,7 +4000,6 @@ read_pp_assemblage(void)
 	 *   Find pp_assemblage or realloc space for pp_assemblage
 	 */
 	cxxPPassemblage temp_pp_assemblage;
-	cxxPPassemblage *pp_assemblage_ptr = &(temp_pp_assemblage);
 	cxxPPassemblageComp *comp = NULL;
 	std::map<std::string, cxxPPassemblageComp> comps;
 	temp_pp_assemblage.Set_new_def(true);

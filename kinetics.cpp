@@ -283,7 +283,6 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 /*
  *  Save kinetics i and solution i, if necessary
  */
-	cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
 	save_old = -2 - (count_cells * (1 + stag_data->count_stag) + 2);
 	kinetics_duplicate(i, save_old);
 	if (nsaver != i)
@@ -2727,7 +2726,6 @@ f(integertype N, realtype t, N_Vector y, N_Vector ydot,
 	/*      if (set_and_run(n_user, FALSE, TRUE, n_user, step_fraction) == MASS_BALANCE) { */
 	if (pThis->use.pp_assemblage_ptr != NULL)
 	{
-		cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) pThis->use.pp_assemblage_ptr;
 		pThis->Rxn_pp_assemblage_map[pThis->cvode_pp_assemblage_save->Get_n_user()] = *pThis->cvode_pp_assemblage_save;
 		pThis->use.pp_assemblage_ptr = Utilities::Rxn_find(pThis->Rxn_pp_assemblage_map, pThis->cvode_pp_assemblage_save->Get_n_user());
 	}
@@ -2830,7 +2828,6 @@ Jac(integertype N, DenseMat J, RhsFn f, void *f_data,
 	/* if (set_and_run(n_user, FALSE, TRUE, n_user, step_fraction) == MASS_BALANCE) { */
 	if (pThis->use.pp_assemblage_ptr != NULL)
 	{
-		cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) pThis->use.pp_assemblage_ptr;
 		pThis->Rxn_pp_assemblage_map[pThis->cvode_pp_assemblage_save->Get_n_user()] = *pThis->cvode_pp_assemblage_save;
 		pThis->use.pp_assemblage_ptr = Utilities::Rxn_find(pThis->Rxn_pp_assemblage_map, pThis->cvode_pp_assemblage_save->Get_n_user());
 	}
@@ -2897,7 +2894,6 @@ Jac(integertype N, DenseMat J, RhsFn f, void *f_data,
 			pThis->calc_final_kinetic_reaction(kinetics_ptr);
 			if (pThis->use.pp_assemblage_ptr != NULL)
 			{
-				cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) pThis->use.pp_assemblage_ptr;
 				pThis->Rxn_pp_assemblage_map[pThis->cvode_pp_assemblage_save->Get_n_user()] = *pThis->cvode_pp_assemblage_save;
 				pThis->use.pp_assemblage_ptr = Utilities::Rxn_find(pThis->Rxn_pp_assemblage_map, pThis->cvode_pp_assemblage_save->Get_n_user());
 			}

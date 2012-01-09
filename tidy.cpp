@@ -1606,7 +1606,8 @@ tidy_pp_assemblage(void)
 /*
  *   Store list with all elements in phases and add formulae
  */
-		pp_assemblage_ptr->Set_eltList(elt_list_NameDouble());
+		cxxNameDouble nd = elt_list_NameDouble();
+		pp_assemblage_ptr->Set_eltList(nd);
 /*
  *   Duplicate pure phases if necessary
  */
