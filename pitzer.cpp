@@ -2040,6 +2040,11 @@ check_gammas_pz(void)
 			converge = FALSE;
 		}
 	}
+	if (fabs(old_mu - mu_x) > 1e-3 * mu_x)
+	{
+		same_model = false;
+		k_temp(tc_x, patm_x);
+	}
 	if (fabs(old_mu - mu_x) > tol)
 		converge = FALSE;
 	if ((pow((LDBLE) 10.0, s_h2o->la) - AW) > tol)

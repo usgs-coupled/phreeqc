@@ -5550,10 +5550,6 @@ calc_delta_v(reaction *r_ptr, bool phase)
 			continue;
 		if (!strcmp(r_ptr->token[i].s->name, "e-"))
 			continue;
-		if (!strcmp(r_ptr->token[i].s->name, "H2O"))
-		{
-			d_v += p * r_ptr->token[i].coef * 18.016 / rho_0;
-		}
 		else if (r_ptr->token[i].s->logk[vm_tc])
 			d_v += p * r_ptr->token[i].coef * r_ptr->token[i].s->logk[vm_tc];
 	}
@@ -5631,11 +5627,17 @@ calc_vm(LDBLE tc, LDBLE pa)
 	int i;
 	LDBLE kp_t;
 
-	/* S_v * Iv^0.5 is from Redlich and Meyer, Chem. Rev. 64, 221.
+	/* S_v * Iv^0.5 is from Redlich and Meyer, Chem. Rev. 64, 221,
 	   Use mu_x for the volume averaged Iv, the difference is negligible....*/
 	LDBLE Sv_I = 0.5 * (1.444 + (0.016799 + (-8.4055e-6 + 5.5153e-7 * tc) * tc) * tc) * sqrt(mu_x);
+	// Sv_I = 0.0;
 	for (i = 0; i < count_s_x; i++)
 	{
+		if (!strcmp(s_x[i]->name, "H2O"))
+		{
+			s_x[i]->logk[vm_tc] = 18.016 / rho_0;
+			continue;
+		}
 		if (!s_x[i]->logk[vm0])
 			continue;
 		/* the volume terms... */
@@ -5671,8 +5673,6 @@ k_temp(LDBLE tc, LDBLE pa) /* pa - pressure in atm */
 /*
  *  Calculates log k's for all species and pure_phases
  */
-/* note... because of mu_x term in the pressure_dependent Vm's, k_temp must be called for iter > 0 
-   */
 	if (same_model == TRUE && same_temperature == TRUE && same_pressure == TRUE)
 		return (OK);
 	int i;

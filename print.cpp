@@ -1227,40 +1227,40 @@ print_saturation_indices(void)
 			}
 		}
 		si = -lk + iap;
-		if (gas && phases[i]->pr_in && phases[i]->pr_p)
-		{
-			pr_in = "**";
-			PR = true;
-		}
-		else if (fabs(reaction_ptr->logk[delta_v]) > 0.01 && patm_x > 1)
-		{
-			pr_in = "* ";
-			DV = true;
-		}
-		else
+		//if (gas && phases[i]->pr_in && phases[i]->pr_p)
+		//{
+		//	pr_in = "**";
+		//	PR = true;
+		//}
+		//else if (fabs(reaction_ptr->logk[delta_v]) > 0.01 && patm_x > 1)
+		//{
+		//	pr_in = "* ";
+		//	DV = true;
+		//}
+		//else
 			pr_in = "  ";
 
 		output_msg(sformatf("\t%-15s%7.2f%2s%8.2f%8.2f  %s",
 				   phases[i]->name, (double) si, pr_in, (double) iap, (double) lk,
 				   phases[i]->formula));
-		if (fabs(reaction_ptr->logk[delta_v]) > 0.01 && patm_x > 1)
-			output_msg(sformatf("\t%s%6.2f%s",
-				   " Delta_V ", reaction_ptr->logk[delta_v], " cm3/mol"));
+		//if (fabs(reaction_ptr->logk[delta_v]) > 0.01 && patm_x > 1)
+		//	output_msg(sformatf("\t%s%6.2f%s",
+		//		   " Delta_V ", reaction_ptr->logk[delta_v], " cm3/mol"));
 		if (gas && phases[i]->pr_in && phases[i]->pr_p)
 			output_msg(sformatf("\t%s%5.1f%s%5.3f%s",
 				   " Pressure ", phases[i]->pr_p, " atm, phi ", phases[i]->pr_phi, "."));
 		output_msg("\n");
 
 	}
-	if (DV)
-		output_msg(sformatf("\t%24s %s\n",
-				   "* ", "with Delta_V * (P - 1) / 2.3RT."));
-	if (PR)
-		output_msg(sformatf("\t%24s %s\n",
-				   "**", "SI from Peng-Robinson fugacity - Delta_V * (P - 1) / 2.3RT."));
-	if (PR || DV)
-		output_msg("\n");
-	else
+	//if (DV)
+	//	output_msg(sformatf("\t%24s %s\n",
+	//			   "* ", "with Delta_V * (P - 1) / 2.3RT."));
+	//if (PR)
+	//	output_msg(sformatf("\t%24s %s\n",
+	//			   "**", "SI from Peng-Robinson fugacity - Delta_V * (P - 1) / 2.3RT."));
+	//if (PR || DV)
+	//	output_msg("\n");
+	//else
 		output_msg("\n\n");
 
 	return (OK);
@@ -1344,12 +1344,12 @@ print_pp_assemblage(void)
 			   si = -x[j]->phase->lk + iap;
 			   output_msg(OUTPUT_MESSAGE,"\t%-15s%7.2f%8.2f%8.2f", x[j]->phase->name, (double) si, (double) iap, (double) x[j]->phase->lk);
 			 */
-			if (phase_ptr->pr_in && phase_ptr->pr_p)
-			{
-				pr_in = "**";
-				PR = true;
-			}
-			else
+			//if (phase_ptr->pr_in && phase_ptr->pr_p)
+			//{
+			//	pr_in = "**";
+			//	PR = true;
+			//}
+			//else
 				pr_in = "  ";
 			output_msg(sformatf("%-14s%8.2f%2s%7.2f  %8.2f",
 					   x[j]->phase->name, (double) si, pr_in, (double) iap,
@@ -1392,9 +1392,9 @@ print_pp_assemblage(void)
 					   comp_ptr->Get_add_formula().c_str(), " is reactant", token));
 		}
 	}
-	if (PR)
-		output_msg(sformatf("%25s %s\n",
-				   "**", "SI from Peng-Robinson fugacity - Delta(V) * (P - 1) / 2.3RT."));
+	//if (PR)
+	//	output_msg(sformatf("%25s %s\n",
+	//			   "**", "SI from Peng-Robinson fugacity - Delta(V) * (P - 1) / 2.3RT."));
 	output_msg("\n");
 	return (OK);
 }
@@ -1438,11 +1438,11 @@ print_species(void)
 	}
 	else
 	{
-		output_msg(sformatf("   %-20s%12s%12s%10s%10s%10s\n", " ",
-				   " ", " ", "Log   ", "Log   ", "Log "));
+		output_msg(sformatf("   %-13s%12s%12s%10s%10s%10s%10s\n", " ",
+				   " ", " ", "Log   ", "Log   ", "Log ", "mole V"));
 	}
-	output_msg(sformatf("   %-20s%12s%12s%10s%10s%10s\n\n", "Species",
-			   "Molality", "Activity", "Molality", "Activity", "Gamma"));
+	output_msg(sformatf("   %-13s%12s%12s%10s%10s%10s%10s\n\n", "Species",
+			   "Molality", "Activity", "Molality", "Activity", "Gamma", "cm3/mol"));
 /*
  *   Print list of species
  */
@@ -1473,7 +1473,7 @@ print_species(void)
 		if (name1 != name)
 		{
 			name = name1;
-			output_msg(sformatf("%-14s%12.3e\n", name,
+			output_msg(sformatf("%-11s%12.3e\n", name,
 					   (double) (master_ptr->total / mass_water_aq_x)));
 			min = censor * master_ptr->total / mass_water_aq_x;
 			if (min > 0)
@@ -1499,7 +1499,7 @@ print_species(void)
 				lm = species_list[i].s->lm;
 			}
 			output_msg(sformatf(
-					   "   %-20s%12.3e%12.3e%10.3f%10.3f%10.3f\n",
+					   "   %-13s%12.3e%12.3e%10.3f%10.3f%10.3f",
 					   species_list[i].s->name,
 					   (double) ((species_list[i].s->moles) /
 								 mass_water_aq_x),
@@ -1508,6 +1508,11 @@ print_species(void)
 					   (double) (species_list[i].s->lm +
 								 species_list[i].s->lg),
 					   (double) species_list[i].s->lg));
+			if (species_list[i].s->logk[vm_tc] || !strcmp(species_list[i].s->name, "H+"))
+				output_msg(sformatf("%10.2f\n",
+					   (double) species_list[i].s->logk[vm_tc]));
+			else
+				output_msg(sformatf("     (0)  \n"));
 		}
 	}
 	output_msg(sformatf("\n"));
