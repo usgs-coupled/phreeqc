@@ -1414,11 +1414,15 @@ ineq(int in_kode)
 		{
 			comp_ptr = pp_assemblage_ptr->Find(x[i]->pp_assemblage_comp_name);
 		}
+		if (x[i]->type == SURFACE && x[i]->phase_unknown != NULL)
+		{
+			comp_ptr = pp_assemblage_ptr->Find(x[i]->phase_unknown->phase->name);
+		}
 		if ((x[i]->type == SURFACE_CB || x[i]->type == SURFACE_CB1
 				 || x[i]->type == SURFACE_CB2)
 				&& x[i - 1]->phase_unknown != NULL)
 		{
-			comp_ptr1 = pp_assemblage_ptr->Find(x[i-1]->pp_assemblage_comp_name);
+			comp_ptr1 = pp_assemblage_ptr->Find(x[i-1]->phase_unknown->phase->name);
 		}
 		if (x[i]->type != SOLUTION_PHASE_BOUNDARY &&
 			x[i]->type != ALK &&
@@ -1647,13 +1651,15 @@ ineq(int in_kode)
 		{
 			comp_ptr = NULL;
 			cxxPPassemblageComp * comp_ptr1 = NULL;
-			if (x[i]->phase_unknown != NULL)
+			if (x[i]->type == SURFACE && x[i]->phase_unknown != NULL)
 			{
-				comp_ptr = pp_assemblage_ptr->Find(x[i]->phase_unknown->pp_assemblage_comp_name);
+				comp_ptr = pp_assemblage_ptr->Find(x[i]->phase_unknown->phase->name);
 			}
-			if (x[i-1]->phase_unknown != NULL)
+			if ((x[i]->type == SURFACE_CB || x[i]->type == SURFACE_CB1
+				  || x[i]->type == SURFACE_CB2)
+				 && (x[i - 1]->phase_unknown != NULL))
 			{
-				comp_ptr1 = pp_assemblage_ptr->Find(x[i-1]->phase_unknown->pp_assemblage_comp_name);
+				comp_ptr1 = pp_assemblage_ptr->Find(x[i-1]->phase_unknown->phase->name);
 			}
 			if ((x[i]->type == SURFACE && x[i]->phase_unknown != NULL &&
 /*			     x[i]->phase_unknown->f > 0e-8 && */
@@ -1664,7 +1670,7 @@ ineq(int in_kode)
 				 && x[i - 1]->phase_unknown != NULL &&
 /*			     x[i-1]->phase_unknown->f > 0e-8 && */
 				 x[i]->surface_charge->grams <= MIN_RELATED_SURFACE &&
-				 comp_ptr->Get_add_formula().size() == 0))
+				 comp_ptr1->Get_add_formula().size() == 0))
 			{
 				for (j = 0; j < l_count_rows; j++)
 				{
