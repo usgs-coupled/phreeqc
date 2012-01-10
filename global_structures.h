@@ -244,7 +244,7 @@ struct model
 	struct phase **gas_phase;
 
 	int count_s_s_assemblage;
-	const char **s_s_assemblage;
+	const char **ss_assemblage;
 
 	int count_pp_assemblage;
 	struct phase **pp_assemblage;
@@ -483,7 +483,7 @@ struct save
 	int gas_phase;
 	int n_gas_phase_user;
 	int n_gas_phase_user_end;
-	int s_s_assemblage;
+	int ss_assemblage;
 	int n_s_s_assemblage_user;
 	int n_s_s_assemblage_user_end;
 };
@@ -554,7 +554,7 @@ struct Use
 	int s_s_assemblage_in;
 	int n_s_s_assemblage_user;
 	int n_s_s_assemblage;
-	struct s_s_assemblage *s_s_assemblage_ptr;
+	struct ss_assemblage *s_s_assemblage_ptr;
 
 	int trans_in;
 	int advect_in;
@@ -649,7 +649,7 @@ struct name_coef
 /*----------------------------------------------------------------------
  *   Solid solution
  *---------------------------------------------------------------------- */
-struct s_s_assemblage
+struct ss_assemblage
 {
 	int n_user;
 	int n_user_end;
@@ -1127,7 +1127,7 @@ struct prints
 	int initial_exchangers;
 	int reactions;
 	int gas_phase;
-	int s_s_assemblage;
+	int ss_assemblage;
 	int pp_assemblage;
 	int surface;
 	int exchange;

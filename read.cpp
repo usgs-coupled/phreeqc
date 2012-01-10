@@ -71,7 +71,7 @@ read_input(void)
 	save.exchange = FALSE;
 	save.surface = FALSE;
 	save.gas_phase = FALSE;
-	save.s_s_assemblage = FALSE;
+	save.ss_assemblage = FALSE;
 	title_x = (char *) free_check_null(title_x);
 
 	while ((i =	check_line("Subroutine Read", FALSE, TRUE, TRUE, TRUE)) != KEYWORD)
@@ -4730,7 +4730,7 @@ read_save(void)
 		save.n_gas_phase_user_end = n_user_end;
 		break;
 	case Keywords::KEY_SOLID_SOLUTIONS:						/* solid_solutions */
-		save.s_s_assemblage = TRUE;
+		save.ss_assemblage = TRUE;
 		save.n_s_s_assemblage_user = n_user;
 		save.n_s_s_assemblage_user_end = n_user_end;
 		break;
@@ -8145,7 +8145,7 @@ read_print(void)
 			pr.use = value;
 			pr.inverse = value;
 			pr.user_print = value;
-			pr.s_s_assemblage = value;
+			pr.ss_assemblage = value;
 			pr.headings = value;
 			pr.initial_isotopes = value;
 			pr.isotope_ratios = value;
@@ -8232,7 +8232,7 @@ read_print(void)
 			break;
 		case 25:				/* solid_solution */
 		case 26:				/* solid_solutions */
-			pr.s_s_assemblage = get_true_false(next_char, TRUE);
+			pr.ss_assemblage = get_true_false(next_char, TRUE);
 			break;
 		case 28:				/* headings */
 		case 29:				/* heading */
@@ -9276,29 +9276,29 @@ read_solid_solutions(void)
 	};
 	int count_opt_list = 18;
 /*
- *   Read s_s_assemblage number
+ *   Read ss_assemblage number
  */
 	number_s_s = 0;
 	ptr = line;
 	read_number_description(ptr, &n_user, &n_user_end, &description);
 /*
- *   Find old s_s_assemblage or alloc space for new s_s_assemblage
+ *   Find old ss_assemblage or alloc space for new ss_assemblage
  */
 	if (s_s_assemblage_search(n_user, &n) != NULL)
 	{
-		s_s_assemblage_free(&s_s_assemblage[n]);
+		s_s_assemblage_free(&ss_assemblage[n]);
 	}
 	else
 	{
 		n = count_s_s_assemblage;
-		space((void **) ((void *) &s_s_assemblage), count_s_s_assemblage,
-			  &max_s_s_assemblage, sizeof(struct s_s_assemblage));
+		space((void **) ((void *) &ss_assemblage), count_s_s_assemblage,
+			  &max_s_s_assemblage, sizeof(struct ss_assemblage));
 		count_s_s_assemblage++;
 	}
 /*
  *   Initialize
  */
-	s_s_assemblage_init(&(s_s_assemblage[n]), n_user, n_user_end,
+	s_s_assemblage_init(&(ss_assemblage[n]), n_user, n_user_end,
 						description);
 	free_check_null(description);
 /*
@@ -9337,36 +9337,36 @@ read_solid_solutions(void)
  */
 		case 0:				/* component */
 		case 1:				/* comp */
-			count_comps = s_s_assemblage[n].s_s[number_s_s].count_comps++;
-			s_s_assemblage[n].s_s[number_s_s].comps =
-				(struct s_s_comp *) PHRQ_realloc(s_s_assemblage[n].
+			count_comps = ss_assemblage[n].s_s[number_s_s].count_comps++;
+			ss_assemblage[n].s_s[number_s_s].comps =
+				(struct s_s_comp *) PHRQ_realloc(ss_assemblage[n].
 												 s_s[number_s_s].comps,
 												 (size_t) (count_comps +
 														   1) *
 												 sizeof(struct s_s_comp));
-			if (s_s_assemblage[n].s_s[number_s_s].comps == NULL)
+			if (ss_assemblage[n].s_s[number_s_s].comps == NULL)
 				malloc_error();
-			s_s_assemblage[n].s_s[number_s_s].comps[count_comps].initial_moles = 0;
-			s_s_assemblage[n].s_s[number_s_s].comps[count_comps].delta = 0;
+			ss_assemblage[n].s_s[number_s_s].comps[count_comps].initial_moles = 0;
+			ss_assemblage[n].s_s[number_s_s].comps[count_comps].delta = 0;
 			/*
 			 *   Read phase name of component
 			 */
 			ptr = next_char;
 			copy_token(token, &ptr, &l);
-			s_s_assemblage[n].s_s[number_s_s].comps[count_comps].name =
+			ss_assemblage[n].s_s[number_s_s].comps[count_comps].name =
 				string_hsave(token);
 			/*
 			 *   Read moles of component
 			 */
 			if ((j = copy_token(token, &ptr, &l)) == EMPTY)
 			{
-				s_s_assemblage[n].s_s[number_s_s].comps[count_comps].moles =
+				ss_assemblage[n].s_s[number_s_s].comps[count_comps].moles =
 					NAN;
 			}
 			else
 			{
 				j = sscanf(token, SCANFORMAT, &dummy);
-				s_s_assemblage[n].s_s[number_s_s].comps[count_comps].moles =
+				ss_assemblage[n].s_s[number_s_s].comps[count_comps].moles =
 					(LDBLE) dummy;
 				if (j != 1)
 				{
@@ -9386,28 +9386,28 @@ read_solid_solutions(void)
 			if (copy_token(token, &ptr, &l) != EMPTY)
 			{
 				sscanf(token, SCANFORMAT,
-					   &(s_s_assemblage[n].s_s[number_s_s].p[0]));
+					   &(ss_assemblage[n].s_s[number_s_s].p[0]));
 			}
 			if (copy_token(token, &ptr, &l) != EMPTY)
 			{
 				sscanf(token, SCANFORMAT,
-					   &(s_s_assemblage[n].s_s[number_s_s].p[1]));
+					   &(ss_assemblage[n].s_s[number_s_s].p[1]));
 			}
-			s_s_assemblage[n].s_s[number_s_s].input_case = 0;
+			ss_assemblage[n].s_s[number_s_s].input_case = 0;
 			break;
 		case 4:				/* gugg_kj */
 			ptr = next_char;
 			if (copy_token(token, &ptr, &l) != EMPTY)
 			{
 				sscanf(token, SCANFORMAT,
-					   &(s_s_assemblage[n].s_s[number_s_s].p[0]));
+					   &(ss_assemblage[n].s_s[number_s_s].p[0]));
 			}
 			if (copy_token(token, &ptr, &l) != EMPTY)
 			{
 				sscanf(token, SCANFORMAT,
-					   &(s_s_assemblage[n].s_s[number_s_s].p[1]));
+					   &(ss_assemblage[n].s_s[number_s_s].p[1]));
 			}
-			s_s_assemblage[n].s_s[number_s_s].input_case = 7;
+			ss_assemblage[n].s_s[number_s_s].input_case = 7;
 			break;
 		case 5:				/* activity coefficients */
 			ptr = next_char;
@@ -9417,19 +9417,19 @@ read_solid_solutions(void)
 				if (copy_token(token, &ptr, &l) != EMPTY)
 				{
 					j += sscanf(token, SCANFORMAT,
-								&(s_s_assemblage[n].s_s[number_s_s].p[i]));
+								&(ss_assemblage[n].s_s[number_s_s].p[i]));
 				}
 			}
 			if (j != 4)
 			{
 				error_string = sformatf(
 						"Expected 4 parameters to calculate a0 and a1 from two activity coefficients, assemblage %d, solid solution %s",
-						s_s_assemblage[n].n_user,
-						s_s_assemblage[n].s_s[number_s_s].name);
+						ss_assemblage[n].n_user,
+						ss_assemblage[n].s_s[number_s_s].name);
 				error_msg(error_string, CONTINUE);
 				input_error++;
 			}
-			s_s_assemblage[n].s_s[number_s_s].input_case = 1;
+			ss_assemblage[n].s_s[number_s_s].input_case = 1;
 			break;
 		case 6:				/* distribution coefficients */
 			ptr = next_char;
@@ -9439,19 +9439,19 @@ read_solid_solutions(void)
 				if (copy_token(token, &ptr, &l) != EMPTY)
 				{
 					j += sscanf(token, SCANFORMAT,
-								&(s_s_assemblage[n].s_s[number_s_s].p[i]));
+								&(ss_assemblage[n].s_s[number_s_s].p[i]));
 				}
 			}
 			if (j != 4)
 			{
 				error_string = sformatf(
 						"Expected 4 parameters to calculate a0 and a1 from two distribution coefficients, assemblage %d, solid solution %s",
-						s_s_assemblage[n].n_user,
-						s_s_assemblage[n].s_s[number_s_s].name);
+						ss_assemblage[n].n_user,
+						ss_assemblage[n].s_s[number_s_s].name);
 				error_msg(error_string, CONTINUE);
 				input_error++;
 			}
-			s_s_assemblage[n].s_s[number_s_s].input_case = 2;
+			ss_assemblage[n].s_s[number_s_s].input_case = 2;
 			break;
 		case 7:				/* miscibility_gap */
 			ptr = next_char;
@@ -9461,19 +9461,19 @@ read_solid_solutions(void)
 				if (copy_token(token, &ptr, &l) != EMPTY)
 				{
 					j += sscanf(token, SCANFORMAT,
-								&(s_s_assemblage[n].s_s[number_s_s].p[i]));
+								&(ss_assemblage[n].s_s[number_s_s].p[i]));
 				}
 			}
 			if (j != 2)
 			{
 				error_string = sformatf(
 						"Expected 2 miscibility gap fractions of component 2 to calculate a0 and a1, assemblage %d, solid solution %s",
-						s_s_assemblage[n].n_user,
-						s_s_assemblage[n].s_s[number_s_s].name);
+						ss_assemblage[n].n_user,
+						ss_assemblage[n].s_s[number_s_s].name);
 				error_msg(error_string, CONTINUE);
 				input_error++;
 			}
-			s_s_assemblage[n].s_s[number_s_s].input_case = 3;
+			ss_assemblage[n].s_s[number_s_s].input_case = 3;
 			break;
 		case 8:				/* spinodal_gap */
 			ptr = next_char;
@@ -9483,19 +9483,19 @@ read_solid_solutions(void)
 				if (copy_token(token, &ptr, &l) != EMPTY)
 				{
 					j += sscanf(token, SCANFORMAT,
-								&(s_s_assemblage[n].s_s[number_s_s].p[i]));
+								&(ss_assemblage[n].s_s[number_s_s].p[i]));
 				}
 			}
 			if (j != 2)
 			{
 				error_string = sformatf(
 						"Expected 2 spinodal gap fractions of component 2 to calculate a0 and a1, assemblage %d, solid solution %s",
-						s_s_assemblage[n].n_user,
-						s_s_assemblage[n].s_s[number_s_s].name);
+						ss_assemblage[n].n_user,
+						ss_assemblage[n].s_s[number_s_s].name);
 				error_msg(error_string, CONTINUE);
 				input_error++;
 			}
-			s_s_assemblage[n].s_s[number_s_s].input_case = 4;
+			ss_assemblage[n].s_s[number_s_s].input_case = 4;
 			break;
 		case 9:				/* critical point */
 			ptr = next_char;
@@ -9505,19 +9505,19 @@ read_solid_solutions(void)
 				if (copy_token(token, &ptr, &l) != EMPTY)
 				{
 					j += sscanf(token, SCANFORMAT,
-								&(s_s_assemblage[n].s_s[number_s_s].p[i]));
+								&(ss_assemblage[n].s_s[number_s_s].p[i]));
 				}
 			}
 			if (j != 2)
 			{
 				error_string = sformatf(
 						"Expected fraction of component 2 and critical temperature to calculate a0 and a1, assemblage %d, solid solution %s",
-						s_s_assemblage[n].n_user,
-						s_s_assemblage[n].s_s[number_s_s].name);
+						ss_assemblage[n].n_user,
+						ss_assemblage[n].s_s[number_s_s].name);
 				error_msg(error_string, CONTINUE);
 				input_error++;
 			}
-			s_s_assemblage[n].s_s[number_s_s].input_case = 5;
+			ss_assemblage[n].s_s[number_s_s].input_case = 5;
 			break;
 		case 10:				/* alyotropic point */
 			ptr = next_char;
@@ -9527,19 +9527,19 @@ read_solid_solutions(void)
 				if (copy_token(token, &ptr, &l) != EMPTY)
 				{
 					j += sscanf(token, SCANFORMAT,
-								&(s_s_assemblage[n].s_s[number_s_s].p[i]));
+								&(ss_assemblage[n].s_s[number_s_s].p[i]));
 				}
 			}
 			if (j != 2)
 			{
 				error_string = sformatf(
 						"Expected fraction of component 2 and sigma pi at alyotropic point to calculate a0 and a1, assemblage %d, solid solution %s",
-						s_s_assemblage[n].n_user,
-						s_s_assemblage[n].s_s[number_s_s].name);
+						ss_assemblage[n].n_user,
+						ss_assemblage[n].s_s[number_s_s].name);
 				error_msg(error_string, CONTINUE);
 				input_error++;
 			}
-			s_s_assemblage[n].s_s[number_s_s].input_case = 6;
+			ss_assemblage[n].s_s[number_s_s].input_case = 6;
 			break;
 		case 12:				/* tempk */
 			ptr = next_char;
@@ -9547,16 +9547,16 @@ read_solid_solutions(void)
 			if (copy_token(token, &ptr, &l) != EMPTY)
 			{
 				j = sscanf(token, SCANFORMAT,
-						   &(s_s_assemblage[n].s_s[number_s_s].tk));
+						   &(ss_assemblage[n].s_s[number_s_s].tk));
 			}
 			if (j != 1)
 			{
 				error_string = sformatf(
 						"Expected temperature (Kelvin) for parameters, assemblage %d, solid solution %s, using 298.15 K",
-						s_s_assemblage[n].n_user,
-						s_s_assemblage[n].s_s[number_s_s].name);
+						ss_assemblage[n].n_user,
+						ss_assemblage[n].s_s[number_s_s].name);
 				warning_msg(error_string);
-				s_s_assemblage[n].s_s[number_s_s].tk = 298.15;
+				ss_assemblage[n].s_s[number_s_s].tk = 298.15;
 			}
 			break;
 		case 11:				/* temp */
@@ -9566,18 +9566,18 @@ read_solid_solutions(void)
 			if (copy_token(token, &ptr, &l) != EMPTY)
 			{
 				j = sscanf(token, SCANFORMAT,
-						   &(s_s_assemblage[n].s_s[number_s_s].tk));
+						   &(ss_assemblage[n].s_s[number_s_s].tk));
 			}
 			if (j != 1)
 			{
 				error_string = sformatf(
 						"Expected temperature (Celcius) for parameters, assemblage %d, solid solution %s, using 25 C",
-						s_s_assemblage[n].n_user,
-						s_s_assemblage[n].s_s[number_s_s].name);
+						ss_assemblage[n].n_user,
+						ss_assemblage[n].s_s[number_s_s].name);
 				warning_msg(error_string);
-				s_s_assemblage[n].s_s[number_s_s].tk = 25.;
+				ss_assemblage[n].s_s[number_s_s].tk = 25.;
 			}
-			s_s_assemblage[n].s_s[number_s_s].tk += 273.15;
+			ss_assemblage[n].s_s[number_s_s].tk += 273.15;
 			break;
 		case 14:				/* Thompson and Waldbaum */
 			ptr = next_char;
@@ -9587,19 +9587,19 @@ read_solid_solutions(void)
 				if (copy_token(token, &ptr, &l) != EMPTY)
 				{
 					j += sscanf(token, SCANFORMAT,
-								&(s_s_assemblage[n].s_s[number_s_s].p[i]));
+								&(ss_assemblage[n].s_s[number_s_s].p[i]));
 				}
 			}
 			if (j != 2)
 			{
 				error_string = sformatf(
 						"Expected Wg2 and Wg1 Thompson-Waldbaum parameters to calculate a0 and a1, assemblage %d, solid solution %s",
-						s_s_assemblage[n].n_user,
-						s_s_assemblage[n].s_s[number_s_s].name);
+						ss_assemblage[n].n_user,
+						ss_assemblage[n].s_s[number_s_s].name);
 				error_msg(error_string, CONTINUE);
 				input_error++;
 			}
-			s_s_assemblage[n].s_s[number_s_s].input_case = 8;
+			ss_assemblage[n].s_s[number_s_s].input_case = 8;
 			break;
 		case 15:				/* Margules */
 			ptr = next_char;
@@ -9609,31 +9609,31 @@ read_solid_solutions(void)
 				if (copy_token(token, &ptr, &l) != EMPTY)
 				{
 					j += sscanf(token, SCANFORMAT,
-								&(s_s_assemblage[n].s_s[number_s_s].p[i]));
+								&(ss_assemblage[n].s_s[number_s_s].p[i]));
 				}
 			}
 			if (j != 2)
 			{
 				error_string = sformatf(
 						"Expected alpha2 and alpha3 Margules parameters to calculate a0 and a1, assemblage %d, solid solution %s",
-						s_s_assemblage[n].n_user,
-						s_s_assemblage[n].s_s[number_s_s].name);
+						ss_assemblage[n].n_user,
+						ss_assemblage[n].s_s[number_s_s].name);
 				error_msg(error_string, CONTINUE);
 				input_error++;
 			}
-			s_s_assemblage[n].s_s[number_s_s].input_case = 9;
+			ss_assemblage[n].s_s[number_s_s].input_case = 9;
 			break;
 		case 16:				/* comp1 */
 			if (count_comps < 2)
 			{
-				s_s_assemblage[n].s_s[number_s_s].count_comps = 2;
+				ss_assemblage[n].s_s[number_s_s].count_comps = 2;
 				count_comps = 2;
-				s_s_assemblage[n].s_s[number_s_s].comps =
-					(struct s_s_comp *) PHRQ_realloc(s_s_assemblage[n].
+				ss_assemblage[n].s_s[number_s_s].comps =
+					(struct s_s_comp *) PHRQ_realloc(ss_assemblage[n].
 													 s_s[number_s_s].comps,
 													 (size_t) (count_comps) *
 													 sizeof(struct s_s_comp));
-				if (s_s_assemblage[n].s_s[number_s_s].comps == NULL)
+				if (ss_assemblage[n].s_s[number_s_s].comps == NULL)
 					malloc_error();
 			}
 			/*
@@ -9641,19 +9641,19 @@ read_solid_solutions(void)
 			 */
 			ptr = next_char;
 			copy_token(token, &ptr, &l);
-			s_s_assemblage[n].s_s[number_s_s].comps[0].name =
+			ss_assemblage[n].s_s[number_s_s].comps[0].name =
 				string_hsave(token);
 			/*
 			 *   Read moles of component
 			 */
 			if ((j = copy_token(token, &ptr, &l)) == EMPTY)
 			{
-				s_s_assemblage[n].s_s[number_s_s].comps[0].moles = NAN;
+				ss_assemblage[n].s_s[number_s_s].comps[0].moles = NAN;
 			}
 			else
 			{
 				j = sscanf(token, SCANFORMAT, &dummy);
-				s_s_assemblage[n].s_s[number_s_s].comps[0].moles =
+				ss_assemblage[n].s_s[number_s_s].comps[0].moles =
 					(LDBLE) dummy;
 				if (j != 1)
 				{
@@ -9666,14 +9666,14 @@ read_solid_solutions(void)
 		case 17:				/* comp2 */
 			if (count_comps < 2)
 			{
-				s_s_assemblage[n].s_s[number_s_s].count_comps = 2;
+				ss_assemblage[n].s_s[number_s_s].count_comps = 2;
 				count_comps = 2;
-				s_s_assemblage[n].s_s[number_s_s].comps =
-					(struct s_s_comp *) PHRQ_realloc(s_s_assemblage[n].
+				ss_assemblage[n].s_s[number_s_s].comps =
+					(struct s_s_comp *) PHRQ_realloc(ss_assemblage[n].
 													 s_s[number_s_s].comps,
 													 (size_t) (count_comps) *
 													 sizeof(struct s_s_comp));
-				if (s_s_assemblage[n].s_s[number_s_s].comps == NULL)
+				if (ss_assemblage[n].s_s[number_s_s].comps == NULL)
 					malloc_error();
 			}
 			/*
@@ -9681,19 +9681,19 @@ read_solid_solutions(void)
 			 */
 			ptr = next_char;
 			copy_token(token, &ptr, &l);
-			s_s_assemblage[n].s_s[number_s_s].comps[1].name =
+			ss_assemblage[n].s_s[number_s_s].comps[1].name =
 				string_hsave(token);
 			/*
 			 *   Read moles of component
 			 */
 			if ((j = copy_token(token, &ptr, &l)) == EMPTY)
 			{
-				s_s_assemblage[n].s_s[number_s_s].comps[1].moles = NAN;
+				ss_assemblage[n].s_s[number_s_s].comps[1].moles = NAN;
 			}
 			else
 			{
 				j = sscanf(token, SCANFORMAT, &dummy);
-				s_s_assemblage[n].s_s[number_s_s].comps[1].moles =
+				ss_assemblage[n].s_s[number_s_s].comps[1].moles =
 					(LDBLE) dummy;
 				if (j != 1)
 				{
@@ -9713,64 +9713,64 @@ read_solid_solutions(void)
 			 */
 
 			/* realloc space for one s_s */
-			s_s_assemblage[n].s_s =
-				(struct s_s *) PHRQ_realloc(s_s_assemblage[n].s_s,
+			ss_assemblage[n].s_s =
+				(struct s_s *) PHRQ_realloc(ss_assemblage[n].s_s,
 											(size_t) (count_s_s +
 													  1) *
 											sizeof(struct s_s));
-			if (s_s_assemblage[n].s_s == NULL)
+			if (ss_assemblage[n].s_s == NULL)
 				malloc_error();
 
 			/* malloc space for one component */
-			s_s_assemblage[n].s_s[number_s_s].comps =
+			ss_assemblage[n].s_s[number_s_s].comps =
 				(struct s_s_comp *) PHRQ_malloc((size_t)
 												sizeof(struct s_s_comp));
-			if (s_s_assemblage[n].s_s[number_s_s].comps == NULL)
+			if (ss_assemblage[n].s_s[number_s_s].comps == NULL)
 				malloc_error();
 			count_comps = 0;
-			s_s_assemblage[n].s_s[number_s_s].count_comps = 0;
-			s_s_assemblage[n].s_s[number_s_s].total_moles = 0;
-			s_s_assemblage[n].s_s[number_s_s].dn = 0;
-			s_s_assemblage[n].s_s[number_s_s].a0 = 0.0;
-			s_s_assemblage[n].s_s[number_s_s].a1 = 0.0;
-			s_s_assemblage[n].s_s[number_s_s].ag0 = 0.0;
-			s_s_assemblage[n].s_s[number_s_s].ag1 = 0.0;
-			s_s_assemblage[n].s_s[number_s_s].s_s_in = FALSE;
-			s_s_assemblage[n].s_s[number_s_s].miscibility = FALSE;
-			s_s_assemblage[n].s_s[number_s_s].spinodal = FALSE;
-			s_s_assemblage[n].s_s[number_s_s].tk = 298.15;
-			s_s_assemblage[n].s_s[number_s_s].xb1 = 0;
-			s_s_assemblage[n].s_s[number_s_s].xb2 = 0;
-			s_s_assemblage[n].s_s[number_s_s].input_case = 0;
-			s_s_assemblage[n].s_s[number_s_s].p[0] = 0.0;
-			s_s_assemblage[n].s_s[number_s_s].p[1] = 0.0;
-			s_s_assemblage[n].s_s[number_s_s].p[2] = 0.0;
-			s_s_assemblage[n].s_s[number_s_s].p[3] = 0.0;
+			ss_assemblage[n].s_s[number_s_s].count_comps = 0;
+			ss_assemblage[n].s_s[number_s_s].total_moles = 0;
+			ss_assemblage[n].s_s[number_s_s].dn = 0;
+			ss_assemblage[n].s_s[number_s_s].a0 = 0.0;
+			ss_assemblage[n].s_s[number_s_s].a1 = 0.0;
+			ss_assemblage[n].s_s[number_s_s].ag0 = 0.0;
+			ss_assemblage[n].s_s[number_s_s].ag1 = 0.0;
+			ss_assemblage[n].s_s[number_s_s].s_s_in = FALSE;
+			ss_assemblage[n].s_s[number_s_s].miscibility = FALSE;
+			ss_assemblage[n].s_s[number_s_s].spinodal = FALSE;
+			ss_assemblage[n].s_s[number_s_s].tk = 298.15;
+			ss_assemblage[n].s_s[number_s_s].xb1 = 0;
+			ss_assemblage[n].s_s[number_s_s].xb2 = 0;
+			ss_assemblage[n].s_s[number_s_s].input_case = 0;
+			ss_assemblage[n].s_s[number_s_s].p[0] = 0.0;
+			ss_assemblage[n].s_s[number_s_s].p[1] = 0.0;
+			ss_assemblage[n].s_s[number_s_s].p[2] = 0.0;
+			ss_assemblage[n].s_s[number_s_s].p[3] = 0.0;
 
-			s_s_assemblage[n].s_s[number_s_s].comps->name = NULL;
-			s_s_assemblage[n].s_s[number_s_s].comps->phase = NULL;
+			ss_assemblage[n].s_s[number_s_s].comps->name = NULL;
+			ss_assemblage[n].s_s[number_s_s].comps->phase = NULL;
 			/*
 			 *   Read solid solution name
 			 */
 			ptr = line;
 			copy_token(token, &ptr, &l);
-			s_s_assemblage[n].s_s[number_s_s].name = string_hsave(token);
-			s_s_assemblage[n].s_s[number_s_s].total_moles = NAN;
+			ss_assemblage[n].s_s[number_s_s].name = string_hsave(token);
+			ss_assemblage[n].s_s[number_s_s].total_moles = NAN;
 			break;
 		}
 		if (return_value == EOF || return_value == KEYWORD)
 			break;
 	}
-	for (i = 0; i < s_s_assemblage[n].count_s_s; i++)
+	for (i = 0; i < ss_assemblage[n].count_s_s; i++)
 	{
-		if (s_s_assemblage[n].s_s[i].p[0] != 0.0 ||
-			s_s_assemblage[n].s_s[i].p[1] != 0.0)
+		if (ss_assemblage[n].s_s[i].p[0] != 0.0 ||
+			ss_assemblage[n].s_s[i].p[1] != 0.0)
 		{
-			if (s_s_assemblage[n].s_s[number_s_s].count_comps != 2)
+			if (ss_assemblage[n].s_s[number_s_s].count_comps != 2)
 			{
 				error_string = sformatf(
 						"Solid solution, %s, is nonideal. Must define exactly two components (-comp1 and -comp2).",
-						s_s_assemblage[n].s_s[number_s_s].name);
+						ss_assemblage[n].s_s[number_s_s].name);
 				error_msg(error_string, CONTINUE);
 				input_error++;
 			}
@@ -9780,8 +9780,8 @@ read_solid_solutions(void)
  *   Sort components by name (lowercase)
  */
 
-	s_s_assemblage[n].count_s_s = count_s_s;
-	qsort(s_s_assemblage[n].s_s,
+	ss_assemblage[n].count_s_s = count_s_s;
+	qsort(ss_assemblage[n].s_s,
 		  (size_t) count_s_s, (size_t) sizeof(struct s_s), s_s_compare);
 	return (return_value);
 }

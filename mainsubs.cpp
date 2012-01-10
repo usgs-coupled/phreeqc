@@ -160,8 +160,8 @@ initialize(void)
 	space((void **) ((void *) &kinetics), INIT, &max_kinetics,
 		  sizeof(struct kinetics));
 
-	space((void **) ((void *) &s_s_assemblage), INIT, &max_s_s_assemblage,
-		  sizeof(struct s_s_assemblage));
+	space((void **) ((void *) &ss_assemblage), INIT, &max_s_s_assemblage,
+		  sizeof(struct ss_assemblage));
 
 	space((void **) ((void *) &cell_data), INIT, &count_cells,
 		  sizeof(struct cell_data));
@@ -358,7 +358,7 @@ initialize(void)
 	last_model.count_gas_phase = -1;
 	last_model.gas_phase = NULL;
 	last_model.count_s_s_assemblage = -1;
-	last_model.s_s_assemblage = NULL;
+	last_model.ss_assemblage = NULL;
 	last_model.count_pp_assemblage = -1;
 	last_model.pp_assemblage = NULL;
 	last_model.add_formula = NULL;
@@ -473,7 +473,7 @@ initialize(void)
 	pr.initial_exchangers = TRUE;
 	pr.reactions = TRUE;
 	pr.gas_phase = TRUE;
-	pr.s_s_assemblage = TRUE;
+	pr.ss_assemblage = TRUE;
 	pr.pp_assemblage = TRUE;
 	pr.surface = TRUE;
 	pr.exchange = TRUE;
@@ -995,7 +995,7 @@ set_use(void)
 		use.gas_phase_ptr = NULL;
 	}
 /*
- *   Find s_s_assemblage
+ *   Find ss_assemblage
  */
 	if (use.s_s_assemblage_in == TRUE)
 	{
@@ -1004,7 +1004,7 @@ set_use(void)
 								   &use.n_s_s_assemblage);
 		if (use.s_s_assemblage_ptr == NULL)
 		{
-			error_string = sformatf( "s_s_assemblage %d not found.",
+			error_string = sformatf( "ss_assemblage %d not found.",
 					use.n_s_s_assemblage_user);
 			error_msg(error_string, STOP);
 		}
@@ -1636,7 +1636,7 @@ saver(void)
 			Utilities::Rxn_copy(Rxn_gas_phase_map, n, i);
 		}
 	}
-	if (save.s_s_assemblage == TRUE)
+	if (save.ss_assemblage == TRUE)
 	{
 		n = save.n_s_s_assemblage_user;
 		xs_s_assemblage_save(n);
@@ -1813,18 +1813,18 @@ xs_s_assemblage_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Save s_s_assemblage composition into structure s_s_assemblage with user 
+ *   Save ss_assemblage composition into structure ss_assemblage with user 
  *   number n_user.
  */
 	int i, j, n;
 	int count_comps, count_s_s;
-	struct s_s_assemblage temp_s_s_assemblage, *s_s_assemblage_ptr;
+	struct ss_assemblage temp_s_s_assemblage, *s_s_assemblage_ptr;
 	char token[MAX_LENGTH];
 
 	if (use.s_s_assemblage_ptr == NULL)
 		return (OK);
 /*
- *   Set s_s_assemblage
+ *   Set ss_assemblage
  */
 	temp_s_s_assemblage.n_user = n_user;
 	temp_s_s_assemblage.n_user_end = n_user;
@@ -1837,7 +1837,7 @@ xs_s_assemblage_save(int n_user)
 /*
  *   Malloc space for solid solutions
  */
-	/* s_s_assemblage->s_s */
+	/* ss_assemblage->s_s */
 	temp_s_s_assemblage.s_s =
 		(struct s_s *) PHRQ_malloc((size_t) count_s_s * sizeof(struct s_s));
 	if (temp_s_s_assemblage.s_s == NULL)
@@ -1872,24 +1872,24 @@ xs_s_assemblage_save(int n_user)
 	s_s_assemblage_ptr = s_s_assemblage_bsearch(n_user, &n);
 	if (s_s_assemblage_ptr == NULL)
 	{
-		space((void **) ((void *) &s_s_assemblage), count_s_s_assemblage,
-			  &max_s_s_assemblage, sizeof(struct s_s_assemblage));
+		space((void **) ((void *) &ss_assemblage), count_s_s_assemblage,
+			  &max_s_s_assemblage, sizeof(struct ss_assemblage));
 		n = count_s_s_assemblage++;
 	}
 	else
 	{
-		s_s_assemblage_free(&s_s_assemblage[n]);
+		s_s_assemblage_free(&ss_assemblage[n]);
 	}
-	memcpy(&s_s_assemblage[n], &temp_s_s_assemblage,
-		   sizeof(struct s_s_assemblage));
+	memcpy(&ss_assemblage[n], &temp_s_s_assemblage,
+		   sizeof(struct ss_assemblage));
 	/* sort only if necessary */
 	if (n == count_s_s_assemblage - 1 && count_s_s_assemblage > 1)
 	{
-		if (s_s_assemblage[n].n_user < s_s_assemblage[n - 1].n_user)
+		if (ss_assemblage[n].n_user < ss_assemblage[n - 1].n_user)
 		{
-			qsort(s_s_assemblage,
+			qsort(ss_assemblage,
 				  (size_t) count_s_s_assemblage,
-				  (size_t) sizeof(struct s_s_assemblage),
+				  (size_t) sizeof(struct ss_assemblage),
 				  s_s_assemblage_compare);
 		}
 	}
@@ -2720,13 +2720,13 @@ copy_use(int i)
 	if (use.s_s_assemblage_in == TRUE)
 	{
 		s_s_assemblage_duplicate(use.n_s_s_assemblage_user, i);
-		save.s_s_assemblage = TRUE;
+		save.ss_assemblage = TRUE;
 		save.n_s_s_assemblage_user = i;
 		save.n_s_s_assemblage_user_end = i;
 	}
 	else
 	{
-		save.s_s_assemblage = FALSE;
+		save.ss_assemblage = FALSE;
 	}
 	return (OK);
 }
@@ -3439,7 +3439,7 @@ save_init(int i)
 	save.gas_phase = i;
 	save.n_gas_phase_user = i;
 	save.n_gas_phase_user_end = i;
-	save.s_s_assemblage = i;
+	save.ss_assemblage = i;
 	save.n_s_s_assemblage_user = i;
 	save.n_s_s_assemblage_user_end = i;
 }

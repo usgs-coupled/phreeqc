@@ -249,7 +249,7 @@ quick_setup(void)
 	}
 
 /*
- *   s_s_assemblage
+ *   ss_assemblage
  */
 	if (s_s_unknown != NULL)
 	{
@@ -5857,26 +5857,26 @@ save_model(void)
 /*
  *   save list of names of solid solutions
  */
-	last_model.s_s_assemblage =
-		(const char **) free_check_null(last_model.s_s_assemblage);
+	last_model.ss_assemblage =
+		(const char **) free_check_null(last_model.ss_assemblage);
 	if (use.s_s_assemblage_ptr != NULL)
 	{
 		last_model.count_s_s_assemblage = use.s_s_assemblage_ptr->count_s_s;
-		last_model.s_s_assemblage =
+		last_model.ss_assemblage =
 			(const char **) PHRQ_malloc((size_t) use.s_s_assemblage_ptr->
 								  count_s_s * sizeof(char *));
-		if (last_model.s_s_assemblage == NULL)
+		if (last_model.ss_assemblage == NULL)
 			malloc_error();
 		for (i = 0; i < use.s_s_assemblage_ptr->count_s_s; i++)
 		{
-			last_model.s_s_assemblage[i] =
+			last_model.ss_assemblage[i] =
 				use.s_s_assemblage_ptr->s_s[i].name;
 		}
 	}
 	else
 	{
 		last_model.count_s_s_assemblage = 0;
-		last_model.s_s_assemblage = NULL;
+		last_model.ss_assemblage = NULL;
 	}
 /*
  *   save list of phase pointers for pp_assemblage
@@ -6112,7 +6112,7 @@ check_same_model(void)
 			return (FALSE);
 		for (i = 0; i < use.s_s_assemblage_ptr->count_s_s; i++)
 		{
-			if (last_model.s_s_assemblage[i] !=
+			if (last_model.ss_assemblage[i] !=
 				use.s_s_assemblage_ptr->s_s[i].name)
 			{
 				return (FALSE);
@@ -6121,7 +6121,7 @@ check_same_model(void)
 	}
 	else
 	{
-		if (last_model.s_s_assemblage != NULL)
+		if (last_model.ss_assemblage != NULL)
 			return (FALSE);
 	}
 /*

@@ -1572,7 +1572,7 @@ set_initial_moles(int i)
 	//struct pp_assemblage *pp_assemblage_ptr;
 	//struct gas_phase *gas_phase_ptr;
 	struct kinetics *kinetics_ptr;
-	struct s_s_assemblage *s_s_assemblage_ptr;
+	struct ss_assemblage *s_s_assemblage_ptr;
 	//struct exchange *exchange_ptr;
 	char token[MAX_LENGTH], token1[MAX_LENGTH], *ptr;
 	int j, k, l, n;

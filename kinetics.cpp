@@ -270,7 +270,7 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 	int equal_rate, zero_rate;
 
 	cxxPPassemblage *pp_assemblage_save = NULL;
-	struct s_s_assemblage *s_s_assemblage_save = NULL;
+	struct ss_assemblage *s_s_assemblage_save = NULL;
 
 	LDBLE b31 = 3. / 40., b32 = 9. / 40.,
 		b51 = -11. / 54., b53 = -70. / 27., b54 = 35. / 27.,
@@ -331,8 +331,8 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 	if (use.s_s_assemblage_ptr != NULL)
 	{
 		s_s_assemblage_save =
-			(struct s_s_assemblage *)
-			PHRQ_malloc(sizeof(struct s_s_assemblage));
+			(struct ss_assemblage *)
+			PHRQ_malloc(sizeof(struct ss_assemblage));
 		if (s_s_assemblage_save == NULL)
 			malloc_error();
 	}
@@ -1097,7 +1097,7 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 	if (s_s_assemblage_save != NULL)
 	{
 		s_s_assemblage_save =
-			(struct s_s_assemblage *) free_check_null(s_s_assemblage_save);
+			(struct ss_assemblage *) free_check_null(s_s_assemblage_save);
 	}
 	return (OK);
 }
@@ -1113,7 +1113,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 	LDBLE old_tol, old_min_value, old_step, old_pe, old_pp_column_scale;
 	LDBLE small_pe_step, small_step;
 	cxxPPassemblage *pp_assemblage_save = NULL;
-	struct s_s_assemblage *s_s_assemblage_save = NULL;
+	struct ss_assemblage *s_s_assemblage_save = NULL;
 	struct kinetics *kinetics_save = NULL;
 
 	
@@ -1154,8 +1154,8 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 	if (use.s_s_assemblage_ptr != NULL)
 	{
 		s_s_assemblage_save =
-			(struct s_s_assemblage *)
-			PHRQ_malloc(sizeof(struct s_s_assemblage));
+			(struct ss_assemblage *)
+			PHRQ_malloc(sizeof(struct ss_assemblage));
 		if (s_s_assemblage_save == NULL)
 			malloc_error();
 		s_s_assemblage_copy(use.s_s_assemblage_ptr, s_s_assemblage_save,
@@ -1386,7 +1386,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 		pr.all = TRUE;
 		pr.gas_phase = use.gas_phase_in;
 		pr.pp_assemblage = use.pp_assemblage_in;
-		pr.s_s_assemblage = use.s_s_assemblage_in;
+		pr.ss_assemblage = use.s_s_assemblage_in;
 		pr.surface = use.surface_in;
 		pr.exchange = use.exchange_in;
 		pr.totals = TRUE;
@@ -1411,7 +1411,7 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 	{
 		s_s_assemblage_free(s_s_assemblage_save);
 		s_s_assemblage_save =
-			(struct s_s_assemblage *) free_check_null(s_s_assemblage_save);
+			(struct ss_assemblage *) free_check_null(s_s_assemblage_save);
 	}
 	if (kinetics_save != NULL)
 	{
@@ -1702,21 +1702,21 @@ set_transport(int i, int use_mix, int use_kinetics, int nsaver)
 		save.gas_phase = FALSE;
 	}
 /*
- *   Find s_s_assemblage
+ *   Find ss_assemblage
  */
 	use.s_s_assemblage_ptr = s_s_assemblage_bsearch(i, &use.n_s_s_assemblage);
 	if (use.s_s_assemblage_ptr != NULL)
 	{
 		use.s_s_assemblage_in = TRUE;
 		use.n_s_s_assemblage_user = i;
-		save.s_s_assemblage = TRUE;
+		save.ss_assemblage = TRUE;
 		save.n_s_s_assemblage_user = i;
 		save.n_s_s_assemblage_user_end = i;
 	}
 	else
 	{
 		use.s_s_assemblage_in = FALSE;
-		save.s_s_assemblage = FALSE;
+		save.ss_assemblage = FALSE;
 	}
 /*
  *   Find kinetics
@@ -1872,7 +1872,7 @@ set_reaction(int i, int use_mix, int use_kinetics)
 		}
 	}
 /*
- *   Find s_s_assemblage
+ *   Find ss_assemblage
  */
 	if (use.s_s_assemblage_in == TRUE)
 	{
@@ -1926,7 +1926,7 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 	int nsaver;
 	struct kinetics *kinetics_ptr;
 	cxxPPassemblage *pp_assemblage_ptr;
-	struct s_s_assemblage *s_s_assemblage_ptr;
+	struct ss_assemblage *s_s_assemblage_ptr;
 	struct Use use_save;
 	int save_old, m, n_reactions /*, nok, nbad */ ;
 
@@ -2058,8 +2058,8 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 			if (s_s_assemblage_ptr != NULL)
 			{
 				cvode_s_s_assemblage_save =
-					(struct s_s_assemblage *)
-					PHRQ_malloc(sizeof(struct s_s_assemblage));
+					(struct ss_assemblage *)
+					PHRQ_malloc(sizeof(struct ss_assemblage));
 				if (cvode_s_s_assemblage_save == NULL)
 					malloc_error();
 				s_s_assemblage_copy(s_s_assemblage_ptr,
@@ -2275,7 +2275,7 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 	{
 		s_s_assemblage_free(cvode_s_s_assemblage_save);
 		cvode_s_s_assemblage_save =
-			(struct s_s_assemblage *)
+			(struct ss_assemblage *)
 			free_check_null(cvode_s_s_assemblage_save);
 	}
 	return (OK);
@@ -2313,7 +2313,7 @@ free_cvode(void)
 	{
 		s_s_assemblage_free(cvode_s_s_assemblage_save);
 		cvode_s_s_assemblage_save =
-			(struct s_s_assemblage *)
+			(struct ss_assemblage *)
 			free_check_null(cvode_s_s_assemblage_save);
 	}
 	return (OK);
@@ -2481,21 +2481,21 @@ set_advection(int i, int use_mix, int use_kinetics, int nsaver)
 		save.gas_phase = FALSE;
 	}
 /*
- *   Find s_s_assemblage
+ *   Find ss_assemblage
  */
 	use.s_s_assemblage_ptr = s_s_assemblage_bsearch(i, &use.n_s_s_assemblage);
 	if (use.s_s_assemblage_ptr != NULL)
 	{
 		use.s_s_assemblage_in = TRUE;
 		use.n_s_s_assemblage_user = i;
-		save.s_s_assemblage = TRUE;
+		save.ss_assemblage = TRUE;
 		save.n_s_s_assemblage_user = i;
 		save.n_s_s_assemblage_user_end = i;
 	}
 	else
 	{
 		use.s_s_assemblage_in = FALSE;
-		save.s_s_assemblage = FALSE;
+		save.ss_assemblage = FALSE;
 	}
 /*
  *   Find kinetics

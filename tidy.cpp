@@ -247,7 +247,7 @@ tidy_model(void)
 		tidy_pp_assemblage();
 	}
 /*
- *   tidy s_s_assemblage data
+ *   tidy ss_assemblage data
  */
 	if (new_model || new_s_s_assemblage)
 	{
@@ -1739,58 +1739,58 @@ tidy_s_s_assemblage(void)
 	{
 		count_elts = 0;
 		paren_count = 0;
-		for (j = 0; j < s_s_assemblage[i].count_s_s; j++)
+		for (j = 0; j < ss_assemblage[i].count_s_s; j++)
 		{
-			for (k = 0; k < s_s_assemblage[i].s_s[j].count_comps; k++)
+			for (k = 0; k < ss_assemblage[i].s_s[j].count_comps; k++)
 			{
 				phase_ptr =
-					phase_bsearch(s_s_assemblage[i].s_s[j].comps[k].name,
+					phase_bsearch(ss_assemblage[i].s_s[j].comps[k].name,
 								  &k1, FALSE);
 				if (phase_ptr == NULL)
 				{
 					input_error++;
 					error_string = sformatf(
 							"Phase not found in data base, %s, assemblage %d.",
-							s_s_assemblage[i].s_s[j].comps[k].name,
-							s_s_assemblage[i].n_user);
+							ss_assemblage[i].s_s[j].comps[k].name,
+							ss_assemblage[i].n_user);
 					error_msg(error_string, CONTINUE);
-					s_s_assemblage[i].s_s[j].comps[k].phase = NULL;
+					ss_assemblage[i].s_s[j].comps[k].phase = NULL;
 					continue;
 				}
 				else
 				{
-					s_s_assemblage[i].s_s[j].comps[k].phase = phase_ptr;
-					s_s_assemblage[i].s_s[j].comps[k].phase->moles_x = 0;
-					s_s_assemblage[i].s_s[j].comps[k].phase->fraction_x = 0;
+					ss_assemblage[i].s_s[j].comps[k].phase = phase_ptr;
+					ss_assemblage[i].s_s[j].comps[k].phase->moles_x = 0;
+					ss_assemblage[i].s_s[j].comps[k].phase->fraction_x = 0;
 				}
-				if (s_s_assemblage[i].s_s[j].comps[k].moles == NAN)
+				if (ss_assemblage[i].s_s[j].comps[k].moles == NAN)
 				{
 					input_error++;
 					error_string = sformatf(
 							"Moles of solid solution component not defined, %s, assemblage %d.",
-							s_s_assemblage[i].s_s[j].comps[k].name,
-							s_s_assemblage[i].n_user);
+							ss_assemblage[i].s_s[j].comps[k].name,
+							ss_assemblage[i].n_user);
 					error_msg(error_string, CONTINUE);
 					continue;
 				}
 			}
 
-			if (s_s_assemblage[i].new_def == TRUE)
+			if (ss_assemblage[i].new_def == TRUE)
 			{
 				/*
 				 *  Calculate a0 and a1 first
 				 */
-				s_s_calc_a0_a1(&(s_s_assemblage[i].s_s[j]));
-				s_s_ptr = &(s_s_assemblage[i].s_s[j]);
+				s_s_calc_a0_a1(&(ss_assemblage[i].s_s[j]));
+				s_s_ptr = &(ss_assemblage[i].s_s[j]);
 
 				n_tot = 0;
 				for (k = 0; k < s_s_ptr->count_comps; k++)
 				{
-					moles = s_s_assemblage[i].s_s[j].comps[k].moles;
-					if (s_s_assemblage[i].s_s[j].comps[k].moles <= 0.0)
+					moles = ss_assemblage[i].s_s[j].comps[k].moles;
+					if (ss_assemblage[i].s_s[j].comps[k].moles <= 0.0)
 					{
 						moles = MIN_TOTAL_SS;
-						s_s_assemblage[i].s_s[j].comps[k].initial_moles =
+						ss_assemblage[i].s_s[j].comps[k].initial_moles =
 							moles;
 					}
 					n_tot += moles;
@@ -1798,38 +1798,38 @@ tidy_s_s_assemblage(void)
 
 				for (k = 0; k < s_s_ptr->count_comps; k++)
 				{
-					moles = s_s_assemblage[i].s_s[j].comps[k].moles;
-					if (s_s_assemblage[i].s_s[j].comps[k].moles <= 0.0)
+					moles = ss_assemblage[i].s_s[j].comps[k].moles;
+					if (ss_assemblage[i].s_s[j].comps[k].moles <= 0.0)
 					{
 						moles = MIN_TOTAL_SS;
 					}
-					s_s_assemblage[i].s_s[j].comps[k].fraction_x =
+					ss_assemblage[i].s_s[j].comps[k].fraction_x =
 						moles / n_tot;
-					s_s_assemblage[i].s_s[j].comps[k].log10_fraction_x =
+					ss_assemblage[i].s_s[j].comps[k].log10_fraction_x =
 						log10(moles / n_tot);
 				}
-				l_a0 = s_s_assemblage[i].s_s[j].a0;
-				l_a1 = s_s_assemblage[i].s_s[j].a1;
+				l_a0 = ss_assemblage[i].s_s[j].a0;
+				l_a1 = ss_assemblage[i].s_s[j].a1;
 
 /*
  *   Binary solid solution
  */
 				if (l_a0 != 0.0 || l_a1 != 0)
 				{
-					s_s_assemblage[i].s_s[j].dn = 1.0 / n_tot;
-					nc = s_s_assemblage[i].s_s[j].comps[0].moles;
+					ss_assemblage[i].s_s[j].dn = 1.0 / n_tot;
+					nc = ss_assemblage[i].s_s[j].comps[0].moles;
 					if (nc == 0)
 						nc = MIN_TOTAL_SS;
-					nb = s_s_assemblage[i].s_s[j].comps[1].moles;
+					nb = ss_assemblage[i].s_s[j].comps[1].moles;
 					if (nb == 0)
 						nb = MIN_TOTAL_SS;
 					xc = nc / n_tot;
 					xb = nb / n_tot;
 
 					/* lambdas */
-					s_s_assemblage[i].s_s[j].comps[0].log10_lambda =
+					ss_assemblage[i].s_s[j].comps[0].log10_lambda =
 						xb * xb * (l_a0 - l_a1 * (3 - 4 * xb)) / LOG_10;
-					s_s_assemblage[i].s_s[j].comps[1].log10_lambda =
+					ss_assemblage[i].s_s[j].comps[1].log10_lambda =
 						xc * xc * (l_a0 + l_a1 * (4 * xb - 1)) / LOG_10;
 
 					/* derivatives wrt nc and nb */
@@ -1846,58 +1846,58 @@ tidy_s_s_assemblage(void)
 						8 * l_a1 * xb3 * xc2 - 4 * l_a1 * xb2 * xc3 -
 						2 * l_a0 * xc * xb2 - 8 * l_a1 * xc * xb3 +
 						6 * l_a1 * xc * xb2 + 1;
-					s_s_assemblage[i].s_s[j].comps[0].dnb = dnb / n_tot;
+					ss_assemblage[i].s_s[j].comps[0].dnb = dnb / n_tot;
 					dnc =
 						2 * l_a0 * xb3 + 2 * l_a0 * xc * xb2 + 8 * l_a1 * xb4 +
 						8 * l_a1 * xc * xb3 - 2 * l_a1 * xb3 - 6 * l_a1 * xc * xb2;
-					s_s_assemblage[i].s_s[j].comps[0].dnc =
+					ss_assemblage[i].s_s[j].comps[0].dnc =
 						-xb / nc + dnc / n_tot;
-					s_s_assemblage[i].s_s[j].comps[0].dn = 1.0 / n_tot;
+					ss_assemblage[i].s_s[j].comps[0].dn = 1.0 / n_tot;
 
 					/* component 2 */
 					dnb =
 						2 * l_a0 * xb * xc2 + 2 * l_a0 * xc3 +
 						8 * l_a1 * xb2 * xc2 + 8 * l_a1 * xb * xc3 -
 						2 * l_a1 * xb * xc2 - 6 * l_a1 * xc3;
-					s_s_assemblage[i].s_s[j].comps[1].dnb =
+					ss_assemblage[i].s_s[j].comps[1].dnb =
 						-xc / nb + dnb / n_tot;
 					dnc =
 						-2 * l_a0 * xc * xb2 - 8 * l_a1 * xc * xb3 +
 						2 * l_a1 * xc * xb2 - 2 * l_a0 * xb * xc2 -
 						8 * l_a1 * xb2 * xc2 + 6 * l_a1 * xb * xc2 + 1;
-					s_s_assemblage[i].s_s[j].comps[1].dnc = dnc / n_tot;
+					ss_assemblage[i].s_s[j].comps[1].dnc = dnc / n_tot;
 
-					s_s_prep(s_s_assemblage[i].s_s[j].tk,
-							 &(s_s_assemblage[i].s_s[j]), TRUE);
-					s_s_assemblage[i].s_s[j].comps[1].dn = 1.0 / n_tot;
+					s_s_prep(ss_assemblage[i].s_s[j].tk,
+							 &(ss_assemblage[i].s_s[j]), TRUE);
+					ss_assemblage[i].s_s[j].comps[1].dn = 1.0 / n_tot;
 /*
  *   Ideal solid solution
  */
 				}
 				else
 				{
-					s_s_assemblage[i].s_s[j].dn = 1.0 / n_tot;
+					ss_assemblage[i].s_s[j].dn = 1.0 / n_tot;
 					for (k = 0; k < s_s_ptr->count_comps; k++)
 					{
-						s_s_assemblage[i].s_s[j].comps[k].log10_lambda = 0;
-						moles = s_s_assemblage[i].s_s[j].comps[k].moles;
+						ss_assemblage[i].s_s[j].comps[k].log10_lambda = 0;
+						moles = ss_assemblage[i].s_s[j].comps[k].moles;
 						if (moles <= 0.0)
 							moles = MIN_TOTAL_SS;
-						s_s_assemblage[i].s_s[j].comps[k].dnb =
+						ss_assemblage[i].s_s[j].comps[k].dnb =
 							(n_tot - moles) / (moles * n_tot);
-						s_s_assemblage[i].s_s[j].comps[k].dn = 1.0 / n_tot;
+						ss_assemblage[i].s_s[j].comps[k].dn = 1.0 / n_tot;
 					}
 				}
 			}
 		}
-		s_s_assemblage[i].new_def = FALSE;
+		ss_assemblage[i].new_def = FALSE;
 
 /*
- *   Duplicate s_s_assemblage if necessary
+ *   Duplicate ss_assemblage if necessary
  */
-		n_user = s_s_assemblage[i].n_user;
-		last = s_s_assemblage[i].n_user_end;
-		s_s_assemblage[i].n_user_end = s_s_assemblage[i].n_user;
+		n_user = ss_assemblage[i].n_user;
+		last = ss_assemblage[i].n_user_end;
+		ss_assemblage[i].n_user_end = ss_assemblage[i].n_user;
 		for (j = n_user + 1; j <= last; j++)
 		{
 			s_s_assemblage_duplicate(n_user, j);
@@ -3867,7 +3867,7 @@ s_s_prep(LDBLE t, struct s_s *s_s_ptr, int print)
 	LDBLE faca, facb, spialy, facal, facbl;
 	LDBLE tol;
 
-	if (pr.s_s_assemblage == FALSE)
+	if (pr.ss_assemblage == FALSE)
 		print = FALSE;
 	tol = 1e-6;
 	r = R_KJ_DEG_MOL;
@@ -4956,8 +4956,8 @@ reset_last_model(void)
 	last_model.gas_phase =
 		(struct phase **) free_check_null(last_model.gas_phase);
 	last_model.count_s_s_assemblage = 0;
-	last_model.s_s_assemblage =
-		(const char **) free_check_null(last_model.s_s_assemblage);
+	last_model.ss_assemblage =
+		(const char **) free_check_null(last_model.ss_assemblage);
 	last_model.count_pp_assemblage = 0;
 	last_model.pp_assemblage =
 		(struct phase **) free_check_null(last_model.pp_assemblage);

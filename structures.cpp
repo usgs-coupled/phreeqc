@@ -35,8 +35,8 @@ clean_up(void)
 		(struct phase **) free_check_null(last_model.gas_phase);
 	last_model.pp_assemblage =
 		(struct phase **) free_check_null(last_model.pp_assemblage);
-	last_model.s_s_assemblage =
-		(const char **) free_check_null(last_model.s_s_assemblage);
+	last_model.ss_assemblage =
+		(const char **) free_check_null(last_model.ss_assemblage);
 	last_model.add_formula =
 		(const char **) free_check_null(last_model.add_formula);
 	last_model.si = (LDBLE *) free_check_null(last_model.si);
@@ -106,10 +106,10 @@ clean_up(void)
 
 	for (j = 0; j < count_s_s_assemblage; j++)
 	{
-		s_s_assemblage_free(&s_s_assemblage[j]);
+		s_s_assemblage_free(&ss_assemblage[j]);
 	}
-	s_s_assemblage =
-		(struct s_s_assemblage *) free_check_null(s_s_assemblage);
+	ss_assemblage =
+		(struct ss_assemblage *) free_check_null(ss_assemblage);
 
 /* irreversible reactions */
 	Rxn_reaction_map.clear();
@@ -438,7 +438,7 @@ reinitialize(void)
 
 	for (j = 0; j < count_s_s_assemblage; j++)
 	{
-		s_s_assemblage_free(&s_s_assemblage[j]);
+		s_s_assemblage_free(&ss_assemblage[j]);
 	}
 	count_s_s_assemblage = 0;
 
@@ -3235,17 +3235,17 @@ s_store(const char *name, LDBLE l_z, int replace_if_found)
 
 /* **********************************************************************
  *
- *   Routines related to structure "s_s_assemblage"
+ *   Routines related to structure "ss_assemblage"
  *
  * ********************************************************************** */
 /* ---------------------------------------------------------------------- */
-struct s_s_assemblage * Phreeqc::
+struct ss_assemblage * Phreeqc::
 s_s_assemblage_alloc(void)
 /* ---------------------------------------------------------------------- */
 {
-	struct s_s_assemblage *s_s_assemblage_ptr;
+	struct ss_assemblage *s_s_assemblage_ptr;
 	s_s_assemblage_ptr =
-		(struct s_s_assemblage *) PHRQ_malloc(sizeof(struct s_s_assemblage));
+		(struct ss_assemblage *) PHRQ_malloc(sizeof(struct ss_assemblage));
 	if (s_s_assemblage_ptr == NULL)
 		malloc_error();
 	s_s_assemblage_ptr->n_user = -1;
@@ -3258,19 +3258,19 @@ s_s_assemblage_alloc(void)
 }
 
 /* ---------------------------------------------------------------------- */
-struct s_s_assemblage * Phreeqc::
+struct ss_assemblage * Phreeqc::
 s_s_assemblage_bsearch(int k, int *n)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Binary search of array s_s_assemblage to find user number k.
- *   Assumes s_s_assemblage is in sort order.
+ *   Binary search of array ss_assemblage to find user number k.
+ *   Assumes ss_assemblage is in sort order.
  *
  *   Input: k, user number to find.
  *
- *   Output: n, position in array s_s_assemblage for user number k.
+ *   Output: n, position in array ss_assemblage for user number k.
  *
- *   Return: pointer to s_s_assemblage structure for user number k, if found.
+ *   Return: pointer to ss_assemblage structure for user number k, if found.
  *	   NULL if not found.
  */
 	void *void_ptr;
@@ -3281,17 +3281,17 @@ s_s_assemblage_bsearch(int k, int *n)
 	}
 	void_ptr = (void *)
 		bsearch((char *) &k,
-				(char *) s_s_assemblage,
+				(char *) ss_assemblage,
 				(size_t) count_s_s_assemblage,
-				(size_t) sizeof(struct s_s_assemblage),
+				(size_t) sizeof(struct ss_assemblage),
 				s_s_assemblage_compare_int);
 	if (void_ptr == NULL)
 	{
 		*n = -999;
 		return (NULL);
 	}
-	*n = (int) ((struct s_s_assemblage *) void_ptr - s_s_assemblage);
-	return ((struct s_s_assemblage *) void_ptr);
+	*n = (int) ((struct ss_assemblage *) void_ptr - ss_assemblage);
+	return ((struct ss_assemblage *) void_ptr);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -3299,9 +3299,9 @@ int Phreeqc::
 s_s_assemblage_compare(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
-	const struct s_s_assemblage *s_s_assemblage_ptr1, *s_s_assemblage_ptr2;
-	s_s_assemblage_ptr1 = (const struct s_s_assemblage *) ptr1;
-	s_s_assemblage_ptr2 = (const struct s_s_assemblage *) ptr2;
+	const struct ss_assemblage *s_s_assemblage_ptr1, *s_s_assemblage_ptr2;
+	s_s_assemblage_ptr1 = (const struct ss_assemblage *) ptr1;
+	s_s_assemblage_ptr2 = (const struct ss_assemblage *) ptr2;
 	if (s_s_assemblage_ptr1->n_user > s_s_assemblage_ptr2->n_user)
 		return (1);
 	if (s_s_assemblage_ptr1->n_user < s_s_assemblage_ptr2->n_user)
@@ -3316,13 +3316,13 @@ s_s_assemblage_compare_int(const void *ptr1, const void *ptr2)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Compare s_s_assemblage user numbers
+ *   Compare ss_assemblage user numbers
  */
 	const int *nptr1;
-	const struct s_s_assemblage *nptr2;
+	const struct ss_assemblage *nptr2;
 
 	nptr1 = (const int *) ptr1;
-	nptr2 = (const struct s_s_assemblage *) ptr2;
+	nptr2 = (const struct ss_assemblage *) ptr2;
 	if (*nptr1 > nptr2->n_user)
 		return (1);
 	if (*nptr1 < nptr2->n_user)
@@ -3332,26 +3332,26 @@ s_s_assemblage_compare_int(const void *ptr1, const void *ptr2)
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-s_s_assemblage_copy(struct s_s_assemblage *s_s_assemblage_old_ptr,
-					struct s_s_assemblage *s_s_assemblage_new_ptr,
+s_s_assemblage_copy(struct ss_assemblage *s_s_assemblage_old_ptr,
+					struct ss_assemblage *s_s_assemblage_new_ptr,
 					int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Copies s_s_assemblage data from s_s_assemblage_old_ptr to s_s_assemblage_new_ptr.
+ *   Copies ss_assemblage data from s_s_assemblage_old_ptr to s_s_assemblage_new_ptr.
  *   Space for a s_s_assemblage_new_ptr must already be malloced.
  *   Space for list of pure phases in assemblage is malloced here.
  */
 	int i, count_comps, count_s_s;
 	char token[MAX_LENGTH];
 /*
- *   Store data for structure s_s_assemblage
+ *   Store data for structure ss_assemblage
  */
 	memcpy(s_s_assemblage_new_ptr, s_s_assemblage_old_ptr,
-		   sizeof(struct s_s_assemblage));
+		   sizeof(struct ss_assemblage));
 	s_s_assemblage_new_ptr->n_user = n_user_new;
 	s_s_assemblage_new_ptr->n_user_end = n_user_new;
-	sprintf(token, "S_S_Assemblage defined in simulation %d.", simulation);
+	sprintf(token, "ss_assemblage defined in simulation %d.", simulation);
 	s_s_assemblage_new_ptr->description = string_duplicate(token);
 	s_s_assemblage_new_ptr->new_def = FALSE;
 /*
@@ -3390,13 +3390,13 @@ s_s_assemblage_copy_to_last(int n, int n_user)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Copies an s_s_assemblage definition from position n
+ *   Copies an ss_assemblage definition from position n
  *   to position count_s_s_assemblage.
  */
-	space((void **) ((void *) &s_s_assemblage), count_s_s_assemblage,
-		  &max_s_s_assemblage, sizeof(struct s_s_assemblage));
-	s_s_assemblage_copy(&s_s_assemblage[n],
-						&s_s_assemblage[count_s_s_assemblage], n_user);
+	space((void **) ((void *) &ss_assemblage), count_s_s_assemblage,
+		  &max_s_s_assemblage, sizeof(struct ss_assemblage));
+	s_s_assemblage_copy(&ss_assemblage[n],
+						&ss_assemblage[count_s_s_assemblage], n_user);
 	count_s_s_assemblage++;
 	return (OK);
 }
@@ -3408,27 +3408,27 @@ s_s_assemblage_duplicate(int n_user_old, int n_user_new)
 {
 /*
  *   Checks if n_user_new exists, and frees space if it does
- *   Copies s_s_assemblage[n_user_old] to old n_user_new space if
- *   found or to s_s_assemblage[count_s_s_assemblage] if not found.
- *   S_S_Assemblage array may not be in sort order after the copy.
+ *   Copies ss_assemblage[n_user_old] to old n_user_new space if
+ *   found or to ss_assemblage[count_s_s_assemblage] if not found.
+ *   ss_assemblage array may not be in sort order after the copy.
  */
 	int n_old, n_new, sort;
-	struct s_s_assemblage *s_s_assemblage_ptr_old, *s_s_assemblage_ptr_new;
+	struct ss_assemblage *s_s_assemblage_ptr_old, *s_s_assemblage_ptr_new;
 /*
- *   Find n_user_old in structure array s_s_assemblage
+ *   Find n_user_old in structure array ss_assemblage
  */
 	if (n_user_old == n_user_new)
 		return (OK);
 	s_s_assemblage_ptr_old = s_s_assemblage_bsearch(n_user_old, &n_old);
 	if (s_s_assemblage_ptr_old == NULL)
 	{
-		error_string = sformatf( "S_S_Assemblage %d not found.", n_user_old);
+		error_string = sformatf( "ss_assemblage %d not found.", n_user_old);
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
 	}
 /*
- *   Find n_user_new in structure array s_s_assemblage or make new space
+ *   Find n_user_new in structure array ss_assemblage or make new space
  */
 	sort = FALSE;
 	s_s_assemblage_ptr_new = s_s_assemblage_bsearch(n_user_new, &n_new);
@@ -3438,16 +3438,16 @@ s_s_assemblage_duplicate(int n_user_old, int n_user_new)
 	}
 	else
 	{
-		space((void **) ((void *) &s_s_assemblage), count_s_s_assemblage,
-			  &max_s_s_assemblage, sizeof(struct s_s_assemblage));
-		if (n_user_new < s_s_assemblage[count_s_s_assemblage - 1].n_user)
+		space((void **) ((void *) &ss_assemblage), count_s_s_assemblage,
+			  &max_s_s_assemblage, sizeof(struct ss_assemblage));
+		if (n_user_new < ss_assemblage[count_s_s_assemblage - 1].n_user)
 			sort = TRUE;
 		n_new = count_s_s_assemblage++;
 	}
 /*
  *   Copy data
  */
-	s_s_assemblage_copy(&s_s_assemblage[n_old], &s_s_assemblage[n_new],
+	s_s_assemblage_copy(&ss_assemblage[n_old], &ss_assemblage[n_new],
 						n_user_new);
 	if (sort == TRUE)
 		s_s_assemblage_sort();
@@ -3460,12 +3460,12 @@ s_s_assemblage_delete(int n_user_old)
 /* ---------------------------------------------------------------------- */
 /*
  *   Frees space for user number n_user_old, removes structure from
- *   array s_s_assemblage.
+ *   array ss_assemblage.
  */
 {
 	int i;
 	int n_old;
-	struct s_s_assemblage *s_s_assemblage_ptr_old;
+	struct ss_assemblage *s_s_assemblage_ptr_old;
 /*
  *   Find n_user_old in structure array
  */
@@ -3473,15 +3473,15 @@ s_s_assemblage_delete(int n_user_old)
 	if (s_s_assemblage_ptr_old != NULL)
 	{
 		/*
-		 *   Delete s_s_assemblage
+		 *   Delete ss_assemblage
 		 */
-		s_s_assemblage_free(&s_s_assemblage[n_old]);
+		s_s_assemblage_free(&ss_assemblage[n_old]);
 
 		for (i = n_old + 1; i < count_s_s_assemblage; i++)
 		{
-			memcpy((void *) &s_s_assemblage[i - 1],
-				   (void *) &s_s_assemblage[i],
-				   (size_t) sizeof(struct s_s_assemblage));
+			memcpy((void *) &ss_assemblage[i - 1],
+				   (void *) &ss_assemblage[i],
+				   (size_t) sizeof(struct ss_assemblage));
 		}
 		count_s_s_assemblage--;
 	}
@@ -3490,11 +3490,11 @@ s_s_assemblage_delete(int n_user_old)
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-s_s_assemblage_free(struct s_s_assemblage *s_s_assemblage_ptr)
+s_s_assemblage_free(struct ss_assemblage *s_s_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Free space allocated for s_s_assemblage structure
+ *   Free space allocated for ss_assemblage structure
  */
 	int i;
 
@@ -3515,7 +3515,7 @@ s_s_assemblage_free(struct s_s_assemblage *s_s_assemblage_ptr)
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-s_s_assemblage_init(struct s_s_assemblage *s_s_assemblage_ptr, int n_user,
+s_s_assemblage_init(struct ss_assemblage *s_s_assemblage_ptr, int n_user,
 					int n_user_end, char *description)
 /* ---------------------------------------------------------------------- */
 {
@@ -3534,30 +3534,30 @@ s_s_assemblage_init(struct s_s_assemblage *s_s_assemblage_ptr, int n_user,
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-s_s_assemblage_ptr_to_user(struct s_s_assemblage *s_s_assemblage_ptr_old,
+s_s_assemblage_ptr_to_user(struct ss_assemblage *s_s_assemblage_ptr_old,
 						   int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
 /*
  *   Checks if n_user_new exists, and frees space if it does
  *   Copies s_s_assemblage_ptr_old to old n_user_new space if
- *   found or to s_s_assemblage[count_s_s_assemblage] if not found.
- *   S_S_Assemblage array may not be in sort order after the copy.
+ *   found or to ss_assemblage[count_s_s_assemblage] if not found.
+ *   ss_assemblage array may not be in sort order after the copy.
  */
 	int n_new, sort;
-	struct s_s_assemblage *s_s_assemblage_ptr_new;
+	struct ss_assemblage *s_s_assemblage_ptr_new;
 /*
- *   Find n_user_old in structure array s_s_assemblage
+ *   Find n_user_old in structure array ss_assemblage
  */
 	if (s_s_assemblage_ptr_old == NULL)
 	{
-		error_string = sformatf( "S_S_Assemblage pointer is NULL.");
+		error_string = sformatf( "ss_assemblage pointer is NULL.");
 		error_msg(error_string, CONTINUE);
 		input_error++;
 		return (ERROR);
 	}
 /*
- *   Find n_user_new in structure array s_s_assemblage or make new space
+ *   Find n_user_new in structure array ss_assemblage or make new space
  */
 	sort = FALSE;
 	s_s_assemblage_ptr_new = s_s_assemblage_bsearch(n_user_new, &n_new);
@@ -3569,16 +3569,16 @@ s_s_assemblage_ptr_to_user(struct s_s_assemblage *s_s_assemblage_ptr_old,
 	}
 	else
 	{
-		space((void **) ((void *) &s_s_assemblage), count_s_s_assemblage,
-			  &max_s_s_assemblage, sizeof(struct s_s_assemblage));
-		if (n_user_new < s_s_assemblage[count_s_s_assemblage - 1].n_user)
+		space((void **) ((void *) &ss_assemblage), count_s_s_assemblage,
+			  &max_s_s_assemblage, sizeof(struct ss_assemblage));
+		if (n_user_new < ss_assemblage[count_s_s_assemblage - 1].n_user)
 			sort = TRUE;
 		n_new = count_s_s_assemblage++;
 	}
 /*
  *   Copy data
  */
-	s_s_assemblage_copy(s_s_assemblage_ptr_old, &s_s_assemblage[n_new],
+	s_s_assemblage_copy(s_s_assemblage_ptr_old, &ss_assemblage[n_new],
 						n_user_new);
 	if (sort == TRUE)
 		s_s_assemblage_sort();
@@ -3586,12 +3586,12 @@ s_s_assemblage_ptr_to_user(struct s_s_assemblage *s_s_assemblage_ptr_old,
 }
 
 /* ---------------------------------------------------------------------- */
-struct s_s_assemblage * Phreeqc::
-s_s_assemblage_replicate(struct s_s_assemblage *s_s_assemblage_old_ptr,
+struct ss_assemblage * Phreeqc::
+s_s_assemblage_replicate(struct ss_assemblage *s_s_assemblage_old_ptr,
 						 int n_user_new)
 /* ---------------------------------------------------------------------- */
 {
-	struct s_s_assemblage *s_s_assemblage_ptr;
+	struct ss_assemblage *s_s_assemblage_ptr;
 	s_s_assemblage_ptr = s_s_assemblage_alloc();
 	s_s_assemblage_copy(s_s_assemblage_old_ptr, s_s_assemblage_ptr,
 						n_user_new);
@@ -3599,31 +3599,31 @@ s_s_assemblage_replicate(struct s_s_assemblage *s_s_assemblage_old_ptr,
 }
 
 /* ---------------------------------------------------------------------- */
-struct s_s_assemblage * Phreeqc::
+struct ss_assemblage * Phreeqc::
 s_s_assemblage_search(int n_user, int *n)
 /* ---------------------------------------------------------------------- */
 {
-/*   Linear search of the structure array "s_s_assemblage" for user number n_user.
+/*   Linear search of the structure array "ss_assemblage" for user number n_user.
  *
  *   Arguments:
  *      n_user  input, user number
- *      n       output, position in s_s_assemblage
+ *      n       output, position in ss_assemblage
  *
  *   Returns:
- *      if found, the address of the s_s_assemblage element
+ *      if found, the address of the ss_assemblage element
  *      if not found, NULL
  */
 	int i;
 	for (i = 0; i < count_s_s_assemblage; i++)
 	{
-		if (s_s_assemblage[i].n_user == n_user)
+		if (ss_assemblage[i].n_user == n_user)
 		{
 			*n = i;
-			return (&(s_s_assemblage[i]));
+			return (&(ss_assemblage[i]));
 		}
 	}
 /*
- *   S_S_Assemblage not found
+ *   ss_assemblage not found
  */
 	return (NULL);
 }
@@ -3634,12 +3634,12 @@ s_s_assemblage_sort(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
- *   Sort array of s_s_assemblage structures
+ *   Sort array of ss_assemblage structures
  */
 	if (count_s_s_assemblage > 0)
 	{
-		qsort(s_s_assemblage, (size_t) count_s_s_assemblage,
-			  (size_t) sizeof(struct s_s_assemblage), s_s_assemblage_compare);
+		qsort(ss_assemblage, (size_t) count_s_s_assemblage,
+			  (size_t) sizeof(struct ss_assemblage), s_s_assemblage_compare);
 	}
 	return (OK);
 }
@@ -6450,13 +6450,13 @@ cxxSolutionIsotopeList2isotope(const cxxSolutionIsotopeList * il)
 
 #include "../SSassemblage.h"
 #include "../SSassemblageSS.h"
-struct s_s_assemblage * Phreeqc::
+struct ss_assemblage * Phreeqc::
 cxxSSassemblage2s_s_assemblage(const cxxSSassemblage * ss)
 		//
-		// Builds a s_s_assemblage structure from instance of cxxSSassemblage 
+		// Builds a ss_assemblage structure from instance of cxxSSassemblage 
 		//
 {
-	struct s_s_assemblage *s_s_assemblage_ptr = s_s_assemblage_alloc();
+	struct ss_assemblage *s_s_assemblage_ptr = s_s_assemblage_alloc();
 
 	s_s_assemblage_ptr->description = string_duplicate (ss->Get_description().c_str());
 	s_s_assemblage_ptr->n_user = ss->Get_n_user();
@@ -6955,7 +6955,7 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 	}
 	if (use_ptr->s_s_assemblage_in == TRUE)
 	{
-		struct s_s_assemblage *struct_entity = s_s_assemblage_bsearch(use_ptr->n_s_s_assemblage_user, &n);
+		struct ss_assemblage *struct_entity = s_s_assemblage_bsearch(use_ptr->n_s_s_assemblage_user, &n);
 		if (struct_entity != NULL)
 		{
 			cxxSSassemblage entity(struct_entity, sb.Get_io());
@@ -7056,8 +7056,8 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb)
 	// SSassemblages
 	for (i = 0; i < count_s_s_assemblage; i++)
 	{
-		cxxSSassemblage entity(&s_s_assemblage[i], sb.Get_io());
-		sb.Set_SSassemblage(s_s_assemblage[i].n_user, &entity );
+		cxxSSassemblage entity(&ss_assemblage[i], sb.Get_io());
+		sb.Set_SSassemblage(ss_assemblage[i].n_user, &entity );
 	}
 
 	// Surfaces
@@ -7170,8 +7170,8 @@ phreeqc2cxxStorageBin(cxxStorageBin & sb, int n)
 	{
 		if (s_s_assemblage_bsearch(n, &pos) != NULL)
 		{
-			//this->SSassemblages[n] = cxxSSassemblage(&(s_s_assemblage[pos]), sb.Get_io());
-			 cxxSSassemblage ent(&(s_s_assemblage[pos]), sb.Get_io());
+			//this->SSassemblages[n] = cxxSSassemblage(&(ss_assemblage[pos]), sb.Get_io());
+			 cxxSSassemblage ent(&(ss_assemblage[pos]), sb.Get_io());
 			sb.Set_SSassemblage(n, &ent);
 		}
 	}
@@ -7262,10 +7262,10 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb, int n)
 			sb.Get_SSassemblages().find(n);
 		if (it != sb.Get_SSassemblages().end())
 		{
-			struct s_s_assemblage *s_s_assemblage_ptr = cxxSSassemblage2s_s_assemblage(&(it->second));
+			struct ss_assemblage *s_s_assemblage_ptr = cxxSSassemblage2s_s_assemblage(&(it->second));
 			s_s_assemblage_ptr_to_user(s_s_assemblage_ptr, it->first);
 			s_s_assemblage_free(s_s_assemblage_ptr);
-			s_s_assemblage_ptr = (struct s_s_assemblage *) free_check_null(s_s_assemblage_ptr);
+			s_s_assemblage_ptr = (struct ss_assemblage *) free_check_null(s_s_assemblage_ptr);
 		}
 	}
 
@@ -7390,10 +7390,10 @@ cxxStorageBin2phreeqc(cxxStorageBin & sb)
 		std::map < int, cxxSSassemblage >::const_iterator it = sb.Get_SSassemblages().begin();
 		for ( ; it != sb.Get_SSassemblages().end(); it++)
 		{
-			struct s_s_assemblage *s_s_assemblage_ptr = cxxSSassemblage2s_s_assemblage(&(it->second));
+			struct ss_assemblage *s_s_assemblage_ptr = cxxSSassemblage2s_s_assemblage(&(it->second));
 			s_s_assemblage_ptr_to_user(s_s_assemblage_ptr, it->first);
 			s_s_assemblage_free(s_s_assemblage_ptr);
-			s_s_assemblage_ptr = (struct s_s_assemblage *) free_check_null(s_s_assemblage_ptr);
+			s_s_assemblage_ptr = (struct ss_assemblage *) free_check_null(s_s_assemblage_ptr);
 		}
 	}
 

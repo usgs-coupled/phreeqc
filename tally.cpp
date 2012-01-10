@@ -383,7 +383,7 @@ fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 	//struct pp_assemblage *pp_assemblage_ptr;
 	//struct exchange *exchange_ptr;
 	struct surface *surface_ptr;
-	struct s_s_assemblage *s_s_assemblage_ptr;
+	struct ss_assemblage *s_s_assemblage_ptr;
 	//struct gas_phase *gas_phase_ptr;
 	struct kinetics *kinetics_ptr;
 	struct kinetics_comp *kinetics_comp_ptr;
@@ -761,7 +761,7 @@ build_tally_table(void)
 	int count_tt_pure_phase, count_tt_ss_phase, count_tt_kinetics;
 	//struct pp_assemblage *pp_assemblage_ptr;
 	//struct pure_phase *pure_phase_ptr;
-	struct s_s_assemblage *s_s_assemblage_ptr;
+	struct ss_assemblage *s_s_assemblage_ptr;
 	struct s_s *s_s_ptr;
 	struct s_s_comp *s_s_comp_ptr;
 	struct kinetics *kinetics_ptr;
@@ -1005,7 +1005,7 @@ build_tally_table(void)
 		 */
 		for (i = 0; i < count_s_s_assemblage; i++)
 		{
-			s_s_assemblage_ptr = &s_s_assemblage[i];
+			s_s_assemblage_ptr = &ss_assemblage[i];
 			for (j = 0; j < s_s_assemblage_ptr->count_s_s; j++)
 			{
 				s_s_ptr = &s_s_assemblage_ptr->s_s[j];
@@ -1246,7 +1246,7 @@ add_all_components_tally(void)
  */
 	for (i = 0; i < count_s_s_assemblage; i++)
 	{
-		add_s_s_assemblage(&s_s_assemblage[i]);
+		add_s_s_assemblage(&ss_assemblage[i]);
 	}
 /*
  *   Add elements in kinetic reactions

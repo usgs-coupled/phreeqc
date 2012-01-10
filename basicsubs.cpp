@@ -2884,7 +2884,7 @@ int Phreeqc::
 system_total_solids(cxxExchange *exchange_ptr,
 					cxxPPassemblage *pp_assemblage_ptr,
 					cxxGasPhase *gas_phase_ptr,
-					struct s_s_assemblage *s_s_assemblage_ptr,
+					struct ss_assemblage *s_s_assemblage_ptr,
 					struct surface *surface_ptr)
 /* ---------------------------------------------------------------------- */
 {

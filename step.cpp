@@ -31,7 +31,7 @@ step(LDBLE step_fraction)
 	LDBLE difftemp;
 	int step_number;
 	cxxPPassemblage *pp_assemblage_save = NULL;
-	struct s_s_assemblage *s_s_assemblage_save = NULL;
+	struct ss_assemblage *s_s_assemblage_save = NULL;
 /*
  *   Zero out global solution data
  */
@@ -151,8 +151,8 @@ step(LDBLE step_fraction)
 	if (use.s_s_assemblage_ptr != NULL)
 	{
 		s_s_assemblage_save =
-			(struct s_s_assemblage *)
-			PHRQ_malloc(sizeof(struct s_s_assemblage));
+			(struct ss_assemblage *)
+			PHRQ_malloc(sizeof(struct ss_assemblage));
 		if (s_s_assemblage_save == NULL)
 			malloc_error();
 		s_s_assemblage_copy(use.s_s_assemblage_ptr, s_s_assemblage_save,
@@ -195,7 +195,7 @@ step(LDBLE step_fraction)
 								use.s_s_assemblage_ptr->n_user);
 			s_s_assemblage_free(s_s_assemblage_save);
 			s_s_assemblage_save =
-				(struct s_s_assemblage *)
+				(struct ss_assemblage *)
 				free_check_null(s_s_assemblage_save);
 		}
 		return (MASS_BALANCE);
@@ -221,7 +221,7 @@ step(LDBLE step_fraction)
 	{
 		s_s_assemblage_free(s_s_assemblage_save);
 		s_s_assemblage_save =
-			(struct s_s_assemblage *) free_check_null(s_s_assemblage_save);
+			(struct ss_assemblage *) free_check_null(s_s_assemblage_save);
 	}
 
 	//
@@ -1261,7 +1261,7 @@ add_gas_phase(cxxGasPhase *gas_phase_ptr)
 }
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-add_s_s_assemblage(struct s_s_assemblage *s_s_assemblage_ptr)
+add_s_s_assemblage(struct ss_assemblage *s_s_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1631,7 +1631,7 @@ pp_assemblage_check(struct pp_assemblage *pp_assemblage_ptr)
 #endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-s_s_assemblage_check(struct s_s_assemblage *s_s_assemblage_ptr)
+s_s_assemblage_check(struct ss_assemblage *s_s_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*

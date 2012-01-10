@@ -654,7 +654,7 @@ print_s_s_assemblage(void)
 	LDBLE nb, nc, xb, xb1, xb2, xb1moles, xb2moles;
 	struct s_s *s_s_ptr;
 
-	if (pr.s_s_assemblage == FALSE || pr.all == FALSE)
+	if (pr.ss_assemblage == FALSE || pr.all == FALSE)
 		return (OK);
 	if (use.s_s_assemblage_ptr == NULL)
 		return (OK);
@@ -2270,7 +2270,7 @@ print_using(void)
 	//struct exchange *exchange_ptr;
 	struct surface *surface_ptr;
 	//struct pp_assemblage *pp_assemblage_ptr;
-	struct s_s_assemblage *s_s_assemblage_ptr;
+	struct ss_assemblage *s_s_assemblage_ptr;
 	//struct gas_phase *gas_phase_ptr;
 	//struct irrev *irrev_ptr;
 	struct kinetics *kinetics_ptr;
