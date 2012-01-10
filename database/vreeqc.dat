@@ -6,6 +6,10 @@
 # PHREEQC calculates the change of log_k -= delta_v * (P - 1) / (2.3RT).
 # Vm(A) is volume of A, cm3/mol, P is pressure, atm.
 # Gas-pressures and fugacity coefficients are calculated with Peng-Robinson's EOS.
+#   Binary interaction coefficients from Soreide and Whitson, 1992, FPE 77, 217 are
+#    hard-coded in calc_PR():
+#    kij    CH4    CO2    H2S    N2
+#    H2O    0.49   0.19   0.19   0.49
 # =============================================================================================
 # Temperature- and pressure-dependent volumina are calculated from coefficients entered as
 #   -Vm a b c kappa
@@ -137,7 +141,7 @@ Sr+2 = Sr+2
 	-dw	 0.794e-9
 	-gamma	5.260	0.121
 	-millero -18.44 0.0082 -0.0006 1.727 -0.067 0.00084
-	-Vm  -12 # Howell et al., 1992
+	-Vm  -9 # Howell et al., 1992
 H4SiO4 = H4SiO4
 	log_k	0.0
 	-dw	 1.10e-9
@@ -248,12 +252,12 @@ CO3-2 + 2 H+ = CO2 + H2O
 	delta_h -5.738	kcal
 	-analytic	464.1965	0.09344813	-26986.16	-165.75951	2248628.9
 	-dw	 1.92e-9
-	-Vm  28.48  -6.95E-03 # Data in Duan et al., 2006, MC 98, 131.
+	-Vm   26.3 -0.07   0   9E-03 # Data in Duan et al., 2006, MC 98, 131.
 CO3-2 + 10 H+ + 8 e- = CH4 + 3 H2O
 	log_k	41.071
 	delta_h -61.039 kcal
 	-dw	 1.85e-9
-	-Vm 33 # Data in Duan et al., 1992, GCA 56, 1451.
+	-Vm 33 3.5e-3 # Dhima et al., 1999, IECR 38, 3144
 SO4-2 + H+ = HSO4-
 	log_k	1.988
 	delta_h 3.85	kcal
@@ -1100,9 +1104,10 @@ CO2(g)
 H2O(g)
 	H2O = H2O
 	log_k  1.506; delta_h -44.03 kJ
-	T_c  647.3 # critical T, K
+	-T_c  647.3 # critical T, K
 	-P_c  217.60 # critical P, atm
 	-Omega 0.344 #  acentric factor
+	-analytic   -16.5066 -2.0013E-3  2710.7  3.7646  0 2.24E-6
 
 # Gases from LLNL...
 O2(g)
