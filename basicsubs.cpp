@@ -830,15 +830,15 @@ find_misc1(const char *s_s_name)
 {
 	int j;
 
-	if (use.s_s_assemblage_in == FALSE || use.s_s_assemblage_ptr == NULL)
+	if (use.ss_assemblage_in == FALSE || use.ss_assemblage_ptr == NULL)
 		return (0.0);
-	for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++)
+	for (j = 0; j < use.ss_assemblage_ptr->count_s_s; j++)
 	{
-		if (strcmp_nocase(use.s_s_assemblage_ptr->s_s[j].name, s_s_name) == 0)
+		if (strcmp_nocase(use.ss_assemblage_ptr->s_s[j].name, s_s_name) == 0)
 		{
-			if (use.s_s_assemblage_ptr->s_s[j].miscibility == TRUE)
+			if (use.ss_assemblage_ptr->s_s[j].miscibility == TRUE)
 			{
-				return (use.s_s_assemblage_ptr->s_s[j].xb1);
+				return (use.ss_assemblage_ptr->s_s[j].xb1);
 			}
 			else
 			{
@@ -856,15 +856,15 @@ find_misc2(const char *s_s_name)
 {
 	int j;
 
-	if (use.s_s_assemblage_in == FALSE || use.s_s_assemblage_ptr == NULL)
+	if (use.ss_assemblage_in == FALSE || use.ss_assemblage_ptr == NULL)
 		return (0.0);
-	for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++)
+	for (j = 0; j < use.ss_assemblage_ptr->count_s_s; j++)
 	{
-		if (strcmp_nocase(use.s_s_assemblage_ptr->s_s[j].name, s_s_name) == 0)
+		if (strcmp_nocase(use.ss_assemblage_ptr->s_s[j].name, s_s_name) == 0)
 		{
-			if (use.s_s_assemblage_ptr->s_s[j].miscibility == TRUE)
+			if (use.ss_assemblage_ptr->s_s[j].miscibility == TRUE)
 			{
-				return (use.s_s_assemblage_ptr->s_s[j].xb2);
+				return (use.ss_assemblage_ptr->s_s[j].xb2);
 			}
 			else
 			{
@@ -882,19 +882,19 @@ find_s_s_comp(const char *s_s_comp_name)
 {
 	int i, j;
 
-	if (use.s_s_assemblage_in == FALSE || use.s_s_assemblage_ptr == NULL)
+	if (use.ss_assemblage_in == FALSE || use.ss_assemblage_ptr == NULL)
 		return (0);
-	for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++)
+	for (j = 0; j < use.ss_assemblage_ptr->count_s_s; j++)
 	{
-		for (i = 0; i < use.s_s_assemblage_ptr->s_s[j].count_comps; i++)
+		for (i = 0; i < use.ss_assemblage_ptr->s_s[j].count_comps; i++)
 		{
 			if (strcmp_nocase
-				(use.s_s_assemblage_ptr->s_s[j].comps[i].name,
+				(use.ss_assemblage_ptr->s_s[j].comps[i].name,
 				 s_s_comp_name) == 0)
 			{
-				if (use.s_s_assemblage_ptr->s_s[j].s_s_in == TRUE)
+				if (use.ss_assemblage_ptr->s_s[j].s_s_in == TRUE)
 				{
-					return (use.s_s_assemblage_ptr->s_s[j].comps[i].moles);
+					return (use.ss_assemblage_ptr->s_s[j].comps[i].moles);
 				}
 				else
 				{
@@ -1286,36 +1286,36 @@ sum_match_s_s(const char *mytemplate, const char *name)
 	LDBLE tot;
 	struct elt_list *next_elt;
 
-	if (use.s_s_assemblage_in == FALSE || use.s_s_assemblage_ptr == NULL)
+	if (use.ss_assemblage_in == FALSE || use.ss_assemblage_ptr == NULL)
 		return (0);
 	tot = 0;
-	for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++)
+	for (j = 0; j < use.ss_assemblage_ptr->count_s_s; j++)
 	{
-		if (strcmp_nocase(use.s_s_assemblage_ptr->s_s[j].name, mytemplate) ==
+		if (strcmp_nocase(use.ss_assemblage_ptr->s_s[j].name, mytemplate) ==
 			0)
 		{
-			if (use.s_s_assemblage_ptr->s_s[j].s_s_in == FALSE)
+			if (use.ss_assemblage_ptr->s_s[j].s_s_in == FALSE)
 			{
 				tot = 0;
 				break;
 			}
-			for (i = 0; i < use.s_s_assemblage_ptr->s_s[j].count_comps; i++)
+			for (i = 0; i < use.ss_assemblage_ptr->s_s[j].count_comps; i++)
 			{
 				if (name == NULL)
 				{
-					tot += use.s_s_assemblage_ptr->s_s[j].comps[i].moles;
+					tot += use.ss_assemblage_ptr->s_s[j].comps[i].moles;
 				}
 				else
 				{
 					for (next_elt =
-						 use.s_s_assemblage_ptr->s_s[j].comps[i].phase->
+						 use.ss_assemblage_ptr->s_s[j].comps[i].phase->
 						 next_elt; next_elt->elt != NULL; next_elt++)
 					{
 						if (strcmp(next_elt->elt->name, name) == 0)
 						{
 							tot +=
 								next_elt->coef *
-								use.s_s_assemblage_ptr->s_s[j].comps[i].moles;
+								use.ss_assemblage_ptr->s_s[j].comps[i].moles;
 							break;
 						}
 					}
@@ -1336,17 +1336,17 @@ list_s_s(std::string s_s_name, cxxNameDouble &composition)
 
 	LDBLE tot = 0;
 	composition.clear();
-	if (use.s_s_assemblage_in == FALSE || use.s_s_assemblage_ptr == NULL)
+	if (use.ss_assemblage_in == FALSE || use.ss_assemblage_ptr == NULL)
 		return (0);
 
-	for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++)
+	for (j = 0; j < use.ss_assemblage_ptr->count_s_s; j++)
 	{
-		if (strcmp_nocase(use.s_s_assemblage_ptr->s_s[j].name, s_s_name.c_str()) == 0)
+		if (strcmp_nocase(use.ss_assemblage_ptr->s_s[j].name, s_s_name.c_str()) == 0)
 		{
-			for (i = 0; i < use.s_s_assemblage_ptr->s_s[j].count_comps; i++)
+			for (i = 0; i < use.ss_assemblage_ptr->s_s[j].count_comps; i++)
 			{
-				composition.add(use.s_s_assemblage_ptr->s_s[j].comps[i].name, use.s_s_assemblage_ptr->s_s[j].comps[i].moles);
-				tot += use.s_s_assemblage_ptr->s_s[j].comps[i].moles;
+				composition.add(use.ss_assemblage_ptr->s_s[j].comps[i].name, use.ss_assemblage_ptr->s_s[j].comps[i].moles);
+				tot += use.ss_assemblage_ptr->s_s[j].comps[i].moles;
 			}
 			break;
 		}
@@ -2250,17 +2250,17 @@ system_total_s_s(void)
 /*
  *  Solid solutions
  */
-	if (use.s_s_assemblage_ptr == NULL)
+	if (use.ss_assemblage_ptr == NULL)
 		return (OK);
-	for (k = 0; k < use.s_s_assemblage_ptr->count_s_s; k++)
+	for (k = 0; k < use.ss_assemblage_ptr->count_s_s; k++)
 	{
-		for (i = 0; i < use.s_s_assemblage_ptr->s_s[k].count_comps; i++)
+		for (i = 0; i < use.ss_assemblage_ptr->s_s[k].count_comps; i++)
 		{
 			sys[count_sys].name =
-				string_duplicate(use.s_s_assemblage_ptr->s_s[k].comps[i].
+				string_duplicate(use.ss_assemblage_ptr->s_s[k].comps[i].
 								 phase->name);
 			sys[count_sys].moles =
-				use.s_s_assemblage_ptr->s_s[k].comps[i].moles;
+				use.ss_assemblage_ptr->s_s[k].comps[i].moles;
 			sys_tot += sys[count_sys].moles;
 			sys[count_sys].type = string_duplicate("s_s");
 			count_sys++;
@@ -2453,20 +2453,20 @@ system_total_elt(const char *total_name)
 /*
  *  Solid solutions
  */
-	if (use.s_s_assemblage_ptr != NULL)
+	if (use.ss_assemblage_ptr != NULL)
 	{
-		for (k = 0; k < use.s_s_assemblage_ptr->count_s_s; k++)
+		for (k = 0; k < use.ss_assemblage_ptr->count_s_s; k++)
 		{
-			if (use.s_s_assemblage_ptr->s_s[k].s_s_in == TRUE)
+			if (use.ss_assemblage_ptr->s_s[k].s_s_in == TRUE)
 			{
-				for (i = 0; i < use.s_s_assemblage_ptr->s_s[k].count_comps;
+				for (i = 0; i < use.ss_assemblage_ptr->s_s[k].count_comps;
 					 i++)
 				{
 					count_elts = 0;
 					paren_count = 0;
-					add_elt_list(use.s_s_assemblage_ptr->s_s[k].comps[i].
+					add_elt_list(use.ss_assemblage_ptr->s_s[k].comps[i].
 								 phase->next_elt,
-								 use.s_s_assemblage_ptr->s_s[k].comps[i].
+								 use.ss_assemblage_ptr->s_s[k].comps[i].
 								 moles);
 					if (count_elts > 0)
 					{
@@ -2480,7 +2480,7 @@ system_total_elt(const char *total_name)
 						if (strcmp(elt_list[j].elt->name, total_name) == 0)
 						{
 							sys[count_sys].name =
-								string_duplicate(use.s_s_assemblage_ptr->
+								string_duplicate(use.ss_assemblage_ptr->
 												 s_s[k].comps[i].phase->name);
 							sys[count_sys].moles = elt_list[j].coef;
 							sys_tot += sys[count_sys].moles;
@@ -2725,20 +2725,20 @@ system_total_elt_secondary(const char *total_name)
 /*
  *  Solid solutions
  */
-	if (use.s_s_assemblage_ptr != NULL)
+	if (use.ss_assemblage_ptr != NULL)
 	{
-		for (k = 0; k < use.s_s_assemblage_ptr->count_s_s; k++)
+		for (k = 0; k < use.ss_assemblage_ptr->count_s_s; k++)
 		{
-			if (use.s_s_assemblage_ptr->s_s[k].s_s_in == TRUE)
+			if (use.ss_assemblage_ptr->s_s[k].s_s_in == TRUE)
 			{
-				for (i = 0; i < use.s_s_assemblage_ptr->s_s[k].count_comps;
+				for (i = 0; i < use.ss_assemblage_ptr->s_s[k].count_comps;
 					 i++)
 				{
 					count_elts = 0;
 					paren_count = 0;
-					add_elt_list(use.s_s_assemblage_ptr->s_s[k].comps[i].
+					add_elt_list(use.ss_assemblage_ptr->s_s[k].comps[i].
 								 phase->next_sys_total,
-								 use.s_s_assemblage_ptr->s_s[k].comps[i].
+								 use.ss_assemblage_ptr->s_s[k].comps[i].
 								 moles);
 					if (count_elts > 0)
 					{
@@ -2752,7 +2752,7 @@ system_total_elt_secondary(const char *total_name)
 						if (strcmp(elt_list[j].elt->name, total_name) == 0)
 						{
 							sys[count_sys].name =
-								string_duplicate(use.s_s_assemblage_ptr->
+								string_duplicate(use.ss_assemblage_ptr->
 												 s_s[k].comps[i].phase->name);
 							sys[count_sys].moles = elt_list[j].coef;
 							sys_tot += sys[count_sys].moles;
@@ -2884,7 +2884,7 @@ int Phreeqc::
 system_total_solids(cxxExchange *exchange_ptr,
 					cxxPPassemblage *pp_assemblage_ptr,
 					cxxGasPhase *gas_phase_ptr,
-					struct ss_assemblage *s_s_assemblage_ptr,
+					struct ss_assemblage *ss_assemblage_ptr,
 					struct surface *surface_ptr)
 /* ---------------------------------------------------------------------- */
 {
@@ -2913,15 +2913,15 @@ system_total_solids(cxxExchange *exchange_ptr,
 			add_elt_list(surface_ptr->comps[i].totals, 1.0);
 		}
 	}
-	if (s_s_assemblage_ptr != NULL)
+	if (ss_assemblage_ptr != NULL)
 	{
-		for (i = 0; i < s_s_assemblage_ptr->count_s_s; i++)
+		for (i = 0; i < ss_assemblage_ptr->count_s_s; i++)
 		{
-			for (j = 0; j < s_s_assemblage_ptr->s_s[i].count_comps; j++)
+			for (j = 0; j < ss_assemblage_ptr->s_s[i].count_comps; j++)
 			{
-				add_elt_list(s_s_assemblage_ptr->s_s[i].comps[j].phase->
+				add_elt_list(ss_assemblage_ptr->s_s[i].comps[j].phase->
 							 next_elt,
-							 s_s_assemblage_ptr->s_s[i].comps[j].moles);
+							 ss_assemblage_ptr->s_s[i].comps[j].moles);
 			}
 		}
 	}

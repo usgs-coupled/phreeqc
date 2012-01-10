@@ -71,7 +71,7 @@ initialize(void)
 	max_surface = MAX_PP_ASSEMBLAGE;
 	//max_gas_phase = MAX_PP_ASSEMBLAGE;
 	max_kinetics = MAX_PP_ASSEMBLAGE;
-	max_s_s_assemblage = MAX_PP_ASSEMBLAGE;
+	max_ss_assemblage = MAX_PP_ASSEMBLAGE;
 
 	max_elements = MAX_ELEMENTS;
 	max_elts = MAX_ELTS;
@@ -91,7 +91,7 @@ initialize(void)
 	count_surface = 0;
 	//count_gas_phase = 0;
 	count_kinetics = 0;
-	count_s_s_assemblage = 0;
+	count_ss_assemblage = 0;
 
 	count_elements = 0;
 	//count_irrev = 0;
@@ -160,7 +160,7 @@ initialize(void)
 	space((void **) ((void *) &kinetics), INIT, &max_kinetics,
 		  sizeof(struct kinetics));
 
-	space((void **) ((void *) &ss_assemblage), INIT, &max_s_s_assemblage,
+	space((void **) ((void *) &ss_assemblage), INIT, &max_ss_assemblage,
 		  sizeof(struct ss_assemblage));
 
 	space((void **) ((void *) &cell_data), INIT, &count_cells,
@@ -357,7 +357,7 @@ initialize(void)
 	last_model.kinetics = NULL;
 	last_model.count_gas_phase = -1;
 	last_model.gas_phase = NULL;
-	last_model.count_s_s_assemblage = -1;
+	last_model.count_ss_assemblage = -1;
 	last_model.ss_assemblage = NULL;
 	last_model.count_pp_assemblage = -1;
 	last_model.pp_assemblage = NULL;
@@ -562,7 +562,7 @@ initialize(void)
 	copier_init(&copy_pp_assemblage);
 	copier_init(&copy_exchange);
 	copier_init(&copy_surface);
-	copier_init(&copy_s_s_assemblage);
+	copier_init(&copy_ss_assemblage);
 	copier_init(&copy_gas_phase);
 	copier_init(&copy_kinetics);
 	copier_init(&copy_mix);
@@ -681,7 +681,7 @@ initialize(void)
 	new_gas_phase = FALSE;
 	new_inverse = FALSE;
 	new_punch = FALSE;
-	new_s_s_assemblage = FALSE;
+	new_ss_assemblage = FALSE;
 	new_kinetics = FALSE;
 	new_copy = FALSE;
 	new_pitzer = FALSE;
@@ -798,7 +798,7 @@ set_use(void)
 	use.temperature_ptr = NULL;
 	use.pressure_ptr = NULL;
 	use.gas_phase_ptr = NULL;
-	use.s_s_assemblage_ptr = NULL;
+	use.ss_assemblage_ptr = NULL;
 
 	if (state < REACTION)
 	{
@@ -815,7 +815,7 @@ set_use(void)
 		use.surface_in == FALSE &&
 		use.temperature_in == FALSE &&
 		use.pressure_in == FALSE &&
-		use.gas_phase_in == FALSE && use.s_s_assemblage_in == FALSE)
+		use.gas_phase_in == FALSE && use.ss_assemblage_in == FALSE)
 	{
 		return (FALSE);
 	}
@@ -997,21 +997,21 @@ set_use(void)
 /*
  *   Find ss_assemblage
  */
-	if (use.s_s_assemblage_in == TRUE)
+	if (use.ss_assemblage_in == TRUE)
 	{
-		use.s_s_assemblage_ptr =
-			s_s_assemblage_bsearch(use.n_s_s_assemblage_user,
-								   &use.n_s_s_assemblage);
-		if (use.s_s_assemblage_ptr == NULL)
+		use.ss_assemblage_ptr =
+			ss_assemblage_bsearch(use.n_ss_assemblage_user,
+								   &use.n_ss_assemblage);
+		if (use.ss_assemblage_ptr == NULL)
 		{
 			error_string = sformatf( "ss_assemblage %d not found.",
-					use.n_s_s_assemblage_user);
+					use.n_ss_assemblage_user);
 			error_msg(error_string, STOP);
 		}
 	}
 	else
 	{
-		use.s_s_assemblage_ptr = NULL;
+		use.ss_assemblage_ptr = NULL;
 	}
 	/*
 	if (use.irrev_ptr != NULL && use.kinetics_ptr != NULL)
@@ -1638,12 +1638,12 @@ saver(void)
 	}
 	if (save.ss_assemblage == TRUE)
 	{
-		n = save.n_s_s_assemblage_user;
-		xs_s_assemblage_save(n);
-		for (i = save.n_s_s_assemblage_user + 1;
-			 i <= save.n_s_s_assemblage_user_end; i++)
+		n = save.n_ss_assemblage_user;
+		xss_assemblage_save(n);
+		for (i = save.n_ss_assemblage_user + 1;
+			 i <= save.n_ss_assemblage_user_end; i++)
 		{
-			s_s_assemblage_duplicate(n, i);
+			ss_assemblage_duplicate(n, i);
 		}
 	}
 	if (save.kinetics == TRUE && use.kinetics_in == TRUE
@@ -1809,7 +1809,7 @@ xgas_save(int n_user)
 }
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-xs_s_assemblage_save(int n_user)
+xss_assemblage_save(int n_user)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1818,82 +1818,82 @@ xs_s_assemblage_save(int n_user)
  */
 	int i, j, n;
 	int count_comps, count_s_s;
-	struct ss_assemblage temp_s_s_assemblage, *s_s_assemblage_ptr;
+	struct ss_assemblage temp_ss_assemblage, *ss_assemblage_ptr;
 	char token[MAX_LENGTH];
 
-	if (use.s_s_assemblage_ptr == NULL)
+	if (use.ss_assemblage_ptr == NULL)
 		return (OK);
 /*
  *   Set ss_assemblage
  */
-	temp_s_s_assemblage.n_user = n_user;
-	temp_s_s_assemblage.n_user_end = n_user;
+	temp_ss_assemblage.n_user = n_user;
+	temp_ss_assemblage.n_user_end = n_user;
 	sprintf(token, "Solid solution assemblage after simulation %d.",
 			simulation);
-	temp_s_s_assemblage.description = string_duplicate(token);
-	temp_s_s_assemblage.new_def = FALSE;
-	count_s_s = use.s_s_assemblage_ptr->count_s_s;
-	temp_s_s_assemblage.count_s_s = count_s_s;
+	temp_ss_assemblage.description = string_duplicate(token);
+	temp_ss_assemblage.new_def = FALSE;
+	count_s_s = use.ss_assemblage_ptr->count_s_s;
+	temp_ss_assemblage.count_s_s = count_s_s;
 /*
  *   Malloc space for solid solutions
  */
 	/* ss_assemblage->s_s */
-	temp_s_s_assemblage.s_s =
+	temp_ss_assemblage.s_s =
 		(struct s_s *) PHRQ_malloc((size_t) count_s_s * sizeof(struct s_s));
-	if (temp_s_s_assemblage.s_s == NULL)
+	if (temp_ss_assemblage.s_s == NULL)
 		malloc_error();
 	for (i = 0; i < count_s_s; i++)
 	{
-		memcpy(&(temp_s_s_assemblage.s_s[i]),
-			   &(use.s_s_assemblage_ptr->s_s[i]), sizeof(struct s_s));
+		memcpy(&(temp_ss_assemblage.s_s[i]),
+			   &(use.ss_assemblage_ptr->s_s[i]), sizeof(struct s_s));
 		/* 
 		 * Malloc space for solid soution components
 		 */
-		count_comps = use.s_s_assemblage_ptr->s_s[i].count_comps;
-		temp_s_s_assemblage.s_s[i].comps =
+		count_comps = use.ss_assemblage_ptr->s_s[i].count_comps;
+		temp_ss_assemblage.s_s[i].comps =
 			(struct s_s_comp *) PHRQ_malloc((size_t) count_comps *
 											sizeof(struct s_s_comp));
-		if (temp_s_s_assemblage.s_s[i].comps == NULL)
+		if (temp_ss_assemblage.s_s[i].comps == NULL)
 			malloc_error();
-		memcpy((void *) temp_s_s_assemblage.s_s[i].comps,
-			   (void *) use.s_s_assemblage_ptr->s_s[i].comps,
+		memcpy((void *) temp_ss_assemblage.s_s[i].comps,
+			   (void *) use.ss_assemblage_ptr->s_s[i].comps,
 			   (size_t) count_comps * sizeof(struct s_s_comp));
 
 		/* set initial moles for quick setup */
 		for (j = 0; j < count_comps; j++)
 		{
-			temp_s_s_assemblage.s_s[i].comps[j].initial_moles =
-				temp_s_s_assemblage.s_s[i].comps[j].moles;
+			temp_ss_assemblage.s_s[i].comps[j].initial_moles =
+				temp_ss_assemblage.s_s[i].comps[j].moles;
 		}
 	}
 /*
  *   Finish up
  */
-	s_s_assemblage_ptr = s_s_assemblage_bsearch(n_user, &n);
-	if (s_s_assemblage_ptr == NULL)
+	ss_assemblage_ptr = ss_assemblage_bsearch(n_user, &n);
+	if (ss_assemblage_ptr == NULL)
 	{
-		space((void **) ((void *) &ss_assemblage), count_s_s_assemblage,
-			  &max_s_s_assemblage, sizeof(struct ss_assemblage));
-		n = count_s_s_assemblage++;
+		space((void **) ((void *) &ss_assemblage), count_ss_assemblage,
+			  &max_ss_assemblage, sizeof(struct ss_assemblage));
+		n = count_ss_assemblage++;
 	}
 	else
 	{
-		s_s_assemblage_free(&ss_assemblage[n]);
+		ss_assemblage_free(&ss_assemblage[n]);
 	}
-	memcpy(&ss_assemblage[n], &temp_s_s_assemblage,
+	memcpy(&ss_assemblage[n], &temp_ss_assemblage,
 		   sizeof(struct ss_assemblage));
 	/* sort only if necessary */
-	if (n == count_s_s_assemblage - 1 && count_s_s_assemblage > 1)
+	if (n == count_ss_assemblage - 1 && count_ss_assemblage > 1)
 	{
 		if (ss_assemblage[n].n_user < ss_assemblage[n - 1].n_user)
 		{
 			qsort(ss_assemblage,
-				  (size_t) count_s_s_assemblage,
+				  (size_t) count_ss_assemblage,
 				  (size_t) sizeof(struct ss_assemblage),
-				  s_s_assemblage_compare);
+				  ss_assemblage_compare);
 		}
 	}
-	use.s_s_assemblage_ptr = NULL;
+	use.ss_assemblage_ptr = NULL;
 	return (OK);
 }
 /* ---------------------------------------------------------------------- */
@@ -2717,12 +2717,12 @@ copy_use(int i)
 /*
  *   Find solid solution
  */
-	if (use.s_s_assemblage_in == TRUE)
+	if (use.ss_assemblage_in == TRUE)
 	{
-		s_s_assemblage_duplicate(use.n_s_s_assemblage_user, i);
+		ss_assemblage_duplicate(use.n_ss_assemblage_user, i);
 		save.ss_assemblage = TRUE;
-		save.n_s_s_assemblage_user = i;
-		save.n_s_s_assemblage_user_end = i;
+		save.n_ss_assemblage_user = i;
+		save.n_ss_assemblage_user_end = i;
 	}
 	else
 	{
@@ -3173,19 +3173,19 @@ copy_entities(void)
 			}
 		}
 	}
-	if (copy_s_s_assemblage.count > 0)
+	if (copy_ss_assemblage.count > 0)
 	{
-		for (j = 0; j < copy_s_s_assemblage.count; j++)
+		for (j = 0; j < copy_ss_assemblage.count; j++)
 		{
-			if (s_s_assemblage_bsearch(copy_s_s_assemblage.n_user[j], &n) !=
+			if (ss_assemblage_bsearch(copy_ss_assemblage.n_user[j], &n) !=
 				NULL)
 			{
-				for (i = copy_s_s_assemblage.start[j];
-					i <= copy_s_s_assemblage.end[j]; i++)
+				for (i = copy_ss_assemblage.start[j];
+					i <= copy_ss_assemblage.end[j]; i++)
 				{
-					if (i == copy_s_s_assemblage.n_user[j])
+					if (i == copy_ss_assemblage.n_user[j])
 						continue;
-					s_s_assemblage_duplicate(copy_s_s_assemblage.n_user[j],
+					ss_assemblage_duplicate(copy_ss_assemblage.n_user[j],
 						i);
 				}
 			}
@@ -3203,7 +3203,7 @@ copy_entities(void)
 	copy_pp_assemblage.count = 0;
 	copy_exchange.count = 0;
 	copy_surface.count = 0;
-	copy_s_s_assemblage.count = 0;
+	copy_ss_assemblage.count = 0;
 	copy_gas_phase.count = 0;
 	copy_kinetics.count = 0;
 	copy_mix.count = 0;
@@ -3440,8 +3440,8 @@ save_init(int i)
 	save.n_gas_phase_user = i;
 	save.n_gas_phase_user_end = i;
 	save.ss_assemblage = i;
-	save.n_s_s_assemblage_user = i;
-	save.n_s_s_assemblage_user_end = i;
+	save.n_ss_assemblage_user = i;
+	save.n_ss_assemblage_user_end = i;
 }
 void Phreeqc::
 use_init(void)
@@ -3500,10 +3500,10 @@ use_init(void)
 	//use.n_gas_phase= -1;
 	use.gas_phase_ptr = NULL;
 
-	use.s_s_assemblage_in = FALSE;
-	use.n_s_s_assemblage_user= -1;
-	use.n_s_s_assemblage= -1;
-	use.s_s_assemblage_ptr = NULL;
+	use.ss_assemblage_in = FALSE;
+	use.n_ss_assemblage_user= -1;
+	use.n_ss_assemblage= -1;
+	use.ss_assemblage_ptr = NULL;
 
 	use.trans_in = FALSE;
 	use.advect_in = FALSE;

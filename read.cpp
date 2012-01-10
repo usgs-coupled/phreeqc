@@ -58,8 +58,8 @@ read_input(void)
 	use.pressure_ptr = NULL;
 	use.gas_phase_in = FALSE;
 	use.gas_phase_ptr = NULL;
-	use.s_s_assemblage_in = FALSE;
-	use.s_s_assemblage_ptr = NULL;
+	use.ss_assemblage_in = FALSE;
+	use.ss_assemblage_ptr = NULL;
 	use.trans_in = FALSE;
 	use.advect_in = FALSE;
 
@@ -4731,8 +4731,8 @@ read_save(void)
 		break;
 	case Keywords::KEY_SOLID_SOLUTIONS:						/* solid_solutions */
 		save.ss_assemblage = TRUE;
-		save.n_s_s_assemblage_user = n_user;
-		save.n_s_s_assemblage_user_end = n_user_end;
+		save.n_ss_assemblage_user = n_user;
+		save.n_ss_assemblage_user_end = n_user_end;
 		break;
 	default:
 		input_error++;
@@ -6258,14 +6258,14 @@ read_use(void)
 		}
 		break;
 	case Keywords::KEY_SOLID_SOLUTIONS:					/* solid_solutions */
-		use.n_s_s_assemblage_user = n_user;
+		use.n_ss_assemblage_user = n_user;
 		if (n_user >= 0)
 		{
-			use.s_s_assemblage_in = TRUE;
+			use.ss_assemblage_in = TRUE;
 		}
 		else
 		{
-			use.s_s_assemblage_in = FALSE;
+			use.ss_assemblage_in = FALSE;
 		}
 		break;
 	default:
@@ -9284,30 +9284,30 @@ read_solid_solutions(void)
 /*
  *   Find old ss_assemblage or alloc space for new ss_assemblage
  */
-	if (s_s_assemblage_search(n_user, &n) != NULL)
+	if (ss_assemblage_search(n_user, &n) != NULL)
 	{
-		s_s_assemblage_free(&ss_assemblage[n]);
+		ss_assemblage_free(&ss_assemblage[n]);
 	}
 	else
 	{
-		n = count_s_s_assemblage;
-		space((void **) ((void *) &ss_assemblage), count_s_s_assemblage,
-			  &max_s_s_assemblage, sizeof(struct ss_assemblage));
-		count_s_s_assemblage++;
+		n = count_ss_assemblage;
+		space((void **) ((void *) &ss_assemblage), count_ss_assemblage,
+			  &max_ss_assemblage, sizeof(struct ss_assemblage));
+		count_ss_assemblage++;
 	}
 /*
  *   Initialize
  */
-	s_s_assemblage_init(&(ss_assemblage[n]), n_user, n_user_end,
+	ss_assemblage_init(&(ss_assemblage[n]), n_user, n_user_end,
 						description);
 	free_check_null(description);
 /*
  *   Set use data to first read
  */
-	if (use.s_s_assemblage_in == FALSE)
+	if (use.ss_assemblage_in == FALSE)
 	{
-		use.s_s_assemblage_in = TRUE;
-		use.n_s_s_assemblage_user = n_user;
+		use.ss_assemblage_in = TRUE;
+		use.n_ss_assemblage_user = n_user;
 	}
 /*
  *   Read solid solutions
@@ -10503,7 +10503,7 @@ read_copy(void)
 		copier_add(&copy_pressure, n_user, n_user_start, n_user_end);
 		copier_add(&copy_gas_phase, n_user, n_user_start, n_user_end);
 		copier_add(&copy_kinetics, n_user, n_user_start, n_user_end);
-		copier_add(&copy_s_s_assemblage, n_user, n_user_start, n_user_end);
+		copier_add(&copy_ss_assemblage, n_user, n_user_start, n_user_end);
 		break;
 	case Keywords::KEY_SOLUTION:								/* Solution */
 		copier_add(&copy_solution, n_user, n_user_start, n_user_end);
@@ -10536,7 +10536,7 @@ read_copy(void)
 		copier_add(&copy_kinetics, n_user, n_user_start, n_user_end);
 		break;
 	case Keywords::KEY_SOLID_SOLUTIONS:							/* solid_solutions */
-		copier_add(&copy_s_s_assemblage, n_user, n_user_start, n_user_end);
+		copier_add(&copy_ss_assemblage, n_user, n_user_start, n_user_end);
 		break;
 	default:
 		error_msg("Error in switch for READ_COPY.", STOP);

@@ -1572,7 +1572,7 @@ set_initial_moles(int i)
 	//struct pp_assemblage *pp_assemblage_ptr;
 	//struct gas_phase *gas_phase_ptr;
 	struct kinetics *kinetics_ptr;
-	struct ss_assemblage *s_s_assemblage_ptr;
+	struct ss_assemblage *ss_assemblage_ptr;
 	//struct exchange *exchange_ptr;
 	char token[MAX_LENGTH], token1[MAX_LENGTH], *ptr;
 	int j, k, l, n;
@@ -1636,14 +1636,14 @@ set_initial_moles(int i)
 	/*
 	 *   Solid solutions
 	 */
-	s_s_assemblage_ptr = s_s_assemblage_bsearch(i, &n);
-	if (s_s_assemblage_ptr != NULL)
+	ss_assemblage_ptr = ss_assemblage_bsearch(i, &n);
+	if (ss_assemblage_ptr != NULL)
 	{
-		for (k = 0; k < s_s_assemblage_ptr->count_s_s; k++)
+		for (k = 0; k < ss_assemblage_ptr->count_s_s; k++)
 		{
-			for (j = 0; j < s_s_assemblage_ptr->s_s[k].count_comps; j++)
-				s_s_assemblage_ptr->s_s[k].comps[j].init_moles =
-					s_s_assemblage_ptr->s_s[k].comps[j].moles;
+			for (j = 0; j < ss_assemblage_ptr->s_s[k].count_comps; j++)
+				ss_assemblage_ptr->s_s[k].comps[j].init_moles =
+					ss_assemblage_ptr->s_s[k].comps[j].moles;
 		}
 	}
 	/*

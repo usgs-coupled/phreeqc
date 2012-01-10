@@ -383,7 +383,7 @@ fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 	//struct pp_assemblage *pp_assemblage_ptr;
 	//struct exchange *exchange_ptr;
 	struct surface *surface_ptr;
-	struct ss_assemblage *s_s_assemblage_ptr;
+	struct ss_assemblage *ss_assemblage_ptr;
 	//struct gas_phase *gas_phase_ptr;
 	struct kinetics *kinetics_ptr;
 	struct kinetics_comp *kinetics_comp_ptr;
@@ -570,26 +570,26 @@ fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 			 */
 			if (n_user[Ss_phase] < 0)
 				break;
-			s_s_assemblage_ptr = s_s_assemblage_bsearch(n_user[Ss_phase], &n);
-			if (s_s_assemblage_ptr == NULL)
+			ss_assemblage_ptr = ss_assemblage_bsearch(n_user[Ss_phase], &n);
+			if (ss_assemblage_ptr == NULL)
 				break;
 			found = FALSE;
 			moles = 0.0;
-			for (j = 0; j < s_s_assemblage_ptr->count_s_s; j++)
+			for (j = 0; j < ss_assemblage_ptr->count_s_s; j++)
 			{
-				for (k = 0; k < s_s_assemblage_ptr->s_s[j].count_comps; k++)
+				for (k = 0; k < ss_assemblage_ptr->s_s[j].count_comps; k++)
 				{
-					if (s_s_assemblage_ptr->s_s[j].comps[k].phase->name ==
+					if (ss_assemblage_ptr->s_s[j].comps[k].phase->name ==
 						tally_table[i].name)
 						break;
 					if (strcmp_nocase
-						(s_s_assemblage_ptr->s_s[j].comps[k].phase->name,
+						(ss_assemblage_ptr->s_s[j].comps[k].phase->name,
 						 tally_table[i].name) == 0)
 						break;
 				}
-				if (k < s_s_assemblage_ptr->s_s[j].count_comps)
+				if (k < ss_assemblage_ptr->s_s[j].count_comps)
 				{
-					moles = s_s_assemblage_ptr->s_s[j].comps[k].moles;
+					moles = ss_assemblage_ptr->s_s[j].comps[k].moles;
 					found = TRUE;
 					break;
 				}
@@ -761,7 +761,7 @@ build_tally_table(void)
 	int count_tt_pure_phase, count_tt_ss_phase, count_tt_kinetics;
 	//struct pp_assemblage *pp_assemblage_ptr;
 	//struct pure_phase *pure_phase_ptr;
-	struct ss_assemblage *s_s_assemblage_ptr;
+	struct ss_assemblage *ss_assemblage_ptr;
 	struct s_s *s_s_ptr;
 	struct s_s_comp *s_s_comp_ptr;
 	struct kinetics *kinetics_ptr;
@@ -998,17 +998,17 @@ build_tally_table(void)
  *   Add solid-solution pure phases
  */
 	count_tt_ss_phase = 0;
-	if (count_s_s_assemblage > 0)
+	if (count_ss_assemblage > 0)
 	{
 		/* 
 		 * Go through all components of all solid solutions in solid-solution assemblages
 		 */
-		for (i = 0; i < count_s_s_assemblage; i++)
+		for (i = 0; i < count_ss_assemblage; i++)
 		{
-			s_s_assemblage_ptr = &ss_assemblage[i];
-			for (j = 0; j < s_s_assemblage_ptr->count_s_s; j++)
+			ss_assemblage_ptr = &ss_assemblage[i];
+			for (j = 0; j < ss_assemblage_ptr->count_s_s; j++)
 			{
-				s_s_ptr = &s_s_assemblage_ptr->s_s[j];
+				s_s_ptr = &ss_assemblage_ptr->s_s[j];
 				for (k = 0; k < s_s_ptr->count_comps; k++)
 				{
 					s_s_comp_ptr = &s_s_ptr->comps[k];
@@ -1244,9 +1244,9 @@ add_all_components_tally(void)
 /*
  *   Add solid-solution pure phases
  */
-	for (i = 0; i < count_s_s_assemblage; i++)
+	for (i = 0; i < count_ss_assemblage; i++)
 	{
-		add_s_s_assemblage(&ss_assemblage[i]);
+		add_ss_assemblage(&ss_assemblage[i]);
 	}
 /*
  *   Add elements in kinetic reactions

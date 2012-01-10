@@ -2296,11 +2296,11 @@ mb_s_s(void)
 /*
  *   Determines whether solid solution equation is needed
  */
-	if (s_s_unknown == NULL || use.s_s_assemblage_ptr == NULL)
+	if (s_s_unknown == NULL || use.ss_assemblage_ptr == NULL)
 		return (OK);
-	for (i = 0; i < use.s_s_assemblage_ptr->count_s_s; i++)
+	for (i = 0; i < use.ss_assemblage_ptr->count_s_s; i++)
 	{
-		s_s_ptr = &(use.s_s_assemblage_ptr->s_s[i]);
+		s_s_ptr = &(use.ss_assemblage_ptr->s_s[i]);
 		total_moles = 0;
 		for (j = 0; j < s_s_ptr->count_comps; j++)
 		{
@@ -2862,11 +2862,11 @@ calc_s_s_fractions(void)
 /*
  *  Calculate mole fractions and log lambda and derivative factors
  */
-	if (use.s_s_assemblage_ptr == NULL)
+	if (use.ss_assemblage_ptr == NULL)
 		return (OK);
-	for (i = 0; i < use.s_s_assemblage_ptr->count_s_s; i++)
+	for (i = 0; i < use.ss_assemblage_ptr->count_s_s; i++)
 	{
-		s_s_ptr = &(use.s_s_assemblage_ptr->s_s[i]);
+		s_s_ptr = &(use.ss_assemblage_ptr->s_s[i]);
 		n_tot = 0;
 		for (k = 0; k < s_s_ptr->count_comps; k++)
 		{

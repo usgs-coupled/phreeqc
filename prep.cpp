@@ -66,7 +66,7 @@ prep(void)
 		setup_surface();
 		setup_pure_phases();
 		setup_gas_phase();
-		setup_s_s_assemblage();
+		setup_ss_assemblage();
 		setup_related_surface();
 		setup_slack();
 		tidy_redox();
@@ -258,12 +258,12 @@ quick_setup(void)
 			if (x[i]->type == S_S_MOLES)
 				break;
 		}
-		for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++)
+		for (j = 0; j < use.ss_assemblage_ptr->count_s_s; j++)
 		{
-			for (k = 0; k < use.s_s_assemblage_ptr->s_s[j].count_comps; k++)
+			for (k = 0; k < use.ss_assemblage_ptr->s_s[j].count_comps; k++)
 			{
-				x[i]->s_s = &(use.s_s_assemblage_ptr->s_s[j]);
-				x[i]->s_s_comp = &(use.s_s_assemblage_ptr->s_s[j].comps[k]);
+				x[i]->s_s = &(use.ss_assemblage_ptr->s_s[j]);
+				x[i]->s_s_comp = &(use.ss_assemblage_ptr->s_s[j].comps[k]);
 				x[i]->s_s_comp_number = j;
 				x[i]->moles = x[i]->s_s_comp->moles;
 				if (x[i]->moles <= 0)
@@ -658,7 +658,7 @@ build_gas_phase(void)
 }
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-build_s_s_assemblage(void)
+build_ss_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1409,7 +1409,7 @@ build_model(void)
 	build_min_exch();
 	build_min_surface();
 	build_gas_phase();
-	build_s_s_assemblage();
+	build_ss_assemblage();
 /*
  *   Sort species list, by master only
  */
@@ -3480,7 +3480,7 @@ setup_slack(void)
 #endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-setup_s_s_assemblage(void)
+setup_ss_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -3488,46 +3488,46 @@ setup_s_s_assemblage(void)
  *   in unknown structure
  */
 	int i, j;
-	if (use.s_s_assemblage_ptr == NULL)
+	if (use.ss_assemblage_ptr == NULL)
 		return (OK);
 /*
  *   One for each component in each solid solution
  */
 	s_s_unknown = NULL;
-	for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++)
+	for (j = 0; j < use.ss_assemblage_ptr->count_s_s; j++)
 	{
-		for (i = 0; i < use.s_s_assemblage_ptr->s_s[j].count_comps; i++)
+		for (i = 0; i < use.ss_assemblage_ptr->s_s[j].count_comps; i++)
 		{
 			x[count_unknowns]->type = S_S_MOLES;
 			x[count_unknowns]->description =
-				string_hsave(use.s_s_assemblage_ptr->s_s[j].comps[i].name);
+				string_hsave(use.ss_assemblage_ptr->s_s[j].comps[i].name);
 			x[count_unknowns]->moles = 0.0;
-			if (use.s_s_assemblage_ptr->s_s[j].comps[i].moles <= 0)
+			if (use.ss_assemblage_ptr->s_s[j].comps[i].moles <= 0)
 			{
-				use.s_s_assemblage_ptr->s_s[j].comps[i].moles = MIN_TOTAL_SS;
+				use.ss_assemblage_ptr->s_s[j].comps[i].moles = MIN_TOTAL_SS;
 			}
 			x[count_unknowns]->moles =
-				use.s_s_assemblage_ptr->s_s[j].comps[i].moles;
-			use.s_s_assemblage_ptr->s_s[j].comps[i].initial_moles =
+				use.ss_assemblage_ptr->s_s[j].comps[i].moles;
+			use.ss_assemblage_ptr->s_s[j].comps[i].initial_moles =
 				x[count_unknowns]->moles;
 			x[count_unknowns]->ln_moles = log(x[count_unknowns]->moles);
-			x[count_unknowns]->s_s = &(use.s_s_assemblage_ptr->s_s[j]);
+			x[count_unknowns]->s_s = &(use.ss_assemblage_ptr->s_s[j]);
 			x[count_unknowns]->s_s_comp =
-				&(use.s_s_assemblage_ptr->s_s[j].comps[i]);
+				&(use.ss_assemblage_ptr->s_s[j].comps[i]);
 			x[count_unknowns]->s_s_comp_number = i;
 			x[count_unknowns]->phase =
-				use.s_s_assemblage_ptr->s_s[j].comps[i].phase;
+				use.ss_assemblage_ptr->s_s[j].comps[i].phase;
 			x[count_unknowns]->number = count_unknowns;
 			x[count_unknowns]->phase->dn =
-				use.s_s_assemblage_ptr->s_s[j].comps[i].dn;
+				use.ss_assemblage_ptr->s_s[j].comps[i].dn;
 			x[count_unknowns]->phase->dnb =
-				use.s_s_assemblage_ptr->s_s[j].comps[i].dnb;
+				use.ss_assemblage_ptr->s_s[j].comps[i].dnb;
 			x[count_unknowns]->phase->dnc =
-				use.s_s_assemblage_ptr->s_s[j].comps[i].dnc;
+				use.ss_assemblage_ptr->s_s[j].comps[i].dnc;
 			x[count_unknowns]->phase->log10_fraction_x =
-				use.s_s_assemblage_ptr->s_s[j].comps[i].log10_fraction_x;
+				use.ss_assemblage_ptr->s_s[j].comps[i].log10_fraction_x;
 			x[count_unknowns]->phase->log10_lambda =
-				use.s_s_assemblage_ptr->s_s[j].comps[i].log10_lambda;
+				use.ss_assemblage_ptr->s_s[j].comps[i].log10_lambda;
 			if (s_s_unknown == NULL)
 				s_s_unknown = x[count_unknowns];
 			count_unknowns++;
@@ -4921,12 +4921,12 @@ setup_unknowns(void)
 /*
  *   Count solid solutions
  */
-	if (use.s_s_assemblage_ptr != NULL)
+	if (use.ss_assemblage_ptr != NULL)
 	{
-		/*              max_unknowns += 2 * use.s_s_assemblage_ptr->count_s_s; */
-		for (i = 0; i < use.s_s_assemblage_ptr->count_s_s; i++)
+		/*              max_unknowns += 2 * use.ss_assemblage_ptr->count_s_s; */
+		for (i = 0; i < use.ss_assemblage_ptr->count_s_s; i++)
 		{
-			max_unknowns += use.s_s_assemblage_ptr->s_s[i].count_comps;
+			max_unknowns += use.ss_assemblage_ptr->s_s[i].count_comps;
 		}
 	}
 
@@ -5746,13 +5746,13 @@ k_temp(LDBLE tc, LDBLE pa) /* pa - pressure in atm */
 /*
  *    Calculate miscibility gaps for solid solutions
  */
-	if (use.s_s_assemblage_ptr != NULL)
+	if (use.ss_assemblage_ptr != NULL)
 	{
-		for (i = 0; i < use.s_s_assemblage_ptr->count_s_s; i++)
+		for (i = 0; i < use.ss_assemblage_ptr->count_s_s; i++)
 		{
-			if (fabs(tempk - use.s_s_assemblage_ptr->s_s[i].tk) > 0.01)
+			if (fabs(tempk - use.ss_assemblage_ptr->s_s[i].tk) > 0.01)
 			{
-				s_s_prep(tempk, &(use.s_s_assemblage_ptr->s_s[i]), FALSE);
+				s_s_prep(tempk, &(use.ss_assemblage_ptr->s_s[i]), FALSE);
 			}
 		}
 	}
@@ -5859,23 +5859,23 @@ save_model(void)
  */
 	last_model.ss_assemblage =
 		(const char **) free_check_null(last_model.ss_assemblage);
-	if (use.s_s_assemblage_ptr != NULL)
+	if (use.ss_assemblage_ptr != NULL)
 	{
-		last_model.count_s_s_assemblage = use.s_s_assemblage_ptr->count_s_s;
+		last_model.count_ss_assemblage = use.ss_assemblage_ptr->count_s_s;
 		last_model.ss_assemblage =
-			(const char **) PHRQ_malloc((size_t) use.s_s_assemblage_ptr->
+			(const char **) PHRQ_malloc((size_t) use.ss_assemblage_ptr->
 								  count_s_s * sizeof(char *));
 		if (last_model.ss_assemblage == NULL)
 			malloc_error();
-		for (i = 0; i < use.s_s_assemblage_ptr->count_s_s; i++)
+		for (i = 0; i < use.ss_assemblage_ptr->count_s_s; i++)
 		{
 			last_model.ss_assemblage[i] =
-				use.s_s_assemblage_ptr->s_s[i].name;
+				use.ss_assemblage_ptr->s_s[i].name;
 		}
 	}
 	else
 	{
-		last_model.count_s_s_assemblage = 0;
+		last_model.count_ss_assemblage = 0;
 		last_model.ss_assemblage = NULL;
 	}
 /*
@@ -6105,15 +6105,15 @@ check_same_model(void)
 /*
  *   Check solid solutions
  */
-	if (use.s_s_assemblage_ptr != NULL)
+	if (use.ss_assemblage_ptr != NULL)
 	{
-		if (last_model.count_s_s_assemblage !=
-			use.s_s_assemblage_ptr->count_s_s)
+		if (last_model.count_ss_assemblage !=
+			use.ss_assemblage_ptr->count_s_s)
 			return (FALSE);
-		for (i = 0; i < use.s_s_assemblage_ptr->count_s_s; i++)
+		for (i = 0; i < use.ss_assemblage_ptr->count_s_s; i++)
 		{
 			if (last_model.ss_assemblage[i] !=
-				use.s_s_assemblage_ptr->s_s[i].name)
+				use.ss_assemblage_ptr->s_s[i].name)
 			{
 				return (FALSE);
 			}

@@ -74,7 +74,7 @@ print_all(void)
 	print_user_print();
 	print_gas_phase();
 	print_pp_assemblage();
-	print_s_s_assemblage();
+	print_ss_assemblage();
 	print_surface();
 	print_exchange();
 	print_initial_solution_isotopes();
@@ -140,7 +140,7 @@ punch_all(void)
 	punch_saturation_indices();
 	punch_gas_phase();
 	punch_kinetics();
-	punch_s_s_assemblage();
+	punch_ss_assemblage();
 	punch_isotopes();
 	punch_calculate_values();
 	punch_user_punch();
@@ -643,7 +643,7 @@ print_gas_phase(void)
 }
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-print_s_s_assemblage(void)
+print_ss_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
 	/*
@@ -656,7 +656,7 @@ print_s_s_assemblage(void)
 
 	if (pr.ss_assemblage == FALSE || pr.all == FALSE)
 		return (OK);
-	if (use.s_s_assemblage_ptr == NULL)
+	if (use.ss_assemblage_ptr == NULL)
 		return (OK);
 	/*
 	 *   Print heading
@@ -669,42 +669,42 @@ print_s_s_assemblage(void)
 	/*
 	 *   Print solid solutions
 	 */
-	for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++)
+	for (j = 0; j < use.ss_assemblage_ptr->count_s_s; j++)
 	{
-		if (use.s_s_assemblage_ptr->s_s[j].s_s_in == TRUE)
+		if (use.ss_assemblage_ptr->s_s[j].s_s_in == TRUE)
 		{
 			/* solid solution name, moles */
 			output_msg(sformatf("%-15s  %22s  %11.2e\n",
-					   use.s_s_assemblage_ptr->s_s[j].name, "  ",
-					   (double) use.s_s_assemblage_ptr->s_s[j].total_moles));
+					   use.ss_assemblage_ptr->s_s[j].name, "  ",
+					   (double) use.ss_assemblage_ptr->s_s[j].total_moles));
 			/* component name, moles, delta moles, mole fraction */
-			for (i = 0; i < use.s_s_assemblage_ptr->s_s[j].count_comps; i++)
+			for (i = 0; i < use.ss_assemblage_ptr->s_s[j].count_comps; i++)
 			{
 				if (state != TRANSPORT && state != PHAST)
 				{
 					delta_moles =
-						use.s_s_assemblage_ptr->s_s[j].comps[i].moles -
-						use.s_s_assemblage_ptr->s_s[j].comps[i].
+						use.ss_assemblage_ptr->s_s[j].comps[i].moles -
+						use.ss_assemblage_ptr->s_s[j].comps[i].
 						initial_moles -
-						use.s_s_assemblage_ptr->s_s[j].comps[i].delta;
+						use.ss_assemblage_ptr->s_s[j].comps[i].delta;
 				}
 				else
 				{
 					delta_moles =
-						use.s_s_assemblage_ptr->s_s[j].comps[i].moles -
-						use.s_s_assemblage_ptr->s_s[j].comps[i].init_moles;
+						use.ss_assemblage_ptr->s_s[j].comps[i].moles -
+						use.ss_assemblage_ptr->s_s[j].comps[i].init_moles;
 				}
 				output_msg(sformatf(
 						   "%15s  %22s  %11.2e  %11.2e  %11.2e\n", " ",
-						   use.s_s_assemblage_ptr->s_s[j].comps[i].name,
-						   (double) use.s_s_assemblage_ptr->s_s[j].comps[i].
+						   use.ss_assemblage_ptr->s_s[j].comps[i].name,
+						   (double) use.ss_assemblage_ptr->s_s[j].comps[i].
 						   moles, (double) delta_moles,
-						   (double) (use.s_s_assemblage_ptr->s_s[j].comps[i].
+						   (double) (use.ss_assemblage_ptr->s_s[j].comps[i].
 									 moles /
-									 use.s_s_assemblage_ptr->s_s[j].
+									 use.ss_assemblage_ptr->s_s[j].
 									 total_moles)));
 			}
-			s_s_ptr = &(use.s_s_assemblage_ptr->s_s[j]);
+			s_s_ptr = &(use.ss_assemblage_ptr->s_s[j]);
 			if (s_s_ptr->miscibility == TRUE)
 			{
 				nc = s_s_ptr->comps[0].moles;
@@ -735,28 +735,28 @@ print_s_s_assemblage(void)
 		{
 			/* solid solution name, moles */
 			output_msg(sformatf("%-15s  %22s  %11.2e\n",
-					   use.s_s_assemblage_ptr->s_s[j].name, "  ",
+					   use.ss_assemblage_ptr->s_s[j].name, "  ",
 					   (double) 0.0));
 			/* component name, moles, delta moles, mole fraction */
-			for (i = 0; i < use.s_s_assemblage_ptr->s_s[j].count_comps; i++)
+			for (i = 0; i < use.ss_assemblage_ptr->s_s[j].count_comps; i++)
 			{
 				if (state != TRANSPORT && state != PHAST)
 				{
 					delta_moles =
-						use.s_s_assemblage_ptr->s_s[j].comps[i].moles -
-						use.s_s_assemblage_ptr->s_s[j].comps[i].
+						use.ss_assemblage_ptr->s_s[j].comps[i].moles -
+						use.ss_assemblage_ptr->s_s[j].comps[i].
 						initial_moles -
-						use.s_s_assemblage_ptr->s_s[j].comps[i].delta;
+						use.ss_assemblage_ptr->s_s[j].comps[i].delta;
 				}
 				else
 				{
 					delta_moles =
-						use.s_s_assemblage_ptr->s_s[j].comps[i].moles -
-						use.s_s_assemblage_ptr->s_s[j].comps[i].init_moles;
+						use.ss_assemblage_ptr->s_s[j].comps[i].moles -
+						use.ss_assemblage_ptr->s_s[j].comps[i].init_moles;
 				}
 				output_msg(sformatf(
 						   "%15s  %22s  %11.2e  %11.2e  %11.2e\n", " ",
-						   use.s_s_assemblage_ptr->s_s[j].comps[i].name,
+						   use.ss_assemblage_ptr->s_s[j].comps[i].name,
 						   (double) 0, (double) delta_moles, (double) 0));
 			}
 		}
@@ -2270,7 +2270,7 @@ print_using(void)
 	//struct exchange *exchange_ptr;
 	struct surface *surface_ptr;
 	//struct pp_assemblage *pp_assemblage_ptr;
-	struct ss_assemblage *s_s_assemblage_ptr;
+	struct ss_assemblage *ss_assemblage_ptr;
 	//struct gas_phase *gas_phase_ptr;
 	//struct irrev *irrev_ptr;
 	struct kinetics *kinetics_ptr;
@@ -2340,14 +2340,14 @@ print_using(void)
 		output_msg(sformatf("Using pure phase assemblage %d.\t%s\n",
 				   use.n_pp_assemblage_user, pp_assemblage_ptr->Get_description().c_str()));
 	}
-	if (use.s_s_assemblage_in == TRUE)
+	if (use.ss_assemblage_in == TRUE)
 	{
-		s_s_assemblage_ptr =
-			s_s_assemblage_bsearch(use.n_s_s_assemblage_user, &n);
+		ss_assemblage_ptr =
+			ss_assemblage_bsearch(use.n_ss_assemblage_user, &n);
 		output_msg(sformatf(
 				   "Using solid solution assemblage %d.\t%s\n",
-				   use.n_s_s_assemblage_user,
-				   s_s_assemblage_ptr->description));
+				   use.n_ss_assemblage_user,
+				   ss_assemblage_ptr->description));
 	}
 	if (use.gas_phase_in == TRUE)
 	{
@@ -2474,7 +2474,7 @@ punch_gas_phase(void)
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-punch_s_s_assemblage(void)
+punch_ss_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -2490,21 +2490,21 @@ punch_s_s_assemblage(void)
 	for (k = 0; k < punch.count_s_s; k++)
 	{
 		found = FALSE;
-		if (use.s_s_assemblage_ptr != NULL)
+		if (use.ss_assemblage_ptr != NULL)
 		{
-			for (j = 0; j < use.s_s_assemblage_ptr->count_s_s; j++)
+			for (j = 0; j < use.ss_assemblage_ptr->count_s_s; j++)
 			{
-				for (i = 0; i < use.s_s_assemblage_ptr->s_s[j].count_comps;
+				for (i = 0; i < use.ss_assemblage_ptr->s_s[j].count_comps;
 					 i++)
 				{
 					if (strcmp_nocase
 						(punch.s_s[k].name,
-						 use.s_s_assemblage_ptr->s_s[j].comps[i].name) == 0)
+						 use.ss_assemblage_ptr->s_s[j].comps[i].name) == 0)
 					{
-						if (use.s_s_assemblage_ptr->s_s[j].s_s_in == TRUE)
+						if (use.ss_assemblage_ptr->s_s[j].s_s_in == TRUE)
 						{
 							moles =
-								use.s_s_assemblage_ptr->s_s[j].comps[i].moles;
+								use.ss_assemblage_ptr->s_s[j].comps[i].moles;
 						}
 						else
 						{

@@ -30,7 +30,7 @@ tidy_model(void)
 	new_inverse = FALSE;
 	new_punch = FALSE;
 	new_surface = FALSE;
-	new_s_s_assemblage = FALSE;
+	new_ss_assemblage = FALSE;
 	new_kinetics = FALSE;
 	new_pitzer = FALSE;
 	new_named_logk = FALSE;
@@ -108,7 +108,7 @@ tidy_model(void)
 		keycount[Keywords::KEY_SOLID_SOLUTIONS_RAW] > 0		||
 		keycount[Keywords::KEY_SOLID_SOLUTIONS_MODIFY])
 	{
-		new_s_s_assemblage = TRUE;					/*"solid_solutions" */
+		new_ss_assemblage = TRUE;					/*"solid_solutions" */
 	}
 	if (keycount[Keywords::KEY_KINETICS] > 0				||
 		keycount[Keywords::KEY_KINETICS_RAW] > 0			||
@@ -165,9 +165,9 @@ tidy_model(void)
 	}
 #endif
 /* solid solutions */
-	if (new_s_s_assemblage)
+	if (new_ss_assemblage)
 	{
-		s_s_assemblage_sort();
+		ss_assemblage_sort();
 	}
 
 /* surfaces */
@@ -249,9 +249,9 @@ tidy_model(void)
 /*
  *   tidy ss_assemblage data
  */
-	if (new_model || new_s_s_assemblage)
+	if (new_model || new_ss_assemblage)
 	{
-		tidy_s_s_assemblage();
+		tidy_ss_assemblage();
 	}
 /*
  *   tidy exchange data, after pp_assemblages
@@ -1723,7 +1723,7 @@ tidy_pp_assemblage(void)
 #endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-tidy_s_s_assemblage(void)
+tidy_ss_assemblage(void)
 /* ---------------------------------------------------------------------- */
 {
 	int i, j, k, k1, n_user, last;
@@ -1735,7 +1735,7 @@ tidy_s_s_assemblage(void)
 /*
  *   Find pointers for pure phases
  */
-	for (i = 0; i < count_s_s_assemblage; i++)
+	for (i = 0; i < count_ss_assemblage; i++)
 	{
 		count_elts = 0;
 		paren_count = 0;
@@ -1900,7 +1900,7 @@ tidy_s_s_assemblage(void)
 		ss_assemblage[i].n_user_end = ss_assemblage[i].n_user;
 		for (j = n_user + 1; j <= last; j++)
 		{
-			s_s_assemblage_duplicate(n_user, j);
+			ss_assemblage_duplicate(n_user, j);
 		}
 	}
 	return (OK);
@@ -4955,7 +4955,7 @@ reset_last_model(void)
 	last_model.count_gas_phase = 0;
 	last_model.gas_phase =
 		(struct phase **) free_check_null(last_model.gas_phase);
-	last_model.count_s_s_assemblage = 0;
+	last_model.count_ss_assemblage = 0;
 	last_model.ss_assemblage =
 		(const char **) free_check_null(last_model.ss_assemblage);
 	last_model.count_pp_assemblage = 0;

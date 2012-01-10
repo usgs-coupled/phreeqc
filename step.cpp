@@ -31,7 +31,7 @@ step(LDBLE step_fraction)
 	LDBLE difftemp;
 	int step_number;
 	cxxPPassemblage *pp_assemblage_save = NULL;
-	struct ss_assemblage *s_s_assemblage_save = NULL;
+	struct ss_assemblage *ss_assemblage_save = NULL;
 /*
  *   Zero out global solution data
  */
@@ -148,16 +148,16 @@ step(LDBLE step_fraction)
 /*
  *   Solid solutions
  */
-	if (use.s_s_assemblage_ptr != NULL)
+	if (use.ss_assemblage_ptr != NULL)
 	{
-		s_s_assemblage_save =
+		ss_assemblage_save =
 			(struct ss_assemblage *)
 			PHRQ_malloc(sizeof(struct ss_assemblage));
-		if (s_s_assemblage_save == NULL)
+		if (ss_assemblage_save == NULL)
 			malloc_error();
-		s_s_assemblage_copy(use.s_s_assemblage_ptr, s_s_assemblage_save,
-							use.s_s_assemblage_ptr->n_user);
-		add_s_s_assemblage(use.s_s_assemblage_ptr);
+		ss_assemblage_copy(use.ss_assemblage_ptr, ss_assemblage_save,
+							use.ss_assemblage_ptr->n_user);
+		add_ss_assemblage(use.ss_assemblage_ptr);
 	}
 /*
  *   Check that elements are available for gas components,
@@ -173,9 +173,9 @@ step(LDBLE step_fraction)
 		cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
 		pp_assemblage_check(pp_assemblage_ptr);
 	}
-	if (use.s_s_assemblage_ptr != NULL)
+	if (use.ss_assemblage_ptr != NULL)
 	{
-		s_s_assemblage_check(use.s_s_assemblage_ptr);
+		ss_assemblage_check(use.ss_assemblage_ptr);
 	}
 /*
  *   Check that element moles are >= zero
@@ -188,15 +188,15 @@ step(LDBLE step_fraction)
 			Rxn_pp_assemblage_map[pp_assemblage_save->Get_n_user()] = *pp_assemblage_save;
 			use.pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, pp_assemblage_save->Get_n_user());
 		}
-		if (use.s_s_assemblage_ptr != NULL)
+		if (use.ss_assemblage_ptr != NULL)
 		{
-			s_s_assemblage_free(use.s_s_assemblage_ptr);
-			s_s_assemblage_copy(s_s_assemblage_save, use.s_s_assemblage_ptr,
-								use.s_s_assemblage_ptr->n_user);
-			s_s_assemblage_free(s_s_assemblage_save);
-			s_s_assemblage_save =
+			ss_assemblage_free(use.ss_assemblage_ptr);
+			ss_assemblage_copy(ss_assemblage_save, use.ss_assemblage_ptr,
+								use.ss_assemblage_ptr->n_user);
+			ss_assemblage_free(ss_assemblage_save);
+			ss_assemblage_save =
 				(struct ss_assemblage *)
-				free_check_null(s_s_assemblage_save);
+				free_check_null(ss_assemblage_save);
 		}
 		return (MASS_BALANCE);
 	}
@@ -217,11 +217,11 @@ step(LDBLE step_fraction)
 		delete pp_assemblage_save;
 		pp_assemblage_save = NULL;
 	}
-	if (s_s_assemblage_save != NULL)
+	if (ss_assemblage_save != NULL)
 	{
-		s_s_assemblage_free(s_s_assemblage_save);
-		s_s_assemblage_save =
-			(struct ss_assemblage *) free_check_null(s_s_assemblage_save);
+		ss_assemblage_free(ss_assemblage_save);
+		ss_assemblage_save =
+			(struct ss_assemblage *) free_check_null(ss_assemblage_save);
 	}
 
 	//
@@ -229,7 +229,7 @@ step(LDBLE step_fraction)
 	// reaction, kinetics
 	// 
 	// Determine system totals, calculate maximum mineral precipitation
-	if (use.pp_assemblage_in || use.s_s_assemblage_in)
+	if (use.pp_assemblage_in || use.ss_assemblage_in)
 	{
 		cxxStorageBin sys_bin(phrq_io);
 		//cxxSolution soln(PHREEQC_THIS_COMMA -1, phrq_io);
@@ -243,9 +243,9 @@ step(LDBLE step_fraction)
 			cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
 			sys_bin.Set_PPassemblage(-1, *pp_assemblage_ptr);
 		}
-		if (use.s_s_assemblage_in)
+		if (use.ss_assemblage_in)
 		{
-			cxxSSassemblage ss(use.s_s_assemblage_ptr);
+			cxxSSassemblage ss(use.ss_assemblage_ptr);
 			sys_bin.Set_SSassemblage(-1, ss);
 		}
 		sys_bin.Set_System(-1);
@@ -275,7 +275,7 @@ step(LDBLE step_fraction)
 				p_ptr->delta_max = min;
 			}
 		}
-		if (use.s_s_assemblage_in)
+		if (use.ss_assemblage_in)
 		{
 			cxxSSassemblage *ss = sys_bin.Get_SSassemblage(-1);
 			std::map <std::string, cxxSS>::const_iterator it; 
@@ -1261,7 +1261,7 @@ add_gas_phase(cxxGasPhase *gas_phase_ptr)
 }
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-add_s_s_assemblage(struct ss_assemblage *s_s_assemblage_ptr)
+add_ss_assemblage(struct ss_assemblage *ss_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1274,18 +1274,18 @@ add_s_s_assemblage(struct ss_assemblage *s_s_assemblage_ptr)
 	char token[MAX_LENGTH];
 	char *ptr;
 
-	if (s_s_assemblage_ptr == NULL)
+	if (ss_assemblage_ptr == NULL)
 		return (OK);
 	count_elts = 0;
 	paren_count = 0;
 /*
  *   Check that all elements are in solution for phases with greater than zero mass
  */
-	for (i = 0; i < s_s_assemblage_ptr->count_s_s; i++)
+	for (i = 0; i < ss_assemblage_ptr->count_s_s; i++)
 	{
 		count_elts = 0;
 		paren_count = 0;
-		s_s_ptr = &(s_s_assemblage_ptr->s_s[i]);
+		s_s_ptr = &(ss_assemblage_ptr->s_s[i]);
 		for (j = 0; j < s_s_ptr->count_comps; j++)
 		{
 			amount_to_add = 0.0;
@@ -1631,7 +1631,7 @@ pp_assemblage_check(struct pp_assemblage *pp_assemblage_ptr)
 #endif
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
-s_s_assemblage_check(struct ss_assemblage *s_s_assemblage_ptr)
+ss_assemblage_check(struct ss_assemblage *ss_assemblage_ptr)
 /* ---------------------------------------------------------------------- */
 {
 /*
@@ -1640,20 +1640,20 @@ s_s_assemblage_check(struct ss_assemblage *s_s_assemblage_ptr)
 	int i, j, k, l;
 	struct master *master_ptr;
 
-	if (s_s_assemblage_ptr == NULL)
+	if (ss_assemblage_ptr == NULL)
 		return (OK);
 /*
  *   Check that all elements are in solution for phases with zero mass
  */
-	for (i = 0; i < s_s_assemblage_ptr->count_s_s; i++)
+	for (i = 0; i < ss_assemblage_ptr->count_s_s; i++)
 	{
-		for (j = 0; j < s_s_assemblage_ptr->s_s[i].count_comps; j++)
+		for (j = 0; j < ss_assemblage_ptr->s_s[i].count_comps; j++)
 		{
 			count_elts = 0;
 			paren_count = 0;
-			if (s_s_assemblage_ptr->s_s[i].comps[j].moles <= 0.0)
+			if (ss_assemblage_ptr->s_s[i].comps[j].moles <= 0.0)
 			{
-				add_elt_list(s_s_assemblage_ptr->s_s[i].comps[j].phase->
+				add_elt_list(ss_assemblage_ptr->s_s[i].comps[j].phase->
 							 next_elt, 1.0);
 				for (l = 0; l < count_elts; l++)
 				{
@@ -1678,7 +1678,7 @@ s_s_assemblage_check(struct ss_assemblage *s_s_assemblage_ptr)
 							error_string = sformatf(
 									"Element %s is contained in solid solution %s (which has 0.0 mass),\nbut is not in solution or other phases.",
 									elt_list[l].elt->name,
-									s_s_assemblage_ptr->s_s[i].comps[j].
+									ss_assemblage_ptr->s_s[i].comps[j].
 									phase->name);
 							warning_msg(error_string);
 						}

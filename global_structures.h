@@ -243,7 +243,7 @@ struct model
 	int count_gas_phase;
 	struct phase **gas_phase;
 
-	int count_s_s_assemblage;
+	int count_ss_assemblage;
 	const char **ss_assemblage;
 
 	int count_pp_assemblage;
@@ -484,8 +484,8 @@ struct save
 	int n_gas_phase_user;
 	int n_gas_phase_user_end;
 	int ss_assemblage;
-	int n_s_s_assemblage_user;
-	int n_s_s_assemblage_user_end;
+	int n_ss_assemblage_user;
+	int n_ss_assemblage_user_end;
 };
 /*----------------------------------------------------------------------
  *   Use
@@ -551,10 +551,10 @@ struct Use
 	//struct gas_phase *gas_phase_ptr;
 	void * gas_phase_ptr;
 
-	int s_s_assemblage_in;
-	int n_s_s_assemblage_user;
-	int n_s_s_assemblage;
-	struct ss_assemblage *s_s_assemblage_ptr;
+	int ss_assemblage_in;
+	int n_ss_assemblage_user;
+	int n_ss_assemblage;
+	struct ss_assemblage *ss_assemblage_ptr;
 
 	int trans_in;
 	int advect_in;
