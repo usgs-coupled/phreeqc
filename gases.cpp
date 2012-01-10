@@ -358,10 +358,10 @@ calc_PR(void)
 {
 	//int i, i1;
 	LDBLE T_c, P_c;
-	LDBLE A, B, B_r, b2, kk, oo, a_aa, T_r;
-	LDBLE m_sum, b_sum, a_aa_sum, a_aa_sum2;
+	LDBLE A, B, B_r, /*b2,*/ kk, oo, a_aa, T_r;
+	LDBLE m_sum, /*b_sum, a_aa_sum,*/ a_aa_sum2;
 	LDBLE phi;
-	LDBLE R_TK, R = R_LITER_ATM; /* L atm / (K mol) */
+	LDBLE /*R_TK,*/ R = R_LITER_ATM; /* L atm / (K mol) */
 	LDBLE r3[4], r3_12, rp, rp3, rq, rz, ri, ri1, one_3 = 0.33333333333333333;
 	LDBLE disct, vinit, v1, ddp, dp_dv, dp_dv2;
 	int it;
@@ -369,6 +369,7 @@ calc_PR(void)
 	LDBLE V_m = 0, P = 0;
 
 	LDBLE TK = tk_x;
+	bool halved;
 	R_TK = R * TK;
 	m_sum = b_sum = a_aa_sum = 0.0;
 	size_t i;
@@ -435,6 +436,28 @@ calc_PR(void)
 				continue;
 			a_aa = sqrt(phase_ptr->pr_a * phase_ptr->pr_alpha *
 				        phase_ptr1->pr_a * phase_ptr1->pr_alpha);
+			if (!strcmp(phase_ptr->name, "H2O(g)"))
+			{
+				if (!strcmp(phase_ptr1->name, "CO2(g)"))
+					a_aa *= 0.81; // Soreide and Whitson, 1992, FPE 77, 217
+				else if (!strcmp(phase_ptr1->name, "H2S(g)"))
+					a_aa *= 0.81;
+				else if (!strcmp(phase_ptr1->name, "CH4(g)"))
+					a_aa *= 0.51;
+				else if (!strcmp(phase_ptr1->name, "N2(g)"))
+					a_aa *= 0.51;
+			}
+			if (!strcmp(phase_ptr1->name, "H2O(g)"))
+			{
+				if (!strcmp(phase_ptr->name, "CO2(g)"))
+					a_aa *= 0.81;
+				else if (!strcmp(phase_ptr->name, "H2S(g)"))
+					a_aa *= 0.81;
+				else if (!strcmp(phase_ptr->name, "CH4(g)"))
+					a_aa *= 0.51;
+				else if (!strcmp(phase_ptr->name, "N2(g)"))
+					a_aa *= 0.51;
+			}
 			a_aa_sum += phase_ptr->fraction_x * phase_ptr1->fraction_x * a_aa;
 			a_aa_sum2 += phase_ptr1->fraction_x * a_aa;
 		}
@@ -446,7 +469,7 @@ calc_PR(void)
 	{
 		V_m = gas_phase_ptr->Get_volume() / m_sum;
 		P = R_TK / (V_m - b_sum) - a_aa_sum / (V_m * (V_m + 2 * b_sum) - b2);
-		if (P < 150)
+		if (iterations > 0 && P < 150)
 		{
 			// check for 3-roots...
 			r3[1] = b_sum - R_TK / P;
@@ -462,42 +485,48 @@ calc_PR(void)
 			{
 				// 3-roots, find the largest P...
 				it = 0;
+				halved = false;
 				ddp = 1e-9;
-				v1 = vinit = 0.4;
-				dp_dv = -R_TK / ((v1 - b_sum) * (v1 - b_sum)) +
-					a_aa_sum * (2 * v1 + 2 * b_sum) /
-					pow((v1 * v1 + 2. * b_sum * v1 - b2), 2);
+				v1 = vinit = 0.429;
+				dp_dv = f_Vm(v1, this);
 				while (fabs(dp_dv) > 1e-11 && it < 40)
 				{
 					it +=1;
-					v1 -= ddp;
-					dp_dv2 = -R_TK / ((v1 - b_sum) * (v1 - b_sum)) +
-						a_aa_sum * (2 * v1 + 2 * b_sum) /
-						pow((v1 * v1 + 2. * b_sum * v1 - b2), 2);
-					v1 -= (dp_dv * ddp / (dp_dv - dp_dv2) - ddp);
-					if (v1 > vinit || v1 < 0.03)
+					dp_dv2 = f_Vm(v1 - ddp, this);
+					v1 -= (dp_dv * ddp / (dp_dv - dp_dv2));
+					if (!halved && (v1 > vinit || v1 < 0.03))
 					{
-						//if (vinit < 0.1)
-						//	vinit -= 0.01;
-						//else 
-							vinit -= 0.05;
-						if (vinit < 0.06) // 0.01
-							it = 40;
+						vinit -= 0.05;
+						if (vinit < 0.03)
+						{
+							vinit = halve(f_Vm, 0.03, 1.0, 1e-3);
+							if (f_Vm(vinit - 2e-3, this) < 0)
+								vinit = halve(f_Vm, vinit + 2e-3, 1.0, 1e-3);
+							halved = true;
+						}
 						v1 = vinit;
 					}
-					dp_dv = -R_TK / ((v1 - b_sum) * (v1 - b_sum)) +
-						a_aa_sum * (2 * v1 + 2 * b_sum) /
-						pow((v1 * v1 + 2. * b_sum * v1 - b2), 2);
+					dp_dv = f_Vm(v1, this);
+					if (fabs(dp_dv) < 1e-11)
+					{
+						if (f_Vm(v1 - 1e-4, this) < 0)
+						{
+							v1 = halve(f_Vm, v1 + 1e-4, 1.0, 1e-3);
+							dp_dv = f_Vm(v1, this);
+						}
+					}
 				}
 				if (it == 40)
 				{
 // accept a (possible) whobble in the curve...
 //					error_msg("No convergence when calculating P in Peng-Robinson.", STOP);
 				}
-				else if (V_m < v1)
+				if (V_m < v1)
 					P = R_TK / (v1 - b_sum) - a_aa_sum / (v1 * (v1 + 2 * b_sum) - b2);
 			}
 		}
+		if (P <= 0) // iterations = -1
+			P = 1.;
 		gas_phase_ptr->Set_total_p(P);												// phase_ptr->total_p updated
 		gas_phase_ptr->Set_v_m(V_m);
 	}

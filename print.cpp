@@ -634,6 +634,8 @@ print_gas_phase(void)
 				   (double) initial_moles, 
 				   (double) moles,
 				   (double) delta_moles));
+		if (!strcmp(phase_ptr->name, "H2O(g)") && phase_ptr->p_soln_x == 90)
+			output_msg("       WARNING: The pressure of H2O(g) is above program's limit: use the polynomial for log_k.\n");
 
 	}
 	output_msg("\n");
@@ -2423,7 +2425,7 @@ punch_gas_phase(void)
 		p = gas_phase_ptr->Get_total_p();
 		total_moles = gas_phase_ptr->Get_total_moles();
 		volume = total_moles * R_LITER_ATM * tk_x / gas_phase_ptr->Get_total_p();
- 		if (gas_phase_ptr->Get_v_m() >= 0.03)
+ 		if (gas_phase_ptr->Get_v_m() <= 0.03)
  			volume = 0.03 * gas_phase_ptr->Get_total_moles();
 	}
 	if (punch.high_precision == FALSE)

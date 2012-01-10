@@ -2767,6 +2767,8 @@ calc_gas_pressures(void)
 				lp += rxn_ptr->s->la * rxn_ptr->coef;
 			}
 			phase_ptr->p_soln_x = exp(LOG_10 * (lp - phase_ptr->pr_si_f));
+			if (!strcmp(phase_ptr->name, "H2O(g)") && phase_ptr->p_soln_x > 90)
+					phase_ptr->p_soln_x = 90;
 
 			if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_PRESSURE)
 			{
@@ -2781,11 +2783,12 @@ calc_gas_pressures(void)
 				{
 					lp = phase_ptr->p_soln_x / gas_phase_ptr->Get_total_p() *
 						gas_phase_ptr->Get_volume() / V_m;
-					phase_ptr->moles_x = lp;
-					//if (iterations > 100)
-					//{
-					//	lp *= 1.0; /* debug */
-					//}
+					if (lp > 0)
+						phase_ptr->moles_x = lp;
+					if (iterations > 50)
+					{
+						lp *= 1.0; /* debug */
+					}
 				} else
 				{
 					phase_ptr->moles_x = phase_ptr->p_soln_x *

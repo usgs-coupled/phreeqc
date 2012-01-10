@@ -4002,23 +4002,24 @@ calc_PR(std::vector<struct phase *> phase_ptrs, LDBLE P, LDBLE TK, LDBLE V_m)
   pr_si_f = log10(phi_i) -  Delta_V_i * (P - 1) / (2.303 * R * TK);
 */
 {
-	//int i, i1;
+	int i, i1, n_g = phase_ptrs.size();
 	LDBLE T_c, P_c;
-	LDBLE A, B, B_r, b2, kk, oo, a_aa, T_r;
-	LDBLE m_sum, b_sum, a_aa_sum, a_aa_sum2;
+	LDBLE A, B, B_r, /*b2,*/ kk, oo, a_aa, T_r;
+	LDBLE m_sum, /*b_sum, a_aa_sum,*/ a_aa_sum2;
 	LDBLE phi;
-	LDBLE R_TK, R = R_LITER_ATM; /* L atm / (K mol) */
+	LDBLE /*R_TK,*/ R = R_LITER_ATM; /* L atm / (K mol) */
 	LDBLE r3[4], r3_12, rp, rp3, rq, rz, ri, ri1, one_3 = 0.33333333333333333;
 	LDBLE disct, vinit, v1, ddp, dp_dv, dp_dv2;
 	int it;
 	struct phase *phase_ptr, *phase_ptr1;
 	cxxGasPhase * gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+	bool halved;
 	R_TK = R * TK;
 	m_sum = b_sum = a_aa_sum = 0.0;
-	for (size_t i = 0; i < phase_ptrs.size(); i++)
+	for (i = 0; i < n_g; i++)
 	{
 		phase_ptr = phase_ptrs[i];
-		if (phase_ptrs.size() > 1)
+		if (n_g > 1)
 		{
 			if (phase_ptr->moles_x == 0)
 				continue;
@@ -4049,10 +4050,10 @@ calc_PR(std::vector<struct phase *> phase_ptrs, LDBLE P, LDBLE TK, LDBLE V_m)
 			phase_ptr->pr_in = true;
 		}
 	}
-	for (size_t i = 0; i < phase_ptrs.size(); i++)
+	for (i = 0; i < n_g; i++)
 	{
 		phase_ptr = phase_ptrs[i];
-		if (phase_ptrs.size() == 1)
+		if (n_g == 1)
 		{
 			phase_ptr->fraction_x = 1.0;
 			break;
@@ -4062,14 +4063,14 @@ calc_PR(std::vector<struct phase *> phase_ptrs, LDBLE P, LDBLE TK, LDBLE V_m)
 		phase_ptr->fraction_x = phase_ptr->moles_x / m_sum;
 	}
 	 
-	for (size_t i = 0; i < phase_ptrs.size(); i++)
+	for (i = 0; i < n_g; i++)
 	{
 		a_aa_sum2 = 0.0;
 		phase_ptr = phase_ptrs[i];
 		if (phase_ptr->t_c == 0.0 || phase_ptr->p_c == 0.0)
 			continue;
 		b_sum += phase_ptr->fraction_x * phase_ptr->pr_b;
-		for (size_t i1 = 0; i1 < phase_ptrs.size(); i1++)
+		for (i1 = 0; i1 < n_g; i1++)
 		{
 			phase_ptr1 = phase_ptrs[i1];
 			if (phase_ptr1->t_c == 0.0 || phase_ptr1->p_c == 0.0)
@@ -4078,6 +4079,28 @@ calc_PR(std::vector<struct phase *> phase_ptrs, LDBLE P, LDBLE TK, LDBLE V_m)
 				continue;
 			a_aa = sqrt(phase_ptr->pr_a * phase_ptr->pr_alpha *
 				        phase_ptr1->pr_a * phase_ptr1->pr_alpha);
+			if (!strcmp(phase_ptr->name, "H2O(g)"))
+			{
+				if (!strcmp(phase_ptr1->name, "CO2(g)"))
+					a_aa *= 0.81; // Soreide and Whitson, 1992, FPE 77, 217
+				else if (!strcmp(phase_ptr1->name, "H2S(g)"))
+					a_aa *= 0.81;
+				else if (!strcmp(phase_ptr1->name, "CH4(g)"))
+					a_aa *= 0.51;
+				else if (!strcmp(phase_ptr1->name, "N2(g)"))
+					a_aa *= 0.51;
+			}
+			if (!strcmp(phase_ptr1->name, "H2O(g)"))
+			{
+				if (!strcmp(phase_ptr->name, "CO2(g)"))
+					a_aa *= 0.81;
+				else if (!strcmp(phase_ptr->name, "H2S(g)"))
+					a_aa *= 0.81;
+				else if (!strcmp(phase_ptr->name, "CH4(g)"))
+					a_aa *= 0.51;
+				else if (!strcmp(phase_ptr->name, "N2(g)"))
+					a_aa *= 0.51;
+			}
 			a_aa_sum += phase_ptr->fraction_x * phase_ptr1->fraction_x * a_aa;
 			a_aa_sum2 += phase_ptr1->fraction_x * a_aa;
 		}
@@ -4088,7 +4111,7 @@ calc_PR(std::vector<struct phase *> phase_ptrs, LDBLE P, LDBLE TK, LDBLE V_m)
 	if (V_m)
 	{
 		P = R_TK / (V_m - b_sum) - a_aa_sum / (V_m * (V_m + 2 * b_sum) - b2);
-		if (P < 150)
+		if (iterations > 0 && P < 150)
 		{
 			// check for 3-roots...
 			r3[1] = b_sum - R_TK / P;
@@ -4100,46 +4123,54 @@ calc_PR(std::vector<struct phase *> phase_ptrs, LDBLE P, LDBLE TK, LDBLE V_m)
 				r3[1] * r3[1] * r3[2] * r3[2] -
 				4. * pow(r3[2], 3) - 
 				27. * r3[3] * r3[3];
+			//if (iterations > 50)
+			//	it = 0;	// debug
 			if (disct > 0)
 			{
 				// 3-roots, find the largest P...
 				it = 0;
+				halved = false;
 				ddp = 1e-9;
-				v1 = vinit = 0.4;
-				dp_dv = -R_TK / ((v1 - b_sum) * (v1 - b_sum)) +
-					a_aa_sum * (2 * v1 + 2 * b_sum) /
-					pow((v1 * v1 + 2. * b_sum * v1 - b2), 2);
+				v1 = vinit = 0.429;
+				dp_dv = f_Vm(v1, this);
 				while (fabs(dp_dv) > 1e-11 && it < 40)
 				{
 					it +=1;
-					v1 -= ddp;
-					dp_dv2 = -R_TK / ((v1 - b_sum) * (v1 - b_sum)) +
-						a_aa_sum * (2 * v1 + 2 * b_sum) /
-						pow((v1 * v1 + 2. * b_sum * v1 - b2), 2);
-					v1 -= (dp_dv * ddp / (dp_dv - dp_dv2) - ddp);
-					if (v1 > vinit || v1 < 0.03)
+					dp_dv2 = f_Vm(v1 - ddp, this);
+					v1 -= (dp_dv * ddp / (dp_dv - dp_dv2));
+					if (!halved && (v1 > vinit || v1 < 0.03))
 					{
-						//if (vinit < 0.1)
-						//	vinit -= 0.01;
-						//else 
-							vinit -= 0.05;
-						if (vinit < 0.06) // 0.01
-							it = 40;
+						vinit -= 0.05;
+						if (vinit < 0.03)
+						{
+							vinit = halve(f_Vm, 0.03, 1.0, 1e-3);
+							if (f_Vm(vinit - 2e-3, this) < 0)
+								vinit = halve(f_Vm, vinit + 2e-3, 1.0, 1e-3);
+							halved = true;
+						}
 						v1 = vinit;
 					}
-					dp_dv = -R_TK / ((v1 - b_sum) * (v1 - b_sum)) +
-						a_aa_sum * (2 * v1 + 2 * b_sum) /
-						pow((v1 * v1 + 2. * b_sum * v1 - b2), 2);
+					dp_dv = f_Vm(v1, this);
+					if (fabs(dp_dv) < 1e-11)
+					{
+						if (f_Vm(v1 - 1e-4, this) < 0)
+						{
+							v1 = halve(f_Vm, v1 + 1e-4, 1.0, 1e-3);
+							dp_dv = f_Vm(v1, this);
+						}
+					}
 				}
 				if (it == 40)
 				{
 // accept a (possible) whobble in the curve...
 //					error_msg("No convergence when calculating P in Peng-Robinson.", STOP);
 				}
-				else if (V_m < v1)
+				if (V_m < v1)
 					P = R_TK / (v1 - b_sum) - a_aa_sum / (v1 * (v1 + 2 * b_sum) - b2);
 			}
 		}
+		if (P <= 0) // iterations = -1
+			P = 1.;
 	} else
 	{
 		r3[1] = b_sum - R_TK / P;
@@ -4158,12 +4189,14 @@ calc_PR(std::vector<struct phase *> phase_ptrs, LDBLE P, LDBLE TK, LDBLE V_m)
 			if (ri + rq / 2 <= 0)
 			{
 				V_m = pow(ri - rq / 2, one_3) + pow(- ri - rq / 2, one_3) - r3[1] / 3;
-			} else
+			}
+			else
 			{
 				ri = - pow(ri + rq / 2, one_3);
 				V_m = ri - rp / (3.0 * ri) - r3[1] / 3;
 			}
-		} else // use complex plane...
+		}
+		else // use complex plane...
 		{
 			ri = sqrt(- rp3 / 27); // rp < 0
 			ri1 = acos(- rq / 2 / ri);
@@ -4171,7 +4204,7 @@ calc_PR(std::vector<struct phase *> phase_ptrs, LDBLE P, LDBLE TK, LDBLE V_m)
 		}
 	}
  // calculate the fugacity coefficients...
-	for (size_t i = 0; i < phase_ptrs.size(); i++)
+	for (i = 0; i < n_g; i++)
 	{
 		phase_ptr = phase_ptrs[i];
 		if (phase_ptr->fraction_x == 0.0)
@@ -4182,15 +4215,9 @@ calc_PR(std::vector<struct phase *> phase_ptrs, LDBLE P, LDBLE TK, LDBLE V_m)
 			continue;
 		}
 		phase_ptr->pr_p = phase_ptr->fraction_x * P;
-		//phase_ptr->delta_v[0] = phase_ptr->delta_v[1]
-		//	+ phase_ptr->delta_v[2] * TK + phase_ptr->delta_v[3] / TK +
-		//	phase_ptr->delta_v[4] * log10(TK) + phase_ptr->delta_v[5] / (TK * TK) + phase_ptr->delta_v[6] * TK * TK
-		//	+ phase_ptr->delta_v[7] * P;
-		//phase_ptr->delta_v[0] *= 1e-3; // if delta_v in cm3/mol
 		if (phase_ptr->t_c == 0.0 || phase_ptr->p_c == 0.0)
 		{
 			phase_ptr->pr_phi = 1;
-			//phase_ptr->pr_si_f = - phase_ptr->delta_v[0] * (P - 1) / (LOG_10 * R_TK);
 			continue;
 		}
 		rz = P * V_m / R_TK;
@@ -4203,7 +4230,7 @@ calc_PR(std::vector<struct phase *> phase_ptrs, LDBLE P, LDBLE TK, LDBLE V_m)
 		else
 			phi = -3.0; // fugacity coefficient > 0.05
 		phase_ptr->pr_phi = exp(phi);
-		phase_ptr->pr_si_f = phi / LOG_10/* - phase_ptr->delta_v[0] * (P - 1) / (LOG_10 * R_TK)*/;
+		phase_ptr->pr_si_f = phi / LOG_10;
 		// for initial equilibrations, adapt log_k of the gas phase...
 		if (state < REACTION)
 		{
@@ -4219,6 +4246,21 @@ calc_PR(std::vector<struct phase *> phase_ptrs, LDBLE P, LDBLE TK, LDBLE V_m)
 	}
 	return (V_m);
 }
+
+LDBLE Phreeqc::
+f_Vm(LDBLE v1, void *cookie)
+/* ---------------------------------------------------------------------- */
+{
+	Phreeqc * pThis;
+
+	pThis = (Phreeqc *) cookie;
+
+	LDBLE dp_dv = -pThis->R_TK / ((v1 - pThis->b_sum) * (v1 - pThis->b_sum)) +
+					pThis->a_aa_sum * (2 * v1 + 2 * pThis->b_sum) /
+					((v1 * (v1 + 2. * pThis->b_sum) - pThis->b2) * (v1 * (v1 + 2. * pThis->b_sum) - pThis->b2));
+	return dp_dv;
+}
+
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
 setup_pure_phases(void)
@@ -5533,16 +5575,13 @@ calc_delta_v(reaction *r_ptr, bool phase)
 {
 /* calculate delta_v from molar volumes */
 
-	if (!strcmp(r_ptr->token[0].name, "H2O(g)"))
-		return 0.0;
-
-	int i, p = -1;
+	int p = -1;
 	LDBLE d_v = 0.0;
 
 	if (phase)
 		p = 1; /* for phases: reactants have coef's < 0, products have coef's > 0, v.v. for species */
 
-	for (i = 0; r_ptr->token[i].name; i++)
+	for (size_t i = 0; r_ptr->token[i].name; i++)
 	{
 		if (!r_ptr->token[i].s)
 			continue;
@@ -5572,11 +5611,10 @@ calc_lk_phase(phase *p_ptr, LDBLE TK, LDBLE pa)
 	if (!r_ptr->logk[vm0])
 		return k_calc(r_ptr->logk, TK, pa * PASCAL_PER_ATM);
 
-	int i;
 	LDBLE tc = TK - 273.15;
 	LDBLE kp_t, d_v = 0.0;
 
-	for (i = 0; r_ptr->token[i].name; i++)
+	for (size_t i = 0; r_ptr->token[i].name; i++)
 	{
 		if (!r_ptr->token[i].s)
 			continue;
@@ -5597,7 +5635,7 @@ calc_lk_phase(phase *p_ptr, LDBLE TK, LDBLE pa)
 				kp_t = r_ptr->token[i].s->logk[kappa];
 				//if (r_ptr->token[i].s->z > 0)
 				//{
-				//	/* correct kappa of cations for temperature until kappa = 0, Table 43.6 */
+				//	/* correct kappa of cations for temperature, but kappa should be <= 0, Table 43.6 */
 				//	kp_t += 4e-5 * (tc - 25);
 				//	if (kp_t > 0)
 				//		kp_t = 0;
@@ -5624,14 +5662,13 @@ calc_vm(LDBLE tc, LDBLE pa)
  *  Calculate molar volumes for aqueous species, using the millero parm's.
  *  Read.cpp copies millero[0..3] into logk[vm0 + 0..3], or reads them directly with -Vm.
  */
-	int i;
 	LDBLE kp_t;
 
 	/* S_v * Iv^0.5 is from Redlich and Meyer, Chem. Rev. 64, 221,
 	   Use mu_x for the volume averaged Iv, the difference is negligible....*/
 	LDBLE Sv_I = 0.5 * (1.444 + (0.016799 + (-8.4055e-6 + 5.5153e-7 * tc) * tc) * tc) * sqrt(mu_x);
 	// Sv_I = 0.0;
-	for (i = 0; i < count_s_x; i++)
+	for (int i = 0; i < count_s_x; i++)
 	{
 		if (!strcmp(s_x[i]->name, "H2O"))
 		{
@@ -5647,7 +5684,7 @@ calc_vm(LDBLE tc, LDBLE pa)
 			kp_t = s_x[i]->logk[kappa];
 			//if (s_x[i]->z > 0)
 			//{
-			//	/* correct kappa of cations for temperature until kappa = 0, Table 43.6 */
+			//	/* correct kappa of cations for temperature, but kappa should be <= 0, Table 43.6 */
 			//	kp_t += 4e-5 * (tc - 25);
 			//	if (kp_t > 0)
 			//		kp_t = 0;
@@ -5738,7 +5775,7 @@ k_calc(LDBLE * l_logk, LDBLE tempk, LDBLE presPa)
 	LDBLE me = tempk * R_KJ_DEG_MOL;
 
 	/* Pressure difference */
-	LDBLE delta_p = (presPa - REF_PRES_PASCAL) / PASCAL_PER_ATM;
+	LDBLE delta_p = presPa - REF_PRES_PASCAL;
 
 	/* Calculate new log k value for this temperature and pressure */
 	LDBLE lk = l_logk[logK_T0] 
@@ -5750,7 +5787,8 @@ k_calc(LDBLE * l_logk, LDBLE tempk, LDBLE presPa)
 		+ l_logk[T_A5] / (tempk * tempk)
 		+ l_logk[T_A6] * tempk * tempk;
 	if (delta_p > 0)
-		lk -= l_logk[delta_v] * 1E-3 * delta_p / (LOG_10 * tempk * R_LITER_ATM);
+		/* cm3 * J /mol = 1e-9 m3 * kJ /mol */
+		lk -= l_logk[delta_v] * 1E-9 * delta_p / (LOG_10 * me);
 	return lk;
 }
 
