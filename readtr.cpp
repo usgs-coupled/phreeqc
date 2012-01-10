@@ -2,7 +2,7 @@
 #include <sstream>
 #include <fstream>
 #include "../StorageBin.h"
-#include "../SSassemblageSS.h"
+#include "../SS.h"
 
 typedef unsigned char boolean;
 #include "Phreeqc.h"

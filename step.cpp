@@ -6,7 +6,7 @@
 #include "Solution.h"
 #include "PPassemblage.h"
 #include "SSassemblage.h"
-#include "SSassemblageSS.h"
+#include "SS.h"
 #include "NameDouble.h"
 #include "Temperature.h"
 #include "cxxMix.h"
@@ -278,7 +278,7 @@ step(LDBLE step_fraction)
 		if (use.s_s_assemblage_in)
 		{
 			cxxSSassemblage *ss = sys_bin.Get_SSassemblage(-1);
-			std::map <std::string, cxxSSassemblageSS>::const_iterator it; 
+			std::map <std::string, cxxSS>::const_iterator it; 
 			for (it = ss->Get_ssAssemblageSSs().begin(); it != ss->Get_ssAssemblageSSs().end(); it++)
 			{
 				cxxNameDouble::const_iterator comp_it;

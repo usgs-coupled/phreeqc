@@ -6449,7 +6449,7 @@ cxxSolutionIsotopeList2isotope(const cxxSolutionIsotopeList * il)
 }
 
 #include "../SSassemblage.h"
-#include "../SSassemblageSS.h"
+#include "../SS.h"
 struct ss_assemblage * Phreeqc::
 cxxSSassemblage2s_s_assemblage(const cxxSSassemblage * ss)
 		//
@@ -6468,9 +6468,9 @@ cxxSSassemblage2s_s_assemblage(const cxxSSassemblage * ss)
 }
 
 struct s_s * Phreeqc::
-cxxSSassemblageSS2s_s(const std::map < std::string, cxxSSassemblageSS > * sscomp)
+cxxSSassemblageSS2s_s(const std::map < std::string, cxxSS > * sscomp)
 		//
-		// Builds s_s structure from of cxxSSassemblageSS 
+		// Builds s_s structure from of cxxSS 
 		//
 {
 
@@ -6482,7 +6482,7 @@ cxxSSassemblageSS2s_s(const std::map < std::string, cxxSSassemblageSS > * sscomp
 	if (s_s_ptr == NULL)
 		malloc_error();
 	int j = 0;
-	for (std::map < std::string, cxxSSassemblageSS >::const_iterator it = sscomp->begin();
+	for (std::map < std::string, cxxSS >::const_iterator it = sscomp->begin();
 		 it != sscomp->end(); ++it)
 	{
 		s_s_ptr[j].name = string_hsave((*it).second.Get_name().c_str());
