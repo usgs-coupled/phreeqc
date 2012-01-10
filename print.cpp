@@ -1150,7 +1150,8 @@ print_saturation_indices(void)
 	struct rxn_token *rxn_ptr;
 	struct reaction *reaction_ptr;
 	const char *pr_in;
-	bool PR = false, DV = false, PR_inprint, gas = true;
+	//bool PR = false, DV = false, PR_inprint, gas = true;
+	bool PR_inprint, gas = true;
  
 	if (pr.saturation_indices == FALSE || pr.all == FALSE)
 		return (OK);
@@ -1278,7 +1279,8 @@ print_pp_assemblage(void)
 	char token[MAX_LENGTH];
 	struct rxn_token *rxn_ptr;
 	struct phase *phase_ptr;
-	bool PR = false, PR_inprint;
+	//bool PR = false, PR_inprint;
+	bool PR_inprint;
 	const char *pr_in;
 
 	if (pr.pp_assemblage == FALSE || pr.all == FALSE)
