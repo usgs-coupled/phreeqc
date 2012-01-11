@@ -116,7 +116,7 @@ fpunchf_user(int user_index, const char *format, double d)
 				(user_index - user_punch_count_headings) + 1);
 		name = buffer;
 	}
-	if (phrq_io) phrq_io->fpunchf(name, format, d);
+	if (phrq_io) phrq_io->fpunchf(name, format, (double) d);
 }
 
 void Phreeqc::

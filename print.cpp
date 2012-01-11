@@ -1090,7 +1090,7 @@ print_mix(void)
 		output_msg(sformatf("Mixture %d.\t%s\n\n", mix_ptr->Get_n_user(),
 				   mix_ptr->Get_description().c_str()));
 	}
-	std::map<int, double>::const_iterator cit;
+	std::map<int, LDBLE>::const_iterator cit;
 	for (cit = mix_ptr->Get_mixComps().begin(); cit != mix_ptr->Get_mixComps().end(); cit++)
 	{
 		solution_ptr = solution_bsearch(cit->first, &n, TRUE);
@@ -2893,7 +2893,7 @@ punch_identifiers(void)
    */
 	if (punch.time == TRUE)
 	{
-		double reaction_time = kin_time_x;
+		LDBLE reaction_time = kin_time_x;
 		if (state == REACTION && incremental_reactions == TRUE
 			&& use.Get_kinetics_ptr() != NULL)
 		{

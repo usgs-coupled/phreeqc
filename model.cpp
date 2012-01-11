@@ -4993,7 +4993,7 @@ surface_model(void)
 		if (use.Get_mix_ptr() != NULL)
 		{
 			mass_water_bulk_x = 0.0;
-			std::map<int, double>::const_iterator cit;
+			std::map<int, LDBLE>::const_iterator cit;
 			for (cit = (( cxxMix *) use.Get_mix_ptr())->Get_mixComps().begin(); cit != (( cxxMix *) use.Get_mix_ptr())->Get_mixComps().end(); cit++)
 			{
 				solution_ptr =	solution_bsearch(cit->first, &n, TRUE);

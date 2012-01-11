@@ -885,7 +885,7 @@ init_mix(void)
 	LDBLE dav, lav, mixf, maxmix, corr_disp, diffc_here, mD;
 	int i, l_nmix;
 
-	std::vector<double> m;
+	std::vector<LDBLE> m;
 	for(i = 0; i < count_cells + 1; i++)
 	{
 		m.push_back(0);
@@ -2004,9 +2004,9 @@ multi_D(LDBLE DDt, int mobile_cell, int stagnant)
 			if (stagnant)
 			{
 			std::vector<int> n_solution;
-			std::vector<double> fraction;
+			std::vector<LDBLE> fraction;
 			((cxxMix *) use.Get_mix_ptr())->Vectorize(n_solution, fraction);
-			//std::map<int, double>::const_iterator cit;
+			//std::map<int, LDBLE>::const_iterator cit;
 			//for (cit = ((cxxMix *) use.Get_mix_ptr())->Get_mixComps().begin(); cit != ((cxxMix *) use.Get_mix_ptr())->Get_mixComps().end(); cit++)
 			//{
 			//	n_solution.push_back(cit->first);
@@ -4621,7 +4621,7 @@ disp_surf(LDBLE DDt)
 				//mix_ptr = &mix[count_mix - 1];
 				mix_ptr = Utilities::Rxn_find(Dispersion_mix_map, count_cells);
 
-			//std::map<int, double>::const_iterator cit;
+			//std::map<int, LDBLE>::const_iterator cit;
 			//for (cit = mix_ptr->Get_mixComps().begin(); cit != mix_ptr->Get_mixComps().end(); cit++)
 			std::vector<int> num;
 			std::vector<LDBLE> frac;
@@ -5698,10 +5698,10 @@ diff_stag_surf(int mobile_cell)
 			continue;
 
 		//for (j = 0; j < mix_ptr->count_comps; j++)
-		//std::map<int, double>::const_iterator cit;
+		//std::map<int, LDBLE>::const_iterator cit;
 		//for (cit = mix_ptr->Get_mixComps().begin(); cit != mix_ptr->Get_mixComps().end(); cit++)
 		std::vector<int> num;
-		std::vector<double> frac;
+		std::vector<LDBLE> frac;
 		mix_ptr->Vectorize(num, frac);
 		for (size_t i3 = 0; i3 < num.size(); i3++)
 		{

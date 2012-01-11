@@ -261,14 +261,14 @@ step(LDBLE step_fraction)
 				int n;
 				struct phase *p_ptr = phase_bsearch((it->first).c_str(), &n, FALSE);
 				struct elt_list *e_ptr;
-				double min = 1e10;
+				LDBLE min = 1e10;
 				for (e_ptr = p_ptr->next_elt; e_ptr->elt != NULL; e_ptr++)
 				{
 					std::string e(e_ptr->elt->primary->elt->name);
 					cxxNameDouble::iterator st = sys_tots.find(e.c_str());
 					if (st != sys_tots.end())
 					{
-						double m1 = st->second / e_ptr->coef;
+						LDBLE m1 = st->second / e_ptr->coef;
 						if (m1 < min) min = m1;
 					}
 				}
@@ -287,14 +287,14 @@ step(LDBLE step_fraction)
 					int n;
 					struct phase *p_ptr = phase_bsearch((comp_it->first).c_str(), &n, FALSE);
 					struct elt_list *e_ptr;
-					double min = 1e10;
+					LDBLE min = 1e10;
 					for (e_ptr = p_ptr->next_elt; e_ptr->elt != NULL; e_ptr++)
 					{
 						std::string e(e_ptr->elt->primary->elt->name);
 						cxxNameDouble::iterator st = sys_tots.find(e.c_str());
 						if (st != sys_tots.end())
 						{
-							double m1 = st->second / e_ptr->coef;
+							LDBLE m1 = st->second / e_ptr->coef;
 							if (m1 < min) 
 							{
 								min = m1;
@@ -644,7 +644,7 @@ add_mix(cxxMix *mix_ptr)
 	sum_fractions = 0.0;
 	sum_positive = 0.0;
 	count_positive = 0;
-	std::map<int, double>::const_iterator it;
+	std::map<int, LDBLE>::const_iterator it;
 	for (it = mix_ptr->Get_mixComps().begin(); it != mix_ptr->Get_mixComps().end(); it++)
 	{
 		sum_fractions += it->second;

@@ -47,7 +47,7 @@ fill_tally_table(int *n_user, int index_conservative, int n_buffer)
 				       index_conservative is solution number
 				           where conservative mixing is stored
                                        slot is 1 for final
-store_tally_table(double *array, int row_dim, int col_dim, double fill_factor) 
+store_tally_table(LDBLE *array, int row_dim, int col_dim, LDBLE fill_factor) 
                                        row_dim is Fortran dimension
                                        col_dim is Fortran dimension
 				       array is space from Fortran

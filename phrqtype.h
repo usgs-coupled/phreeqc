@@ -7,7 +7,7 @@
  *   Need to define here and in cl1.c
  */
 
-/*#define USE_LONG_DOUBLE*/
+#define USE_LONG_DOUBLE
 #ifdef USE_LONG_DOUBLE
 #define LDBLE long double
 #define SCANFORMAT "%Lf"

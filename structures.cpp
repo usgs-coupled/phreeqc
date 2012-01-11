@@ -6241,7 +6241,7 @@ cxxKinetics2kinetics(const cxxKinetics * kin)
 				  kinetics_ptr->steps);
 		/*
 		   int i = 0;
-		   for (std::vector<double>::iterator it = this->steps.begin(); it != this->steps.end(); it++) {
+		   for (std::vector<LDBLE>::iterator it = this->steps.begin(); it != this->steps.end(); it++) {
 		   kinetics_ptr->steps[i] = *it;
 		   }
 		 */
