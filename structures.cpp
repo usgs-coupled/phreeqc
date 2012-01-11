@@ -6234,7 +6234,7 @@ cxxKinetics2kinetics(const cxxKinetics * kin)
 	kinetics_ptr->steps = (LDBLE *) free_check_null(kinetics_ptr->steps);
 	if (kin->Get_steps().size() > 0)
 	{
-		kinetics_ptr->steps = (LDBLE *) PHRQ_malloc((size_t) (kin->Get_steps().size() * sizeof(double)));
+		kinetics_ptr->steps = (LDBLE *) PHRQ_malloc((size_t) (kin->Get_steps().size() * sizeof(LDBLE)));
 		if (kinetics_ptr->steps == NULL)
 			malloc_error();
 		std::copy(kin->Get_steps().begin(), kin->Get_steps().end(),
@@ -6289,7 +6289,7 @@ cxxKineticsComp2kinetics_comp(const std::list < cxxKineticsComp > *el)
 		if ((*it).Get_d_params().size() > 0)
 		{
 			kinetics_comp_ptr[i].d_params =	(LDBLE *)
-				PHRQ_malloc((size_t) ((*it).Get_d_params().size() * sizeof(double)));
+				PHRQ_malloc((size_t) ((*it).Get_d_params().size() * sizeof(LDBLE)));
 			if (kinetics_comp_ptr[i].d_params == NULL)
 				malloc_error();
 			std::copy((*it).Get_d_params().begin(), (*it).Get_d_params().end(),
