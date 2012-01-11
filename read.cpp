@@ -9281,7 +9281,7 @@ read_solid_solutions(void)
 /*
  *   Set use data to first read
  */
-	if (use.Get_ss_assemblage_in() == FALSE)
+	if (!use.Get_ss_assemblage_in())
 	{
 		use.Set_ss_assemblage_in(true);
 		use.Set_n_ss_assemblage_user(n_user);

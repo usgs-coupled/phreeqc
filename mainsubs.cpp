@@ -1010,7 +1010,6 @@ set_use(void)
 		use.Set_ss_assemblage_ptr(
 			ss_assemblage_bsearch(use.Get_n_ss_assemblage_user(),
 								   &n_ss_assemblage_user));
-		use.Set_n_ss_assemblage_user(n_ss_assemblage_user);
 		if (use.Get_ss_assemblage_ptr() == NULL)
 		{
 			error_string = sformatf( "ss_assemblage %d not found.",
