@@ -2425,7 +2425,7 @@ punch_gas_phase(void)
 		p = gas_phase_ptr->Get_total_p();
 		total_moles = gas_phase_ptr->Get_total_moles();
 		volume = total_moles * R_LITER_ATM * tk_x / gas_phase_ptr->Get_total_p();
- 		if (gas_phase_ptr->Get_v_m() <= 0.03)
+ 		if (gas_phase_ptr->Get_v_m() > 0.03) 
  			volume = 0.03 * gas_phase_ptr->Get_total_moles();
 	}
 	if (punch.high_precision == FALSE)
