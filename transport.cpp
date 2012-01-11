@@ -37,8 +37,8 @@ transport(void)
 	/* check column solutions */
 	for (i = 1; i <= count_cells; i++)
 	{
-		use.solution_ptr = solution_bsearch(i, &n, TRUE);
-		if (use.solution_ptr == NULL)
+		use.Set_solution_ptr(solution_bsearch(i, &n, TRUE));
+		if (use.Get_solution_ptr() == NULL)
 		{
 			input_error++;
 			error_string = sformatf(
@@ -47,7 +47,7 @@ transport(void)
 			error_msg(error_string, CONTINUE);
 		}
 		else
-			cell_data[i - 1].temp = use.solution_ptr->tc;
+			cell_data[i - 1].temp = use.Get_solution_ptr()->tc;
 	}
 
 	if (multi_Dflag)
@@ -105,9 +105,11 @@ transport(void)
 		for (i = 1; i <= count_cells; i++)
 		{
 			k = i + 1 + n * count_cells;
-			use.solution_ptr = solution_bsearch(k, &use.n_solution, FALSE);
-			if (use.solution_ptr != NULL)
-				cell_data[k - 1].temp = use.solution_ptr->tc;
+			int n_solution;
+			use.Set_solution_ptr(solution_bsearch(k, &n_solution, FALSE));
+			//use.Set_n_solution(n_solution);
+			if (use.Get_solution_ptr() != NULL)
+				cell_data[k - 1].temp = use.Get_solution_ptr()->tc;
 		}
 	}
 /*
@@ -123,7 +125,7 @@ transport(void)
 		set_initial_moles(i);
 		cell_no = i;
 		set_and_run_wrapper(i, NOMIX, FALSE, i, 0.0);
-		if (use.surface_ptr != NULL && use.surface_ptr->transport == TRUE)
+		if (use.Get_surface_ptr() != NULL && use.Get_surface_ptr()->transport == TRUE)
 			transp_surf = TRUE;
 		if (transp_surf && !multi_Dflag)
 		{
@@ -156,8 +158,11 @@ transport(void)
 		{
 			k = i + 1 + n * count_cells;
 			cell_no = k;
-			if (solution_bsearch(k, &use.n_solution, FALSE) != 0)
+			int n_solution;
+
+			if (solution_bsearch(k, &n_solution, FALSE) != 0)
 			{
+				//use.Set_n_solution(n_solution);
 				set_initial_moles(k);
 				set_and_run_wrapper(k, NOMIX, FALSE, k, 0.0);
 				if (multi_Dflag == TRUE)
@@ -371,8 +376,10 @@ transport(void)
 			{
 				k = i + 1 + n * count_cells;
 				cell_no = k;
-				if (solution_bsearch(k, &use.n_solution, FALSE) != 0)
+				int n_solution;
+				if (solution_bsearch(k, &n_solution, FALSE) != 0)
 				{
+					//use.Set_n_solution(n_solution);
 					set_initial_moles(k);
 				}
 			}
@@ -442,11 +449,13 @@ transport(void)
 						fill_spec(i);
 
 					/* punch and output file */
+					int n_solution;
 					if ((ishift == 0) && (j == nmix)
 						&& ((stag_data->count_stag == 0)
 							|| solution_bsearch(i + 1 + count_cells,
-												&use.n_solution, FALSE) == 0))
+												&n_solution, FALSE) == 0))
 					{
+						//use.Set_n_solution(n_solution);
 						if ((cell_data[i - 1].punch == TRUE)
 							&& (transport_step % punch_modulus == 0))
 							punch_all();
@@ -462,8 +471,9 @@ transport(void)
 					if ((ishift == 0) && (j == nmix)
 						&& ((stag_data->count_stag == 0)
 							|| solution_bsearch(i + 1 + count_cells,
-												&use.n_solution, FALSE) == 0))
+												&n_solution, FALSE) == 0))
 					{
+						//use.Set_n_solution(n_solution);
 						if (change_surf_count > 0)
 						{
 							for (k = 0; k < change_surf_count; k++)
@@ -543,10 +553,11 @@ transport(void)
 					if ((ishift == 1 && i == last_c + 1 && bcon_last != 3) ||
 						(ishift == -1 && i == last_c - 1 && bcon_first != 3))
 						continue;
+					int n_surface;
 					if ((surf_ptr =
-						 surface_bsearch(i - ishift, &use.n_surface)) == NULL)
+						 surface_bsearch(i - ishift, &n_surface)) == NULL)
 					{
-						if ((surface_bsearch(i, &use.n_surface) != NULL) &&
+						if ((surface_bsearch(i, &n_surface) != NULL) &&
 							((i == 0 && bcon_first == 3)
 							 || (i == count_cells + 1 && bcon_last == 3)))
 							surface_delete(i);
@@ -555,7 +566,7 @@ transport(void)
 					if (surf_ptr->transport)
 					{
 						if ((surf_ptr1 =
-							 surface_bsearch(i, &use.n_surface)) == NULL)
+							 surface_bsearch(i, &n_surface)) == NULL)
 						{
 							n = count_surface++;
 							space((void **) ((void *) &surface),
@@ -611,10 +622,10 @@ transport(void)
 					fill_spec(i);
 				if (iterations > max_iter)
 					max_iter = iterations;
-
+				int n_solution;
 				if ((nmix == 0) && ((stag_data->count_stag == 0) ||
 									(solution_bsearch
-									 (i + 1 + count_cells, &use.n_solution,
+									 (i + 1 + count_cells, &n_solution,
 									  FALSE) == 0)))
 				{
 					if ((cell_data[i - 1].punch == TRUE)
@@ -631,7 +642,7 @@ transport(void)
 				/* maybe sorb a surface component... */
 				if ((nmix == 0) && ((stag_data->count_stag == 0) ||
 									(solution_bsearch
-									 (i + 1 + count_cells, &use.n_solution,
+									 (i + 1 + count_cells, &n_solution,
 									  FALSE) == 0)))
 				{
 					if (change_surf_count > 0)
@@ -720,10 +731,10 @@ transport(void)
 				run_reactions(i, kin_time, DISP, step_fraction);
 				if (multi_Dflag == TRUE)
 					fill_spec(i);
-
+				int n_solution;
 				if ((j == nmix) && ((stag_data->count_stag == 0) ||
 									(solution_bsearch
-									 (i + 1 + count_cells, &use.n_solution,
+									 (i + 1 + count_cells, &n_solution,
 									  FALSE) == 0)))
 				{
 					if ((cell_data[i - 1].punch == TRUE)
@@ -740,7 +751,7 @@ transport(void)
 				/* maybe sorb a surface component... */
 				if ((j == nmix) && ((stag_data->count_stag == 0) ||
 									(solution_bsearch
-									 (i + 1 + count_cells, &use.n_solution,
+									 (i + 1 + count_cells, &n_solution,
 									  FALSE) == 0)))
 				{
 					if (change_surf_count > 0)
@@ -1280,13 +1291,14 @@ mix_stag(int i, LDBLE kin_time, int l_punch, LDBLE step_fraction)
 	for (n = 1; n <= stag_data->count_stag; n++)
 	{
 		k = i + 1 + n * count_cells;
-		if ((ptr_imm = solution_bsearch(k, &use.n_solution, FALSE)) != NULL)
+		int n_solution;
+		if ((ptr_imm = solution_bsearch(k, &n_solution, FALSE)) != NULL)
 		{
 			if (n == 1)
 			{
 				if (heat_nmix > 0)
 				{
-					ptr_m = solution_bsearch(i, &use.n_solution, FALSE);
+					ptr_m = solution_bsearch(i, &n_solution, FALSE);
 					t_imm =
 						heat_mix_f_imm * ptr_m->tc + (1 -
 													  heat_mix_f_imm) *
@@ -1324,10 +1336,11 @@ mix_stag(int i, LDBLE kin_time, int l_punch, LDBLE step_fraction)
 				set_and_run_wrapper(i, STAG, FALSE, -2, 0.0);
 				if (multi_Dflag == TRUE)
 					fill_spec(cell_no);
-				if ((use.kinetics_ptr = kinetics_bsearch(i, &l)) != NULL)
+				use.Set_kinetics_ptr(kinetics_bsearch(i, &l));
+				if (use.Get_kinetics_ptr() != NULL)
 				{
-					use.n_kinetics_user = i;
-					use.kinetics_in = TRUE;
+					use.Set_n_kinetics_user(i);
+					use.Set_kinetics_in(true);
 				}
 
 				if (l_punch && (cell_data[i - 1].print == TRUE) &&
@@ -1390,7 +1403,8 @@ mix_stag(int i, LDBLE kin_time, int l_punch, LDBLE step_fraction)
 	for (n = 1; n <= stag_data->count_stag; n++)
 	{
 		k = i + 1 + n * count_cells;
-		if (solution_bsearch(k, &use.n_solution, FALSE) != 0)
+		int n_solution;
+		if (solution_bsearch(k, &n_solution, FALSE) != 0)
 		{
 			solution_duplicate(-2 - k, k);
 			if (n == 1)
@@ -1657,8 +1671,8 @@ set_initial_moles(int i)
 		temp_exchange.Set_n_user(i);
 		temp_exchange.Set_n_user_end(i);
 		temp_exchange.Set_description("Interlayer diffusion: added 2e-10 moles X-");
-		use.exchange_in = TRUE;
-		use.n_exchange_user = i;
+		use.Set_exchange_in(true);
+		use.Set_n_exchange_user(i);
 
 		temp_exchange.Set_new_def(true);
 		temp_exchange.Set_solution_equilibria(true);
@@ -1695,8 +1709,8 @@ set_initial_moles(int i)
 			  sizeof(struct exchange));
 		exchange_init(&(exchange[n]), i, i,
 					  "Interlayer diffusion: added 2e-10 moles X-");
-		use.exchange_in = TRUE;
-		use.n_exchange_user = i;
+		use.Get_exchange_in() = TRUE;
+		use.Get_n_exchange_user() = i;
 		exchange[n].new_def = TRUE;
 		exchange[n].solution_equilibria = TRUE;
 		exchange[n].n_solution = i;
@@ -1965,13 +1979,13 @@ multi_D(LDBLE DDt, int mobile_cell, int stagnant)
 			/*
 			 *    find the mix ptr for icell and go along the cells that mix with it
 			 */
-			//use.mix_ptr = mix_search(icell, &use.n_mix, FALSE);
-			use.mix_ptr = Utilities::Rxn_find(Rxn_mix_map, icell);
-			if (use.mix_ptr == NULL)
+			//use.Get_mix_ptr() = mix_search(icell, &use.n_mix, FALSE);
+			use.Set_mix_ptr(Utilities::Rxn_find(Rxn_mix_map, icell));
+			if (use.Get_mix_ptr() == NULL)
 				continue;
 			first_c = 0;
-			//last_c = use.mix_ptr->count_comps - 1;
-			last_c = (int) (((cxxMix *) use.mix_ptr)->Get_mixComps().size() - 1);
+			//last_c = use.Get_mix_ptr()->count_comps - 1;
+			last_c = (int) (((cxxMix *) use.Get_mix_ptr())->Get_mixComps().size() - 1);
 		}
 		else
 		{						/* regular column... */
@@ -1991,17 +2005,17 @@ multi_D(LDBLE DDt, int mobile_cell, int stagnant)
 			{
 			std::vector<int> n_solution;
 			std::vector<double> fraction;
-			((cxxMix *) use.mix_ptr)->Vectorize(n_solution, fraction);
+			((cxxMix *) use.Get_mix_ptr())->Vectorize(n_solution, fraction);
 			//std::map<int, double>::const_iterator cit;
-			//for (cit = ((cxxMix *) use.mix_ptr)->Get_mixComps().begin(); cit != ((cxxMix *) use.mix_ptr)->Get_mixComps().end(); cit++)
+			//for (cit = ((cxxMix *) use.Get_mix_ptr())->Get_mixComps().begin(); cit != ((cxxMix *) use.Get_mix_ptr())->Get_mixComps().end(); cit++)
 			//{
 			//	n_solution.push_back(cit->first);
 			//	fraction.push_back(cit->second);
 			//}
-				//if ((jcell = use.mix_ptr->comps[i].n_solution) <= icell)
+				//if ((jcell = use.Get_mix_ptr()->comps[i].n_solution) <= icell)
 				if ((jcell = n_solution[i]) <= icell)
 					continue;
-				//mixf = use.mix_ptr->comps[i].fraction;
+				//mixf = use.Get_mix_ptr()->comps[i].fraction;
 
 				mixf = fraction[i];
 				if (mcd_substeps > 1)
@@ -2043,64 +2057,63 @@ multi_D(LDBLE DDt, int mobile_cell, int stagnant)
 			 */
 			if (i > 0 || stagnant)
 			{
-				use.solution_ptr =
-					solution_bsearch(icell, &use.n_solution, FALSE);
-				use.solution_ptr->total_h -= tot1_h;
-				use.solution_ptr->total_o -= tot1_o;
-				use.solution_ptr->cb -= J_ij_sum;
+				int n_solution;
+				use.Set_solution_ptr(solution_bsearch(icell, &n_solution, FALSE));
+				//use.Set_n_solution(n_solution);
+				use.Get_solution_ptr()->total_h -= tot1_h;
+				use.Get_solution_ptr()->total_o -= tot1_o;
+				use.Get_solution_ptr()->cb -= J_ij_sum;
 				for (l = 0; l < count_m_s; l++)
 				{
 					temp = 0.0;
 					length = (int) strlen(m_s[l].name);
 					for (j = 0;
-						 use.solution_ptr->totals[j].description != NULL; j++)
+						 use.Get_solution_ptr()->totals[j].description != NULL; j++)
 					{
 						length2 =
-							(int) (size_t) strcspn(use.solution_ptr->
+							(int) (size_t) strcspn(use.Get_solution_ptr()->
 												   totals[j].description,
 												   "(");
 						if (strncmp
 							(m_s[l].name,
-							 use.solution_ptr->totals[j].description,
+							 use.Get_solution_ptr()->totals[j].description,
 							 length) == 0 && length == length2)
 						{
-							if (use.solution_ptr->totals[j].moles <
+							if (use.Get_solution_ptr()->totals[j].moles <
 								m_s[l].tot1)
 							{
-								temp = use.solution_ptr->totals[j].moles;
-								use.solution_ptr->totals[j].moles = 0;
+								temp = use.Get_solution_ptr()->totals[j].moles;
+								use.Get_solution_ptr()->totals[j].moles = 0;
 								/* see if other redox states have more moles... */
 								for (k = 1;
-									 use.solution_ptr->totals[j +
+									 use.Get_solution_ptr()->totals[j +
 															  k].
 									 description != NULL; k++)
 								{
 									length2 =
-										(int) (size_t) strcspn(use.
-															   solution_ptr->
-															   totals[j +
-																	  k].
+										(int) (size_t) strcspn(use.Get_solution_ptr()->
+															   totals[j + k].
 															   description,
 															   "(");
 									if (strncmp
 										(m_s[l].name,
-										 use.solution_ptr->totals[j +
+										 use.Get_solution_ptr()->totals[j +
 																  k].
 										 description, length) == 0
 										&& length == length2)
 									{
 										temp +=
-											use.solution_ptr->totals[j +
+											use.Get_solution_ptr()->totals[j +
 																	 k].moles;
 										if (temp < m_s[l].tot1)
 										{
-											use.solution_ptr->totals[j +
+											use.Get_solution_ptr()->totals[j +
 																	 k].
 												moles = 0;
 										}
 										else
 										{
-											use.solution_ptr->totals[j +
+											use.Get_solution_ptr()->totals[j +
 																	 k].
 												moles = temp - m_s[l].tot1;
 											temp = 0.0;
@@ -2118,98 +2131,98 @@ multi_D(LDBLE DDt, int mobile_cell, int stagnant)
 								}
 							}
 							else
-								use.solution_ptr->totals[j].moles -=
+								use.Get_solution_ptr()->totals[j].moles -=
 									m_s[l].tot1;
 							break;
 						}
 					}
-					if (use.solution_ptr->totals[j].description == NULL)
+					if (use.Get_solution_ptr()->totals[j].description == NULL)
 					{
-						use.solution_ptr->totals =
-							(struct conc *) PHRQ_realloc(use.solution_ptr->
+						use.Get_solution_ptr()->totals =
+							(struct conc *) PHRQ_realloc(use.Get_solution_ptr()->
 														 totals,
 														 (size_t) (j +
 																   2) *
 														 sizeof(struct conc));
-						use.solution_ptr->totals[j].description =
+						use.Get_solution_ptr()->totals[j].description =
 							string_hsave(m_s[l].name);
-						use.solution_ptr->totals[j].moles = -m_s[l].tot1;
-						if (use.solution_ptr->totals[j].moles < 0)
+						use.Get_solution_ptr()->totals[j].moles = -m_s[l].tot1;
+						if (use.Get_solution_ptr()->totals[j].moles < 0)
 						{
-							if (use.solution_ptr->totals[j].moles < -1e-12)
+							if (use.Get_solution_ptr()->totals[j].moles < -1e-12)
 							{
 								sprintf(token,
 										"Negative concentration in MCD: added %.2e moles %s in cell %d",
-										(double) -use.solution_ptr->
+										(double) -use.Get_solution_ptr()->
 										totals[j].moles, m_s[l].name, icell);
 								warning_msg(token);
 							}
-							use.solution_ptr->totals[j].moles = 0;
+							use.Get_solution_ptr()->totals[j].moles = 0;
 						}
-						use.solution_ptr->totals[j + 1].description = NULL;
+						use.Get_solution_ptr()->totals[j + 1].description = NULL;
 					}
 				}
 			}
 			if (i < count_cells || stagnant)
 			{
-				use.solution_ptr =
-					solution_bsearch(jcell, &use.n_solution, FALSE);
-				use.solution_ptr->total_h += tot2_h;
-				use.solution_ptr->total_o += tot2_o;
-				use.solution_ptr->cb += J_ij_sum;
+				int n_solution;
+				use.Set_solution_ptr(
+					solution_bsearch(jcell, &n_solution, FALSE));
+				//use.Set_n_solution(n_solution);
+				use.Get_solution_ptr()->total_h += tot2_h;
+				use.Get_solution_ptr()->total_o += tot2_o;
+				use.Get_solution_ptr()->cb += J_ij_sum;
 				for (l = 0; l < count_m_s; l++)
 				{
 					temp = 0.0;
 					length = (int) strlen(m_s[l].name);
 					for (j = 0;
-						 use.solution_ptr->totals[j].description != NULL; j++)
+						 use.Get_solution_ptr()->totals[j].description != NULL; j++)
 					{
 						length2 =
-							(int) (size_t) strcspn(use.solution_ptr->
+							(int) (size_t) strcspn(use.Get_solution_ptr()->
 												   totals[j].description,
 												   "(");
 						if (strncmp
 							(m_s[l].name,
-							 use.solution_ptr->totals[j].description,
+							 use.Get_solution_ptr()->totals[j].description,
 							 length) == 0 && length == length2)
 						{
-							if (use.solution_ptr->totals[j].moles <
+							if (use.Get_solution_ptr()->totals[j].moles <
 								-m_s[l].tot2)
 							{
-								temp = use.solution_ptr->totals[j].moles;
-								use.solution_ptr->totals[j].moles = 0;
+								temp = use.Get_solution_ptr()->totals[j].moles;
+								use.Get_solution_ptr()->totals[j].moles = 0;
 								/* see if other redox states have more moles... */
 								for (k = 1;
-									 use.solution_ptr->totals[j +
+									 use.Get_solution_ptr()->totals[j +
 															  k].
 									 description != NULL; k++)
 								{
 									length2 =
-										(int) (size_t) strcspn(use.
-															   solution_ptr->
-															   totals[j +
-																	  k].
+										(int) (size_t) strcspn(use.Get_solution_ptr()->
+															   totals[j + k].
 															   description,
 															   "(");
 									if (strncmp
 										(m_s[l].name,
-										 use.solution_ptr->totals[j +
+										 use.Get_solution_ptr()->totals[j +
 																  k].
 										 description, length) == 0
 										&& length == length2)
 									{
 										temp +=
-											use.solution_ptr->totals[j +
+											use.Get_solution_ptr()->totals[j +
 																	 k].moles;
 										if (temp < -m_s[l].tot2)
 										{
-											use.solution_ptr->totals[j +
+											use.Get_solution_ptr()->totals[j +
 																	 k].
 												moles = 0;
 										}
 										else
 										{
-											use.solution_ptr->totals[j +
+											use.Get_solution_ptr()->totals[j +
 																	 k].
 												moles = temp + m_s[l].tot2;
 											temp = 0.0;
@@ -2228,35 +2241,35 @@ multi_D(LDBLE DDt, int mobile_cell, int stagnant)
 								}
 							}
 							else
-								use.solution_ptr->totals[j].moles +=
+								use.Get_solution_ptr()->totals[j].moles +=
 									m_s[l].tot2;
 							break;
 						}
 					}
-					if (use.solution_ptr->totals[j].description == NULL)
+					if (use.Get_solution_ptr()->totals[j].description == NULL)
 					{
-						use.solution_ptr->totals =
-							(struct conc *) PHRQ_realloc(use.solution_ptr->
+						use.Get_solution_ptr()->totals =
+							(struct conc *) PHRQ_realloc(use.Get_solution_ptr()->
 														 totals,
 														 (size_t) (j +
 																   2) *
 														 sizeof(struct conc));
-						use.solution_ptr->totals[j].description =
+						use.Get_solution_ptr()->totals[j].description =
 							string_hsave(m_s[l].name);
-						use.solution_ptr->totals[j].moles = m_s[l].tot2;
-						if (use.solution_ptr->totals[j].moles < 0)
+						use.Get_solution_ptr()->totals[j].moles = m_s[l].tot2;
+						if (use.Get_solution_ptr()->totals[j].moles < 0)
 						{
-							if (use.solution_ptr->totals[j].moles < -1e-12)
+							if (use.Get_solution_ptr()->totals[j].moles < -1e-12)
 							{
 								sprintf(token,
 										"Negative concentration in MCD: added %.4e moles %s in cell %d",
-										(double) -use.solution_ptr->
+										(double) -use.Get_solution_ptr()->
 										totals[j].moles, m_s[l].name, jcell);
 								warning_msg(token);
 							}
-							use.solution_ptr->totals[j].moles = 0;
+							use.Get_solution_ptr()->totals[j].moles = 0;
 						}
-						use.solution_ptr->totals[j + 1].description = NULL;
+						use.Get_solution_ptr()->totals[j + 1].description = NULL;
 					}
 				}
 			}

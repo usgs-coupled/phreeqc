@@ -1223,28 +1223,28 @@ status(int count, const char *str)
 		if (state == INITIAL_SOLUTION)
 		{
 			sprintf(state_str, "Initial solution %d.",
-					use.solution_ptr->n_user);
+					use.Get_solution_ptr()->n_user);
 		}
 		else if (state == INITIAL_EXCHANGE)
 		{
 			//sprintf(state_str, "Initial exchange %d.",
-			//		(cxxExchange *) use.exchange_ptr->n_user);
+			//		(cxxExchange *) use.Get_exchange_ptr()->n_user);
 			sprintf(state_str, "Initial exchange %d.",
-					((cxxExchange *) (use.exchange_ptr))->Get_n_user());
+					((cxxExchange *) (use.Get_exchange_ptr()))->Get_n_user());
 		}
 		else if (state == INITIAL_SURFACE)
 		{
 			sprintf(state_str, "Initial surface %d.",
-					use.surface_ptr->n_user);
+					use.Get_surface_ptr()->n_user);
 		}
 		else if (state == INVERSE)
 		{
 			sprintf(state_str, "Inverse %d. Models = %d.",
-					use.inverse_ptr->n_user, count);
+					use.Get_inverse_ptr()->n_user, count);
 		}
 		else if (state == REACTION)
 		{
-			if (use.kinetics_in == TRUE)
+			if (use.Get_kinetics_in() == TRUE)
 			{
 				sprintf(state_str, "Kinetic step %d.", reaction_step);
 			}
@@ -1286,7 +1286,7 @@ status(int count, const char *str)
 		{
 			status_on = TRUE;
 		}
-		if (use.kinetics_in == TRUE)
+		if (use.Get_kinetics_in() == TRUE)
 		{
 #ifdef DOS
 			backspace_screen(80);

@@ -2701,9 +2701,9 @@ tidy_solutions(void)
 				{
 					solution[i]->n_user = ++last;
 					solution[i]->n_user_end = last;
-					if (use.solution_in == TRUE && use.n_solution_user == -1)
+					if (use.Get_solution_in() && (use.Get_n_solution_user() == -1))
 					{
-						use.n_solution_user = last;
+						use.Set_n_solution_user(last);
 					}
 				}
 			}

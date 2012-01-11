@@ -499,7 +499,7 @@ set_sit(int initial)
  *   Set initial log concentrations to zero
  */
 	iterations = -1;
-	solution_ptr = use.solution_ptr;
+	solution_ptr = use.Get_solution_ptr();
 	for (i = 0; i < count_s_x; i++)
 	{
 		s_x[i]->lm = LOG_ZERO_MOLALITY;
@@ -548,7 +548,7 @@ sit_initial_guesses(void)
 	int i;
 	struct solution *solution_ptr;
 
-	solution_ptr = use.solution_ptr;
+	solution_ptr = use.Get_solution_ptr();
 	mu_x =
 		s_hplus->moles +
 		exp((solution_ptr->ph - 14.) * LOG_10) * mass_water_aq_x;
@@ -951,7 +951,7 @@ model_sit(void)
 	debug_model_save = debug_model;
 	pe_step_size_now = pe_step_size;
 	step_size_now = step_size;
-	if (!use.kinetics_in) status(0, NULL);
+	if (!use.Get_kinetics_in()) status(0, NULL);
 	iterations = 0;
 	gamma_iterations = 0;
 	count_basis_change = count_infeasible = 0;
@@ -1051,9 +1051,9 @@ model_sit(void)
 				full_pitzer = FALSE;
 			}
 			molalities(TRUE);
-			if (use.surface_ptr != NULL &&
-				use.surface_ptr->dl_type != NO_DL &&
-				use.surface_ptr->related_phases == TRUE)
+			if (use.Get_surface_ptr() != NULL &&
+				use.Get_surface_ptr()->dl_type != NO_DL &&
+				use.Get_surface_ptr()->related_phases == TRUE)
 				initial_surface_water();
 			mb_sums();
 			mb_gases();
@@ -1248,7 +1248,7 @@ gammas_sit()
 	 *  calculate exchange gammas 
 	 */
 
-	if (use.exchange_ptr != NULL)
+	if (use.Get_exchange_ptr() != NULL)
 	{
 		for (i = 0; i < count_s_x; i++)
 		{
@@ -1299,7 +1299,7 @@ gammas_sit()
 				{
 					s_x[i]->lg = log10(fabs(s_x[i]->equiv) / s_x[i]->alk);
 				}
-				if (((cxxExchange *) use.exchange_ptr)->Get_pitzer_exchange_gammas())
+				if (((cxxExchange *) use.Get_exchange_ptr())->Get_pitzer_exchange_gammas())
 				{
 					/* Assume equal gamma's of solute and exchangeable species...  */
 					for (j = 1; s_x[i]->rxn_x->token[j].s != NULL; j++)

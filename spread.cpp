@@ -563,10 +563,10 @@ spread_row_to_solution(struct spread_row *heading, struct spread_row *units,
 
 	solution[n]->n_user = n_user;
 	solution[n]->n_user_end = n_user_end;
-	if (use.solution_in == FALSE)
+	if (use.Get_solution_in() == FALSE)
 	{
-		use.solution_in = TRUE;
-		use.n_solution_user = n_user;
+		use.Set_solution_in(true);
+		use.Set_n_solution_user(n_user);
 	}
 	max_mass_balance = MAX_MASS_BALANCE;
 /*

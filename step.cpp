@@ -45,13 +45,13 @@ step(LDBLE step_fraction)
 /*
  *   Mixing or solution
  */
-	if (use.mix_ptr != NULL)
+	if (use.Get_mix_ptr() != NULL)
 	{
-		add_mix((cxxMix *) use.mix_ptr);
+		add_mix((cxxMix *) use.Get_mix_ptr());
 	}
-	else if (use.solution_ptr != NULL)
+	else if (use.Get_solution_ptr() != NULL)
 	{
-		add_solution(use.solution_ptr, 1.0, 1.0);
+		add_solution(use.Get_solution_ptr(), 1.0, 1.0);
 	}
 	else
 	{
@@ -62,46 +62,46 @@ step(LDBLE step_fraction)
 /*
  *   Reaction
  */
-	if (use.reaction_ptr != NULL)
+	if (use.Get_reaction_ptr() != NULL)
 	{
 		//add_reaction(use.irrev_ptr, step_number, step_fraction);
-		add_reaction( (cxxReaction *)use.reaction_ptr, step_number, step_fraction);
+		add_reaction( (cxxReaction *)use.Get_reaction_ptr(), step_number, step_fraction);
 	}
 /*
  *   Kinetics
  */
-	if (use.kinetics_ptr != NULL)
+	if (use.Get_kinetics_ptr() != NULL)
 	{
-		add_kinetics(use.kinetics_ptr);
+		add_kinetics(use.Get_kinetics_ptr());
 	}
 /*
  *   Exchange
  */
-	if (use.exchange_ptr != NULL)
+	if (use.Get_exchange_ptr() != NULL)
 	{
-		add_exchange((cxxExchange *) use.exchange_ptr);
+		add_exchange((cxxExchange *) use.Get_exchange_ptr());
 	}
 /*
  *   Surface
  */
-	if (use.surface_ptr != NULL)
+	if (use.Get_surface_ptr() != NULL)
 	{
-		add_surface(use.surface_ptr);
+		add_surface(use.Get_surface_ptr());
 	}
 /*
  *   Gases
  */
-	if (use.gas_phase_ptr != NULL)
+	if (use.Get_gas_phase_ptr() != NULL)
 	{
-		cxxGasPhase * gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+		cxxGasPhase * gas_phase_ptr = (cxxGasPhase *) use.Get_gas_phase_ptr();
 		add_gas_phase(gas_phase_ptr);
 	}
 /*
  *   Temperature
  */
-	if (use.temperature_ptr != NULL)
+	if (use.Get_temperature_ptr() != NULL)
 	{
-		cxxTemperature *t_ptr = (cxxTemperature *) use.temperature_ptr;
+		cxxTemperature *t_ptr = (cxxTemperature *) use.Get_temperature_ptr();
 		tc_x = t_ptr->Temperature_for_step(step_number);
 	}
 	if ((state == TRANSPORT) && (transport_step != 0) &&
@@ -114,9 +114,9 @@ step(LDBLE step_fraction)
 /*
  *   Pressure
  */
-	if (use.pressure_ptr != NULL)
+	if (use.Get_pressure_ptr() != NULL)
 	{
-		cxxPressure *p_ptr = (cxxPressure *) use.pressure_ptr;
+		cxxPressure *p_ptr = (cxxPressure *) use.Get_pressure_ptr();
 		patm_x = p_ptr->Pressure_for_step(step_number);
 	}
 /*
@@ -126,56 +126,56 @@ step(LDBLE step_fraction)
 /*
  *   Pure phases
  */
-	if (use.pp_assemblage_ptr != NULL)
+	if (use.Get_pp_assemblage_ptr() != NULL)
 	{
-		cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+		cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.Get_pp_assemblage_ptr();
 		pp_assemblage_save = new cxxPPassemblage(*pp_assemblage_ptr);
 		add_pp_assemblage(pp_assemblage_ptr);
 	}
 #ifdef SKIP
-	if (use.pp_assemblage_ptr != NULL)
+	if (use.Get_pp_assemblage_ptr() != NULL)
 	{
 		pp_assemblage_save =
 			(struct pp_assemblage *)
 			PHRQ_malloc(sizeof(struct pp_assemblage));
 		if (pp_assemblage_save == NULL)
 			malloc_error();
-		pp_assemblage_copy(use.pp_assemblage_ptr, pp_assemblage_save,
-						   use.pp_assemblage_ptr->n_user);
-		add_pp_assemblage(use.pp_assemblage_ptr);
+		pp_assemblage_copy(use.Get_pp_assemblage_ptr(), pp_assemblage_save,
+						   use.Get_pp_assemblage_ptr()->n_user);
+		add_pp_assemblage(use.Get_pp_assemblage_ptr());
 	}
 #endif
 /*
  *   Solid solutions
  */
-	if (use.ss_assemblage_ptr != NULL)
+	if (use.Get_ss_assemblage_ptr() != NULL)
 	{
 		ss_assemblage_save =
 			(struct ss_assemblage *)
 			PHRQ_malloc(sizeof(struct ss_assemblage));
 		if (ss_assemblage_save == NULL)
 			malloc_error();
-		ss_assemblage_copy(use.ss_assemblage_ptr, ss_assemblage_save,
-							use.ss_assemblage_ptr->n_user);
-		add_ss_assemblage(use.ss_assemblage_ptr);
+		ss_assemblage_copy(use.Get_ss_assemblage_ptr(), ss_assemblage_save,
+							use.Get_ss_assemblage_ptr()->n_user);
+		add_ss_assemblage(use.Get_ss_assemblage_ptr());
 	}
 /*
  *   Check that elements are available for gas components,
  *   pure phases, and solid solutions
  */
-	if (use.gas_phase_ptr != NULL)
+	if (use.Get_gas_phase_ptr() != NULL)
 	{
-		cxxGasPhase * gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+		cxxGasPhase * gas_phase_ptr = (cxxGasPhase *) use.Get_gas_phase_ptr();
 		gas_phase_check(gas_phase_ptr);
 	}
-	if (use.pp_assemblage_ptr != NULL)
+	if (use.Get_pp_assemblage_ptr() != NULL)
 	{
-		cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+		cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.Get_pp_assemblage_ptr();
 		pp_assemblage_check(pp_assemblage_ptr);
 	}
-	if (use.ss_assemblage_ptr != NULL)
+	if (use.Get_ss_assemblage_ptr() != NULL)
 	{
-		ss_assemblage_check(use.ss_assemblage_ptr);
+		ss_assemblage_check(use.Get_ss_assemblage_ptr());
 	}
 /*
  *   Check that element moles are >= zero
@@ -183,16 +183,16 @@ step(LDBLE step_fraction)
 	if (solution_check() == MASS_BALANCE)
 	{
 		/* reset moles and deltas */
-		if (use.pp_assemblage_ptr != NULL)
+		if (use.Get_pp_assemblage_ptr() != NULL)
 		{
 			Rxn_pp_assemblage_map[pp_assemblage_save->Get_n_user()] = *pp_assemblage_save;
-			use.pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, pp_assemblage_save->Get_n_user());
+			use.Set_pp_assemblage_ptr(Utilities::Rxn_find(Rxn_pp_assemblage_map, pp_assemblage_save->Get_n_user()));
 		}
-		if (use.ss_assemblage_ptr != NULL)
+		if (use.Get_ss_assemblage_ptr() != NULL)
 		{
-			ss_assemblage_free(use.ss_assemblage_ptr);
-			ss_assemblage_copy(ss_assemblage_save, use.ss_assemblage_ptr,
-								use.ss_assemblage_ptr->n_user);
+			ss_assemblage_free(use.Get_ss_assemblage_ptr());
+			ss_assemblage_copy(ss_assemblage_save, use.Get_ss_assemblage_ptr(),
+								use.Get_ss_assemblage_ptr()->n_user);
 			ss_assemblage_free(ss_assemblage_save);
 			ss_assemblage_save =
 				(struct ss_assemblage *)
@@ -229,7 +229,7 @@ step(LDBLE step_fraction)
 	// reaction, kinetics
 	// 
 	// Determine system totals, calculate maximum mineral precipitation
-	if (use.pp_assemblage_in || use.ss_assemblage_in)
+	if (use.Get_pp_assemblage_in() || use.Get_ss_assemblage_in())
 	{
 		cxxStorageBin sys_bin(phrq_io);
 		//cxxSolution soln(PHREEQC_THIS_COMMA -1, phrq_io);
@@ -237,21 +237,21 @@ step(LDBLE step_fraction)
 		struct solution *sol = solution_bsearch(-1, &n, false);
 		cxxSolution soln(sol, phrq_io);
 		sys_bin.Set_Solution(-1, soln);
-		if (use.pp_assemblage_in)
+		if (use.Get_pp_assemblage_in())
 		{
-			//cxxPPassemblage pp(use.pp_assemblage_ptr, phrq_io);
-			cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+			//cxxPPassemblage pp(use.Get_pp_assemblage_ptr(), phrq_io);
+			cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.Get_pp_assemblage_ptr();
 			sys_bin.Set_PPassemblage(-1, *pp_assemblage_ptr);
 		}
-		if (use.ss_assemblage_in)
+		if (use.Get_ss_assemblage_in())
 		{
-			cxxSSassemblage ss(use.ss_assemblage_ptr);
+			cxxSSassemblage ss(use.Get_ss_assemblage_ptr());
 			sys_bin.Set_SSassemblage(-1, ss);
 		}
 		sys_bin.Set_System(-1);
 		sys_bin.Get_System().totalize(PHREEQC_THIS);
 		cxxNameDouble sys_tots = sys_bin.Get_System().Get_Totals();
-		if (use.pp_assemblage_in)
+		if (use.Get_pp_assemblage_in())
 		{
 			cxxPPassemblage *pp_assemblage_ptr = sys_bin.Get_PPassemblage(-1);
 			std::map<std::string, cxxPPassemblageComp>::iterator it;
@@ -275,7 +275,7 @@ step(LDBLE step_fraction)
 				p_ptr->delta_max = min;
 			}
 		}
-		if (use.ss_assemblage_in)
+		if (use.Get_ss_assemblage_in())
 		{
 			cxxSSassemblage *ss = sys_bin.Get_SSassemblage(-1);
 			std::map <std::string, cxxSS>::const_iterator it; 

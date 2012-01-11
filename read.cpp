@@ -38,30 +38,7 @@ read_input(void)
 /*
  *  Initialize use and save pointers
  */
-	use.solution_in = FALSE;
-	use.solution_ptr = NULL;
-	use.pp_assemblage_in = FALSE;
-	use.pp_assemblage_ptr = NULL;
-	use.mix_in = FALSE;
-	use.mix_ptr = NULL;
-	use.reaction_in = FALSE;
-	use.reaction_ptr = NULL;
-	use.kinetics_in = FALSE;
-	use.kinetics_ptr = NULL;
-	use.exchange_in = FALSE;
-	use.exchange_ptr = NULL;
-	use.surface_in = FALSE;
-	use.surface_ptr = NULL;
-	use.temperature_in = FALSE;
-	use.temperature_ptr = NULL;
-	use.pressure_in = FALSE;
-	use.pressure_ptr = NULL;
-	use.gas_phase_in = FALSE;
-	use.gas_phase_ptr = NULL;
-	use.ss_assemblage_in = FALSE;
-	use.ss_assemblage_ptr = NULL;
-	use.trans_in = FALSE;
-	use.advect_in = FALSE;
+	use.init();
 
 	save.solution = FALSE;
 	save.mix = FALSE;
@@ -1093,10 +1070,10 @@ read_exchange(void)
 /*
  *   Set use data
  */
-	if (use.exchange_in == FALSE)
+	if (use.Get_exchange_in() == FALSE)
 	{
-		use.exchange_in = TRUE;
-		use.n_exchange_user = n_user;
+		use.Set_exchange_in(true);
+		use.Set_n_exchange_user(n_user);
 	}
 /*
  *   Read exchange data
@@ -1460,10 +1437,10 @@ read_gas_phase(void)
 /*
  *   Set use data to first read
  */
-	if (use.gas_phase_in == FALSE)
+	if (use.Get_gas_phase_in() == FALSE)
 	{
-		use.gas_phase_in = TRUE;
-		use.n_gas_phase_user = n_user;
+		use.Set_gas_phase_in(true);
+		use.Set_n_gas_phase_user(n_user);
 	}
 /*
  *   Read phases
@@ -2231,10 +2208,10 @@ read_kinetics(void)
 /*
  *   Set use data to first read
  */
-	if (use.kinetics_in == FALSE)
+	if (use.Get_kinetics_in() == FALSE)
 	{
-		use.kinetics_in = TRUE;
-		use.n_kinetics_user = n_user;
+		use.Set_kinetics_in(true);
+		use.Set_n_kinetics_user(n_user);
 	}
 /*
  *   Initialize
@@ -3495,10 +3472,10 @@ read_mix(void)
 /*
  *   Set use data to first read
  */
-	if (use.mix_in == FALSE)
+	if (use.Get_mix_in() == FALSE)
 	{
-		use.mix_in = TRUE;
-		use.n_mix_user = n_user;
+		use.Set_mix_in(true);
+		use.Set_n_mix_user(n_user);
 	}
 /*
  *   Read mixture data
@@ -4010,10 +3987,10 @@ read_pp_assemblage(void)
 	/*
 	 *   Set use data to first read
 	 */
-	if (use.pp_assemblage_in == FALSE)
+	if (use.Get_pp_assemblage_in() == FALSE)
 	{
-		use.pp_assemblage_in = TRUE;
-		use.n_pp_assemblage_user = n_user;
+		use.Set_pp_assemblage_in(true);
+		use.Set_n_pp_assemblage_user(n_user);
 	}
 	/*
 	 *  Read equilibrium phase data
@@ -4200,10 +4177,10 @@ read_pure_phases(void)
 	/*
 	 *   Set use data to first read
 	 */
-	if (use.pp_assemblage_in == FALSE)
+	if (use.Get_pp_assemblage_in() == FALSE)
 	{
-		use.pp_assemblage_in = TRUE;
-		use.n_pp_assemblage_user = n_user;
+		use.Get_pp_assemblage_in() = TRUE;
+		use.Get_n_pp_assemblage_user() = n_user;
 	}
 
 	pp_assemblage_init(&(pp_assemblage[n]), n_user, n_user_end, description);
@@ -4405,10 +4382,10 @@ read_reaction(void)
 /*
  *   Set use data to first read
  */
-	if (use.reaction_in == FALSE)
+	if (use.Get_reaction_in() == FALSE)
 	{
-		use.reaction_in = TRUE;
-		use.n_reaction_user = n_user;
+		use.Set_reaction_in(true);
+		use.Set_n_reaction_user(n_user);
 	}
 /*
  *   Defaults
@@ -5255,10 +5232,10 @@ read_solution(void)
 
 	solution[n]->n_user = n_user;
 	solution[n]->n_user_end = n_user_end;
-	if (use.solution_in == FALSE)
+	if (use.Get_solution_in() == FALSE)
 	{
-		use.solution_in = TRUE;
-		use.n_solution_user = n_user;
+		use.Set_solution_in(true);
+		use.Set_n_solution_user(n_user);
 	}
 	max_mass_balance = MAX_MASS_BALANCE;
 /*
@@ -6148,124 +6125,124 @@ read_use(void)
 	switch (next_keyword)
 	{
 	case Keywords::KEY_SOLUTION:					/* Solution */
-		use.n_solution_user = n_user;
+		use.Set_n_solution_user(n_user);
 		if (n_user >= 0)
 		{
-			use.solution_in = TRUE;
+			use.Set_solution_in(true);
 		}
 		else
 		{
-			use.solution_in = FALSE;
+			use.Set_solution_in(false);
 		}
 		break;
 	case Keywords::KEY_EQUILIBRIUM_PHASES:					/* Pure phases */
-		use.n_pp_assemblage_user = n_user;
+		use.Set_n_pp_assemblage_user(n_user);
 		if (n_user >= 0)
 		{
-			use.pp_assemblage_in = TRUE;
+			use.Set_pp_assemblage_in(true);
 		}
 		else
 		{
-			use.pp_assemblage_in = FALSE;
+			use.Set_pp_assemblage_in(false);
 		}
 		break;
 	case Keywords::KEY_REACTION:					/* Reaction */
-		use.n_reaction_user = n_user;
+		use.Set_n_reaction_user(n_user);
 		if (n_user >= 0)
 		{
-			use.reaction_in = TRUE;
+			use.Set_reaction_in(true);
 		}
 		else
 		{
-			use.reaction_in = FALSE;
+			use.Set_reaction_in(false);
 		}
 		break;
 	case Keywords::KEY_MIX:					/* Mix */
-		use.n_mix_user = n_user;
+		use.Set_n_mix_user(n_user);
 		if (n_user >= 0)
 		{
-			use.mix_in = TRUE;
+			use.Set_mix_in(true);
 		}
 		else
 		{
-			use.mix_in = FALSE;
+			use.Set_mix_in(false);
 		}
 		break;
 	case Keywords::KEY_EXCHANGE:					/* Ex */
-		use.n_exchange_user = n_user;
+		use.Set_n_exchange_user(n_user);
 		if (n_user >= 0)
 		{
-			use.exchange_in = TRUE;
+			use.Set_exchange_in(true);
 		}
 		else
 		{
-			use.exchange_in = FALSE;
+			use.Set_exchange_in(false);
 		}
 		break;
 	case Keywords::KEY_SURFACE:					/* Surface */
-		use.n_surface_user = n_user;
+		use.Set_n_surface_user(n_user);
 		if (n_user >= 0)
 		{
-			use.surface_in = TRUE;
+			use.Set_surface_in(true);
 		}
 		else
 		{
-			use.surface_in = FALSE;
+			use.Set_surface_in(false);
 		}
 		break;
 	case Keywords::KEY_REACTION_TEMPERATURE:					/* Temperature */
-		use.n_temperature_user = n_user;
+		use.Set_n_temperature_user(n_user);
 		if (n_user >= 0)
 		{
-			use.temperature_in = TRUE;
+			use.Set_temperature_in(true);
 		}
 		else
 		{
-			use.temperature_in = FALSE;
+			use.Set_temperature_in(false);
 		}
 		break;
 	case Keywords::KEY_REACTION_PRESSURE:					/* pressure */
-		use.n_pressure_user = n_user;
+		use.Set_n_pressure_user(n_user);
 		if (n_user >= 0)
 		{
-			use.pressure_in = TRUE;
+			use.Set_pressure_in(true);
 		}
 		else
 		{
-			use.pressure_in = FALSE;
+			use.Set_pressure_in(false);
 		}
 		break;
 	case Keywords::KEY_GAS_PHASE:					/* Gas */
-		use.n_gas_phase_user = n_user;
+		use.Set_n_gas_phase_user(n_user);
 		if (n_user >= 0)
 		{
-			use.gas_phase_in = TRUE;
+			use.Set_gas_phase_in(true);
 		}
 		else
 		{
-			use.gas_phase_in = FALSE;
+			use.Set_gas_phase_in(false);
 		}
 		break;
 	case Keywords::KEY_KINETICS:					/* Kinetics */
-		use.n_kinetics_user = n_user;
+		use.Set_n_kinetics_user(n_user);
 		if (n_user >= 0)
 		{
-			use.kinetics_in = TRUE;
+			use.Set_kinetics_in(true);
 		}
 		else
 		{
-			use.kinetics_in = FALSE;
+			use.Set_kinetics_in(false);
 		}
 		break;
 	case Keywords::KEY_SOLID_SOLUTIONS:					/* solid_solutions */
-		use.n_ss_assemblage_user = n_user;
+		use.Set_n_ss_assemblage_user(n_user);
 		if (n_user >= 0)
 		{
-			use.ss_assemblage_in = TRUE;
+			use.Set_ss_assemblage_in(true);
 		}
 		else
 		{
-			use.ss_assemblage_in = FALSE;
+			use.Set_ss_assemblage_in(false);
 		}
 		break;
 	default:
@@ -6779,10 +6756,10 @@ read_surf(void)
 	surface_init(&(surface[n]), n_user, n_user_end, description);
 	free_check_null(description);
 
-	if (use.surface_in == FALSE)
+	if (use.Get_surface_in() == FALSE)
 	{
-		use.surface_in = TRUE;
-		use.n_surface_user = n_user;
+		use.Set_surface_in(true);
+		use.Set_n_surface_user(n_user);
 	}
 	/*
 	 *   Read surface data
@@ -7710,7 +7687,7 @@ read_advection(void)
 /*
  *   Set use data
  */
-	use.advect_in = TRUE;
+	use.Set_advect_in(true);
 	count_ad_cells = 0;
 	count_ad_shifts = 0;
 	print_ad_modulus = 1;
@@ -9304,10 +9281,10 @@ read_solid_solutions(void)
 /*
  *   Set use data to first read
  */
-	if (use.ss_assemblage_in == FALSE)
+	if (use.Get_ss_assemblage_in() == FALSE)
 	{
-		use.ss_assemblage_in = TRUE;
-		use.n_ss_assemblage_user = n_user;
+		use.Set_ss_assemblage_in(true);
+		use.Set_n_ss_assemblage_user(n_user);
 	}
 /*
  *   Read solid solutions
@@ -10590,10 +10567,10 @@ read_reaction_pressure(void)
 		Rxn_pressure_map[n_user] = atm;
 	}
 
-	if (use.pressure_in == FALSE)
+	if (use.Get_pressure_in() == FALSE)
 	{
-		use.pressure_in = TRUE;
-		use.n_pressure_user = atm.Get_n_user();
+		use.Set_pressure_in(true);
+		use.Set_n_pressure_user(atm.Get_n_user());
 	}
 
 	// Make copies if necessary
@@ -10734,10 +10711,10 @@ read_temperature(void)
 		Rxn_temperature_map[n_user] = t_react;
 	}
 
-	if (use.temperature_in == FALSE)
+	if (use.Get_temperature_in() == FALSE)
 	{
-		use.temperature_in = TRUE;
-		use.n_temperature_user = t_react.Get_n_user();
+		use.Set_temperature_in(true);
+		use.Set_n_temperature_user(t_react.Get_n_user());
 	}
 
 	// Make copies if necessary

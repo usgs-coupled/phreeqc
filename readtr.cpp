@@ -134,7 +134,7 @@ read_transport(void)
 /*
  *   Set use data to last read
  */
-	use.trans_in = TRUE;
+	use.Set_trans_in(true);
 /*
  *   Read lines
  */

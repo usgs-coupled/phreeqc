@@ -186,11 +186,11 @@ calc_final_kinetic_reaction(struct kinetics *kinetics_ptr)
 				free_check_null(temp_name);
 			}
 		}
-		if (use.exchange_ptr != NULL
-			//&& use.exchange_ptr->related_rate == TRUE)
-			&& ((cxxExchange *) use.exchange_ptr)->Get_related_rate())
+		if (use.Get_exchange_ptr() != NULL
+			//&& use.Get_exchange_ptr()->related_rate == TRUE)
+			&& ((cxxExchange *) use.Get_exchange_ptr())->Get_related_rate())
 		{
-			cxxExchange * exchange_ptr = (cxxExchange *) use.exchange_ptr;
+			cxxExchange * exchange_ptr = (cxxExchange *) use.Get_exchange_ptr();
 			std::map<std::string, cxxExchComp>::iterator it = exchange_ptr->Get_exchComps().begin();
 			for ( ; it != exchange_ptr->Get_exchComps().end(); it++)
 			{
@@ -209,22 +209,22 @@ calc_final_kinetic_reaction(struct kinetics *kinetics_ptr)
 			}
 
 		}
-		if (use.surface_ptr != NULL && use.surface_ptr->related_rate == TRUE)
+		if (use.Get_surface_ptr() != NULL && use.Get_surface_ptr()->related_rate == TRUE)
 		{
-			for (j = 0; j < use.surface_ptr->count_comps; j++)
+			for (j = 0; j < use.Get_surface_ptr()->count_comps; j++)
 			{
-				if (use.surface_ptr->comps[j].rate_name != NULL)
+				if (use.Get_surface_ptr()->comps[j].rate_name != NULL)
 				{
 					if (strcmp_nocase
 						(kinetics_ptr->comps[i].rate_name,
-						 use.surface_ptr->comps[j].rate_name) == 0)
+						 use.Get_surface_ptr()->comps[j].rate_name) == 0)
 					{
 						/* found kinetics component */
-						char * temp_formula = string_duplicate(use.surface_ptr->comps[j].formula);
+						char * temp_formula = string_duplicate(use.Get_surface_ptr()->comps[j].formula);
 						char *ptr = temp_formula;
 /* Surface = 0 when m becomes low ...
  */
-						if (0.9 * use.surface_ptr->comps[j].phase_proportion *
+						if (0.9 * use.Get_surface_ptr()->comps[j].phase_proportion *
 							(kinetics_ptr->comps[i].m) < MIN_RELATED_SURFACE)
 						{
 							master_ptr = master_bsearch(ptr);
@@ -234,7 +234,7 @@ calc_final_kinetic_reaction(struct kinetics *kinetics_ptr)
 						{
 							get_elts_in_species(&ptr,
 												-coef *
-												use.surface_ptr->comps[j].
+												use.Get_surface_ptr()->comps[j].
 												phase_proportion);
 						}
 						free_check_null(temp_formula);
@@ -319,7 +319,7 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 		set_reaction(i, NOMIX, TRUE);
 	}
 #ifdef SKIP
-	if (use.pp_assemblage_ptr != NULL)
+	if (use.Get_pp_assemblage_ptr() != NULL)
 	{
 		pp_assemblage_save =
 			(struct pp_assemblage *)
@@ -328,7 +328,7 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 			malloc_error();
 	}
 #endif
-	if (use.ss_assemblage_ptr != NULL)
+	if (use.Get_ss_assemblage_ptr() != NULL)
 	{
 		ss_assemblage_save =
 			(struct ss_assemblage *)
@@ -425,18 +425,18 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 			 *   concentrations. Reactions may take out more than is present in
 			 *   solution.
 			 */
-			if (use.pp_assemblage_ptr != NULL)
+			if (use.Get_pp_assemblage_ptr() != NULL)
 			{
-				cxxPPassemblage *pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+				cxxPPassemblage *pp_assemblage_ptr = (cxxPPassemblage *) use.Get_pp_assemblage_ptr();
 				cxxPPassemblage * pp_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, pp_assemblage_ptr->Get_n_user());
 				assert(pp_ptr);
 				pp_assemblage_save = new cxxPPassemblage(*pp_ptr);
 			}
 			if (ss_assemblage_save != NULL)
 			{
-				ss_assemblage_copy(use.ss_assemblage_ptr,
+				ss_assemblage_copy(use.Get_ss_assemblage_ptr(),
 									ss_assemblage_save,
-									use.ss_assemblage_ptr->n_user);
+									use.Get_ss_assemblage_ptr()->n_user);
 			}
 			for (j = 0; j < n_reactions; j++)
 			{
@@ -562,12 +562,12 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 		if (pp_assemblage_save != NULL)
 		{
 			Rxn_pp_assemblage_map[pp_assemblage_save->Get_n_user()] = *pp_assemblage_save;
-			use.pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, pp_assemblage_save->Get_n_user());
+			use.Set_pp_assemblage_ptr(Utilities::Rxn_find(Rxn_pp_assemblage_map, pp_assemblage_save->Get_n_user()));
 		}
 		if (ss_assemblage_save != NULL)
 		{
-			ss_assemblage_free(use.ss_assemblage_ptr);
-			ss_assemblage_copy(ss_assemblage_save, use.ss_assemblage_ptr,
+			ss_assemblage_free(use.Get_ss_assemblage_ptr());
+			ss_assemblage_copy(ss_assemblage_save, use.Get_ss_assemblage_ptr(),
 								ss_assemblage_save->n_user);
 		}
 
@@ -682,12 +682,12 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 		if (pp_assemblage_save != NULL)
 		{
 			Rxn_pp_assemblage_map[pp_assemblage_save->Get_n_user()] = *pp_assemblage_save;
-			use.pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, pp_assemblage_save->Get_n_user());
+			use.Set_pp_assemblage_ptr(Utilities::Rxn_find(Rxn_pp_assemblage_map, pp_assemblage_save->Get_n_user()));
 		}
 		if (ss_assemblage_save != NULL)
 		{
-			ss_assemblage_free(use.ss_assemblage_ptr);
-			ss_assemblage_copy(ss_assemblage_save, use.ss_assemblage_ptr,
+			ss_assemblage_free(use.Get_ss_assemblage_ptr());
+			ss_assemblage_copy(ss_assemblage_save, use.Get_ss_assemblage_ptr(),
 								ss_assemblage_save->n_user);
 		}
 
@@ -802,12 +802,12 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 		if (pp_assemblage_save != NULL)
 		{
 			Rxn_pp_assemblage_map[pp_assemblage_save->Get_n_user()] = *pp_assemblage_save;
-			use.pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, pp_assemblage_save->Get_n_user());
+			use.Set_pp_assemblage_ptr(Utilities::Rxn_find(Rxn_pp_assemblage_map, pp_assemblage_save->Get_n_user()));
 		}
 		if (ss_assemblage_save != NULL)
 		{
-			ss_assemblage_free(use.ss_assemblage_ptr);
-			ss_assemblage_copy(ss_assemblage_save, use.ss_assemblage_ptr,
+			ss_assemblage_free(use.Get_ss_assemblage_ptr());
+			ss_assemblage_copy(ss_assemblage_save, use.Get_ss_assemblage_ptr(),
 								ss_assemblage_save->n_user);
 		}
 
@@ -854,12 +854,12 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 		if (pp_assemblage_save != NULL)
 		{
 			Rxn_pp_assemblage_map[pp_assemblage_save->Get_n_user()] = *pp_assemblage_save;
-			use.pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, pp_assemblage_save->Get_n_user());
+			use.Set_pp_assemblage_ptr(Utilities::Rxn_find(Rxn_pp_assemblage_map, pp_assemblage_save->Get_n_user()));
 		}
 		if (ss_assemblage_save != NULL)
 		{
-			ss_assemblage_free(use.ss_assemblage_ptr);
-			ss_assemblage_copy(ss_assemblage_save, use.ss_assemblage_ptr,
+			ss_assemblage_free(use.Get_ss_assemblage_ptr());
+			ss_assemblage_copy(ss_assemblage_save, use.Get_ss_assemblage_ptr(),
 								ss_assemblage_save->n_user);
 		}
 
@@ -907,12 +907,12 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 		if (pp_assemblage_save != NULL)
 		{
 			Rxn_pp_assemblage_map[pp_assemblage_save->Get_n_user()] = *pp_assemblage_save;
-			use.pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, pp_assemblage_save->Get_n_user());
+			use.Set_pp_assemblage_ptr(Utilities::Rxn_find(Rxn_pp_assemblage_map, pp_assemblage_save->Get_n_user()));
 		}
 		if (ss_assemblage_save != NULL)
 		{
-			ss_assemblage_free(use.ss_assemblage_ptr);
-			ss_assemblage_copy(ss_assemblage_save, use.ss_assemblage_ptr,
+			ss_assemblage_free(use.Get_ss_assemblage_ptr());
+			ss_assemblage_copy(ss_assemblage_save, use.Get_ss_assemblage_ptr(),
 								ss_assemblage_save->n_user);
 		}
 
@@ -1060,19 +1060,19 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 /*	saver();  */ /* reset for printing */
 	if (use_mix == DISP)
 	{
-		//use.mix_ptr = &mix[count_mix - count_cells + i - 1];
-		use.mix_ptr = (void *) Utilities::Rxn_find(Dispersion_mix_map, i);
-		use.mix_in = TRUE;
-		use.n_mix_user = i;
+		//use.Get_mix_ptr() = &mix[count_mix - count_cells + i - 1];
+		use.Set_mix_ptr(Utilities::Rxn_find(Dispersion_mix_map, i));
+		use.Set_mix_in(true);
+		use.Set_n_mix_user(i);
 	}
 	else if ((use_mix == STAG || use_mix == TRUE) && state == TRANSPORT)
 	{
-		//use.mix_ptr = mix_search(i, &use.n_mix, FALSE);
-		use.mix_ptr = (void *) Utilities::Rxn_find(Rxn_mix_map, i);
-		if (use.mix_ptr != NULL)
+		//use.Get_mix_ptr() = mix_search(i, &use.n_mix, FALSE);
+		use.Set_mix_ptr(Utilities::Rxn_find(Rxn_mix_map, i));
+		if (use.Get_mix_ptr() != NULL)
 		{
-			use.mix_in = TRUE;
-			use.n_mix_user = i;
+			use.Set_mix_in(true);
+			use.Set_n_mix_user(i);
 		}
 	}
 /*
@@ -1085,7 +1085,7 @@ rk_kinetics(int i, LDBLE kin_time, int use_mix, int nsaver,
 	rk_moles = (LDBLE *) free_check_null(rk_moles);
 
 	rate_sim_time = rate_sim_time_start + kin_time;
-	use.kinetics_in = TRUE;
+	use.Set_kinetics_in(true);
 
 	/*  Free space */
 
@@ -1141,9 +1141,9 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 	{
 		set_reaction(i, use_mix, use_kinetics);
 	}
-	if (use.pp_assemblage_ptr != NULL)
+	if (use.Get_pp_assemblage_ptr() != NULL)
 	{
-		cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+		cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.Get_pp_assemblage_ptr();
 		if (pp_assemblage_save)
 		{
 			delete pp_assemblage_save;
@@ -1151,24 +1151,24 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 		}
 		pp_assemblage_save = new cxxPPassemblage(*pp_assemblage_ptr);
 	}
-	if (use.ss_assemblage_ptr != NULL)
+	if (use.Get_ss_assemblage_ptr() != NULL)
 	{
 		ss_assemblage_save =
 			(struct ss_assemblage *)
 			PHRQ_malloc(sizeof(struct ss_assemblage));
 		if (ss_assemblage_save == NULL)
 			malloc_error();
-		ss_assemblage_copy(use.ss_assemblage_ptr, ss_assemblage_save,
-							use.ss_assemblage_ptr->n_user);
+		ss_assemblage_copy(use.Get_ss_assemblage_ptr(), ss_assemblage_save,
+							use.Get_ss_assemblage_ptr()->n_user);
 	}
-	if (use.kinetics_ptr != NULL)
+	if (use.Get_kinetics_ptr() != NULL)
 	{
 		kinetics_save =
 			(struct kinetics *) PHRQ_malloc(sizeof(struct kinetics));
 		if (kinetics_save == NULL)
 			malloc_error();
-		kinetics_copy(use.kinetics_ptr, kinetics_save,
-					  use.kinetics_ptr->n_user);
+		kinetics_copy(use.Get_kinetics_ptr(), kinetics_save,
+					  use.Get_kinetics_ptr()->n_user);
 	}
 
 	if (pitzer_model == TRUE || sit_model == TRUE)
@@ -1320,19 +1320,19 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 			if (pp_assemblage_save != NULL)
 			{
 				Rxn_pp_assemblage_map[pp_assemblage_save->Get_n_user()] = *pp_assemblage_save;
-				use.pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, pp_assemblage_save->Get_n_user());
+				use.Set_pp_assemblage_ptr(Utilities::Rxn_find(Rxn_pp_assemblage_map, pp_assemblage_save->Get_n_user()));
 			}
 			if (ss_assemblage_save != NULL)
 			{
-				ss_assemblage_free(use.ss_assemblage_ptr);
+				ss_assemblage_free(use.Get_ss_assemblage_ptr());
 				ss_assemblage_copy(ss_assemblage_save,
-									use.ss_assemblage_ptr,
+									use.Get_ss_assemblage_ptr(),
 									ss_assemblage_save->n_user);
 			}
 			if (kinetics_save != NULL)
 			{
-				kinetics_free(use.kinetics_ptr);
-				kinetics_copy(kinetics_save, use.kinetics_ptr,
+				kinetics_free(use.Get_kinetics_ptr());
+				kinetics_copy(kinetics_save, use.Get_kinetics_ptr(),
 							  kinetics_save->n_user);
 			}
 		}
@@ -1361,8 +1361,8 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 		warning_msg
 			("Numerical method failed with this set of convergence parameters.\n");
 	}
-	if (converge == FALSE && use.kinetics_ptr != NULL
-		&& use.kinetics_ptr->use_cvode == TRUE)
+	if (converge == FALSE && use.Get_kinetics_ptr() != NULL
+		&& use.Get_kinetics_ptr()->use_cvode == TRUE)
 	{
 		error_string = sformatf(
 				"Numerical method failed on all parameter combinations, retrying integration");
@@ -1384,16 +1384,16 @@ set_and_run_wrapper(int i, int use_mix, int use_kinetics, int nsaver,
 		/* if (state == TRANSPORT && dump_modulus == 0) dump(); */
 		check_residuals();
 		pr.all = TRUE;
-		pr.gas_phase = use.gas_phase_in;
-		pr.pp_assemblage = use.pp_assemblage_in;
-		pr.ss_assemblage = use.ss_assemblage_in;
-		pr.surface = use.surface_in;
-		pr.exchange = use.exchange_in;
+		pr.gas_phase = use.Get_gas_phase_in();
+		pr.pp_assemblage = use.Get_pp_assemblage_in();
+		pr.ss_assemblage = use.Get_ss_assemblage_in();
+		pr.surface = use.Get_surface_in();
+		pr.exchange = use.Get_exchange_in();
 		pr.totals = TRUE;
 		pr.species = TRUE;
 		pr.saturation_indices = TRUE;
-		pr.irrev = use.reaction_in;
-		pr.mix = use.mix_in;
+		pr.irrev = use.Get_reaction_in();
+		pr.mix = use.Get_mix_in();
 		pr.reaction = TRUE;
 		pr.use = TRUE;
 		sum_species();
@@ -1466,25 +1466,25 @@ set_and_run(int i, int use_mix, int use_kinetics, int nsaver,
 /*
  *  Always use solution, exchange, and surface -1
  */
-		use.solution_ptr = solution_bsearch(-1, &n, TRUE);
+		use.Set_solution_ptr(solution_bsearch(-1, &n, TRUE));
 
 		/* new */
-		if (use.exchange_ptr != NULL)
+		if (use.Get_exchange_ptr() != NULL)
 		{
-			//use.exchange_ptr = exchange_bsearch(-1, &n1);
-			use.exchange_ptr = Utilities::Rxn_find(Rxn_exchange_map, -1);
+			//use.Get_exchange_ptr() = exchange_bsearch(-1, &n1);
+			use.Set_exchange_ptr(Utilities::Rxn_find(Rxn_exchange_map, -1));
 		}
-		if (use.surface_ptr != NULL)
+		if (use.Get_surface_ptr() != NULL)
 		{
-			use.surface_ptr = surface_bsearch(-1, &n2);
+			use.Set_surface_ptr(surface_bsearch(-1, &n2));
 		}
 
 /*
  *  Adjust the total pressure to the gas pressure
  */
-		if (use.gas_phase_ptr != NULL)
+		if (use.Get_gas_phase_ptr() != NULL)
 		{
-			cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+			cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.Get_gas_phase_ptr();
 			if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_PRESSURE) 
 			{
 			/*
@@ -1499,18 +1499,18 @@ set_and_run(int i, int use_mix, int use_kinetics, int nsaver,
 		}
 	}
 	/* end new */
-	if (use.surface_ptr != NULL)
+	if (use.Get_surface_ptr() != NULL)
 	{
-		dl_type_x = use.surface_ptr->dl_type;
+		dl_type_x = use.Get_surface_ptr()->dl_type;
 	}
-	if (use.surface_ptr != NULL && dl_type_x != NO_DL)
+	if (use.Get_surface_ptr() != NULL && dl_type_x != NO_DL)
 	{
 		converge = surface_model();
 	}
 	else
 	{
 		prep();
-		k_temp(use.solution_ptr->tc, use.solution_ptr->patm);
+		k_temp(use.Get_solution_ptr()->tc, use.Get_solution_ptr()->patm);
 		set(FALSE);
 		converge = model();
 	}
@@ -1539,50 +1539,54 @@ set_transport(int i, int use_mix, int use_kinetics, int nsaver)
  *   Find mixture or solution
  */
 
-	use.mix_ptr = NULL;
-	use.mix_in = FALSE;
+	use.Set_mix_ptr(NULL);
+	use.Set_mix_in(false);
 	if (use_mix == DISP)
 	{
-		//use.mix_ptr = &mix[count_mix - count_cells + i - 1];
-		use.mix_ptr = (void *) Utilities::Rxn_find(Dispersion_mix_map, i);
-		use.mix_in = TRUE;
-		use.n_mix_user = i;
-		use.n_mix_user_orig = i;
+		//use.Get_mix_ptr() = &mix[count_mix - count_cells + i - 1];
+		use.Set_mix_ptr(Utilities::Rxn_find(Dispersion_mix_map, i));
+		use.Set_mix_in(true);
+		use.Set_n_mix_user(i);
+		use.Set_n_mix_user_orig(i);
 	}
 	else if (use_mix == STAG && multi_Dflag != TRUE)
 	{
-		//use.mix_ptr = mix_search(i, &use.n_mix, FALSE);
-		use.mix_ptr = (void *) Utilities::Rxn_find(Rxn_mix_map, i);
-		if (use.mix_ptr != NULL)
+		//use.Get_mix_ptr() = mix_search(i, &use.n_mix, FALSE);
+		use.Set_mix_ptr(Utilities::Rxn_find(Rxn_mix_map, i));
+		if (use.Get_mix_ptr() != NULL)
 		{
-			use.mix_in = TRUE;
-			use.n_mix_user = i;
-			use.n_mix_user_orig = i;
+			use.Set_mix_in(true);
+			use.Set_n_mix_user(i);
+			use.Set_n_mix_user_orig(i);
 		}
 		else
 		{
-			use.solution_ptr = solution_bsearch(i, &use.n_solution, FALSE);
-			if (use.solution_ptr == NULL)
+			int n_solution;
+			use.Set_solution_ptr(solution_bsearch(i, &n_solution, FALSE));
+			//use.Set_n_solution(n_solution);
+			if (use.Get_solution_ptr() == NULL)
 			{
 				error_string = sformatf( "Solution %d not found.",
-						use.n_solution_user);
+						use.Get_n_solution_user());
 				error_msg(error_string, STOP);
 			}
-			use.n_solution_user = i;
-			use.solution_in = TRUE;
+			use.Set_n_solution_user(i);
+			use.Set_solution_in(true);
 		}
 	}
 	else
 	{
-		use.solution_ptr = solution_bsearch(i, &use.n_solution, FALSE);
-		if (use.solution_ptr == NULL)
+		int n_solution;
+		use.Set_solution_ptr(solution_bsearch(i, &n_solution, FALSE));
+		//use.Set_n_solution(n_solution);
+		if (use.Get_solution_ptr() == NULL)
 		{
 			error_string = sformatf( "Solution %d not found.",
-					use.n_solution_user);
+					use.Get_n_solution_user());
 			error_msg(error_string, STOP);
 		}
-		use.n_solution_user = i;
-		use.solution_in = TRUE;
+		use.Set_n_solution_user(i);
+		use.Set_solution_in(true);
 	}
 	save.solution = TRUE;
 	save.n_solution_user = nsaver;
@@ -1591,154 +1595,158 @@ set_transport(int i, int use_mix, int use_kinetics, int nsaver)
  *   Find pure phase assemblage
  */
 
-	//use.pp_assemblage_ptr = pp_assemblage_bsearch(i, &use.n_pp_assemblage);
-	use.pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, i);
-	if (use.pp_assemblage_ptr != NULL)
+	//use.Get_pp_assemblage_ptr() = pp_assemblage_bsearch(i, &use.n_pp_assemblage);
+	use.Set_pp_assemblage_ptr(Utilities::Rxn_find(Rxn_pp_assemblage_map, i));
+	if (use.Get_pp_assemblage_ptr() != NULL)
 	{
-		use.pp_assemblage_in = TRUE;
-		use.n_pp_assemblage_user = i;
+		use.Set_pp_assemblage_in(true);
+		use.Set_n_pp_assemblage_user(i);
 		save.pp_assemblage = TRUE;
 		save.n_pp_assemblage_user = i;
 		save.n_pp_assemblage_user_end = i;
 	}
 	else
 	{
-		use.pp_assemblage_in = FALSE;
+		use.Set_pp_assemblage_in(false);
 		save.pp_assemblage = FALSE;
 	}
 /*
  *   Find irreversible reaction
  */
 	//use.irrev_ptr = irrev_bsearch(i, &use.n_irrev);
-	use.reaction_ptr = Utilities::Rxn_find(Rxn_reaction_map, i);
-	if (use.reaction_ptr != NULL)
+	use.Set_reaction_ptr(Utilities::Rxn_find(Rxn_reaction_map, i));
+	if (use.Get_reaction_ptr() != NULL)
 	{
-		use.reaction_in = TRUE;
-		use.n_reaction_user = i;
+		use.Set_reaction_in(true);
+		use.Set_n_reaction_user(i);
 	}
 	else
 	{
-		use.reaction_in = FALSE;
+		use.Set_reaction_in(false);
 	}
 /*
  *   Find exchange
  */
-	//use.exchange_ptr = exchange_bsearch(i, &use.n_exchange);
-	use.exchange_ptr = Utilities::Rxn_find(Rxn_exchange_map, i);
-	if (use.exchange_ptr != NULL)
+	//use.Get_exchange_ptr() = exchange_bsearch(i, &use.n_exchange);
+	use.Set_exchange_ptr(Utilities::Rxn_find(Rxn_exchange_map, i));
+	if (use.Get_exchange_ptr() != NULL)
 	{
-		use.exchange_in = TRUE;
-		use.n_exchange_user = i;
+		use.Set_exchange_in(true);
+		use.Set_n_exchange_user(i);
 		save.exchange = TRUE;
 		save.n_exchange_user = i;
 		save.n_exchange_user_end = i;
 	}
 	else
 	{
-		use.exchange_in = FALSE;
+		use.Set_exchange_in(false);
 		save.exchange = FALSE;
 	}
 
 /*
  *   Find surface
  */
-	use.surface_ptr = surface_bsearch(i, &use.n_surface);
-	if (use.surface_ptr != NULL)
+	int n_surface;
+	use.Set_surface_ptr(surface_bsearch(i, &n_surface));
+	//use.Set_n_surface(n_surface);
+	if (use.Get_surface_ptr() != NULL)
 	{
-		use.surface_in = TRUE;
-		use.n_surface_user = i;
+		use.Set_surface_in(true);
+		use.Set_n_surface_user(i);
 		save.surface = TRUE;
 		save.n_surface_user = i;
 		save.n_surface_user_end = i;
 	}
 	else
 	{
-		use.surface_in = FALSE;
+		use.Set_surface_in(false);
 		save.surface = FALSE;
 		dl_type_x = NO_DL;
 	}
 /*
  *   Find temperature;  temp retardation is done in step
  */
-	use.temperature_ptr = Utilities::Rxn_find(Rxn_temperature_map, i);
-	if (use.temperature_ptr != NULL)
+	use.Set_temperature_ptr(Utilities::Rxn_find(Rxn_temperature_map, i));
+	if (use.Get_temperature_ptr() != NULL)
 	{
-		use.temperature_in = TRUE;
-		use.n_temperature_user = i;
+		use.Set_temperature_in(true);
+		use.Set_n_temperature_user(i);
 	}
 	else
 	{
-		use.temperature_in = FALSE;
+		use.Set_temperature_in(false);
 	}
 /*
  *   Find pressure
  */
-	use.pressure_ptr = Utilities::Rxn_find(Rxn_pressure_map, i);
-	if (use.pressure_ptr != NULL)
+	use.Set_pressure_ptr(Utilities::Rxn_find(Rxn_pressure_map, i));
+	if (use.Get_pressure_ptr() != NULL)
 	{
-		use.pressure_in = TRUE;
-		use.n_pressure_user = i;
+		use.Set_pressure_in(true);
+		use.Set_n_pressure_user(i);
 	}
 	else
 	{
-		use.pressure_in = FALSE;
+		use.Set_pressure_in(false);
 	}
 /*
  *   Find gas
  */
-	//use.gas_phase_ptr = gas_phase_bsearch(i, &use.n_gas_phase);
-	use.gas_phase_ptr = Utilities::Rxn_find(Rxn_gas_phase_map, i);
-	if (use.gas_phase_ptr != NULL)
+	//use.Get_gas_phase_ptr() = gas_phase_bsearch(i, &use.n_gas_phase);
+	use.Set_gas_phase_ptr(Utilities::Rxn_find(Rxn_gas_phase_map, i));
+	if (use.Get_gas_phase_ptr() != NULL)
 	{
-		use.gas_phase_in = TRUE;
-		use.n_gas_phase_user = i;
+		use.Set_gas_phase_in(true);
+		use.Set_n_gas_phase_user(i);
 		save.gas_phase = TRUE;
 		save.n_gas_phase_user = i;
 		save.n_gas_phase_user_end = i;
 	}
 	else
 	{
-		use.gas_phase_in = FALSE;
+		use.Set_gas_phase_in(false);
 		save.gas_phase = FALSE;
 	}
 /*
  *   Find ss_assemblage
  */
-	use.ss_assemblage_ptr = ss_assemblage_bsearch(i, &use.n_ss_assemblage);
-	if (use.ss_assemblage_ptr != NULL)
+	int n_ss_assemblage;
+	use.Set_ss_assemblage_ptr(ss_assemblage_bsearch(i, &n_ss_assemblage));
+	//use.Set_n_ss_assemblage(n_ss_assemblage);
+	if (use.Get_ss_assemblage_ptr() != NULL)
 	{
-		use.ss_assemblage_in = TRUE;
-		use.n_ss_assemblage_user = i;
+		use.Set_ss_assemblage_in(true);
+		use.Set_n_ss_assemblage_user(i);
 		save.ss_assemblage = TRUE;
 		save.n_ss_assemblage_user = i;
 		save.n_ss_assemblage_user_end = i;
 	}
 	else
 	{
-		use.ss_assemblage_in = FALSE;
+		use.Set_ss_assemblage_in(false);
 		save.ss_assemblage = FALSE;
 	}
 /*
  *   Find kinetics
  */
-	if (use_kinetics == TRUE
-		&& (use.kinetics_ptr = kinetics_bsearch(i, &n)) != NULL)
+	use.Set_kinetics_ptr(NULL);
+	use.Set_kinetics_in(false);
+	save.kinetics = FALSE;
+	if (use_kinetics == TRUE)
 	{
-		use.n_kinetics_user = i;
-		use.n_kinetics = n;
-		use.kinetics_in = TRUE;
-		save.kinetics = TRUE;
-		save.n_kinetics_user = i;
-		save.n_kinetics_user_end = i;
-	}
-	else
-	{
-		use.kinetics_ptr = NULL;
-		use.kinetics_in = FALSE;
-		save.kinetics = FALSE;
+		use.Set_kinetics_ptr(kinetics_bsearch(i, &n));
+		if (use.Get_kinetics_ptr() != NULL)
+		{
+			use.Set_n_kinetics_user(i);
+			//use.Set_n_kinetics(n);
+			use.Set_kinetics_in(true);
+			save.kinetics = TRUE;
+			save.n_kinetics_user = i;
+			save.n_kinetics_user_end = i;
+		}
 	}
 	/*
-	if (use.irrev_ptr != NULL && use.kinetics_ptr != NULL)
+	if (use.irrev_ptr != NULL && use.Get_kinetics_ptr() != NULL)
 	{
 		warning_msg("Should not use REACTION in same simulation with KINETICS.");
 	}
@@ -1761,13 +1769,13 @@ set_reaction(int i, int use_mix, int use_kinetics)
 /*
  *   Find mixture or solution
  */
-	use.mix_ptr = NULL;
-	use.solution_ptr = NULL;
-	if (use_mix == TRUE && use.mix_in == TRUE)
+	use.Set_mix_ptr(NULL);
+	use.Set_solution_ptr(NULL);
+	if (use_mix == TRUE && use.Get_mix_in() == TRUE)
 	{
-		//use.mix_ptr = mix_bsearch(i, &use.n_mix);
-		use.mix_ptr = (void *) Utilities::Rxn_find(Rxn_mix_map, i);
-		if (use.mix_ptr == NULL)
+		//use.Get_mix_ptr() = mix_bsearch(i, &use.n_mix);
+		use.Set_mix_ptr(Utilities::Rxn_find(Rxn_mix_map, i));
+		if (use.Get_mix_ptr() == NULL)
 		{
 			error_string = sformatf( "MIX %d not found.", i);
 			error_msg(error_string, STOP);
@@ -1775,8 +1783,10 @@ set_reaction(int i, int use_mix, int use_kinetics)
 	}
 	else
 	{
-		use.solution_ptr = solution_bsearch(i, &use.n_solution, FALSE);
-		if (use.solution_ptr == NULL)
+		int n_solution;
+		use.Set_solution_ptr(solution_bsearch(i, &n_solution, FALSE));
+		//use.Set_n_solution(n_solution);
+		if (use.Get_solution_ptr() == NULL)
 		{
 			error_string = sformatf( "Solution %d not found.", i);
 			error_msg(error_string, STOP);
@@ -1785,10 +1795,10 @@ set_reaction(int i, int use_mix, int use_kinetics)
 /*
  *   Find pure phase assemblage
  */
-	if (use.pp_assemblage_in == TRUE)
+	if (use.Get_pp_assemblage_in() == TRUE)
 	{
-		use.pp_assemblage_ptr =	Utilities::Rxn_find(Rxn_pp_assemblage_map, i);
-		if (use.pp_assemblage_ptr == NULL)
+		use.Set_pp_assemblage_ptr(Utilities::Rxn_find(Rxn_pp_assemblage_map, i));
+		if (use.Get_pp_assemblage_ptr() == NULL)
 		{
 			error_string = sformatf( "PP_ASSEMBLAGE %d not found.", i);
 			error_msg(error_string, STOP);
@@ -1798,11 +1808,11 @@ set_reaction(int i, int use_mix, int use_kinetics)
 /*
  *   Find irreversible reaction
  */
-	if (use.reaction_in == TRUE)
+	if (use.Get_reaction_in() == TRUE)
 	{
 		//use.irrev_ptr = irrev_bsearch(i, &use.n_irrev);
-		use.reaction_ptr = Utilities::Rxn_find(Rxn_reaction_map, i);
-		if (use.reaction_ptr == NULL)
+		use.Set_reaction_ptr(Utilities::Rxn_find(Rxn_reaction_map, i));
+		if (use.Get_reaction_ptr() == NULL)
 		{
 			error_string = sformatf( "REACTION %d not found.", i);
 			error_msg(error_string, STOP);
@@ -1811,11 +1821,11 @@ set_reaction(int i, int use_mix, int use_kinetics)
 /*
  *   Find exchange
  */
-	if (use.exchange_in == TRUE)
+	if (use.Get_exchange_in() == TRUE)
 	{
-		//use.exchange_ptr = exchange_bsearch(i, &use.n_exchange);
-		use.exchange_ptr = Utilities::Rxn_find(Rxn_exchange_map, i);
-		if (use.exchange_ptr == NULL)
+		//use.Get_exchange_ptr() = exchange_bsearch(i, &use.n_exchange);
+		use.Set_exchange_ptr(Utilities::Rxn_find(Rxn_exchange_map, i));
+		if (use.Get_exchange_ptr() == NULL)
 		{
 			error_string = sformatf( "EXCHANGE %d not found.", i);
 			error_msg(error_string, STOP);
@@ -1825,10 +1835,12 @@ set_reaction(int i, int use_mix, int use_kinetics)
  *   Find surface
  */
 	dl_type_x = NO_DL;
-	if (use.surface_in == TRUE)
+	if (use.Get_surface_in() == TRUE)
 	{
-		use.surface_ptr = surface_bsearch(i, &use.n_surface);
-		if (use.surface_ptr == NULL)
+		int n_surface;
+		use.Set_surface_ptr(surface_bsearch(i, &n_surface));
+		//use.Set_n_surface(n_surface);
+		if (use.Get_surface_ptr() == NULL)
 		{
 			error_string = sformatf( "SURFACE %d not found.", i);
 			error_msg(error_string, STOP);
@@ -1837,10 +1849,10 @@ set_reaction(int i, int use_mix, int use_kinetics)
 /*
  *   Find temperature;  temp retardation is done in step
  */
-	if (use.temperature_in == TRUE)
+	if (use.Get_temperature_in() == TRUE)
 	{
-		use.temperature_ptr = Utilities::Rxn_find(Rxn_temperature_map, i);
-		if (use.temperature_ptr == NULL)
+		use.Set_temperature_ptr(Utilities::Rxn_find(Rxn_temperature_map, i));
+		if (use.Get_temperature_ptr() == NULL)
 		{
 			error_string = sformatf( "TEMPERATURE %d not found.", i);
 			error_msg(error_string, STOP);
@@ -1849,10 +1861,10 @@ set_reaction(int i, int use_mix, int use_kinetics)
 /*
  *   Find pressure
  */
-	if (use.pressure_in == TRUE)
+	if (use.Get_pressure_in() == TRUE)
 	{
-		use.pressure_ptr = Utilities::Rxn_find(Rxn_pressure_map, i);
-		if (use.pressure_ptr == NULL)
+		use.Set_pressure_ptr(Utilities::Rxn_find(Rxn_pressure_map, i));
+		if (use.Get_pressure_ptr() == NULL)
 		{
 			error_string = sformatf( "PRESSURE %d not found.", i);
 			error_msg(error_string, STOP);
@@ -1861,11 +1873,10 @@ set_reaction(int i, int use_mix, int use_kinetics)
 /*
  *   Find gas
  */
-	if (use.gas_phase_in == TRUE)
+	if (use.Get_gas_phase_in() == TRUE)
 	{
-		//use.gas_phase_ptr = gas_phase_bsearch(i, &use.n_gas_phase);
-		use.gas_phase_ptr = Utilities::Rxn_find(Rxn_gas_phase_map, i);
-		if (use.gas_phase_ptr == NULL)
+		use.Set_gas_phase_ptr(Utilities::Rxn_find(Rxn_gas_phase_map, i));
+		if (use.Get_gas_phase_ptr() == NULL)
 		{
 			error_string = sformatf( "GAS_PHASE %d not found.", i);
 			error_msg(error_string, STOP);
@@ -1874,11 +1885,12 @@ set_reaction(int i, int use_mix, int use_kinetics)
 /*
  *   Find ss_assemblage
  */
-	if (use.ss_assemblage_in == TRUE)
+	if (use.Get_ss_assemblage_in() == TRUE)
 	{
-		use.ss_assemblage_ptr =
-			ss_assemblage_bsearch(i, &use.n_ss_assemblage);
-		if (use.ss_assemblage_ptr == NULL)
+		int n_ss_assemblage;
+		use.Set_ss_assemblage_ptr(ss_assemblage_bsearch(i, &n_ss_assemblage));
+		//use.Set_n_ss_assemblage(n_ss_assemblage);
+		if (use.Get_ss_assemblage_ptr() == NULL)
 		{
 			error_string = sformatf( "Solid-solution Assemblage %d not found.",
 					i);
@@ -1888,10 +1900,12 @@ set_reaction(int i, int use_mix, int use_kinetics)
 /*
  *   Find kinetics
  */
-	if (use_kinetics == TRUE && use.kinetics_in == TRUE)
+	if (use_kinetics == TRUE && use.Get_kinetics_in() == TRUE)
 	{
-		use.kinetics_ptr = kinetics_bsearch(i, &use.n_kinetics);
-		if (use.kinetics_ptr == NULL)
+		int n_kinetics;
+		use.Set_kinetics_ptr(kinetics_bsearch(i, &n_kinetics));
+		//use.Set_n_kinetics(n_kinetics);
+		if (use.Get_kinetics_ptr() == NULL)
 		{
 			error_string = sformatf( "KINETICS %d not found.", i);
 			error_msg(error_string, STOP);
@@ -1899,10 +1913,10 @@ set_reaction(int i, int use_mix, int use_kinetics)
 	}
 	else
 	{
-		use.kinetics_ptr = NULL;
+		use.Set_kinetics_ptr(NULL);
 	}
 	/*
-	if (use.irrev_ptr != NULL && use.kinetics_ptr != NULL)
+	if (use.irrev_ptr != NULL && use.Get_kinetics_ptr() != NULL)
 	{
 		warning_msg("Should not use REACTION in same simulation with KINETICS.");
 	}
@@ -1927,7 +1941,7 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 	struct kinetics *kinetics_ptr;
 	cxxPPassemblage *pp_assemblage_ptr;
 	struct ss_assemblage *ss_assemblage_ptr;
-	struct Use use_save;
+	cxxUse use_save;
 	int save_old, m, n_reactions /*, nok, nbad */ ;
 
 	/* CVODE definitions */
@@ -1959,7 +1973,7 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
  * Check that reaction exists for this cell ..
  */
 	if (kin_time <= 0 ||
-		(state == REACTION && use.kinetics_in == FALSE) ||
+		(state == REACTION && use.Get_kinetics_in() == FALSE) ||
 		(state == TRANSPORT && kinetics_bsearch(i, &n) == NULL) ||
 		(state == PHAST && kinetics_bsearch(i, &n) == NULL) ||
 		(state == ADVECTION && kinetics_bsearch(i, &n) == NULL))
@@ -2214,16 +2228,16 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 					kinetics_ptr->comps[j].m = 0.0;
 				}
 			}
-			if (use.pp_assemblage_ptr != NULL)
+			if (use.Get_pp_assemblage_ptr() != NULL)
 			{
 				Rxn_pp_assemblage_map[cvode_pp_assemblage_save->Get_n_user()] = *cvode_pp_assemblage_save;
-				use.pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, cvode_pp_assemblage_save->Get_n_user());
+				use.Set_pp_assemblage_ptr(Utilities::Rxn_find(Rxn_pp_assemblage_map, cvode_pp_assemblage_save->Get_n_user()));
 			}
-			if (use.ss_assemblage_ptr != NULL)
+			if (use.Get_ss_assemblage_ptr() != NULL)
 			{
-				ss_assemblage_free(use.ss_assemblage_ptr);
+				ss_assemblage_free(use.Get_ss_assemblage_ptr());
 				ss_assemblage_copy(cvode_ss_assemblage_save,
-									use.ss_assemblage_ptr, i);
+									use.Get_ss_assemblage_ptr(), i);
 			}
 			calc_final_kinetic_reaction(kinetics_ptr);
 			if (set_and_run_wrapper(i, NOMIX, TRUE, nsaver, 1.0) ==
@@ -2247,8 +2261,8 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 				solution_duplicate(save_old, i);
 			}
 			free_cvode();
-			use.mix_in = use_save.mix_in;
-			use.mix_ptr = use_save.mix_ptr;
+			use.Set_mix_in(use_save.Get_mix_in());
+			use.Set_mix_ptr(use_save.Get_mix_ptr());
 		}
 
 		rate_sim_time = rate_sim_time_start + kin_time;
@@ -2341,27 +2355,29 @@ set_advection(int i, int use_mix, int use_kinetics, int nsaver)
  *   Find mixture or solution
  */
 
-	use.mix_ptr = NULL;
-	use.mix_in = FALSE;
-	use.mix_ptr = Utilities::Rxn_find(Rxn_mix_map, i);
-	if (use_mix == TRUE && use.mix_ptr != NULL)
+	use.Set_mix_ptr(NULL);
+	use.Set_mix_in(false);
+	use.Set_mix_ptr(Utilities::Rxn_find(Rxn_mix_map, i));
+	if (use_mix == TRUE && use.Get_mix_ptr() != NULL)
 	{
-		use.mix_in = TRUE;
-		use.n_mix_user = i;
-		use.n_mix_user_orig = i;
-		use.n_solution_user = i;
+		use.Set_mix_in(true);
+		use.Set_n_mix_user(i);
+		use.Set_n_mix_user_orig(i);
+		use.Set_n_solution_user(i);
 	}
 	else
 	{
-		use.solution_ptr = solution_bsearch(i, &use.n_solution, FALSE);
-		if (use.solution_ptr == NULL)
+		int n_solution;
+		use.Set_solution_ptr(solution_bsearch(i, &n_solution, FALSE));
+		//use.Set_n_solution(n_solution);
+		if (use.Get_solution_ptr() == NULL)
 		{
 			error_string = sformatf( "Solution %d not found.",
-					use.n_solution_user);
+					use.Get_n_solution_user());
 			error_msg(error_string, STOP);
 		}
-		use.n_solution_user = i;
-		use.solution_in = TRUE;
+		use.Set_n_solution_user(i);
+		use.Set_solution_in(true);
 	}
 	save.solution = TRUE;
 	save.n_solution_user = nsaver;
@@ -2370,154 +2386,158 @@ set_advection(int i, int use_mix, int use_kinetics, int nsaver)
  *   Find pure phase assemblage
  */
 
-	//use.pp_assemblage_ptr = pp_assemblage_bsearch(i, &use.n_pp_assemblage);
-	use.pp_assemblage_ptr =	Utilities::Rxn_find(Rxn_pp_assemblage_map, i);
-	if (use.pp_assemblage_ptr != NULL)
+	//use.Get_pp_assemblage_ptr() = pp_assemblage_bsearch(i, &use.n_pp_assemblage);
+	use.Set_pp_assemblage_ptr(Utilities::Rxn_find(Rxn_pp_assemblage_map, i));
+	if (use.Get_pp_assemblage_ptr() != NULL)
 	{
-		use.pp_assemblage_in = TRUE;
-		use.n_pp_assemblage_user = i;
+		use.Set_pp_assemblage_in(true);
+		use.Set_n_pp_assemblage_user(i);
 		save.pp_assemblage = TRUE;
 		save.n_pp_assemblage_user = i;
 		save.n_pp_assemblage_user_end = i;
 	}
 	else
 	{
-		use.pp_assemblage_in = FALSE;
+		use.Set_pp_assemblage_in(false);
 		save.pp_assemblage = FALSE;
 	}
 /*
  *   Find irreversible reaction
  */
 	//use.irrev_ptr = irrev_bsearch(i, &use.n_irrev);
-	use.reaction_ptr = Utilities::Rxn_find(Rxn_reaction_map, i);
-	if (use.reaction_ptr != NULL)
+	use.Set_reaction_ptr(Utilities::Rxn_find(Rxn_reaction_map, i));
+	if (use.Get_reaction_ptr() != NULL)
 	{
-		use.reaction_in = TRUE;
-		use.n_reaction_user = i;
+		use.Set_reaction_in(true);
+		use.Set_n_reaction_user(i);
 	}
 	else
 	{
-		use.reaction_in = FALSE;
+		use.Set_reaction_in(false);
 	}
 /*
  *   Find exchange
  */
-	//use.exchange_ptr = exchange_bsearch(i, &use.n_exchange);
-	use.exchange_ptr = Utilities::Rxn_find(Rxn_exchange_map, i);
-	if (use.exchange_ptr != NULL)
+	//use.Get_exchange_ptr() = exchange_bsearch(i, &use.n_exchange);
+	use.Set_exchange_ptr(Utilities::Rxn_find(Rxn_exchange_map, i));
+	if (use.Get_exchange_ptr() != NULL)
 	{
-		use.exchange_in = TRUE;
-		use.n_exchange_user = i;
+		use.Set_exchange_in(true);
+		use.Set_n_exchange_user(i);
 		save.exchange = TRUE;
 		save.n_exchange_user = i;
 		save.n_exchange_user_end = i;
 	}
 	else
 	{
-		use.exchange_in = FALSE;
+		use.Set_exchange_in(false);
 		save.exchange = FALSE;
 	}
 
 /*
  *   Find surface
  */
-	use.surface_ptr = surface_bsearch(i, &use.n_surface);
-	if (use.surface_ptr != NULL)
+	int n_surface;
+	use.Set_surface_ptr(surface_bsearch(i, &n_surface));
+	//use.Set_n_surface(n_surface);
+	if (use.Get_surface_ptr() != NULL)
 	{
-		use.surface_in = TRUE;
-		use.n_surface_user = i;
+		use.Set_surface_in(true);
+		use.Set_n_surface_user(i);
 		save.surface = TRUE;
 		save.n_surface_user = i;
 		save.n_surface_user_end = i;
 	}
 	else
 	{
-		use.surface_in = FALSE;
+		use.Set_surface_in(false);
 		save.surface = FALSE;
 		dl_type_x = NO_DL;
 	}
 /*
  *   Find temperature;  temp retardation is done in step
  */
-	use.temperature_ptr = Utilities::Rxn_find(Rxn_temperature_map, i);
-	if (use.temperature_ptr != NULL)
+	use.Set_temperature_ptr(Utilities::Rxn_find(Rxn_temperature_map, i));
+	if (use.Get_temperature_ptr() != NULL)
 	{
-		use.temperature_in = TRUE;
-		use.n_temperature_user = i;
+		use.Set_temperature_in(true);
+		use.Set_n_temperature_user(i);
 	}
 	else
 	{
-		use.temperature_in = FALSE;
+		use.Set_temperature_in(false);
 	}
 /*
  *   Find pressure
  */
-	use.pressure_ptr = Utilities::Rxn_find(Rxn_pressure_map, i);
-	if (use.pressure_ptr != NULL)
+	use.Set_pressure_ptr(Utilities::Rxn_find(Rxn_pressure_map, i));
+	if (use.Get_pressure_ptr() != NULL)
 	{
-		use.pressure_in = TRUE;
-		use.n_pressure_user = i;
+		use.Set_pressure_in(true);
+		use.Set_n_pressure_user(i);
 	}
 	else
 	{
-		use.pressure_in = FALSE;
+		use.Set_pressure_in(false);
 	}
 /*
  *   Find gas
  */
-	//use.gas_phase_ptr = gas_phase_bsearch(i, &use.n_gas_phase);
-	use.gas_phase_ptr = Utilities::Rxn_find(Rxn_gas_phase_map, i);
-	if (use.gas_phase_ptr != NULL)
+	//use.Get_gas_phase_ptr() = gas_phase_bsearch(i, &use.n_gas_phase);
+	use.Set_gas_phase_ptr(Utilities::Rxn_find(Rxn_gas_phase_map, i));
+	if (use.Get_gas_phase_ptr() != NULL)
 	{
-		use.gas_phase_in = TRUE;
-		use.n_gas_phase_user = i;
+		use.Set_gas_phase_in(true);
+		use.Set_n_gas_phase_user(i);
 		save.gas_phase = TRUE;
 		save.n_gas_phase_user = i;
 		save.n_gas_phase_user_end = i;
 	}
 	else
 	{
-		use.gas_phase_in = FALSE;
+		use.Set_gas_phase_in(false);
 		save.gas_phase = FALSE;
 	}
 /*
  *   Find ss_assemblage
  */
-	use.ss_assemblage_ptr = ss_assemblage_bsearch(i, &use.n_ss_assemblage);
-	if (use.ss_assemblage_ptr != NULL)
+	int n_ss_assemblage;
+	use.Set_ss_assemblage_ptr(ss_assemblage_bsearch(i, &n_ss_assemblage));
+	//use.Set_n_ss_assemblage(n_ss_assemblage);
+	if (use.Get_ss_assemblage_ptr() != NULL)
 	{
-		use.ss_assemblage_in = TRUE;
-		use.n_ss_assemblage_user = i;
+		use.Set_ss_assemblage_in(true);
+		use.Set_n_ss_assemblage_user(i);
 		save.ss_assemblage = TRUE;
 		save.n_ss_assemblage_user = i;
 		save.n_ss_assemblage_user_end = i;
 	}
 	else
 	{
-		use.ss_assemblage_in = FALSE;
+		use.Set_ss_assemblage_in(false);
 		save.ss_assemblage = FALSE;
 	}
 /*
  *   Find kinetics
  */
-	if (use_kinetics == TRUE
-		&& (use.kinetics_ptr = kinetics_bsearch(i, &n)) != NULL)
+	use.Set_kinetics_ptr(NULL);
+	use.Set_kinetics_in(false);
+	save.kinetics = FALSE;
+	if (use_kinetics == TRUE)
 	{
-		use.n_kinetics_user = i;
-		use.n_kinetics = n;
-		use.kinetics_in = TRUE;
-		save.kinetics = TRUE;
-		save.n_kinetics_user = i;
-		save.n_kinetics_user_end = i;
-	}
-	else
-	{
-		use.kinetics_ptr = NULL;
-		use.kinetics_in = FALSE;
-		save.kinetics = FALSE;
+		use.Set_kinetics_ptr(kinetics_bsearch(i, &n));
+		if (use.Get_kinetics_ptr() != NULL)
+		{
+			use.Set_n_kinetics_user(i);
+			//use.Set_n_kinetics(n);
+			use.Set_kinetics_in(true);
+			save.kinetics = TRUE;
+			save.n_kinetics_user = i;
+			save.n_kinetics_user_end = i;
+		}
 	}
 	/*
-	if (use.irrev_ptr != NULL && use.kinetics_ptr != NULL)
+	if (use.irrev_ptr != NULL && use.Get_kinetics_ptr() != NULL)
 	{
 		warning_msg("Should not use REACTION in same simulation with KINETICS.");
 	}
@@ -2532,44 +2552,46 @@ store_get_equi_reactants(int l, int kin_end)
 {
 	int i, j, k;
 
-	if (use.pp_assemblage_in == TRUE)
+	if (use.Get_pp_assemblage_in() == TRUE)
 	{
-		use.pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, l);
+		use.Set_pp_assemblage_ptr(Utilities::Rxn_find(Rxn_pp_assemblage_map, l));
 	}
 	else
-		use.pp_assemblage_ptr = NULL;
-	cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
-	if (use.gas_phase_in == TRUE)
+		use.Set_pp_assemblage_ptr(NULL);
+	cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.Get_pp_assemblage_ptr();
+	if (use.Get_gas_phase_in() == TRUE)
 	{
-		//use.gas_phase_ptr = gas_phase_bsearch(l, &use.n_gas_phase);
-		use.gas_phase_ptr = Utilities::Rxn_find(Rxn_gas_phase_map, l);
+		//use.Get_gas_phase_ptr() = gas_phase_bsearch(l, &use.n_gas_phase);
+		use.Set_gas_phase_ptr(Utilities::Rxn_find(Rxn_gas_phase_map, l));
 	}
 	else
-		use.gas_phase_ptr = NULL;
-	if (use.ss_assemblage_in == TRUE)
+		use.Set_gas_phase_ptr(NULL);
+	if (use.Get_ss_assemblage_in() == TRUE)
 	{
-		use.ss_assemblage_ptr =
-			ss_assemblage_bsearch(l, &use.n_ss_assemblage);
+		int n_ss_assemblage;
+		use.Set_ss_assemblage_ptr(
+			ss_assemblage_bsearch(l, &n_ss_assemblage));
+		//use.Set_n_ss_assemblage(n_ss_assemblage);
 	}
 	else
-		use.ss_assemblage_ptr = NULL;
+		use.Set_ss_assemblage_ptr(NULL);
 
 	if (kin_end == FALSE)
 	{
 		count_pp = count_s_s = count_pg = 0;
-		if (use.pp_assemblage_ptr != NULL)
-			//count_pp = use.pp_assemblage_ptr->count_comps;
+		if (use.Get_pp_assemblage_ptr() != NULL)
+			//count_pp = use.Get_pp_assemblage_ptr()->count_comps;
 			count_pp = (int) pp_assemblage_ptr->Get_pp_assemblage_comps().size();
-		if (use.gas_phase_ptr != NULL)
+		if (use.Get_gas_phase_ptr() != NULL)
 		{
-			cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+			cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.Get_gas_phase_ptr();
 			count_pg = (int) gas_phase_ptr->Get_gas_comps().size();
 		}
-		if (use.ss_assemblage_ptr != NULL)
+		if (use.Get_ss_assemblage_ptr() != NULL)
 		{
-			for (j = 0; j < use.ss_assemblage_ptr->count_s_s; j++)
+			for (j = 0; j < use.Get_ss_assemblage_ptr()->count_s_s; j++)
 			{
-				for (i = 0; i < use.ss_assemblage_ptr->s_s[j].count_comps;
+				for (i = 0; i < use.Get_ss_assemblage_ptr()->s_s[j].count_comps;
 					 i++)
 				{
 					count_s_s++;
@@ -2597,11 +2619,11 @@ store_get_equi_reactants(int l, int kin_end)
 #ifdef SKIP
 		for (j = 0; j < count_pp; j++)
 		{
-			x0_moles[++k] = use.pp_assemblage_ptr->pure_phases[j].moles;
+			x0_moles[++k] = use.Get_pp_assemblage_ptr()->pure_phases[j].moles;
 		}
 #endif
 		{
-			cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+			cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.Get_gas_phase_ptr();
 			if (gas_phase_ptr)
 			{
 				for (size_t l = 0; l < gas_phase_ptr->Get_gas_comps().size(); l++)
@@ -2612,13 +2634,13 @@ store_get_equi_reactants(int l, int kin_end)
 		}
 		if (count_s_s != 0)
 		{
-			for (j = 0; j < use.ss_assemblage_ptr->count_s_s; j++)
+			for (j = 0; j < use.Get_ss_assemblage_ptr()->count_s_s; j++)
 			{
-				for (i = 0; i < use.ss_assemblage_ptr->s_s[j].count_comps;
+				for (i = 0; i < use.Get_ss_assemblage_ptr()->s_s[j].count_comps;
 					 i++)
 				{
 					x0_moles[++k] =
-						use.ss_assemblage_ptr->s_s[j].comps[i].moles;
+						use.Get_ss_assemblage_ptr()->s_s[j].comps[i].moles;
 				}
 /*!!!! also miscibility gap comps ??
  */
@@ -2641,12 +2663,12 @@ store_get_equi_reactants(int l, int kin_end)
 #ifdef SKIP
 		for (j = 0; j < count_pp; j++)
 		{
-			use.pp_assemblage_ptr->pure_phases[j].moles = x0_moles[++k];
-			use.pp_assemblage_ptr->pure_phases[j].delta = 0.0;
+			use.Get_pp_assemblage_ptr()->pure_phases[j].moles = x0_moles[++k];
+			use.Get_pp_assemblage_ptr()->pure_phases[j].delta = 0.0;
 		}
 #endif
 		{
-			cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+			cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.Get_gas_phase_ptr();
 			if (gas_phase_ptr && count_pg)
 			{
 				std::vector<cxxGasComp> temp_comps(gas_phase_ptr->Get_gas_comps());
@@ -2659,12 +2681,12 @@ store_get_equi_reactants(int l, int kin_end)
 		}
 		if (count_s_s != 0)
 		{
-			for (j = 0; j < use.ss_assemblage_ptr->count_s_s; j++)
+			for (j = 0; j < use.Get_ss_assemblage_ptr()->count_s_s; j++)
 			{
-				for (i = 0; i < use.ss_assemblage_ptr->s_s[j].count_comps;
+				for (i = 0; i < use.Get_ss_assemblage_ptr()->s_s[j].count_comps;
 					 i++)
 				{
-					use.ss_assemblage_ptr->s_s[j].comps[i].initial_moles =
+					use.Get_ss_assemblage_ptr()->s_s[j].comps[i].initial_moles =
 						x0_moles[++k];
 				}
 /*!!!! also miscibility gap comps ??
@@ -2724,16 +2746,16 @@ f(integertype N, realtype t, N_Vector y, N_Vector ydot,
 	}
 	pThis->calc_final_kinetic_reaction(kinetics_ptr);
 	/*      if (set_and_run(n_user, FALSE, TRUE, n_user, step_fraction) == MASS_BALANCE) { */
-	if (pThis->use.pp_assemblage_ptr != NULL)
+	if (pThis->use.Get_pp_assemblage_ptr() != NULL)
 	{
 		pThis->Rxn_pp_assemblage_map[pThis->cvode_pp_assemblage_save->Get_n_user()] = *pThis->cvode_pp_assemblage_save;
-		pThis->use.pp_assemblage_ptr = Utilities::Rxn_find(pThis->Rxn_pp_assemblage_map, pThis->cvode_pp_assemblage_save->Get_n_user());
+		pThis->use.Set_pp_assemblage_ptr(Utilities::Rxn_find(pThis->Rxn_pp_assemblage_map, pThis->cvode_pp_assemblage_save->Get_n_user()));
 	}
-	if (pThis->use.ss_assemblage_ptr != NULL)
+	if (pThis->use.Get_ss_assemblage_ptr() != NULL)
 	{
-		pThis->ss_assemblage_free(pThis->use.ss_assemblage_ptr);
+		pThis->ss_assemblage_free(pThis->use.Get_ss_assemblage_ptr());
 		pThis->ss_assemblage_copy(pThis->cvode_ss_assemblage_save,
-							pThis->use.ss_assemblage_ptr, n_user);
+							pThis->use.Get_ss_assemblage_ptr(), n_user);
 	}
 
 	if (pThis->set_and_run_wrapper(n_user, FALSE, TRUE, n_user, 0.0) == MASS_BALANCE)
@@ -2826,10 +2848,10 @@ Jac(integertype N, DenseMat J, RhsFn f, void *f_data,
 	}
 	pThis->calc_final_kinetic_reaction(kinetics_ptr);
 	/* if (set_and_run(n_user, FALSE, TRUE, n_user, step_fraction) == MASS_BALANCE) { */
-	if (pThis->use.pp_assemblage_ptr != NULL)
+	if (pThis->use.Get_pp_assemblage_ptr() != NULL)
 	{
 		pThis->Rxn_pp_assemblage_map[pThis->cvode_pp_assemblage_save->Get_n_user()] = *pThis->cvode_pp_assemblage_save;
-		pThis->use.pp_assemblage_ptr = Utilities::Rxn_find(pThis->Rxn_pp_assemblage_map, pThis->cvode_pp_assemblage_save->Get_n_user());
+		pThis->use.Set_pp_assemblage_ptr(Utilities::Rxn_find(pThis->Rxn_pp_assemblage_map, pThis->cvode_pp_assemblage_save->Get_n_user()));
 	}
 	if (pThis->set_and_run_wrapper(n_user, FALSE, TRUE, n_user, 0.0) == MASS_BALANCE)
 	{
@@ -2892,10 +2914,10 @@ Jac(integertype N, DenseMat J, RhsFn f, void *f_data,
 			}
 			kinetics_ptr->comps[i].moles += del;
 			pThis->calc_final_kinetic_reaction(kinetics_ptr);
-			if (pThis->use.pp_assemblage_ptr != NULL)
+			if (pThis->use.Get_pp_assemblage_ptr() != NULL)
 			{
 				pThis->Rxn_pp_assemblage_map[pThis->cvode_pp_assemblage_save->Get_n_user()] = *pThis->cvode_pp_assemblage_save;
-				pThis->use.pp_assemblage_ptr = Utilities::Rxn_find(pThis->Rxn_pp_assemblage_map, pThis->cvode_pp_assemblage_save->Get_n_user());
+				pThis->use.Set_pp_assemblage_ptr(Utilities::Rxn_find(pThis->Rxn_pp_assemblage_map, pThis->cvode_pp_assemblage_save->Get_n_user()));
 			}
 			if (pThis->set_and_run_wrapper
 				(n_user, FALSE, TRUE, n_user, step_fraction) == MASS_BALANCE)

@@ -103,20 +103,20 @@ punch_all(void)
 // */
 //	if (state == TRANSPORT || state == PHAST || state == ADVECTION)
 //	{
-//		use.kinetics_ptr = kinetics_bsearch(use.n_kinetics_user, &i);
+//		use.Get_kinetics_ptr() = kinetics_bsearch(use.Get_n_kinetics_user(), &i);
 //	}
-//	else if (use.kinetics_in != FALSE)
+//	else if (use.Get_kinetics_in() != FALSE)
 //	{
-//		use.kinetics_ptr = kinetics_bsearch(-2, &i);
+//		use.Get_kinetics_ptr() = kinetics_bsearch(-2, &i);
 //	}
 //#else /* if PHREEQ98 execute punch_user_graph first, that is, before punch.in and pr.punch is checked */
 	if (state == TRANSPORT || state == PHAST || state == ADVECTION)
 	{
-		use.kinetics_ptr = kinetics_bsearch(use.n_kinetics_user, &i);
+		use.Set_kinetics_ptr(kinetics_bsearch(use.Get_n_kinetics_user(), &i));
 	}
-	else if (use.kinetics_in != FALSE)
+	else if (use.Get_kinetics_in() != FALSE)
 	{
-		use.kinetics_ptr = kinetics_bsearch(-2, &i);
+		use.Set_kinetics_ptr(kinetics_bsearch(-2, &i));
 	}
 #if defined PHREEQ98 
 	if (pr.user_graph == TRUE)
@@ -171,7 +171,7 @@ print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 	LDBLE mass_water_surface, r, sum_surfs;
 	LDBLE molality, moles_excess, moles_surface, d;
 
-	if (use.surface_ptr == NULL)
+	if (use.Get_surface_ptr() == NULL)
 		return (OK);
 /*
  *   Find position of component in surface charge data
@@ -210,7 +210,7 @@ print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 	output_msg(sformatf(
 			   "\tWater in diffuse layer: %8.3e kg, %4.1f%% of total DDL-water.\n",
 			   (double) surface_charge_ptr1->mass_water, (double) d));
-	if (use.surface_ptr->debye_lengths > 0)
+	if (use.Get_surface_ptr()->debye_lengths > 0)
 	{
 		sum_surfs = 0.0;
 		for (j = 0; j < count_unknowns; j++)
@@ -224,7 +224,7 @@ print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 		r = 0.002 * mass_water_bulk_x / sum_surfs;
 		output_msg(sformatf(
 				   "\tRadius of total pore:   %8.3e m; of free pore: %8.3e m.\n",
-				   (double) r, (double) (r - use.surface_ptr->thickness)));
+				   (double) r, (double) (r - use.Get_surface_ptr()->thickness)));
 	}
 
 	if (debug_diffuse_layer == TRUE)
@@ -275,7 +275,7 @@ print_diffuse_layer(struct surface_charge *surface_charge_ptr1)
 /*
  *   Print totals
  */
-	if (use.surface_ptr->dl_type != DONNAN_DL)
+	if (use.Get_surface_ptr()->dl_type != DONNAN_DL)
 	{
 		output_msg(sformatf(
 				   "\n\tTotal moles in diffuse layer (excluding water)\n\n"));
@@ -391,7 +391,7 @@ print_exchange(void)
 /*
  *  Print exchange data
  */
-	exchange_ptr = (cxxExchange *) use.exchange_ptr;
+	exchange_ptr = (cxxExchange *) use.Get_exchange_ptr();
 	if (exchange_ptr == NULL || pr.exchange == FALSE || pr.all == FALSE)
 		return (OK);
 
@@ -430,7 +430,7 @@ print_exchange(void)
 			name = name1;
 			output_msg(sformatf("%-14s%12.3e mol", name,
 					   (double) master_ptr->unknown->moles));
-			cxxExchange *exchange_ptr = (cxxExchange *) (use.exchange_ptr);
+			cxxExchange *exchange_ptr = (cxxExchange *) (use.Get_exchange_ptr());
 			const cxxExchComp *exch_comp = exchange_ptr->ExchComp_find(master_ptr->unknown->exch_comp);
 			assert(exch_comp);
 			if (exch_comp->Get_phase_name().size() > 0)
@@ -513,10 +513,10 @@ print_gas_phase(void)
 
 	if (pr.gas_phase == FALSE || pr.all == FALSE)
 		return (OK);
-	if (use.gas_phase_ptr == NULL)
+	if (use.Get_gas_phase_ptr() == NULL)
 		return (OK);
 
-	cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+	cxxGasPhase *gas_phase_ptr = (cxxGasPhase *) use.Get_gas_phase_ptr();
 	if (gas_phase_ptr->Get_v_m() >= 0.01)
 		PR = true;
 	if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_PRESSURE)
@@ -526,7 +526,7 @@ print_gas_phase(void)
 		if (gas_unknown->moles < 1e-12)
 		{
 			sprintf(info, "Fixed-pressure gas phase %d dissolved completely",
-				   use.n_gas_phase_user);
+				   use.Get_n_gas_phase_user());
 			print_centered(info);
 			return (OK);
 		}
@@ -573,7 +573,7 @@ print_gas_phase(void)
 			   "log P", "P", "Initial", "Final", "Delta"));
 
 	for (size_t j = 0; j < gas_phase_ptr->Get_gas_comps().size(); j++)
-	//for (j = 0; j < use.gas_phase_ptr->count_comps; j++)
+	//for (j = 0; j < use.Get_gas_phase_ptr()->count_comps; j++)
 	{
 /*
  *   Calculate partial pressure
@@ -656,7 +656,7 @@ print_ss_assemblage(void)
 
 	if (pr.ss_assemblage == FALSE || pr.all == FALSE)
 		return (OK);
-	if (use.ss_assemblage_ptr == NULL)
+	if (use.Get_ss_assemblage_ptr() == NULL)
 		return (OK);
 	/*
 	 *   Print heading
@@ -669,42 +669,42 @@ print_ss_assemblage(void)
 	/*
 	 *   Print solid solutions
 	 */
-	for (j = 0; j < use.ss_assemblage_ptr->count_s_s; j++)
+	for (j = 0; j < use.Get_ss_assemblage_ptr()->count_s_s; j++)
 	{
-		if (use.ss_assemblage_ptr->s_s[j].s_s_in == TRUE)
+		if (use.Get_ss_assemblage_ptr()->s_s[j].s_s_in == TRUE)
 		{
 			/* solid solution name, moles */
 			output_msg(sformatf("%-15s  %22s  %11.2e\n",
-					   use.ss_assemblage_ptr->s_s[j].name, "  ",
-					   (double) use.ss_assemblage_ptr->s_s[j].total_moles));
+					   use.Get_ss_assemblage_ptr()->s_s[j].name, "  ",
+					   (double) use.Get_ss_assemblage_ptr()->s_s[j].total_moles));
 			/* component name, moles, delta moles, mole fraction */
-			for (i = 0; i < use.ss_assemblage_ptr->s_s[j].count_comps; i++)
+			for (i = 0; i < use.Get_ss_assemblage_ptr()->s_s[j].count_comps; i++)
 			{
 				if (state != TRANSPORT && state != PHAST)
 				{
 					delta_moles =
-						use.ss_assemblage_ptr->s_s[j].comps[i].moles -
-						use.ss_assemblage_ptr->s_s[j].comps[i].
+						use.Get_ss_assemblage_ptr()->s_s[j].comps[i].moles -
+						use.Get_ss_assemblage_ptr()->s_s[j].comps[i].
 						initial_moles -
-						use.ss_assemblage_ptr->s_s[j].comps[i].delta;
+						use.Get_ss_assemblage_ptr()->s_s[j].comps[i].delta;
 				}
 				else
 				{
 					delta_moles =
-						use.ss_assemblage_ptr->s_s[j].comps[i].moles -
-						use.ss_assemblage_ptr->s_s[j].comps[i].init_moles;
+						use.Get_ss_assemblage_ptr()->s_s[j].comps[i].moles -
+						use.Get_ss_assemblage_ptr()->s_s[j].comps[i].init_moles;
 				}
 				output_msg(sformatf(
 						   "%15s  %22s  %11.2e  %11.2e  %11.2e\n", " ",
-						   use.ss_assemblage_ptr->s_s[j].comps[i].name,
-						   (double) use.ss_assemblage_ptr->s_s[j].comps[i].
+						   use.Get_ss_assemblage_ptr()->s_s[j].comps[i].name,
+						   (double) use.Get_ss_assemblage_ptr()->s_s[j].comps[i].
 						   moles, (double) delta_moles,
-						   (double) (use.ss_assemblage_ptr->s_s[j].comps[i].
+						   (double) (use.Get_ss_assemblage_ptr()->s_s[j].comps[i].
 									 moles /
-									 use.ss_assemblage_ptr->s_s[j].
+									 use.Get_ss_assemblage_ptr()->s_s[j].
 									 total_moles)));
 			}
-			s_s_ptr = &(use.ss_assemblage_ptr->s_s[j]);
+			s_s_ptr = &(use.Get_ss_assemblage_ptr()->s_s[j]);
 			if (s_s_ptr->miscibility == TRUE)
 			{
 				nc = s_s_ptr->comps[0].moles;
@@ -735,28 +735,28 @@ print_ss_assemblage(void)
 		{
 			/* solid solution name, moles */
 			output_msg(sformatf("%-15s  %22s  %11.2e\n",
-					   use.ss_assemblage_ptr->s_s[j].name, "  ",
+					   use.Get_ss_assemblage_ptr()->s_s[j].name, "  ",
 					   (double) 0.0));
 			/* component name, moles, delta moles, mole fraction */
-			for (i = 0; i < use.ss_assemblage_ptr->s_s[j].count_comps; i++)
+			for (i = 0; i < use.Get_ss_assemblage_ptr()->s_s[j].count_comps; i++)
 			{
 				if (state != TRANSPORT && state != PHAST)
 				{
 					delta_moles =
-						use.ss_assemblage_ptr->s_s[j].comps[i].moles -
-						use.ss_assemblage_ptr->s_s[j].comps[i].
+						use.Get_ss_assemblage_ptr()->s_s[j].comps[i].moles -
+						use.Get_ss_assemblage_ptr()->s_s[j].comps[i].
 						initial_moles -
-						use.ss_assemblage_ptr->s_s[j].comps[i].delta;
+						use.Get_ss_assemblage_ptr()->s_s[j].comps[i].delta;
 				}
 				else
 				{
 					delta_moles =
-						use.ss_assemblage_ptr->s_s[j].comps[i].moles -
-						use.ss_assemblage_ptr->s_s[j].comps[i].init_moles;
+						use.Get_ss_assemblage_ptr()->s_s[j].comps[i].moles -
+						use.Get_ss_assemblage_ptr()->s_s[j].comps[i].init_moles;
 				}
 				output_msg(sformatf(
 						   "%15s  %22s  %11.2e  %11.2e  %11.2e\n", " ",
-						   use.ss_assemblage_ptr->s_s[j].comps[i].name,
+						   use.Get_ss_assemblage_ptr()->s_s[j].comps[i].name,
 						   (double) 0, (double) delta_moles, (double) 0));
 			}
 		}
@@ -777,15 +777,15 @@ print_reaction(void)
 	cxxReaction *reaction_ptr;
 	if (pr.use == FALSE || pr.all == FALSE)
 		return (OK);
-	if (state < REACTION || use.reaction_in == FALSE)
+	if (state < REACTION || use.Get_reaction_in() == FALSE)
 		return (OK);
 	if (state == TRANSPORT && transport_step == 0)
 		return (OK);
-	reaction_ptr = (cxxReaction *) use.reaction_ptr;
+	reaction_ptr = (cxxReaction *) use.Get_reaction_ptr();
 /*
  *  Print amount of reaction
  */
-	output_msg(sformatf("Reaction %d.\t%s\n\n", use.n_reaction_user,
+	output_msg(sformatf("Reaction %d.\t%s\n\n", use.Get_n_reaction_user(),
 			   reaction_ptr->Get_description().c_str()));
 	output_msg(sformatf(
 			   "\t%11.3e moles of the following reaction have been added:\n\n",
@@ -841,11 +841,11 @@ print_kinetics(void)
 	if (state < REACTION)
 		return (OK);
 	kinetics_ptr = NULL;
-	if (use.kinetics_in == TRUE)
+	if (use.Get_kinetics_in() == TRUE)
 	{
 		if (state == TRANSPORT || state == PHAST || state == ADVECTION)
 		{
-			kinetics_ptr = kinetics_bsearch(use.n_kinetics_user, &i);
+			kinetics_ptr = kinetics_bsearch(use.Get_n_kinetics_user(), &i);
 		}
 		else
 		{
@@ -910,7 +910,7 @@ print_kinetics(void)
 	if (phast == FALSE)
 	{
 		output_msg(sformatf("Kinetics %d.\t%s\n\n",
-				   use.n_kinetics_user, kinetics_ptr->description));
+				   use.Get_n_kinetics_user(), kinetics_ptr->description));
 	}
 	else
 	{
@@ -1056,21 +1056,21 @@ print_mix(void)
 
 	if (pr.use == FALSE || pr.all == FALSE)
 		return (OK);
-	if (use.mix_in == FALSE || state < REACTION)
+	if (use.Get_mix_in() == FALSE || state < REACTION)
 		return (OK);
 	if (state == TRANSPORT)
 	{
-		//mix_ptr = mix_bsearch(use.n_mix_user, &i);
-		mix_ptr = Utilities::Rxn_find(Rxn_mix_map, use.n_mix_user);
+		//mix_ptr = mix_bsearch(use.Get_n_mix_user(), &i);
+		mix_ptr = Utilities::Rxn_find(Rxn_mix_map, use.Get_n_mix_user());
 	}
 	else
 	{
-		//mix_ptr = mix_bsearch(use.n_mix_user_orig, &i);
-		mix_ptr = Utilities::Rxn_find(Rxn_mix_map, use.n_mix_user_orig);
+		//mix_ptr = mix_bsearch(use.Get_n_mix_user_orig(), &i);
+		mix_ptr = Utilities::Rxn_find(Rxn_mix_map, use.Get_n_mix_user_orig());
 	}
 	if (mix_ptr == NULL)
 	{
-		mix_ptr = (cxxMix *) use.mix_ptr;
+		mix_ptr = (cxxMix *) use.Get_mix_ptr();
 	}
 /*
  *  Print mixture data
@@ -1082,7 +1082,7 @@ print_mix(void)
 	}
 	if (state == TRANSPORT)
 	{
-		output_msg(sformatf("Mixture %d.\t%s\n\n", use.n_mix_user,
+		output_msg(sformatf("Mixture %d.\t%s\n\n", use.Get_n_mix_user(),
 				   mix_ptr->Get_description().c_str()));
 	}
 	else
@@ -1175,9 +1175,9 @@ print_saturation_indices(void)
 		la_eminus = s_eminus->la;
 	}
 /* If a fixed pressure gas-phase disappeared, no PR for the SI's of gases... */
-	if (use.gas_phase_ptr != NULL)
+	if (use.Get_gas_phase_ptr() != NULL)
 	{
-		cxxGasPhase * gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
+		cxxGasPhase * gas_phase_ptr = (cxxGasPhase *) use.Get_gas_phase_ptr();
 		if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_PRESSURE)
 		{
 			if (gas_unknown == NULL || gas_unknown->moles < 1e-12)
@@ -1289,7 +1289,7 @@ print_pp_assemblage(void)
 		return (OK);
 	if (pure_phase_unknown == NULL)
 		return (OK);
-	cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+	cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.Get_pp_assemblage_ptr();
 /*
  *   Print heading
  */
@@ -1542,7 +1542,7 @@ print_surface(void)
 /*
  *  Print surface speciation
  */
-	surface_ptr = use.surface_ptr;
+	surface_ptr = use.Get_surface_ptr();
 	if (surface_ptr == NULL || pr.surface == FALSE || pr.all == FALSE)
 		return (OK);
 	if (surface_ptr->type == CD_MUSIC)
@@ -1559,8 +1559,8 @@ print_surface(void)
 	s_h2o->lm = s_h2o->la;
 	for (j = 0; j < count_unknowns; j++)
 	{
-		/*if (use.surface_ptr->edl == TRUE) { */
-		if (use.surface_ptr->type == DDL)
+		/*if (use.Get_surface_ptr()->edl == TRUE) { */
+		if (use.Get_surface_ptr()->type == DDL)
 		{
 			if (x[j]->type != SURFACE_CB)
 				continue;
@@ -1586,8 +1586,8 @@ print_surface(void)
 					   "\t%11.3e  Surface + diffuse layer charge, eq\n",
 					   (double) x[j]->f));
 		}
-		/*if (use.surface_ptr->edl == TRUE && diffuse_layer_x == FALSE) { */
-		if (use.surface_ptr->type == DDL && dl_type_x == NO_DL)
+		/*if (use.Get_surface_ptr()->edl == TRUE && diffuse_layer_x == FALSE) { */
+		if (use.Get_surface_ptr()->type == DDL && dl_type_x == NO_DL)
 		{
 			charge = x[j]->f;
 		}
@@ -1788,7 +1788,7 @@ print_surface_cd_music(void)
 /*
  *  Print surface speciation
  */
-	surface_ptr = use.surface_ptr;
+	surface_ptr = use.Get_surface_ptr();
 	if (surface_ptr == NULL || pr.surface == FALSE || pr.all == FALSE)
 		return (OK);
 
@@ -2218,16 +2218,16 @@ print_user_print(void)
 	if (user_print->commands == NULL)
 		return (OK);
 	kinetics_ptr = NULL;
-	if (use.kinetics_in == TRUE)
+	if (use.Get_kinetics_in() == TRUE)
 	{
-		kinetics_ptr = use.kinetics_ptr;
+		kinetics_ptr = use.Get_kinetics_ptr();
 		if (state == TRANSPORT || state == PHAST || state == ADVECTION)
 		{
-			use.kinetics_ptr = kinetics_bsearch(use.n_kinetics_user, &i);
+			use.Set_kinetics_ptr(kinetics_bsearch(use.Get_n_kinetics_user(), &i));
 		}
 		else
 		{
-			use.kinetics_ptr = kinetics_bsearch(-2, &i);
+			use.Set_kinetics_ptr(kinetics_bsearch(-2, &i));
 		}
 	}
 	print_centered("User print");
@@ -2249,9 +2249,9 @@ print_user_print(void)
 		error_msg("Fatal Basic error in USER_PRINT.", STOP);
 	}
 	output_msg(sformatf("\n"));
-	if (use.kinetics_in == TRUE)
+	if (use.Get_kinetics_in() == TRUE)
 	{
-		use.kinetics_ptr = kinetics_ptr;
+		use.Set_kinetics_ptr(kinetics_ptr);
 	}
 	return (OK);
 }
@@ -2283,113 +2283,113 @@ print_using(void)
 /*
  *   Mixture or Solution
  */
-	if (use.mix_in == TRUE)
+	if (use.Get_mix_in() == TRUE)
 	{
 		if (state == TRANSPORT)
 		{
-			mix_ptr = Utilities::Rxn_find(Rxn_mix_map, use.n_mix_user);
+			mix_ptr = Utilities::Rxn_find(Rxn_mix_map, use.Get_n_mix_user());
 		}
 		else
 		{
-			mix_ptr = Utilities::Rxn_find(Rxn_mix_map, use.n_mix_user_orig);
+			mix_ptr = Utilities::Rxn_find(Rxn_mix_map, use.Get_n_mix_user_orig());
 		}
 		if (mix_ptr == NULL)
 		{
-			mix_ptr = (cxxMix *) use.mix_ptr;
+			mix_ptr = (cxxMix *) use.Get_mix_ptr();
 		}
 		if (mix_ptr != NULL)
 		{
 			if (state == TRANSPORT)
 			{
 				output_msg(sformatf("Using mix %d.\t%s\n",
-						   use.n_mix_user, mix_ptr->Get_description().c_str()));
+						   use.Get_n_mix_user(), mix_ptr->Get_description().c_str()));
 			}
 			else
 			{
 				output_msg(sformatf("Using mix %d.\t%s\n",
-						   use.n_mix_user_orig, mix_ptr->Get_description().c_str()));
+						   use.Get_n_mix_user_orig(), mix_ptr->Get_description().c_str()));
 			}
 
 		}
 	}
 	else
 	{
-		solution_ptr = solution_bsearch(use.n_solution_user, &n, TRUE);
+		solution_ptr = solution_bsearch(use.Get_n_solution_user(), &n, TRUE);
 		output_msg(sformatf("Using solution %d.\t%s\n",
-				   use.n_solution_user, solution_ptr->description));
+				   use.Get_n_solution_user(), solution_ptr->description));
 	}
 /*
  *   Exchange and surface
  */
-	if (use.exchange_in == TRUE)
+	if (use.Get_exchange_in() == TRUE)
 	{
-		cxxExchange *exchange_ptr = Utilities::Rxn_find(Rxn_exchange_map, use.n_exchange_user);
+		cxxExchange *exchange_ptr = Utilities::Rxn_find(Rxn_exchange_map, use.Get_n_exchange_user());
 		output_msg(sformatf("Using exchange %d.\t%s\n",
-				   use.n_exchange_user, exchange_ptr->Get_description().c_str()));
+				   use.Get_n_exchange_user(), exchange_ptr->Get_description().c_str()));
 	}
-	if (use.surface_in == TRUE)
+	if (use.Get_surface_in() == TRUE)
 	{
-		surface_ptr = surface_bsearch(use.n_surface_user, &n);
+		surface_ptr = surface_bsearch(use.Get_n_surface_user(), &n);
 		output_msg(sformatf("Using surface %d.\t%s\n",
-				   use.n_surface_user, surface_ptr->description));
+				   use.Get_n_surface_user(), surface_ptr->description));
 	}
-	if (use.pp_assemblage_in == TRUE)
+	if (use.Get_pp_assemblage_in() == TRUE)
 	{
-		//pp_assemblage_ptr = pp_assemblage_bsearch(use.n_pp_assemblage_user, &n);
-		cxxPPassemblage * pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, use.n_pp_assemblage_user);
+		//pp_assemblage_ptr = pp_assemblage_bsearch(use.Get_n_pp_assemblage_user(), &n);
+		cxxPPassemblage * pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, use.Get_n_pp_assemblage_user());
 		output_msg(sformatf("Using pure phase assemblage %d.\t%s\n",
-				   use.n_pp_assemblage_user, pp_assemblage_ptr->Get_description().c_str()));
+				   use.Get_n_pp_assemblage_user(), pp_assemblage_ptr->Get_description().c_str()));
 	}
-	if (use.ss_assemblage_in == TRUE)
+	if (use.Get_ss_assemblage_in() == TRUE)
 	{
 		ss_assemblage_ptr =
-			ss_assemblage_bsearch(use.n_ss_assemblage_user, &n);
+			ss_assemblage_bsearch(use.Get_n_ss_assemblage_user(), &n);
 		output_msg(sformatf(
 				   "Using solid solution assemblage %d.\t%s\n",
-				   use.n_ss_assemblage_user,
+				   use.Get_n_ss_assemblage_user(),
 				   ss_assemblage_ptr->description));
 	}
-	if (use.gas_phase_in == TRUE)
+	if (use.Get_gas_phase_in() == TRUE)
 	{
-		//gas_phase_ptr = gas_phase_bsearch(use.n_gas_phase_user, &n);
-		cxxGasPhase * gas_phase_ptr = Utilities::Rxn_find(Rxn_gas_phase_map, use.n_gas_phase_user);
+		//gas_phase_ptr = gas_phase_bsearch(use.Get_n_gas_phase_user(), &n);
+		cxxGasPhase * gas_phase_ptr = Utilities::Rxn_find(Rxn_gas_phase_map, use.Get_n_gas_phase_user());
 		output_msg(sformatf("Using gas phase %d.\t%s\n",
-				   use.n_gas_phase_user, gas_phase_ptr->Get_description().c_str()));
+				   use.Get_n_gas_phase_user(), gas_phase_ptr->Get_description().c_str()));
 	}
-	if (use.temperature_in == TRUE)
+	if (use.Get_temperature_in() == TRUE)
 	{
-		cxxTemperature *temperature_ptr = Utilities::Rxn_find(Rxn_temperature_map, use.n_temperature_user);
+		cxxTemperature *temperature_ptr = Utilities::Rxn_find(Rxn_temperature_map, use.Get_n_temperature_user());
 		output_msg(sformatf("Using temperature %d.\t%s\n",
-				   use.n_temperature_user, temperature_ptr->Get_description().c_str()));
+				   use.Get_n_temperature_user(), temperature_ptr->Get_description().c_str()));
 	}
-	if (use.pressure_in == TRUE)
+	if (use.Get_pressure_in() == TRUE)
 	{
-		cxxPressure *pressure_ptr = Utilities::Rxn_find(Rxn_pressure_map, use.n_pressure_user);
+		cxxPressure *pressure_ptr = Utilities::Rxn_find(Rxn_pressure_map, use.Get_n_pressure_user());
 		output_msg(sformatf("Using pressure %d.\t%s\n",
-				   use.n_pressure_user, pressure_ptr->Get_description().c_str()));
+				   use.Get_n_pressure_user(), pressure_ptr->Get_description().c_str()));
 	}
-	if (use.reaction_in == TRUE)
+	if (use.Get_reaction_in() == TRUE)
 	{
 		if (state != TRANSPORT || transport_step > 0)
 		{
 			//irrev_ptr = irrev_bsearch(use.n_irrev_user, &n);
-			cxxReaction *reaction_ptr = Utilities::Rxn_find(Rxn_reaction_map, use.n_reaction_user); 
+			cxxReaction *reaction_ptr = Utilities::Rxn_find(Rxn_reaction_map, use.Get_n_reaction_user()); 
 			output_msg(sformatf("Using reaction %d.\t%s\n",
-					   use.n_reaction_user, reaction_ptr->Get_description().c_str()));
+					   use.Get_n_reaction_user(), reaction_ptr->Get_description().c_str()));
 		}
 	}
-	if (use.kinetics_in == TRUE)
+	if (use.Get_kinetics_in() == TRUE)
 	{
 		if (state == TRANSPORT || state == PHAST || state == ADVECTION)
 		{
-			kinetics_ptr = kinetics_bsearch(use.n_kinetics_user, &n);
+			kinetics_ptr = kinetics_bsearch(use.Get_n_kinetics_user(), &n);
 		}
 		else
 		{
 			kinetics_ptr = kinetics_bsearch(-2, &n);
 		}
 		output_msg(sformatf("Using kinetics %d.\t%s\n",
-				   use.n_kinetics_user, kinetics_ptr->description));
+				   use.Get_n_kinetics_user(), kinetics_ptr->description));
 	}
 	output_msg(sformatf("\n"));
 	return (OK);
@@ -2412,8 +2412,8 @@ punch_gas_phase(void)
 	p = 0.0;
 	total_moles = 0.0;
 	volume = 0.0;
-	cxxGasPhase * gas_phase_ptr = (cxxGasPhase *) use.gas_phase_ptr;
-	if (gas_unknown != NULL && use.gas_phase_ptr != NULL)
+	cxxGasPhase * gas_phase_ptr = (cxxGasPhase *) use.Get_gas_phase_ptr();
+	if (gas_unknown != NULL && use.Get_gas_phase_ptr() != NULL)
 	{
 		if (gas_phase_ptr->Get_type() == cxxGasPhase::GP_PRESSURE)
 		{
@@ -2446,7 +2446,7 @@ punch_gas_phase(void)
 		if (gas_phase_ptr != NULL && punch.gases[i].phase != NULL)
 		{
 			for (size_t j = 0; j < gas_phase_ptr->Get_gas_comps().size(); j++)
-			//for (j = 0; j < use.gas_phase_ptr->count_comps; j++)
+			//for (j = 0; j < use.Get_gas_phase_ptr()->count_comps; j++)
 			{
 				cxxGasComp *gc_ptr = &(gas_phase_ptr->Get_gas_comps()[j]);
 				int k;
@@ -2490,21 +2490,21 @@ punch_ss_assemblage(void)
 	for (k = 0; k < punch.count_s_s; k++)
 	{
 		found = FALSE;
-		if (use.ss_assemblage_ptr != NULL)
+		if (use.Get_ss_assemblage_ptr() != NULL)
 		{
-			for (j = 0; j < use.ss_assemblage_ptr->count_s_s; j++)
+			for (j = 0; j < use.Get_ss_assemblage_ptr()->count_s_s; j++)
 			{
-				for (i = 0; i < use.ss_assemblage_ptr->s_s[j].count_comps;
+				for (i = 0; i < use.Get_ss_assemblage_ptr()->s_s[j].count_comps;
 					 i++)
 				{
 					if (strcmp_nocase
 						(punch.s_s[k].name,
-						 use.ss_assemblage_ptr->s_s[j].comps[i].name) == 0)
+						 use.Get_ss_assemblage_ptr()->s_s[j].comps[i].name) == 0)
 					{
-						if (use.ss_assemblage_ptr->s_s[j].s_s_in == TRUE)
+						if (use.Get_ss_assemblage_ptr()->s_s[j].s_s_in == TRUE)
 						{
 							moles =
-								use.ss_assemblage_ptr->s_s[j].comps[i].moles;
+								use.Get_ss_assemblage_ptr()->s_s[j].comps[i].moles;
 						}
 						else
 						{
@@ -2666,7 +2666,7 @@ punch_pp_assemblage(void)
  */
 	int i, j;
 	LDBLE moles, delta_moles;
-	cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.pp_assemblage_ptr;
+	cxxPPassemblage * pp_assemblage_ptr = (cxxPPassemblage *) use.Get_pp_assemblage_ptr();
 	for (i = 0; i < punch.count_pure_phases; i++)
 	{
 		delta_moles = 0;
@@ -2811,29 +2811,29 @@ punch_identifiers(void)
 		}
 		else if (state == ADVECTION)
 		{
-			fpunchf(PHAST_NULL("soln"), dformat, use.n_solution_user);
+			fpunchf(PHAST_NULL("soln"), dformat, use.Get_n_solution_user());
 		}
 		else if (state < REACTION)
 		{
-			fpunchf(PHAST_NULL("soln"), dformat, use.solution_ptr->n_user);
+			fpunchf(PHAST_NULL("soln"), dformat, use.Get_solution_ptr()->n_user);
 		}
 		else
 		{
-			if (use.mix_in == TRUE)
+			if (use.Get_mix_in() == TRUE)
 			{
 				if (state != TRANSPORT)
 				{
-					fpunchf(PHAST_NULL("soln"), dformat, use.n_mix_user_orig);
+					fpunchf(PHAST_NULL("soln"), dformat, use.Get_n_mix_user_orig());
 				}
 				else
 				{
-					fpunchf(PHAST_NULL("soln"), dformat, use.n_mix_user);
+					fpunchf(PHAST_NULL("soln"), dformat, use.Get_n_mix_user());
 				}
 
 			}
 			else
 			{
-				fpunchf(PHAST_NULL("soln"), dformat, use.n_solution_user);
+				fpunchf(PHAST_NULL("soln"), dformat, use.Get_n_solution_user());
 			}
 		}
 	}
@@ -2841,7 +2841,7 @@ punch_identifiers(void)
 	{
 		if (state == ADVECTION)
 		{
-			fpunchf(PHAST_NULL("dist_x"), dformat, use.n_solution_user);
+			fpunchf(PHAST_NULL("dist_x"), dformat, use.Get_n_solution_user());
 		}
 		else if (state == TRANSPORT)
 		{
@@ -2857,36 +2857,36 @@ punch_identifiers(void)
 	//if (punch.time == TRUE)
 	//{
 	//	if (state == REACTION && incremental_reactions == TRUE
-	//		&& use.kinetics_ptr != NULL)
+	//		&& use.Get_kinetics_ptr() != NULL)
 	//	{
-	//		if (use.kinetics_ptr->count_steps > 0)
+	//		if (use.Get_kinetics_ptr()->count_steps > 0)
 	//		{
 	//			kin_time_x = 0.;
 	//			for (i = 0; i < reaction_step; i++)
 	//			{
-	//				if (i < use.kinetics_ptr->count_steps)
+	//				if (i < use.Get_kinetics_ptr()->count_steps)
 	//				{
-	//					kin_time_x += use.kinetics_ptr->steps[i];
+	//					kin_time_x += use.Get_kinetics_ptr()->steps[i];
 	//				}
 	//				else
 	//				{
 	//					kin_time_x +=
-	//						use.kinetics_ptr->steps[use.kinetics_ptr->
+	//						use.Get_kinetics_ptr()->steps[use.Get_kinetics_ptr()->
 	//												count_steps - 1];
 	//				}
 	//			}
 	//		}
-	//		else if (use.kinetics_ptr->count_steps < 0)
+	//		else if (use.Get_kinetics_ptr()->count_steps < 0)
 	//		{
-	//			if (reaction_step > -use.kinetics_ptr->count_steps)
+	//			if (reaction_step > -use.Get_kinetics_ptr()->count_steps)
 	//			{
-	//				kin_time_x = use.kinetics_ptr->steps[0];
+	//				kin_time_x = use.Get_kinetics_ptr()->steps[0];
 	//			}
 	//			else
 	//			{
 	//				kin_time_x =
-	//					reaction_step * use.kinetics_ptr->steps[0] /
-	//					((LDBLE) (-use.kinetics_ptr->count_steps));
+	//					reaction_step * use.Get_kinetics_ptr()->steps[0] /
+	//					((LDBLE) (-use.Get_kinetics_ptr()->count_steps));
 	//			}
 	//		}
 	//	}
@@ -2895,35 +2895,35 @@ punch_identifiers(void)
 	{
 		double reaction_time = kin_time_x;
 		if (state == REACTION && incremental_reactions == TRUE
-			&& use.kinetics_ptr != NULL)
+			&& use.Get_kinetics_ptr() != NULL)
 		{
-			if (use.kinetics_ptr->count_steps > 0)
+			if (use.Get_kinetics_ptr()->count_steps > 0)
 			{
 				reaction_time = 0.0;
 				for (i = 0; i < reaction_step; i++)
 				{
-					if (i < use.kinetics_ptr->count_steps)
+					if (i < use.Get_kinetics_ptr()->count_steps)
 					{
-						reaction_time += use.kinetics_ptr->steps[i];
+						reaction_time += use.Get_kinetics_ptr()->steps[i];
 					}
 					else
 					{
 						reaction_time +=
-							use.kinetics_ptr->steps[use.kinetics_ptr->count_steps - 1];
+							use.Get_kinetics_ptr()->steps[use.Get_kinetics_ptr()->count_steps - 1];
 					}
 				}
 			}
-			else if (use.kinetics_ptr->count_steps < 0)
+			else if (use.Get_kinetics_ptr()->count_steps < 0)
 			{
-				if (reaction_step > -use.kinetics_ptr->count_steps)
+				if (reaction_step > -use.Get_kinetics_ptr()->count_steps)
 				{
-					reaction_time = use.kinetics_ptr->steps[0];
+					reaction_time = use.Get_kinetics_ptr()->steps[0];
 				}
 				else
 				{
 					reaction_time =
-						reaction_step * use.kinetics_ptr->steps[0] /
-						((LDBLE) (-use.kinetics_ptr->count_steps));
+						reaction_step * use.Get_kinetics_ptr()->steps[0] /
+						((LDBLE) (-use.Get_kinetics_ptr()->count_steps));
 				}
 			}
 		}
@@ -3000,7 +3000,7 @@ punch_identifiers(void)
 	}
 	if (punch.rxn == TRUE)
 	{
-		if (state >= REACTION && use.reaction_in == TRUE)
+		if (state >= REACTION && use.Get_reaction_in() == TRUE)
 		{
 			if (punch.high_precision == FALSE)
 			{
@@ -3155,11 +3155,11 @@ punch_kinetics(void)
 	LDBLE moles, delta_moles;
 
 	kinetics_ptr = NULL;
-	if (use.kinetics_in == TRUE)
+	if (use.Get_kinetics_in() == TRUE)
 	{
 		if (state == TRANSPORT || state == PHAST || state == ADVECTION)
 		{
-			kinetics_ptr = kinetics_bsearch(use.n_kinetics_user, &i);
+			kinetics_ptr = kinetics_bsearch(use.Get_n_kinetics_user(), &i);
 		}
 		else
 		{

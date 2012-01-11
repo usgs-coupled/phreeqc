@@ -85,9 +85,9 @@ inverse_models(void)
 /*
  *  Fill in stucture "use".  
  */
-			use.inverse_in = TRUE;
-			use.inverse_ptr = &inverse[n];
-			use.n_inverse_user = inverse[n].n_user;
+			use.Set_inverse_in(true);
+			use.Set_inverse_ptr(&inverse[n]);
+			use.Set_n_inverse_user(inverse[n].n_user);
 /*
  *  Initial prints
  */

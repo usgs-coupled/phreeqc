@@ -9,6 +9,7 @@
 #include "GasPhase.h"
 #include "Reaction.h"
 #include "PPassemblage.h"
+#include "Use.h"
 
 /* ---------------------------------------------------------------------- */
 int Phreeqc::
@@ -6890,109 +6891,110 @@ Use2cxxStorageBin(cxxStorageBin & sb)
 	int n;
 	sb.Get_system().Set_io(sb.Get_io());
 
-	struct Use *use_ptr = &use;
-	if (use.mix_in == TRUE)
+	//struct Use *use_ptr = &use;
+	//cxxUse *use_ptr = &use;
+	if (use.Get_mix_in())
 	{
-		cxxMix *entity = Utilities::Rxn_find(Rxn_mix_map, use_ptr->n_mix_user);
+		cxxMix *entity = Utilities::Rxn_find(Rxn_mix_map, use.Get_n_mix_user());
 		if (entity != NULL)
 		{
-			sb.Set_Mix(use_ptr->n_mix_user, entity);
+			sb.Set_Mix(use.Get_n_mix_user(), entity);
 		}
 	}
-	else if (use_ptr->solution_in == TRUE)
+	else if (use.Get_solution_in())
 	{
-		struct solution *struct_entity = solution_bsearch(use_ptr->n_solution_user, &n, FALSE);
+		struct solution *struct_entity = solution_bsearch(use.Get_n_solution_user(), &n, FALSE);
 		if (struct_entity != NULL)
 		{
 			cxxSolution entity(struct_entity, sb.Get_io());
-			sb.Set_Solution(use_ptr->n_solution_user, &entity);
+			sb.Set_Solution(use.Get_n_solution_user(), &entity);
 		}
 	}
-	if (use_ptr->pp_assemblage_in == TRUE)
+	if (use.Get_pp_assemblage_in())
 	{
-		cxxPPassemblage *entity_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, use_ptr->n_pp_assemblage_user);
+		cxxPPassemblage *entity_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, use.Get_n_pp_assemblage_user());
 		if (entity_ptr != NULL)
 		{
-			sb.Set_PPassemblage(use_ptr->n_pp_assemblage_user, entity_ptr);
+			sb.Set_PPassemblage(use.Get_n_pp_assemblage_user(), entity_ptr);
 		}
 	}
 	#ifdef SKIP
-	if (use_ptr->pp_assemblage_in == TRUE)
+	if (use.Get_pp_assemblage_in() == TRUE)
 	{
-		struct pp_assemblage *struct_entity = pp_assemblage_bsearch(use_ptr->n_pp_assemblage_user, &n);
+		struct pp_assemblage *struct_entity = pp_assemblage_bsearch(use.Get_n_pp_assemblage_user(), &n);
 		if (struct_entity != NULL)
 		{
 			cxxPPassemblage entity(struct_entity, sb.Get_io());
-			sb.Set_PPassemblage(use_ptr->n_pp_assemblage_user, &entity);
+			sb.Set_PPassemblage(use.Get_n_pp_assemblage_user(), &entity);
 		}
 	}
 	#endif
-	if (use_ptr->exchange_in == TRUE)
+	if (use.Get_exchange_in())
 	{
-		cxxExchange *entity_ptr = Utilities::Rxn_find(Rxn_exchange_map, use_ptr->n_exchange_user);
+		cxxExchange *entity_ptr = Utilities::Rxn_find(Rxn_exchange_map, use.Get_n_exchange_user());
 		if (entity_ptr != NULL)
 		{
 			//cxxExchange entity(struct_entity, sb.Get_io());
-			sb.Set_Exchange(use_ptr->n_exchange_user, entity_ptr);
+			sb.Set_Exchange(use.Get_n_exchange_user(), entity_ptr);
 		}
 	}
-	if (use_ptr->surface_in == TRUE)
+	if (use.Get_surface_in())
 	{
-		struct surface *struct_entity = surface_bsearch(use_ptr->n_surface_user, &n);
+		struct surface *struct_entity = surface_bsearch(use.Get_n_surface_user(), &n);
 		if (struct_entity != NULL)
 		{
 			cxxSurface entity(struct_entity, sb.Get_io());
-			sb.Set_Surface(use_ptr->n_surface_user, &entity);
+			sb.Set_Surface(use.Get_n_surface_user(), &entity);
 		}
 	}
-	if (use_ptr->gas_phase_in == TRUE)
+	if (use.Get_gas_phase_in())
 	{
-		cxxGasPhase *entity_ptr = Utilities::Rxn_find(Rxn_gas_phase_map, use_ptr->n_gas_phase_user);
+		cxxGasPhase *entity_ptr = Utilities::Rxn_find(Rxn_gas_phase_map, use.Get_n_gas_phase_user());
 		if (entity_ptr != NULL)
 		{
-			sb.Set_GasPhase(use_ptr->n_gas_phase_user, entity_ptr);
+			sb.Set_GasPhase(use.Get_n_gas_phase_user(), entity_ptr);
 		}
 	}
-	if (use_ptr->ss_assemblage_in == TRUE)
+	if (use.Get_ss_assemblage_in())
 	{
-		struct ss_assemblage *struct_entity = ss_assemblage_bsearch(use_ptr->n_ss_assemblage_user, &n);
+		struct ss_assemblage *struct_entity = ss_assemblage_bsearch(use.Get_n_ss_assemblage_user(), &n);
 		if (struct_entity != NULL)
 		{
 			cxxSSassemblage entity(struct_entity, sb.Get_io());
-			sb.Set_SSassemblage(use_ptr->n_ss_assemblage_user, &entity);
+			sb.Set_SSassemblage(use.Get_n_ss_assemblage_user(), &entity);
 		}
 	}
-	if (use_ptr->kinetics_in == TRUE)
+	if (use.Get_kinetics_in())
 	{
-		struct kinetics *struct_entity = kinetics_bsearch(use_ptr->n_kinetics_user, &n);
+		struct kinetics *struct_entity = kinetics_bsearch(use.Get_n_kinetics_user(), &n);
 		if (struct_entity != NULL)
 		{
 			cxxKinetics entity(struct_entity, sb.Get_io());
-			sb.Set_Kinetics(use_ptr->n_kinetics_user, &entity);
+			sb.Set_Kinetics(use.Get_n_kinetics_user(), &entity);
 		}
 	}
-	if (use_ptr->reaction_in == TRUE)
+	if (use.Get_reaction_in())
 	{
-		cxxReaction *entity = Utilities::Rxn_find(Rxn_reaction_map, use_ptr->n_reaction_user);
+		cxxReaction *entity = Utilities::Rxn_find(Rxn_reaction_map, use.Get_n_reaction_user());
 		if (entity != NULL)
 		{
-			sb.Set_Reaction(use_ptr->n_reaction_user, entity);
+			sb.Set_Reaction(use.Get_n_reaction_user(), entity);
 		}
 	}
-	if (use_ptr->temperature_in == TRUE)
+	if (use.Get_temperature_in())
 	{
-		cxxTemperature *entity = Utilities::Rxn_find(Rxn_temperature_map, use_ptr->n_temperature_user);
+		cxxTemperature *entity = Utilities::Rxn_find(Rxn_temperature_map, use.Get_n_temperature_user());
 		if (entity != NULL)
 		{
-			sb.Set_Temperature(use_ptr->n_temperature_user, entity);
+			sb.Set_Temperature(use.Get_n_temperature_user(), entity);
 		}
 	}
-	if (use_ptr->pressure_in == TRUE)
+	if (use.Get_pressure_in())
 	{
-		cxxPressure *entity = Utilities::Rxn_find(Rxn_pressure_map, use_ptr->n_pressure_user);
+		cxxPressure *entity = Utilities::Rxn_find(Rxn_pressure_map, use.Get_n_pressure_user());
 		if (entity != NULL)
 		{
-			sb.Set_Pressure(use_ptr->n_pressure_user, entity);
+			sb.Set_Pressure(use.Get_n_pressure_user(), entity);
 		}
 	}
 }
