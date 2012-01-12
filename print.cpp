@@ -560,7 +560,7 @@ print_gas_phase(void)
 		output_msg("\n");
 	if (PR)
 	output_msg(sformatf( "   P * Vm / RT: %8.5f  (Compressibility Factor Z) \n",
-				   (double) gas_phase_ptr->Get_total_p() * gas_phase_ptr->Get_v_m() / (R_LITER_ATM * tk_x)));
+			     (double) (gas_phase_ptr->Get_total_p() * gas_phase_ptr->Get_v_m() / (R_LITER_ATM * tk_x))));
 
 
 	output_msg(sformatf("\n%68s\n%78s\n", "Moles in gas",

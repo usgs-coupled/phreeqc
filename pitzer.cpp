@@ -1665,6 +1665,8 @@ jacobian_pz(void)
 	LDBLE d, d1, d2;
 	int i, j;
 
+Restart:
+	int pz_max_unknowns = max_unknowns;
 	if (full_pitzer == TRUE)
 	{
 		molalities(TRUE);
@@ -1736,6 +1738,11 @@ jacobian_pz(void)
 			break;
 		}
 		molalities(TRUE);
+		if (max_unknowns > pz_max_unknowns) 
+		{
+		  base = (LDBLE *) free_check_null(base);
+		  goto Restart;
+		}
 		if (full_pitzer == TRUE)
 			pitzer();
 		mb_sums();
