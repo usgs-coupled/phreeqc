@@ -5524,7 +5524,7 @@ write_phase_sys_total(int n)
  *   Start with secondary reaction
  */
 	count_trxn = 0;
-	trxn_add(phases[n]->rxn_s, 1.0, FALSE);
+	trxn_add_phase(phases[n]->rxn_s, 1.0, FALSE);
 /*
  *   Copy to elt_list
  */

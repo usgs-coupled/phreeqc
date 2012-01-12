@@ -2794,13 +2794,13 @@ system_total_elt_secondary(const char *total_name)
 				/*
 				 *   Look for element
 				 */
-				for (j = 0; j < (size_t) count_elts; j++)
+				for (int j1 = 0; j1 < (size_t) count_elts; j1++)
 				{
-					if (strcmp(elt_list[j].elt->name, total_name) == 0)
+					if (strcmp(elt_list[j1].elt->name, total_name) == 0)
 					{
 						sys[count_sys].name =
 							string_duplicate(phase_ptr->name);
-						sys[count_sys].moles = elt_list[j].coef;
+						sys[count_sys].moles = elt_list[j1].coef;
 						sys_tot += sys[count_sys].moles;
 						sys[count_sys].type = string_duplicate("gas");
 						count_sys++;
