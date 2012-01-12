@@ -2605,7 +2605,10 @@ store_get_equi_reactants(int l, int kin_end)
 		x0_moles = (LDBLE *) PHRQ_malloc((size_t) k * sizeof(LDBLE));
 		if (x0_moles == NULL)
 			malloc_error();
-
+		for (i = 0; i < k; i++)
+		{
+		  x0_moles[i] = 0.0;
+		}
 		k = -1;
 		if (pp_assemblage_ptr)
 		{

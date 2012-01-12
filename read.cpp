@@ -7173,6 +7173,7 @@ read_surf(void)
 				surface[n].charge[i].sigma0 = 0;
 				surface[n].charge[i].sigma1 = 0;
 				surface[n].charge[i].sigma2 = 0;
+				surface[n].charge[i].sigmaddl = 0;
 				count_charge++;
 			}
 			charge_ptr = &(surface[n].charge[i]);

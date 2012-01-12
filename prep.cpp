@@ -97,6 +97,11 @@ prep(void)
 			(LDBLE *) PHRQ_malloc((size_t) max_unknowns * sizeof(LDBLE));
 		if (residual == NULL)
 			malloc_error();
+		for (int j = 0; j < max_unknowns; j++)
+		{
+		  residual[j] = 0;
+		}
+
 /*
  *   Build lists to fill Jacobian array and species list
  */

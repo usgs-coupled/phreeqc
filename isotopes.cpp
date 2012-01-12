@@ -1300,8 +1300,15 @@ master_isotope_init(struct master_isotope *master_isotope_ptr)
  *   set pointers in structure to NULL
  */
 	master_isotope_ptr->name = NULL;
+	master_isotope_ptr->master = NULL;
+	master_isotope_ptr->elt = NULL;
 	master_isotope_ptr->units = NULL;
 	master_isotope_ptr->standard = 0;
+	master_isotope_ptr->ratio = 0;
+	master_isotope_ptr->moles = 0;
+	master_isotope_ptr->total_is_major = 0;
+	master_isotope_ptr->minor_isotope = 1;
+
 	return (OK);
 }
 
