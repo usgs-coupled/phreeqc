@@ -3820,7 +3820,10 @@ conc_init(struct conc *conc_ptr)
 {
 	if (conc_ptr == NULL)
 		return (ERROR);
+	conc_ptr->description = NULL;
 	conc_ptr->equation_name = NULL;
+	conc_ptr->moles = 0;
+	conc_ptr->input_conc = 0;
 	conc_ptr->phase = NULL;
 	conc_ptr->phase_si = 0.0;
 	conc_ptr->units = NULL;
