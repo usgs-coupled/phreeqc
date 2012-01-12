@@ -780,6 +780,9 @@ C     Set DW0
 	if (fabs(TK - TR) < 0.001e0)
 	{
 		A0 = 0.392e0;
+		//Cite Jonathan Toner
+		//A0 = 86.6836498e0 + (TK)*0.084879594e0 - (0.0000888785e0)*pow(TK,(LDBLE) 2.0e0) + (4.88096e-8)*pow(TK,(LDBLE) 3.0e0) - (1327.31477e0/(TK)) - 17.6460172e0*log(TK);
+
 	}
 	else
 	{

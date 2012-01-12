@@ -210,6 +210,8 @@ C
 	}
 	if (L > 30)
 		error_msg("In subroutine DFIND", STOP);
+	//cite Jonathan Toner, remove error_msg
+	//DD = 1;
 /*   20 CONTINUE */
 	*DOUT = DD;
 	return OK;
