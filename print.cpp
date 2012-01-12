@@ -553,7 +553,7 @@ print_gas_phase(void)
 			   (double) gas_phase_ptr->Get_volume()));
 	if(gas_phase_ptr->Get_total_moles() > 0)
 		output_msg(sformatf("  Molar volume: %10.2e liters/mole",
-			   (double) gas_phase_ptr->Get_volume() / gas_phase_ptr->Get_total_moles()));
+				    (double) (gas_phase_ptr->Get_volume() / gas_phase_ptr->Get_total_moles())));
 	if (!numerical_fixed_volume && ((PR && gas_phase_ptr->Get_volume() / gas_phase_ptr->Get_total_moles() <= 0.03) || (PR && gas_phase_ptr->Get_v_m() <= 0.03)))
 		output_msg(" WARNING: Program's limit for Peng-Robinson.\n");
 	else
@@ -1251,7 +1251,7 @@ print_saturation_indices(void)
 		//		   " Delta_V ", reaction_ptr->logk[delta_v], " cm3/mol"));
 		if (gas && phases[i]->pr_in && phases[i]->pr_p)
 			output_msg(sformatf("\t%s%5.1f%s%5.3f%s",
-				   " Pressure ", phases[i]->pr_p, " atm, phi ", phases[i]->pr_phi, "."));
+					    " Pressure ", (double) phases[i]->pr_p, " atm, phi ", (double) phases[i]->pr_phi, "."));
 		output_msg("\n");
 
 	}
@@ -2189,9 +2189,9 @@ print_totals(void)
 				  iterations));
 		}
 		output_msg(sformatf("%45s%9.5f\n", "Osmotic coefficient  = ",
-				   COSMOT));
+				    (double) COSMOT));
 		if (print_density) output_msg(sformatf("%45s%9.5f\n", "Density of water  = ",
-				   DW0));
+				   (double) DW0));
 	}
 	output_msg(sformatf("%45s%e\n", "Total H  = ", (double) total_h_x));
 	output_msg(sformatf("%45s%e\n", "Total O  = ", (double) total_o_x));
