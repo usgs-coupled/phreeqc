@@ -53,10 +53,8 @@ transport(void)
 	if (multi_Dflag)
 	{
 		sol_D = (struct sol_D *) PHRQ_malloc((size_t)
-											 (count_cells + 2 +
-											  stag_data->count_stag *
-											  count_cells) *
-											 sizeof(struct sol_D));
+			 (count_cells + 2 + stag_data->count_stag * count_cells) *
+			 sizeof(struct sol_D));
 		if (sol_D == NULL)
 			malloc_error();
 		sol_D_dbg = sol_D;
@@ -66,6 +64,7 @@ transport(void)
 			sol_D[i].count_spec = 0;
 			sol_D[i].count_exch_spec = 0;
 			sol_D[i].exch_total = 0;
+			sol_D[i].x_max = 0;
 			sol_D[i].spec = NULL;
 		}
 	}

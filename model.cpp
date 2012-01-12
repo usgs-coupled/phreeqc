@@ -1849,7 +1849,7 @@ ineq(int in_kode)
 	if (debug_model == TRUE)
 	{
 		output_msg(sformatf( "\nA and B arrays:\n\n"));
-		array_print(ineq_array, l_count_rows, count_unknowns + 2,
+		array_print(ineq_array, l_count_rows, count_unknowns + 1,
 					max_column_count);
 	}
 /*
