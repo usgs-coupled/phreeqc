@@ -1,0 +1,1533 @@
+   Input file: sc6
+  Output file: sc6.out
+Database file: ../database/phreeqc.dat
+
+------------------
+Reading data base.
+------------------
+
+	SOLUTION_MASTER_SPECIES
+	SOLUTION_SPECIES
+	PHASES
+	EXCHANGE_MASTER_SPECIES
+	EXCHANGE_SPECIES
+	SURFACE_MASTER_SPECIES
+	SURFACE_SPECIES
+	RATES
+	END
+------------------------------------
+Reading input data for simulation 1.
+------------------------------------
+
+	DATABASE ../database/phreeqc.dat
+	SOLUTION_SPECIES
+	 Na+ = Na+
+	 log_k 0
+	 gamma 1e10 0
+	 Ca+2 = Ca+2
+	 log_k 0
+	 gamma 1e10 0
+	 Cl- = Cl-
+	 log_k 0
+	 gamma 1e10 0
+	 H2O + 0.01e- = H2O-0.01
+	 log_k -9
+	SURFACE_MASTER_SPECIES
+	 Sua Sua
+	 Sub Sub
+	 Suc Suc
+	SURFACE_SPECIES
+	 Sua = Sua
+	 log_k 0
+	 Sub = Sub
+	 log_k 0
+	 Suc = Suc
+	 log_k 0
+	SURFACE_MASTER_SPECIES /* defined sorbed form of Hfo = Sorbedhfo */
+	 Sorbedhfo_s Sorbedhfo_sOH
+	 Sorbedhfo_w Sorbedhfo_wOH
+	SURFACE_SPECIES
+	 Sorbedhfo_sOH = Sorbedhfo_sOH
+	 log_k 0.0
+	 Sorbedhfo_sOH + H+ = Sorbedhfo_sOH2+
+	 log_k 7.29
+	 Sorbedhfo_sOH = Sorbedhfo_sO- + H+
+	 log_k -8.93
+	 Sorbedhfo_wOH = Sorbedhfo_wOH
+	 log_k 0.0
+	 Sorbedhfo_wOH + H+ = Sorbedhfo_wOH2+
+	 log_k 7.29
+	 Sorbedhfo_wOH = Sorbedhfo_wO- + H+
+	 log_k -8.93
+	 Sorbedhfo_sOH + Ca+2 = Sorbedhfo_sOHCa+2
+	 log_k 4.97
+	 Sorbedhfo_wOH + Ca+2 = Sorbedhfo_wOCa+ + H+
+	 log_k -5.85
+	 Sorbedhfo_sOH + Zn+2 = Sorbedhfo_sOZn+ + H+
+	 log_k 0.99
+	 Sorbedhfo_wOH + Zn+2 = Sorbedhfo_wOZn+ + H+
+	 log_k -1.99
+	SOLUTION 0-21
+	END          
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 0.	
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	Pure water     
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   7.000    
+                                       pe  =   4.000    
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
+                        Activity of water  =   1.000
+                           Ionic strength  =  1.001e-007
+                       Mass of water (kg)  =  1.000e+000
+                 Total alkalinity (eq/kg)  =  1.082e-010
+                    Total carbon (mol/kg)  =  0.000e+000
+                       Total CO2 (mol/kg)  =  0.000e+000
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  = -1.173e-010
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =  -0.06
+                               Iterations  =   0
+                                  Total H  = 1.110124e+002
+                                  Total O  = 5.550622e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   OH-                   1.002e-007  1.001e-007    -6.999    -6.999    -0.000
+   H+                    1.001e-007  1.000e-007    -7.000    -7.000    -0.000
+   H2O-0.01              9.120e-010  9.120e-010    -9.040    -9.040    -0.000
+   H2O                   5.551e+001  1.000e+000     1.744     0.000     0.000
+H(0)            1.416e-025
+   H2                    7.079e-026  7.079e-026   -25.150   -25.150     0.000
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -42.080   -42.080     0.000
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	H2(g)           -22.00  -25.15   -3.15  H2
+	H2O(g)           -1.51    0.00    1.51  H2O
+	O2(g)           -39.19  -42.08   -2.89  O2
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 2.
+------------------------------------
+
+	SOLUTION 0
+	 Na 1
+	 Ca 1e-3
+	 Cl 1
+	SURFACE 0
+	 Sua 1e-3 1e4 1 Dw 1e-9
+	 donnan 1e-12 #d 1 l 0.99 v 1# 1e-9
+	 Sub 1e-3 1e4 1 Dw 1e-12
+	 donnan 1e-12 #d 1 l 0.99 v 1# 1e-9
+	 Hfo_w 97.5e-5 600 88e-3 Dw 1e-12
+	 Hfo_s 2.5e-5
+	 donnan 1e-12 #d 1 l 0.99 v 1# 1e-9
+	 equilibrate 0
+	END
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 0.	
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	Ca               1.000e-006  1.000e-006
+	Cl               1.000e-003  1.000e-003
+	Na               1.000e-003  1.000e-003
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   7.000    
+                                       pe  =   4.000    
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
+                        Activity of water  =   1.000
+                           Ionic strength  =  1.002e-003
+                       Mass of water (kg)  =  1.000e+000
+                 Total alkalinity (eq/kg)  =  3.702e-010
+                    Total carbon (mol/kg)  =  0.000e+000
+                       Total CO2 (mol/kg)  =  0.000e+000
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  =  2.000e-006
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.10
+                               Iterations  =   1
+                                  Total H  = 1.110124e+002
+                                  Total O  = 5.550622e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   OH-                   1.038e-007  1.001e-007    -6.984    -7.000    -0.016
+   H+                    1.035e-007  1.000e-007    -6.985    -7.000    -0.015
+   H2O-0.01              9.120e-010  9.120e-010    -9.040    -9.040    -0.000
+   H2O                   5.551e+001  1.000e+000     1.744    -0.000     0.000
+Ca              1.000e-006
+   Ca+2                  1.000e-006  1.000e-006    -6.000    -6.000    -0.000
+   CaOH+                 1.720e-012  1.660e-012   -11.765   -11.780    -0.015
+Cl              1.000e-003
+   Cl-                   1.000e-003  1.000e-003    -3.000    -3.000    -0.000
+H(0)            1.416e-025
+   H2                    7.078e-026  7.079e-026   -25.150   -25.150     0.000
+Na              1.000e-003
+   Na+                   1.000e-003  1.000e-003    -3.000    -3.000    -0.000
+   NaOH                  6.605e-011  6.607e-011   -10.180   -10.180     0.000
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -42.080   -42.080     0.000
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	H2(g)           -22.00  -25.15   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	Halite           -7.58   -6.00    1.58  NaCl
+	O2(g)           -39.19  -42.08   -2.89  O2
+
+------------------------------------------------------
+Beginning of initial surface-composition calculations.
+------------------------------------------------------
+
+Surface 0.	
+
+Hfo           
+	 8.554e-018  Surface + diffuse layer charge, eq
+	 3.338e-006  Surface charge, eq
+	 6.101e-003  sigma, C/m**2
+	 6.530e-002  psi, V
+	-2.542e+000  -F*psi/RT
+	 7.874e-002  exp(-F*psi/RT)
+	 6.000e+002  specific area, m**2/g
+	 5.280e+001  m**2 for  8.800e-002 g
+
+	Water in diffuse layer: 5.280e-008 kg,  0.3% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 1.4647e-023
+	Cl            	 3.3380e-006
+	H             	 3.4634e-010
+	Na            	 8.3866e-016
+	O             	 3.4634e-010
+
+Hfo_s         
+	 2.500e-005  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_sOH          1.918e-005       0.767  1.918e-005      -4.717
+	Hfo_sOH2+        2.945e-006       0.118  2.945e-006      -5.531
+	Hfo_sO-          2.862e-006       0.114  2.862e-006      -5.543
+	Hfo_sOHCa+2      1.110e-008       0.000  1.110e-008      -7.955
+
+Hfo_w         
+	 9.750e-004  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_wOH          7.484e-004       0.768  7.484e-004      -3.126
+	Hfo_wOH2+        1.149e-004       0.118  1.149e-004      -3.940
+	Hfo_wO-          1.117e-004       0.115  1.117e-004      -3.952
+	Hfo_wOCa+        8.324e-010       0.000  8.324e-010      -9.080
+
+Sua           
+	-1.696e-024  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	 1.126e-022  psi, V
+	-4.383e-021  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 1.000e+004  m**2 for  1.000e+000 g
+
+	Water in diffuse layer: 1.000e-005 kg, 49.9% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 9.9801e-012
+	Cl            	 1.0010e-008
+	H             	 2.0910e-012
+	Na            	 9.9900e-009
+	O             	 1.0484e-012
+
+Sua           
+	 1.000e-003  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sua              1.000e-003       1.000  1.000e-003      -3.000
+
+Sub           
+	-1.696e-024  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	 1.126e-022  psi, V
+	-4.383e-021  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 1.000e+004  m**2 for  1.000e+000 g
+
+	Water in diffuse layer: 1.000e-005 kg, 49.9% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 9.9801e-012
+	Cl            	 1.0010e-008
+	H             	 2.0910e-012
+	Na            	 9.9900e-009
+	O             	 1.0484e-012
+
+Sub           
+	 1.000e-003  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sub              1.000e-003       1.000  1.000e-003      -3.000
+
+-----------------------------------------
+Beginning of batch-reaction calculations.
+-----------------------------------------
+
+Reaction step 1.
+
+Using solution 0.	
+Using surface 0.	Surface assemblage after simulation 2.
+
+------------------------------Surface composition------------------------------
+
+Hfo           
+	-1.271e-012  Surface + diffuse layer charge, eq
+	 3.338e-006  Surface charge, eq
+	 6.101e-003  sigma, C/m**2
+	 6.530e-002  psi, V
+	-2.542e+000  -F*psi/RT
+	 7.874e-002  exp(-F*psi/RT)
+	 6.000e+002  specific area, m**2/g
+	 5.280e+001  m**2 for  8.800e-002 g
+
+	Water in diffuse layer: 5.280e-008 kg,  0.3% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 1.4647e-023
+	Cl            	 3.3380e-006
+	H             	 3.4634e-010
+	Na            	 8.3866e-016
+	O             	 3.4634e-010
+
+Hfo_s         
+	 2.500e-005  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_sOH          1.918e-005       0.767  1.918e-005      -4.717
+	Hfo_sOH2+        2.945e-006       0.118  2.945e-006      -5.531
+	Hfo_sO-          2.862e-006       0.114  2.862e-006      -5.543
+	Hfo_sOHCa+2      1.110e-008       0.000  1.110e-008      -7.955
+
+Hfo_w         
+	 9.750e-004  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_wOH          7.484e-004       0.768  7.484e-004      -3.126
+	Hfo_wOH2+        1.149e-004       0.118  1.149e-004      -3.940
+	Hfo_wO-          1.117e-004       0.115  1.117e-004      -3.952
+	Hfo_wOCa+        8.324e-010       0.000  8.324e-010      -9.080
+
+Sua           
+	-8.765e-018  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	 1.167e-015  psi, V
+	-4.542e-014  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 1.000e+004  m**2 for  1.000e+000 g
+
+	Water in diffuse layer: 1.000e-005 kg, 49.9% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 9.9801e-012
+	Cl            	 1.0010e-008
+	H             	 2.0910e-012
+	Na            	 9.9900e-009
+	O             	 1.0484e-012
+
+Sua           
+	 1.000e-003  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sua              1.000e-003       1.000  1.000e-003      -3.000
+
+Sub           
+	-8.765e-018  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	 1.167e-015  psi, V
+	-4.542e-014  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 1.000e+004  m**2 for  1.000e+000 g
+
+	Water in diffuse layer: 1.000e-005 kg, 49.9% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 9.9801e-012
+	Cl            	 1.0010e-008
+	H             	 2.0910e-012
+	Na            	 9.9900e-009
+	O             	 1.0484e-012
+
+Sub           
+	 1.000e-003  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sub              1.000e-003       1.000  1.000e-003      -3.000
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	Ca               1.000e-006  1.000e-006
+	Cl               1.000e-003  1.000e-003
+	Na               1.000e-003  1.000e-003
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   7.000      Charge balance
+                                       pe  =   3.981      Adjusted to redox equilibrium
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
+                        Activity of water  =   1.000
+                           Ionic strength  =  1.002e-003
+                       Mass of water (kg)  =  1.000e+000
+                 Total alkalinity (eq/kg)  =  3.701e-010
+                    Total carbon (mol/kg)  =  0.000e+000
+                       Total CO2 (mol/kg)  =  0.000e+000
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  =  2.000e-006
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.10
+                               Iterations  =   0
+                                  Total H  = 1.110124e+002
+                                  Total O  = 5.550622e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   OH-                   1.038e-007  1.001e-007    -6.984    -7.000    -0.016
+   H+                    1.035e-007  1.000e-007    -6.985    -7.000    -0.015
+   H2O-0.01              9.124e-010  9.124e-010    -9.040    -9.040    -0.000
+   H2O                   5.551e+001  1.000e+000     1.744    -0.000     0.000
+Ca              1.000e-006
+   Ca+2                  1.000e-006  1.000e-006    -6.000    -6.000    -0.000
+   CaOH+                 1.720e-012  1.660e-012   -11.765   -11.780    -0.015
+Cl              1.000e-003
+   Cl-                   1.000e-003  1.000e-003    -3.000    -3.000    -0.000
+H(0)            1.545e-025
+   H2                    7.724e-026  7.726e-026   -25.112   -25.112     0.000
+Na              1.000e-003
+   Na+                   1.000e-003  1.000e-003    -3.000    -3.000    -0.000
+   NaOH                  6.605e-011  6.607e-011   -10.180   -10.180     0.000
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -42.156   -42.156     0.000
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	H2(g)           -21.96  -25.11   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	Halite           -7.58   -6.00    1.58  NaCl
+	O2(g)           -39.26  -42.16   -2.89  O2
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 3.
+------------------------------------
+
+	PRINT
+	 reset false
+WARNING: Cell-lengths were read for 1 cells. Last value is used till cell 3.
+WARNING: Dispersivities were read for 1 cells. Last value is used till cell 3.
+----------------------------------User print-----------------------------------
+
+
+----------------------------------User print-----------------------------------
+
+
+----------------------------------User print-----------------------------------
+
+
+----------------------------------User print-----------------------------------
+
+Adapting surface in            1 
+
+------------------------------Surface composition------------------------------
+
+Hfo           
+	-1.270e-012  Surface + diffuse layer charge, eq
+	 3.338e-006  Surface charge, eq
+	 6.101e-003  sigma, C/m**2
+	 6.530e-002  psi, V
+	-2.542e+000  -F*psi/RT
+	 7.872e-002  exp(-F*psi/RT)
+	 6.000e+002  specific area, m**2/g
+	 5.280e+001  m**2 for  8.800e-002 g
+
+	Water in diffuse layer: 5.280e-008 kg,  0.3% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 1.4634e-023
+	Cl            	 3.3380e-006
+	H             	 3.4636e-010
+	Na            	 8.3817e-016
+	O             	 3.4636e-010
+
+Hfo_s         
+	 2.500e-005  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_sOH          1.918e-005       0.767  1.918e-005      -4.717
+	Hfo_sOH2+        2.945e-006       0.118  2.945e-006      -5.531
+	Hfo_sO-          2.862e-006       0.114  2.862e-006      -5.543
+	Hfo_sOHCa+2      1.109e-008       0.000  1.109e-008      -7.955
+
+Hfo_w         
+	 9.750e-004  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_wOH          7.484e-004       0.768  7.484e-004      -3.126
+	Hfo_wOH2+        1.149e-004       0.118  1.149e-004      -3.940
+	Hfo_wO-          1.117e-004       0.115  1.117e-004      -3.952
+	Hfo_wOCa+        8.318e-010       0.000  8.318e-010      -9.080
+
+Sua           
+	-8.765e-018  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	 1.167e-015  psi, V
+	-4.543e-014  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 9.997e+003  m**2 for  9.997e-001 g
+
+	Water in diffuse layer: 9.997e-006 kg, 49.9% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 9.9742e-012
+	Cl            	 1.0004e-008
+	H             	 2.0904e-012
+	Na            	 9.9840e-009
+	O             	 1.0478e-012
+
+Sua           
+	 9.997e-004  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sua              9.997e-004       1.000  9.997e-004      -3.000
+
+Sub           
+	-8.768e-018  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	 1.167e-015  psi, V
+	-4.543e-014  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 1.000e+004  m**2 for  1.000e+000 g
+
+	Water in diffuse layer: 1.000e-005 kg, 49.9% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 9.9772e-012
+	Cl            	 1.0007e-008
+	H             	 2.0910e-012
+	Na            	 9.9870e-009
+	O             	 1.0481e-012
+
+Sub           
+	 1.000e-003  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sub              1.000e-003       1.000  1.000e-003      -3.000
+
+----------------------------------User print-----------------------------------
+
+Adapting surface in            2 
+
+------------------------------Surface composition------------------------------
+
+Hfo           
+	 2.592e-021  Surface + diffuse layer charge, eq
+	 2.019e-014  Surface charge, eq
+	 1.230e-004  sigma, C/m**2
+	 6.566e-002  psi, V
+	-2.556e+000  -F*psi/RT
+	 7.765e-002  exp(-F*psi/RT)
+	 6.000e+002  specific area, m**2/g
+	 1.584e-005  m**2 for  2.640e-008 g
+
+	Water in diffuse layer: 1.584e-014 kg,  0.0% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 2.9419e-036
+	Cl            	 1.5141e-014
+	H             	 5.0511e-015
+	Na            	 1.8051e-027
+	O             	 5.0511e-015
+
+Hfo_s         
+	 7.500e-012  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_sOH          5.757e-012       0.768  5.757e-012     -11.240
+	Hfo_sOH2+        8.716e-013       0.116  8.716e-013     -12.060
+	Hfo_sO-          8.711e-013       0.116  8.711e-013     -12.060
+	Hfo_sOHCa+2      9.699e-019       0.000  9.699e-019     -18.013
+
+Hfo_w         
+	 2.925e-010  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_wOH          2.245e-010       0.768  2.245e-010      -9.649
+	Hfo_wOH2+        3.399e-011       0.116  3.399e-011     -10.469
+	Hfo_wO-          3.397e-011       0.116  3.397e-011     -10.469
+	Hfo_wOCa+        7.373e-020       0.000  7.373e-020     -19.132
+
+Sua           
+	-1.233e-030  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	 3.739e-023  psi, V
+	-1.455e-021  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 3.000e+000  m**2 for  3.000e-004 g
+
+	Water in diffuse layer: 3.000e-009 kg, 99.9% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 8.9849e-019
+	Cl            	 9.0078e-016
+	H             	 6.0624e-016
+	Na            	 8.9924e-016
+	O             	 3.0324e-016
+
+Sua           
+	 3.000e-007  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sua              3.000e-007       1.000  3.000e-007      -6.523
+
+Sub           
+	-1.252e-033  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	 3.472e-023  psi, V
+	-1.351e-021  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 3.000e-003  m**2 for  3.000e-007 g
+
+	Water in diffuse layer: 3.000e-012 kg,  0.1% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 8.9849e-022
+	Cl            	 9.0078e-019
+	H             	 6.0624e-019
+	Na            	 8.9924e-019
+	O             	 3.0324e-019
+
+Sub           
+	 3.000e-010  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sub              3.000e-010       1.000  3.000e-010      -9.523
+
+----------------------------------User print-----------------------------------
+
+Adapting surface in            3 
+
+----------------------------------User print-----------------------------------
+
+Adapting surface in            1 
+
+------------------------------Surface composition------------------------------
+
+Hfo           
+	-2.270e-012  Surface + diffuse layer charge, eq
+	 3.338e-006  Surface charge, eq
+	 6.101e-003  sigma, C/m**2
+	 6.530e-002  psi, V
+	-2.542e+000  -F*psi/RT
+	 7.874e-002  exp(-F*psi/RT)
+	 6.000e+002  specific area, m**2/g
+	 5.280e+001  m**2 for  8.799e-002 g
+
+	Water in diffuse layer: 5.280e-008 kg,  0.3% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 1.4646e-023
+	Cl            	 3.3378e-006
+	H             	 3.4631e-010
+	Na            	 8.3860e-016
+	O             	 3.4631e-010
+
+Hfo_s         
+	 2.500e-005  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_sOH          1.918e-005       0.767  1.918e-005      -4.717
+	Hfo_sOH2+        2.945e-006       0.118  2.945e-006      -5.531
+	Hfo_sO-          2.862e-006       0.114  2.862e-006      -5.543
+	Hfo_sOHCa+2      1.110e-008       0.000  1.110e-008      -7.955
+
+Hfo_w         
+	 9.749e-004  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_wOH          7.484e-004       0.768  7.484e-004      -3.126
+	Hfo_wOH2+        1.149e-004       0.118  1.149e-004      -3.940
+	Hfo_wO-          1.117e-004       0.115  1.117e-004      -3.952
+	Hfo_wOCa+        8.324e-010       0.000  8.324e-010      -9.080
+
+Sua           
+	-1.617e-017  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	 2.137e-015  psi, V
+	-8.320e-014  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 1.000e+004  m**2 for  1.000e+000 g
+
+	Water in diffuse layer: 1.000e-005 kg, 49.8% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 9.9800e-012
+	Cl            	 1.0010e-008
+	H             	 2.0910e-012
+	Na            	 9.9900e-009
+	O             	 1.0484e-012
+
+Sua           
+	 1.000e-003  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sua              1.000e-003       1.000  1.000e-003      -3.000
+
+Sub           
+	-1.617e-017  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	 2.137e-015  psi, V
+	-8.320e-014  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 1.000e+004  m**2 for  1.000e+000 g
+
+	Water in diffuse layer: 1.000e-005 kg, 49.8% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 9.9800e-012
+	Cl            	 1.0010e-008
+	H             	 2.0910e-012
+	Na            	 9.9900e-009
+	O             	 1.0484e-012
+
+Sub           
+	 1.000e-003  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sub              1.000e-003       1.000  1.000e-003      -3.000
+
+Sorbedhfo     
+	-1.135e-012  Surface + diffuse layer charge, eq
+	 1.669e-006  Surface charge, eq
+	 6.101e-003  sigma, C/m**2
+	 6.530e-002  psi, V
+	-2.542e+000  -F*psi/RT
+	 7.874e-002  exp(-F*psi/RT)
+	 6.000e+002  specific area, m**2/g
+	 2.640e+001  m**2 for  4.400e-002 g
+
+	Water in diffuse layer: 2.640e-008 kg,  0.1% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 7.3234e-024
+	Cl            	 1.6690e-006
+	H             	 1.7317e-010
+	Na            	 4.1933e-016
+	O             	 1.7317e-010
+
+Sorbedhfo_s   
+	 1.250e-005  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sorbedhfo_sOH    9.591e-006       0.767  9.591e-006      -5.018
+	Sorbedhfo_sOH2+  1.472e-006       0.118  1.472e-006      -5.832
+	Sorbedhfo_sO-    1.431e-006       0.114  1.431e-006      -5.844
+	Sorbedhfo_sOHCa+2  5.549e-009       0.000  5.549e-009      -8.256
+
+Sorbedhfo_w   
+	 4.875e-004  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sorbedhfo_wOH    3.742e-004       0.768  3.742e-004      -3.427
+	Sorbedhfo_wOH2+  5.745e-005       0.118  5.745e-005      -4.241
+	Sorbedhfo_wO-    5.584e-005       0.115  5.584e-005      -4.253
+	Sorbedhfo_wOCa+  4.162e-010       0.000  4.162e-010      -9.381
+
+----------------------------------User print-----------------------------------
+
+Adapting surface in            2 
+
+------------------------------Surface composition------------------------------
+
+Sua           
+	-3.203e-018  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	 4.277e-016  psi, V
+	-1.665e-014  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 9.994e+003  m**2 for  9.994e-001 g
+
+	Water in diffuse layer: 9.994e-006 kg, 49.9% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 9.9682e-012
+	Cl            	 9.9980e-009
+	H             	 2.0898e-012
+	Na            	 9.9780e-009
+	O             	 1.0473e-012
+
+Sua           
+	 9.994e-004  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sua              9.994e-004       1.000  9.994e-004      -3.000
+
+Sub           
+	-3.204e-018  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	 4.277e-016  psi, V
+	-1.665e-014  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 1.000e+004  m**2 for  1.000e+000 g
+
+	Water in diffuse layer: 1.000e-005 kg, 49.9% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 9.9742e-012
+	Cl            	 1.0004e-008
+	H             	 2.0910e-012
+	Na            	 9.9840e-009
+	O             	 1.0479e-012
+
+Sub           
+	 1.000e-003  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sub              1.000e-003       1.000  1.000e-003      -3.000
+
+Hfo           
+	-2.452e-013  Surface + diffuse layer charge, eq
+	 1.669e-006  Surface charge, eq
+	 6.101e-003  sigma, C/m**2
+	 6.531e-002  psi, V
+	-2.542e+000  -F*psi/RT
+	 7.871e-002  exp(-F*psi/RT)
+	 6.000e+002  specific area, m**2/g
+	 2.640e+001  m**2 for  4.401e-002 g
+
+	Water in diffuse layer: 2.640e-008 kg,  0.1% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 7.3122e-024
+	Cl            	 1.6692e-006
+	H             	 1.7322e-010
+	Na            	 4.1891e-016
+	O             	 1.7322e-010
+
+Hfo_s         
+	 1.250e-005  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_sOH          9.592e-006       0.767  9.592e-006      -5.018
+	Hfo_sOH2+        1.473e-006       0.118  1.473e-006      -5.832
+	Hfo_sO-          1.431e-006       0.114  1.431e-006      -5.844
+	Hfo_sOHCa+2      5.542e-009       0.000  5.542e-009      -8.256
+
+Hfo_w         
+	 4.876e-004  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_wOH          3.743e-004       0.768  3.743e-004      -3.427
+	Hfo_wOH2+        5.746e-005       0.118  5.746e-005      -4.241
+	Hfo_wO-          5.585e-005       0.115  5.585e-005      -4.253
+	Hfo_wOCa+        4.157e-010       0.000  4.157e-010      -9.381
+
+Sorbedhfo     
+	-7.356e-020  Surface + diffuse layer charge, eq
+	 5.007e-013  Surface charge, eq
+	 6.101e-003  sigma, C/m**2
+	 6.531e-002  psi, V
+	-2.542e+000  -F*psi/RT
+	 7.871e-002  exp(-F*psi/RT)
+	 6.000e+002  specific area, m**2/g
+	 7.920e-006  m**2 for  1.320e-008 g
+
+	Water in diffuse layer: 7.920e-015 kg,  0.0% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 2.1933e-030
+	Cl            	 5.0068e-013
+	H             	 5.1957e-017
+	Na            	 1.2565e-022
+	O             	 5.1957e-017
+
+Sorbedhfo_s   
+	 3.750e-012  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sorbedhfo_sOH    2.877e-012       0.767  2.877e-012     -11.541
+	Sorbedhfo_sOH2+  4.418e-013       0.118  4.418e-013     -12.355
+	Sorbedhfo_sO-    4.293e-013       0.114  4.293e-013     -12.367
+	Sorbedhfo_sOHCa+2  1.662e-015       0.000  1.662e-015     -14.779
+
+Sorbedhfo_w   
+	 1.463e-010  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sorbedhfo_wOH    1.123e-010       0.768  1.123e-010      -9.950
+	Sorbedhfo_wOH2+  1.724e-011       0.118  1.724e-011     -10.764
+	Sorbedhfo_wO-    1.675e-011       0.115  1.675e-011     -10.776
+	Sorbedhfo_wOCa+  1.247e-016       0.000  1.247e-016     -15.904
+
+----------------------------------User print-----------------------------------
+
+Adapting surface in            3 
+
+------------------------------Surface composition------------------------------
+
+Sua           
+	 5.758e-021  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	-4.865e-014  psi, V
+	 1.894e-012  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 5.998e+000  m**2 for  5.998e-004 g
+
+	Water in diffuse layer: 5.998e-009 kg, 99.9% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 3.5914e-018
+	Cl            	 3.6012e-015
+	H             	 1.2124e-015
+	Na            	 3.5946e-015
+	O             	 6.0648e-016
+
+Sua           
+	 5.998e-007  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sua              5.998e-007       1.000  5.998e-007      -6.222
+
+Sub           
+	 5.760e-024  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	-4.865e-014  psi, V
+	 1.894e-012  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 6.000e-003  m**2 for  6.000e-007 g
+
+	Water in diffuse layer: 6.000e-012 kg,  0.1% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 3.5924e-021
+	Cl            	 3.6022e-018
+	H             	 1.2128e-018
+	Na            	 3.5957e-018
+	O             	 6.0666e-019
+
+Sub           
+	 6.000e-010  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sub              6.000e-010       1.000  6.000e-010      -9.222
+
+Hfo           
+	-2.117e-016  Surface + diffuse layer charge, eq
+	 2.650e-014  Surface charge, eq
+	 1.614e-004  sigma, C/m**2
+	 6.565e-002  psi, V
+	-2.555e+000  -F*psi/RT
+	 7.765e-002  exp(-F*psi/RT)
+	 6.000e+002  specific area, m**2/g
+	 1.584e-005  m**2 for  2.640e-008 g
+
+	Water in diffuse layer: 1.584e-014 kg,  0.0% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 8.1825e-036
+	Cl            	 2.2888e-014
+	H             	 3.8199e-015
+	Na            	 4.5712e-027
+	O             	 3.8199e-015
+
+Hfo_s         
+	 7.500e-012  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_sOH          5.757e-012       0.768  5.757e-012     -11.240
+	Hfo_sOH2+        8.717e-013       0.116  8.717e-013     -12.060
+	Hfo_sO-          8.711e-013       0.116  8.711e-013     -12.060
+	Hfo_sOHCa+2      1.940e-018       0.000  1.940e-018     -17.712
+
+Hfo_w         
+	 2.925e-010  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_wOH          2.245e-010       0.768  2.245e-010      -9.649
+	Hfo_wOH2+        3.400e-011       0.116  3.400e-011     -10.469
+	Hfo_wO-          3.397e-011       0.116  3.397e-011     -10.469
+	Hfo_wOCa+        1.474e-019       0.000  1.474e-019     -18.831
+
+----------------------------------User print-----------------------------------
+
+Adapting surface in            1 
+
+------------------------------Surface composition------------------------------
+
+Hfo           
+	-3.481e-012  Surface + diffuse layer charge, eq
+	 3.338e-006  Surface charge, eq
+	 6.101e-003  sigma, C/m**2
+	 6.530e-002  psi, V
+	-2.542e+000  -F*psi/RT
+	 7.874e-002  exp(-F*psi/RT)
+	 6.000e+002  specific area, m**2/g
+	 5.280e+001  m**2 for  8.800e-002 g
+
+	Water in diffuse layer: 5.280e-008 kg,  0.3% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 1.4647e-023
+	Cl            	 3.3380e-006
+	H             	 3.4634e-010
+	Na            	 8.3866e-016
+	O             	 3.4634e-010
+
+Hfo_s         
+	 2.500e-005  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_sOH          1.918e-005       0.767  1.918e-005      -4.717
+	Hfo_sOH2+        2.945e-006       0.118  2.945e-006      -5.531
+	Hfo_sO-          2.862e-006       0.114  2.862e-006      -5.543
+	Hfo_sOHCa+2      1.110e-008       0.000  1.110e-008      -7.955
+
+Hfo_w         
+	 9.750e-004  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_wOH          7.484e-004       0.768  7.484e-004      -3.126
+	Hfo_wOH2+        1.149e-004       0.118  1.149e-004      -3.940
+	Hfo_wO-          1.117e-004       0.115  1.117e-004      -3.952
+	Hfo_wOCa+        8.324e-010       0.000  8.324e-010      -9.080
+
+Sua           
+	-2.522e-017  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	 3.293e-015  psi, V
+	-1.282e-013  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 1.000e+004  m**2 for  1.000e+000 g
+
+	Water in diffuse layer: 1.000e-005 kg, 49.7% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 9.9801e-012
+	Cl            	 1.0010e-008
+	H             	 2.0910e-012
+	Na            	 9.9900e-009
+	O             	 1.0484e-012
+
+Sua           
+	 1.000e-003  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sua              1.000e-003       1.000  1.000e-003      -3.000
+
+Sub           
+	-2.522e-017  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	 3.293e-015  psi, V
+	-1.282e-013  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 1.000e+004  m**2 for  1.000e+000 g
+
+	Water in diffuse layer: 1.000e-005 kg, 49.7% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 9.9801e-012
+	Cl            	 1.0010e-008
+	H             	 2.0910e-012
+	Na            	 9.9900e-009
+	O             	 1.0484e-012
+
+Sub           
+	 1.000e-003  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sub              1.000e-003       1.000  1.000e-003      -3.000
+
+Sorbedhfo     
+	-3.481e-012  Surface + diffuse layer charge, eq
+	 3.338e-006  Surface charge, eq
+	 6.101e-003  sigma, C/m**2
+	 6.530e-002  psi, V
+	-2.542e+000  -F*psi/RT
+	 7.874e-002  exp(-F*psi/RT)
+	 6.000e+002  specific area, m**2/g
+	 5.280e+001  m**2 for  8.800e-002 g
+
+	Water in diffuse layer: 5.280e-008 kg,  0.3% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 1.4646e-023
+	Cl            	 3.3379e-006
+	H             	 3.4633e-010
+	Na            	 8.3863e-016
+	O             	 3.4633e-010
+
+Sorbedhfo_s   
+	 2.500e-005  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sorbedhfo_sOH    1.918e-005       0.767  1.918e-005      -4.717
+	Sorbedhfo_sOH2+  2.945e-006       0.118  2.945e-006      -5.531
+	Sorbedhfo_sO-    2.862e-006       0.114  2.862e-006      -5.543
+	Sorbedhfo_sOHCa+2  1.110e-008       0.000  1.110e-008      -7.955
+
+Sorbedhfo_w   
+	 9.750e-004  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sorbedhfo_wOH    7.484e-004       0.768  7.484e-004      -3.126
+	Sorbedhfo_wOH2+  1.149e-004       0.118  1.149e-004      -3.940
+	Sorbedhfo_wO-    1.117e-004       0.115  1.117e-004      -3.952
+	Sorbedhfo_wOCa+  8.324e-010       0.000  8.324e-010      -9.080
+
+----------------------------------User print-----------------------------------
+
+Adapting surface in            2 
+
+------------------------------Surface composition------------------------------
+
+Hfo           
+	-4.260e-013  Surface + diffuse layer charge, eq
+	 1.669e-006  Surface charge, eq
+	 6.101e-003  sigma, C/m**2
+	 6.530e-002  psi, V
+	-2.542e+000  -F*psi/RT
+	 7.874e-002  exp(-F*psi/RT)
+	 6.000e+002  specific area, m**2/g
+	 2.640e+001  m**2 for  4.399e-002 g
+
+	Water in diffuse layer: 2.640e-008 kg,  0.1% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 7.3224e-024
+	Cl            	 1.6687e-006
+	H             	 1.7315e-010
+	Na            	 4.1927e-016
+	O             	 1.7315e-010
+
+Hfo_s         
+	 1.250e-005  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_sOH          9.589e-006       0.767  9.589e-006      -5.018
+	Hfo_sOH2+        1.472e-006       0.118  1.472e-006      -5.832
+	Hfo_sO-          1.431e-006       0.114  1.431e-006      -5.844
+	Hfo_sOHCa+2      5.549e-009       0.000  5.549e-009      -8.256
+
+Hfo_w         
+	 4.874e-004  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_wOH          3.742e-004       0.768  3.742e-004      -3.427
+	Hfo_wOH2+        5.744e-005       0.118  5.744e-005      -4.241
+	Hfo_wO-          5.583e-005       0.115  5.583e-005      -4.253
+	Hfo_wOCa+        4.162e-010       0.000  4.162e-010      -9.381
+
+Sua           
+	-5.741e-018  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	 7.655e-016  psi, V
+	-2.980e-014  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 1.000e+004  m**2 for  1.000e+000 g
+
+	Water in diffuse layer: 1.000e-005 kg, 49.9% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 9.9800e-012
+	Cl            	 1.0010e-008
+	H             	 2.0910e-012
+	Na            	 9.9900e-009
+	O             	 1.0484e-012
+
+Sua           
+	 1.000e-003  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sua              1.000e-003       1.000  1.000e-003      -3.000
+
+Sub           
+	-5.741e-018  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	 7.655e-016  psi, V
+	-2.980e-014  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 1.000e+004  m**2 for  1.000e+000 g
+
+	Water in diffuse layer: 1.000e-005 kg, 49.9% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 9.9800e-012
+	Cl            	 1.0010e-008
+	H             	 2.0910e-012
+	Na            	 9.9900e-009
+	O             	 1.0484e-012
+
+Sub           
+	 1.000e-003  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sub              1.000e-003       1.000  1.000e-003      -3.000
+
+Sorbedhfo     
+	-2.130e-013  Surface + diffuse layer charge, eq
+	 8.347e-007  Surface charge, eq
+	 6.101e-003  sigma, C/m**2
+	 6.530e-002  psi, V
+	-2.542e+000  -F*psi/RT
+	 7.874e-002  exp(-F*psi/RT)
+	 6.000e+002  specific area, m**2/g
+	 1.320e+001  m**2 for  2.200e-002 g
+
+	Water in diffuse layer: 1.320e-008 kg,  0.1% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 3.6623e-024
+	Cl            	 8.3462e-007
+	H             	 8.6599e-011
+	Na            	 2.0970e-016
+	O             	 8.6599e-011
+
+Sorbedhfo_s   
+	 6.251e-006  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sorbedhfo_sOH    4.796e-006       0.767  4.796e-006      -5.319
+	Sorbedhfo_sOH2+  7.364e-007       0.118  7.364e-007      -6.133
+	Sorbedhfo_sO-    7.156e-007       0.114  7.156e-007      -6.145
+	Sorbedhfo_sOHCa+2  2.775e-009       0.000  2.775e-009      -8.557
+
+Sorbedhfo_w   
+	 2.438e-004  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sorbedhfo_wOH    1.871e-004       0.768  1.871e-004      -3.728
+	Sorbedhfo_wOH2+  2.873e-005       0.118  2.873e-005      -4.542
+	Sorbedhfo_wO-    2.792e-005       0.115  2.792e-005      -4.554
+	Sorbedhfo_wOCa+  2.081e-010       0.000  2.081e-010      -9.682
+
+----------------------------------User print-----------------------------------
+
+Adapting surface in            3 
+
+------------------------------Surface composition------------------------------
+
+Sua           
+	-8.845e-019  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	 2.774e-016  psi, V
+	-1.080e-014  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 9.994e+003  m**2 for  9.994e-001 g
+
+	Water in diffuse layer: 9.994e-006 kg, 50.0% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 9.9682e-012
+	Cl            	 9.9980e-009
+	H             	 2.0897e-012
+	Na            	 9.9781e-009
+	O             	 1.0473e-012
+
+Sua           
+	 9.994e-004  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sua              9.994e-004       1.000  9.994e-004      -3.000
+
+Sub           
+	-8.851e-019  Surface + diffuse layer charge, eq
+	 0.000e+000  Surface charge, eq
+	 0.000e+000  sigma, C/m**2
+	 2.774e-016  psi, V
+	-1.080e-014  -F*psi/RT
+	 1.000e+000  exp(-F*psi/RT)
+	 1.000e+004  specific area, m**2/g
+	 1.000e+004  m**2 for  1.000e+000 g
+
+	Water in diffuse layer: 1.000e-005 kg, 50.0% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 9.9742e-012
+	Cl            	 1.0004e-008
+	H             	 2.0909e-012
+	Na            	 9.9840e-009
+	O             	 1.0479e-012
+
+Sub           
+	 1.000e-003  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sub              1.000e-003       1.000  1.000e-003      -3.000
+
+Hfo           
+	-1.064e-015  Surface + diffuse layer charge, eq
+	 8.348e-007  Surface charge, eq
+	 6.101e-003  sigma, C/m**2
+	 6.531e-002  psi, V
+	-2.542e+000  -F*psi/RT
+	 7.871e-002  exp(-F*psi/RT)
+	 6.000e+002  specific area, m**2/g
+	 1.320e+001  m**2 for  2.201e-002 g
+
+	Water in diffuse layer: 1.320e-008 kg,  0.1% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 3.6566e-024
+	Cl            	 8.3472e-007
+	H             	 8.6621e-011
+	Na            	 2.0949e-016
+	O             	 8.6621e-011
+
+Hfo_s         
+	 6.252e-006  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_sOH          4.797e-006       0.767  4.797e-006      -5.319
+	Hfo_sOH2+        7.365e-007       0.118  7.365e-007      -6.133
+	Hfo_sO-          7.158e-007       0.114  7.158e-007      -6.145
+	Hfo_sOHCa+2      2.772e-009       0.000  2.772e-009      -8.557
+
+Hfo_w         
+	 2.438e-004  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Hfo_wOH          1.872e-004       0.768  1.872e-004      -3.728
+	Hfo_wOH2+        2.874e-005       0.118  2.874e-005      -4.542
+	Hfo_wO-          2.793e-005       0.115  2.793e-005      -4.554
+	Hfo_wOCa+        2.079e-010       0.000  2.079e-010      -9.682
+
+Sorbedhfo     
+	-6.384e-022  Surface + diffuse layer charge, eq
+	 5.007e-013  Surface charge, eq
+	 6.101e-003  sigma, C/m**2
+	 6.531e-002  psi, V
+	-2.542e+000  -F*psi/RT
+	 7.871e-002  exp(-F*psi/RT)
+	 6.000e+002  specific area, m**2/g
+	 7.920e-006  m**2 for  1.320e-008 g
+
+	Water in diffuse layer: 7.920e-015 kg,  0.0% of total DDL-water.
+
+	Total moles in diffuse layer (excluding water), Donnan calculation 
+
+	Element       	     Moles
+	Ca            	 2.1933e-030
+	Cl            	 5.0068e-013
+	H             	 5.1957e-017
+	Na            	 1.2565e-022
+	O             	 5.1957e-017
+
+Sorbedhfo_s   
+	 3.750e-012  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sorbedhfo_sOH    2.877e-012       0.767  2.877e-012     -11.541
+	Sorbedhfo_sOH2+  4.418e-013       0.118  4.418e-013     -12.355
+	Sorbedhfo_sO-    4.293e-013       0.114  4.293e-013     -12.367
+	Sorbedhfo_sOHCa+2  1.662e-015       0.000  1.662e-015     -14.779
+
+Sorbedhfo_w   
+	 1.462e-010  moles
+	                                   Mole                     Log
+	Species               Moles    Fraction    Molality    Molality
+
+	Sorbedhfo_wOH    1.123e-010       0.768  1.123e-010      -9.950
+	Sorbedhfo_wOH2+  1.724e-011       0.118  1.724e-011     -10.764
+	Sorbedhfo_wO-    1.675e-011       0.115  1.675e-011     -10.776
+	Sorbedhfo_wOCa+  1.247e-016       0.000  1.247e-016     -15.904
+

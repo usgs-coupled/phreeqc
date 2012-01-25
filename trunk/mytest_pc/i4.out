@@ -1,0 +1,155 @@
+   Input file: i4
+  Output file: i4.out
+Database file: ../database/phreeqc.dat
+
+------------------
+Reading data base.
+------------------
+
+	SOLUTION_MASTER_SPECIES
+	SOLUTION_SPECIES
+	PHASES
+	EXCHANGE_MASTER_SPECIES
+	EXCHANGE_SPECIES
+	SURFACE_MASTER_SPECIES
+	SURFACE_SPECIES
+	RATES
+	END
+------------------------------------
+Reading input data for simulation 1.
+------------------------------------
+
+	DATABASE ../database/phreeqc.dat
+	SOLUTION 0
+	 Na 2e3
+	 S(6) 1e3 charge
+	 Alkalinity 0
+	 O(0) 0e-9
+	 pH 7
+	SOLUTION 1-11
+	 pH 7 charge
+	 O(0) 0e-9
+	SELECTED_OUTPUT
+	 high_precision
+	END
+-------------------------------------------
+Beginning of initial solution calculations.
+-------------------------------------------
+
+Initial solution 0.	
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	Na               2.000e+000  2.000e+000
+	S(6)             1.000e+000  1.000e+000  Charge balance
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   7.000    
+                                       pe  =   4.000    
+       Specific Conductance (uS/cm, 25 oC) = 95655
+                          Density (g/cm3)  =   1.10797
+                        Activity of water  =   0.956
+                           Ionic strength  =  2.212e+000
+                       Mass of water (kg)  =  1.000e+000
+                 Total alkalinity (eq/kg)  = -4.926e-007
+                    Total carbon (mol/kg)  =  0.000e+000
+                       Total CO2 (mol/kg)  =  0.000e+000
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  =  1.554e-015
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                               Iterations  =   7
+                                  Total H  = 1.110124e+002
+                                  Total O  = 5.950622e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   OH-                   1.821e-007  9.567e-008    -6.740    -7.019    -0.280
+   H+                    1.382e-007  1.000e-007    -6.860    -7.000    -0.140
+   H2O                   5.551e+001  9.557e-001     1.744    -0.020     0.000
+H(0)            8.508e-026
+   H2                    4.254e-026  7.079e-026   -25.371   -25.150     0.221
+Na              2.000e+000
+   Na+                   1.606e+000  1.304e+000     0.206     0.115    -0.091
+   NaSO4-                3.939e-001  4.254e-001    -0.405    -0.371     0.033
+   NaOH                  4.946e-008  8.232e-008    -7.306    -7.084     0.221
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -42.341   -42.119     0.221
+S(6)            1.000e+000
+   SO4-2                 6.061e-001  6.511e-002    -0.217    -1.186    -0.969
+   NaSO4-                3.939e-001  4.254e-001    -0.405    -0.371     0.033
+   HSO4-                 5.861e-007  6.330e-007    -6.232    -6.199     0.033
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	H2(g)           -22.00  -25.15   -3.15  H2
+	H2O(g)           -1.53   -0.02    1.51  H2O
+	O2(g)           -39.23  -42.12   -2.89  O2
+
+Initial solution 1.	
+
+-----------------------------Solution composition------------------------------
+
+	Elements           Molality       Moles
+
+	Pure water     
+
+----------------------------Description of solution----------------------------
+
+                                       pH  =   7.000      Charge balance
+                                       pe  =   4.000    
+       Specific Conductance (uS/cm, 25 oC) = 0
+                          Density (g/cm3)  =   0.99705
+                        Activity of water  =   1.000
+                           Ionic strength  =  1.001e-007
+                       Mass of water (kg)  =  1.000e+000
+                 Total alkalinity (eq/kg)  =  0.000e+000
+                    Total carbon (mol/kg)  =  0.000e+000
+                       Total CO2 (mol/kg)  =  0.000e+000
+                      Temperature (deg C)  =  25.000
+                  Electrical balance (eq)  =  0.000e+000
+ Percent error, 100*(Cat-|An|)/(Cat+|An|)  =   0.00
+                               Iterations  =   3
+                                  Total H  = 1.110124e+002
+                                  Total O  = 5.550622e+001
+
+----------------------------Distribution of species----------------------------
+
+                                                   Log       Log         Log 
+   Species                 Molality    Activity  Molality  Activity     Gamma
+
+   H+                    1.001e-007  1.001e-007    -7.000    -7.000    -0.000
+   OH-                   1.001e-007  1.001e-007    -7.000    -7.000    -0.000
+   H2O                   5.551e+001  1.000e+000     1.744    -0.000     0.000
+H(0)            1.417e-025
+   H2                    7.087e-026  7.087e-026   -25.150   -25.150     0.000
+O(0)            0.000e+000
+   O2                    0.000e+000  0.000e+000   -42.081   -42.081     0.000
+
+------------------------------Saturation indices-------------------------------
+
+	Phase               SI log IAP  log KT
+
+	H2(g)           -22.00  -25.15   -3.15  H2
+	H2O(g)           -1.51   -0.00    1.51  H2O
+	O2(g)           -39.19  -42.08   -2.89  O2
+
+------------------
+End of simulation.
+------------------
+
+------------------------------------
+Reading input data for simulation 2.
+------------------------------------
+
+	PRINT
+	 reset false
+WARNING: Cell-lengths were read for 1 cells. Last value is used till cell 10.
+WARNING: No dispersivities were read; disp = 0 assumed.
