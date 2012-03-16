@@ -96,7 +96,10 @@ unsigned int cwOriginal = _controlfp(cw, MCW_EM); /*Set it.*/
  *   Load database into memory
  */
 #if defined(MERGE_INCLUDE_FILES) 
+	set_cookie((std::ifstream *) db_cookie);
 	errors = read_database(istream_getc, db_cookie);
+	clear_cookie();
+	//errors = read_database(istream_getc, db_cookie);
 #else
 	errors = read_database(getc_callback, db_cookie);
 #endif
@@ -111,7 +114,10 @@ unsigned int cwOriginal = _controlfp(cw, MCW_EM); /*Set it.*/
  */
 
 #if defined(MERGE_INCLUDE_FILES) 
+	set_cookie((std::ifstream *)input_cookie);
 	errors = run_simulations(istream_getc, input_cookie);
+	clear_cookie();
+	//errors = run_simulations(istream_getc, input_cookie);
 #else
 	errors = run_simulations(getc_callback, input_cookie);
 #endif
