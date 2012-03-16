@@ -748,8 +748,17 @@ EXTERNAL LDBLE f_rho(LDBLE rho_old);
 EXTERNAL PHRQMemHeader *s_pTail;
 #if defined(MERGE_INCLUDE_FILES)
 #include <sstream>
-EXTERNAL	std::stringstream merged_database_stream;
-EXTERNAL	std::stringstream merged_input_stream;
+#if !defined(PHREEQC_CLASS)
+#include <list>
+#include <fstream>
+	void *get_cookie();
+	void pop_cookie();
+	void set_cookie(std::istream * cookie);
+	void clear_cookie(void);
+EXTERNAL	std::list <std::istream *> cookie_list;
+EXTERNAL	std::ifstream * in_stream;
+EXTERNAL	std::ifstream * db_stream;
+#endif
 #endif /* defined(MERGE_INCLUDE_FILES) */
 /* Collect all statics for PHREEQC_CLASS */
 #if defined(PHREEQC_CLASS)

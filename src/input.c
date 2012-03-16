@@ -211,6 +211,7 @@ get_line(PFN_READ_CALLBACK pfn, void *cookie)
 	return (return_value);
 }
 #else
+#ifdef PHREEQC_CLASS
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 get_line(PFN_READ_CALLBACK pfn, void *l_cookie)
@@ -343,6 +344,140 @@ get_line(PFN_READ_CALLBACK pfn, void *l_cookie)
 	return EOF;
 
 }
+#else
+/* ---------------------------------------------------------------------- */
+int CLASS_QUALIFIER
+get_line(PFN_READ_CALLBACK pfn, void *l_cookie)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ *   Read a line from input file put in "line".
+ *   Copy of input line is stored in "line_save".
+ *   Characters after # are discarded in line but retained in "line_save"
+ *
+ *   Arguments:
+ *      fp is file name
+ *   Returns:
+ *      EMPTY,
+ *      EOF,
+ *      KEYWORD,
+ *      OK,
+ *      OPTION
+ */
+	int i, j, return_value, empty, l;
+	char *ptr;
+	char token[MAX_LENGTH];
+	void *cookie;
+	bool continue_loop;
+
+	// loop for include files
+	for (;;)
+	{
+		cookie = get_cookie();
+		if (cookie == NULL)
+		{
+			break;
+		}
+		return_value = EMPTY;
+		while (return_value == EMPTY)
+		{
+			/*
+			*   Eliminate all characters after # sign as a comment
+			*/
+			i = -1;
+			empty = TRUE;
+			/*
+			*   Get line, check for eof
+			*/
+			continue_loop = false;
+			if (get_logical_line(pfn, cookie, &l) == EOF)
+			{
+					//pop next file
+					pop_cookie();
+					continue_loop = true;
+					break;
+			}
+			/*
+			*   Get long lines
+			*/
+			j = l;
+			ptr = strchr(line_save, '#');
+			if (ptr != NULL)
+			{
+				j = (int) (ptr - line_save);
+			}
+			strncpy(line, line_save, (unsigned) j);
+			line[j] = '\0';
+			for (i = 0; i < j; i++)
+			{
+				if (!isspace((int) line[i]))
+				{
+					empty = FALSE;
+					break;
+				}
+			}
+			/*
+			*   New line character encountered
+			*/
+
+			if (empty == TRUE)
+			{
+				return_value = EMPTY;
+			}
+			else
+			{
+				return_value = OK;
+			}
+		}
+		if (continue_loop) continue;
+		/*
+		*   Determine return_value
+		*/
+		if (return_value == OK)
+		{
+			if (check_key(line) == TRUE)
+			{
+				return_value = KEYWORD;
+			}
+			else
+			{
+				ptr = line;
+				copy_token(token, &ptr, &i);
+				if (token[0] == '-' && isalpha((int) token[1]))
+				{
+					return_value = OPTION;
+				}
+			}
+		}
+		// add new include file to stack
+		ptr = line;
+		copy_token(token, &ptr, &i);
+		str_tolower(token);
+		if ((strstr(token,"include$") == token) || (strstr(token,"include_file") == token))
+		{
+			char file_name[MAX_LENGTH];
+			strcpy(file_name, ptr);
+			
+			if (string_trim(file_name) != EMPTY)
+			{
+				std::ifstream *next_stream = new std::ifstream(file_name, std::ifstream::in);
+				if (!next_stream->is_open())
+				{
+					// error opening file
+					sprintf(error_string, "Could not open include file %s", file_name);
+					error_msg(error_string, STOP);
+				}
+				set_cookie(next_stream);
+				continue;
+			}
+		}
+		return (return_value);
+	}
+	next_keyword = 0;
+	return EOF;
+
+}
+#endif
 #endif
 
 /* ---------------------------------------------------------------------- */
@@ -454,3 +589,50 @@ add_char_to_line(int *i, char c)
 	*i += 1;
 	return (OK);
 }
+#if defined(MERGE_INCLUDE_FILES) && !defined(PHREEQC_CLASS)
+void * get_cookie()
+{
+	if (cookie_list.size() > 0)
+	{
+		return cookie_list.front();
+	}
+	else
+	{
+		return NULL;
+	}
+}
+void set_cookie(std::istream * cookie)
+{
+	cookie_list.push_front(cookie);
+}
+void clear_cookie(void)
+{
+	while (cookie_list.size() > 0)
+	{
+		pop_cookie();
+	}
+}
+void pop_cookie()
+{
+	if (cookie_list.size() > 0)
+	{
+		delete cookie_list.front();
+		cookie_list.pop_front();
+	}
+}
+int CLASS_QUALIFIER
+istream_getc(void *cookie)
+{
+	if (cookie)
+	{
+		std::istream* is = (std::istream*)cookie;
+		int n = is->get();
+		if (n == 13 && is->peek() == 10)
+		{
+			n = is->get();
+		}
+		return n;
+	}
+	return EOF;
+}
+#endif
