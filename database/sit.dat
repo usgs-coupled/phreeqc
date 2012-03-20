@@ -156,7 +156,9 @@ Am(+3)        Am+3           0            Am             243
 Am(+4)        Am+4           0            Am             243 
 Am(+5)        AmO2+          0            Am             243 
 Am(+6)        AmO2+2         0            Am             243 
-As            AsO4-3         2            As             74.9216 
+As            AsO4-3         2            As             74.9216
+As(+5)        AsO4-3         2            As             74.9216
+As(+3)        H(AsO3)-2      2            As             74.9216 
 B             B(OH)4-        1            B              10.811 
 Ba            Ba+2           0            Ba             137.327 
 Br            Br-            0            Br             79.904 
@@ -6408,16 +6410,22 @@ SOLUTION_SPECIES
      # Enthalpy of formation:             -689.279      kJ/mol        
 
 
-+4.000H+     +2.000e-     +1.000AsO4-3     -1.000H2O          = H2(AsO3)-
-     log_k     30.81        #
-     delta_h  -112.48       kJ/mol        #
-     # Enthalpy of formation:             -714.79       kJ/mol        01LEM/FUG
+#+4.000H+     +2.000e-     +1.000AsO4-3     -1.000H2O          = H2(AsO3)-
+#     log_k     30.81        #
+#     delta_h  -112.48       kJ/mol        #
+#     # Enthalpy of formation:             -714.79       kJ/mol        01LEM/FUG
++1.000H+     +1.000H(AsO3)-2         = H2(AsO3)-
+     log_k     11.01        #
+     delta_h  -25.511       kJ/mol        #
 
 
-+5.000H+     +2.000e-     +1.000AsO4-3     -1.000H2O          = H3(AsO3)
-     log_k     40.02        #
-     delta_h  -139.89       kJ/mol        #
-     # Enthalpy of formation:             -742.2        kJ/mol        01LEM/FUG
+#+5.000H+     +2.000e-     +1.000AsO4-3     -1.000H2O          = H3(AsO3)
+#     log_k     40.02        #
+#     delta_h  -139.89       kJ/mol        #
+#     # Enthalpy of formation:             -742.2        kJ/mol        01LEM/FUG
++2.000H+     +1.000H(AsO3)-2         = H3(AsO3)
+     log_k     20.22        #
+     delta_h  -52.921       kJ/mol        #
 
 
 +1.000Pb+2     +1.000SeO3-2          = Pb(SeO3)
