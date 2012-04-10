@@ -2174,7 +2174,7 @@ print_totals(void)
 	output_msg(OUTPUT_MESSAGE, "%45s%7.3f\n", "Temperature (deg C)  = ",
 			   (double) tc_x);
    
-   if (patm_x != 1.0)
+   if (patm_x != 1.0 && patm_x != 0)
    {
       /* only print if different than default */
       output_msg(OUTPUT_MESSAGE, "%45s%7.3f\n", "Pressure (atm)  = ",
