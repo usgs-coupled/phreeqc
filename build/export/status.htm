@@ -8,13 +8,51 @@
 <BODY BGCOLOR="#ffffff">
 <DIV>
 <H1 CLASS="Title">
-<A NAME="pgfId-972407"></A><EM CLASS="Bold">
+<A NAME="pgfId-977128"></A><EM CLASS="Bold">
 STATUS OF PHREEQC PROGRAMS </EM>
 </H1>
 </DIV>
 <DIV>
 <H1 CLASS="Title">
-<A NAME="pgfId-972408"></A>July  14, 2011: IPhreeqc modules 2.18.2 (svn 5494)</H1>
+<A NAME="pgfId-977129"></A>August 13, 2012: IPhreeqc 2.18.4, Linux-64, (svn 6386)</H1>
+<DIV>
+<H2 CLASS="FM1stOrderHeading">
+<A NAME="pgfId-979368"></A>April 13, 2012: IPhreeqc modules 2.18.4 (svn 6386)</H2>
+<P CLASS="BodyText">
+<A NAME="pgfId-979405"></A>The 64-bit version &#8220;any&#8221; IPhreeqc compiled on Linux did not produce the correct selected-output file. Version 2.18.4 fixes the problem.  </P>
+</DIV>
+<DIV>
+<H2 CLASS="FM1stOrderHeading">
+<A NAME="pgfId-979410"></A>August 16, 2011: PHREEQC, PhreeqcI, IPhreeqc modules 2.18.3 (svn 5570)</H2>
+<P CLASS="BodyText">
+<A NAME="pgfId-977142"></A>Minor revision for logic in setting the convergence tolerance. If <EM CLASS="Bold">
+-high_precision</EM>
+ is set to true in <EM CLASS="Bold">
+SELECTED_OUTPUT</EM>
+, convergence tolerance is set to 1e-12. If  <EM CLASS="Bold">
+-high_precision</EM>
+ is set to false, convergence tolerance is not changed. With <EM CLASS="Bold">
+KNOBS</EM>
+, <EM CLASS="Bold">
+-convergence_tolerance </EM>
+<EM CLASS="Emphasis">
+tol</EM>
+<EM CLASS="Bold">
+ </EM>
+sets the convergence tolerance to the specified number, <EM CLASS="Emphasis">
+tol</EM>
+. The last definition (<EM CLASS="Bold">
+SELECTED_OUTPUT</EM>
+;<EM CLASS="Bold">
+ -high_precision</EM>
+ true or <EM CLASS="Bold">
+KNOBS</EM>
+;<EM CLASS="Bold">
+ -convergence_tolerance </EM>
+<EM CLASS="Emphasis">
+tol</EM>
+) takes precedence for a calculation.</P>
+</DIV>
 <DIV>
 <H2 CLASS="FM1stOrderHeading">
 <A NAME="pgfId-972733"></A>July 14, 2011: IPhreeqc modules 2.18.2 (svn 5494)</H2>

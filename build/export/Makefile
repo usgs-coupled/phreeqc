@@ -80,6 +80,7 @@ PHREEQC_WIN_VERSION:=$(shell echo $(PHREEQC_WIN_FILE) | sed "s/phreeqc-//" | sed
 PHREEQC_WIN_SVN:=$(shell echo $(PHREEQC_WIN_FILE) | sed "s/phreeqc-//" | sed "s/.msi//" | sed "s/^.*-//" )
 PHREEQC_WIN_SIZE:=$(shell ls -s -h "$(PHREEQC_WIN_DIR)/$(PHREEQC_WIN_FILE)" | awk '{print $$1}')
 PHREEQC_WIN_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(PHREEQC_WIN_DIR)/$(PHREEQC_WIN_FILE)" | awk '{print $$6,$$7,$$8}')
+PHREEQC_RELEASE_FILE:=$(shell cd "$(PHREEQC_WIN_DIR)"; ls -t RELEASE.*.TXT | awk '{if (NR == 1) {print}}')
 
 #Batch Linux
 
@@ -129,6 +130,7 @@ PHAST_WIN_X64_SIZE:=$(shell ls -s -h "$(PHAST_WIN_DIR)/$(PHAST_WIN_X64_FILE)" | 
 PHAST_WIN_DATE:=$(shell ls -l --time-style "+%B %e, %G" "$(PHAST_WIN_DIR)/$(PHAST_WIN_FILE)" | awk '{print $$6,$$7,$$8}')
 PHAST_WIN_MD5:=$(shell md5sum "$(PHAST_WIN_DIR)/$(PHAST_WIN_FILE)" | awk '{print $$1}')
 PHAST_WIN_X64_MD5:=$(shell md5sum "$(PHAST_WIN_DIR)/$(PHAST_WIN_X64_FILE)" | awk '{print $$1}')
+PHAST_RELEASE_FILE:=$(shell cd "$(PHAST_WIN_DIR)"; ls -t RELEASE.* | awk '{if (NR == 1) {print}}')
 
 #Batch Linux
 
@@ -241,6 +243,7 @@ SED_ARGS= \
 	-e "s^@PHREEQC_WIN_SVN@^$(PHREEQC_WIN_SVN)^" \
 	-e "s^@PHREEQC_WIN_DATE@^$(PHREEQC_WIN_DATE)^" \
 	-e "s^@PHREEQC_WIN_SIZE@^$(PHREEQC_WIN_SIZE)^" \
+	-e "s^@PHREEQC_RELEASE_FILE@^$(PHREEQC_RELEASE_FILE)^" \
 	-e "s^@PHREEQC_LINUX_PUB_DIR@^$(PHREEQC_LINUX_PUB_DIR)^" \
 	-e "s^@PHREEQC_LINUX_FILE@^$(PHREEQC_LINUX_FILE)^g" \
 	-e "s^@PHREEQC_LINUX_VERSION@^$(PHREEQC_LINUX_VERSION)^" \
@@ -270,6 +273,7 @@ SED_ARGS= \
 	-e "s^@PHAST_WIN_X64_SIZE@^$(PHAST_WIN_X64_SIZE)^g" \
 	-e "s^@PHAST_WIN_MD5@^$(PHAST_WIN_MD5)^g" \
 	-e "s^@PHAST_WIN_X64_MD5@^$(PHAST_WIN_X64_MD5)^g" \
+	-e "s^@PHAST_RELEASE_FILE@^$(PHAST_RELEASE_FILE)^g" \
 	-e "s^@PHAST_LINUX_DIR@^$(PHAST_LINUX_DIR)^g" \
 	-e "s^@PHAST_LINUX_PUB_DIR@^$(PHAST_LINUX_PUB_DIR)^g" \
 	-e "s^@PHAST_LINUX_FILE@^$(PHAST_LINUX_FILE)^g" \
@@ -440,7 +444,8 @@ web:
 	install --mode=664 --group=coupled $(PHREEQC_WIN_DIR)/README.Win.$(PHREEQC_WIN_SVN).TXT $(HTML_PHREEQC)
 	install --mode=664 --group=coupled $(PHREEQC_LINUX_DIR)/README.Linux.$(PHREEQC_LINUX_SVN).TXT $(HTML_PHREEQC)
 	install -T --mode=664 --group=coupled $(PHREEQC_MAC_DIR)/README.TXT $(HTML_PHREEQC)/README.Mac.TXT
-	install --mode=664 --group=coupled $(PHREEQC_WIN_DIR)/RELEASE.$(PHREEQC_LINUX_SVN).TXT $(HTML_PHREEQC)
+#	install --mode=664 --group=coupled $(PHREEQC_WIN_DIR)/RELEASE.$(PHREEQC_LINUX_SVN).TXT $(HTML_PHREEQC)
+	install --mode=664 --group=coupled $(PHREEQC_WIN_DIR)/$(PHREEQC_RELEASE_FILE) $(HTML_PHREEQC)
 	install --mode=664 --group=coupled ./status.htm $(HTML_PHREEQC)
 
 # PHREEQCI
@@ -460,7 +465,8 @@ web:
 	install -T --mode=664 --group=coupled web_phast_index.html $(HTML_PHAST)/index.html 
 #	cd $(HTML_PHAST); rcs -l index.html; ci -l -m"Latest" index.html
 	install --mode=664 --group=coupled $(PHAST_LINUX_DIR)/README.$(PHAST_LINUX_SVN) $(HTML_PHAST)
-	install --mode=664 --group=coupled $(PHAST_LINUX_DIR)/RELEASE.$(PHAST_LINUX_SVN) $(HTML_PHAST)
+#	install --mode=664 --group=coupled $(PHAST_LINUX_DIR)/RELEASE.$(PHAST_LINUX_SVN) $(HTML_PHAST)
+	install --mode=664 --group=coupled $(PHAST_LINUX_DIR)/$(PHAST_RELEASE_FILE) $(HTML_PHAST)
 
 # NETPATH
 	sed $(SED_ARGS) < template_netpath_index.html > web_netpath_index.html
