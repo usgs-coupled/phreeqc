@@ -562,6 +562,7 @@ EXTERNAL int count_rates;
 EXTERNAL LDBLE rate_m, rate_m0, *rate_p, rate_time, rate_sim_time_start,
 	rate_sim_time_end, rate_sim_time, rate_moles, initial_total_time;
 EXTERNAL int count_rate_p;
+EXTERNAL LDBLE rate_cnvtmi;
 /* ----------------------------------------------------------------------
  *   USER PRINT COMMANDS
  * ---------------------------------------------------------------------- */

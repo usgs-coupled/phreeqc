@@ -454,6 +454,7 @@ initialize(void)
 	rate_sim_time_end = 0;
 	rate_sim_time = 0;
 	rate_moles = 0;
+	rate_cnvtmi = 1.;
 /*
  *   user_print, user_punch
  */
