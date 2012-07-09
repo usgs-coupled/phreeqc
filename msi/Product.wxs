@@ -183,6 +183,7 @@
         <File Id="fil8DB867823CA5D6DFC04DDE3ECB8C6D5A" Source="..\src\main.c" />
         <File Id="filFEF6E3231CDEBC11664390871D23EB16" Source="..\src\mainsubs.c" />
         <File Id="filE1E660A1B547DF242C8DEFB602E05C95" Source="..\src\model.c" />
+        <File Id="filA3A317EF5478C5F0512D1D63FCD12D5F" Source="..\src\NA.h" />
         <File Id="filDDD4A5468CF46E889AF506EC939E675B" Source="..\src\nvector.c" />
         <File Id="filBBB4AF13F597663EC422677AEC2DBF7F" Source="..\src\nvector.h" />
         <File Id="fil77B486DAEC9280B2103481128D91F713" Source="..\src\nvector_serial.c" />
