@@ -56,7 +56,7 @@
 
     <!-- top dir -->
     <DirectoryRef Id="APPLICATIONFOLDER">
-      <Component Id="top.dir" Guid="*">
+      <Component Id="top.dir" Guid="A30D01A1-F3DC-4c7e-BDB5-00E30BA4F209">
         <!-- batch file -->
         <File Id="phreeqc.bat" Name="phreeqc.bat" Source="..\win\phreeqc2.bat" />
         <!-- path -->
@@ -81,7 +81,7 @@
 
     <!-- doc -->
     <DirectoryRef Id="doc">
-      <Component Id="doc" Guid="*">
+      <Component Id="doc" Guid="C4320025-B374-4445-BF78-9684010ECFF5">
         <File Id="filDA4893EAA735D8EA151EDCF3107A8D89" Source="..\doc\manual.pdf" KeyPath="yes" />
         <File Id="fil5F379D629211874DFB03357D7E17E72E" Source="..\doc\phreeqc.txt" />
         <File Id="fil55394A9EBD892E09CA706026D64063D7" Source="..\doc\wrir02-4172.pdf" />
@@ -90,7 +90,7 @@
 
     <!-- examples -->
     <DirectoryRef Id="examples">
-      <Component Id="examples" Guid="*">
+      <Component Id="examples" Guid="593C751F-687C-4089-BE85-CA1CB6AF3A96">
         <File Id="filE81E4FC0200D24E60A6DDC3063D2F40F" Source="..\examples\ex1" KeyPath="yes" />
         <File Id="fil769FD0424D29D7326655D21B1E3EF1CD" Source="..\examples\ex1.out" />
         <File Id="filCB9A0990FD69EEFF1E046E2D783435DF" Source="..\examples\ex10" />
@@ -156,7 +156,7 @@
 
     <!-- src -->
     <DirectoryRef Id="src">
-      <Component Id="src" Guid="*">
+      <Component Id="src" Guid="5CFB5531-2950-4b06-81F8-BA1F667E74AC">
         <File Id="filD8AD188464F7866DD028DB69F3E4D29D" Source="..\src\Makefile" KeyPath="yes" />
         <File Id="filF284C8ED2D0545B0B89974D0F18DC452" Source="..\src\advection.c" />
         <File Id="filC75CDABB97474C3DB50E7AB0BBDAEA99" Source="..\src\basic.c" />
@@ -224,7 +224,7 @@
 
     <!-- test -->
     <DirectoryRef Id="test">
-      <Component Id="test" Guid="*">
+      <Component Id="test" Guid="F65BCF27-C9F9-49a2-A6BD-F63A887CB57C">
         <File Id="fil60A83EC251E6CBC641F4AD35F35044F1" Source="..\win\check.bat" />
         <File Id="fil44D3B1871068824B68134F030E6EAE44" Source="..\win\clean.bat" />
         <File Id="fil770D262A99CA2FAFA4E59ED0A53B2D52" Source="..\win\test.bat" />
