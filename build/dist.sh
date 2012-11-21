@@ -149,6 +149,10 @@ echo "Exporting revision $REVISION of PHREEQC into sandbox..."
  	${SVN:-svn} export -q $EXTRA_EXPORT_OPTIONS --ignore-externals -r "$REVISION" \
 	     "http://internalbrr/svn_GW/phreeqc/$REPOS_PATH" \
 	     "$DISTNAME")
+if [ $? != 0 ] ; then
+  echo "svn checkout error"
+  exit $?;
+fi
 	     
 ver_major=`echo $VERSION | cut -d '.' -f 1`
 ver_minor=`echo $VERSION | cut -d '.' -f 2`
