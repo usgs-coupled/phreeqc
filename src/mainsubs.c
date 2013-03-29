@@ -1,4 +1,4 @@
-#include <time.h>
+#include <ctime>
 #if !defined(PHREEQC_CLASS)
 #define MAINSUBS
 #define EXTERNAL extern

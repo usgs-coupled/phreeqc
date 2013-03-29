@@ -8,7 +8,7 @@
 #include "output.h"
 #include "phrqproto.h"
 /* #include "time.h" */
-#include <time.h>
+#include <ctime>
 #ifdef PHREEQC_CPP
 #include "../StorageBin.h"
 #include "../Reaction.h"
