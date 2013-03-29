@@ -17,7 +17,7 @@
 
 #define NO_TIME
 #ifndef NO_TIME
-# include <time.h>
+# include <ctime>
 #endif
 #include <stdlib.h>
 

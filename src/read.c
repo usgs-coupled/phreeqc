@@ -1,5 +1,5 @@
 #include <assert.h>
-#include <time.h>
+#include <ctime>
 #if !defined(PHREEQC_CLASS)
 #define EXTERNAL extern
 #include "global.h"

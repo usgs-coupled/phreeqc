@@ -8,7 +8,7 @@
 #include "output.h"
 #include "phrqproto.h"
 //#include "time.h"
-#include <time.h>
+#include <ctime>
 
 #if !defined(PHREEQC_CLASS)
 static char const svnid[] =
