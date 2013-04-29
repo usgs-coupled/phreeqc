@@ -2196,6 +2196,457 @@ dump_kinetics_stderr(int k)
 	return (OK);
 }
 #endif
+//#define REVISED_CVODE
+#ifdef REVISED_CVODE
+/* ---------------------------------------------------------------------- */
+int CLASS_QUALIFIER
+run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
+/* ---------------------------------------------------------------------- */
+{
+/*
+ * Kinetics calculations
+ * Rates and moles of each reaction are calculated in calc_kinetic_reaction
+ * Total number of moles in reaction is stored in kinetics[i].totals
+ */
+
+	int j, n, converge, m_iter;
+	int pr_all_save;
+	int nsaver;
+	struct kinetics *kinetics_ptr;
+	struct pp_assemblage *pp_assemblage_ptr;
+	struct s_s_assemblage *s_s_assemblage_ptr;
+	struct Use use_save;
+	int save_old, m, n_reactions /*, nok, nbad */ ;
+
+	/* CVODE definitions */
+	realtype ropt[OPT_SIZE], reltol, t, tout, tout1, sum_t;
+	long int iopt[OPT_SIZE];
+	int flag;
+/*
+ *   Set nsaver
+ */
+	run_reactions_iterations = 0;
+	kin_time_x = kin_time;
+	nsaver = i;
+	if (state == TRANSPORT || state == PHAST)
+	{
+		if (use_mix == DISP)
+		{
+			nsaver = -2;
+		}
+		else if (use_mix == STAG)
+		{
+			nsaver = -2 - i;
+		}
+	}
+	if (state == ADVECTION)
+	{
+		nsaver = -2;
+	}
+/*
+ * Check that reaction exists for this cell ..
+ */
+	if (kin_time <= 0 ||
+		(state == REACTION && use.kinetics_in == FALSE) ||
+		(state == TRANSPORT && kinetics_bsearch(i, &n) == NULL) ||
+		(state == PHAST && kinetics_bsearch(i, &n) == NULL) ||
+		(state == ADVECTION && kinetics_bsearch(i, &n) == NULL))
+	{
+		converge =
+			set_and_run_wrapper(i, use_mix, FALSE, nsaver, step_fraction);
+		if (converge == MASS_BALANCE)
+			error_msg
+				("Negative concentration in system. Stopping calculation.",
+				 STOP);
+		run_reactions_iterations += iterations;
+	}
+	else
+	{
+/*
+ *   Save moles of kinetic reactants for printout...
+ */
+		kinetics_ptr = kinetics_bsearch(i, &n);
+
+		m_temp =
+			(LDBLE *) PHRQ_malloc((size_t) kinetics_ptr->count_comps *
+								  sizeof(LDBLE));
+		if (m_temp == NULL)
+			malloc_error();
+
+		m_original =
+			(LDBLE *) PHRQ_malloc((size_t) kinetics_ptr->count_comps *
+								  sizeof(LDBLE));
+		if (m_original == NULL)
+			malloc_error();
+
+		for (j = 0; j < kinetics_ptr->count_comps; j++)
+		{
+			m_original[j] = kinetics_ptr->comps[j].m;
+			m_temp[j] = kinetics_ptr->comps[j].m;
+		}
+/*
+*   Start the loop for timestepping ...
+ *   Use either Runge-Kutta-Fehlberg, or final result extrapolation
+ */
+		pr_all_save = pr.all;
+		pr.all = FALSE;
+/*
+ *   This condition makes output equal for incremental_reactions TRUE/FALSE...
+ *		(if (incremental_reactions == FALSE || reaction_step == 1)
+ */
+		store_get_equi_reactants(i, FALSE);
+		if (kinetics_ptr->use_cvode == FALSE)
+		{
+/* in case dispersivity is not wanted..
+			if (multi_Dflag)
+				rk_kinetics(i, kin_time, NOMIX, nsaver, step_fraction);
+			else
+ */ 
+			rk_kinetics(i, kin_time, use_mix, nsaver, step_fraction);
+			rate_sim_time = rate_sim_time_start + kin_time;
+			store_get_equi_reactants(i, TRUE);
+			pr.all = pr_all_save;
+
+			kinetics_ptr = kinetics_bsearch(i, &n);
+			for (j = 0; j < kinetics_ptr->count_comps; j++)
+			{
+				kinetics_ptr->comps[j].moles =
+					m_original[j] - kinetics_ptr->comps[j].m;
+			}
+			m_temp = (LDBLE *) free_check_null(m_temp);
+			m_original = (LDBLE *) free_check_null(m_original);
+
+		}
+		else
+		{
+			save_old = -2 - (count_cells * (1 + stag_data->count_stag) + 2);
+			if (nsaver != i)
+			{
+				solution_duplicate(i, save_old);
+			}
+			for (j = 0; j < OPT_SIZE; j++)
+			{
+				iopt[j] = 0;
+				ropt[j] = 0;
+			}
+
+/*
+ *	Do mix first
+ */
+			kinetics_ptr = kinetics_bsearch(i, &m);
+			n_reactions = kinetics_ptr->count_comps;
+			cvode_n_user = i;
+			cvode_kinetics_ptr = (void *) kinetics_ptr;
+			cvode_n_reactions = n_reactions;
+			cvode_rate_sim_time_start = rate_sim_time_start;
+			cvode_rate_sim_time = rate_sim_time;
+
+			if (multi_Dflag)
+				converge = set_and_run_wrapper(i, NOMIX, FALSE, i, 0.0);
+			else
+				converge = set_and_run_wrapper(i, use_mix, FALSE, i, 0.0);
+			if (converge == MASS_BALANCE)
+				error_msg
+					("Negative concentration in system. Stopping calculation.",
+					 STOP);
+			saver();
+			pp_assemblage_ptr = pp_assemblage_bsearch(i, &n);
+			s_s_assemblage_ptr = s_s_assemblage_bsearch(i, &n);
+			if (pp_assemblage_ptr != NULL)
+			{
+				cvode_pp_assemblage_save =
+					(struct pp_assemblage *)
+					PHRQ_malloc(sizeof(struct pp_assemblage));
+				if (cvode_pp_assemblage_save == NULL)
+					malloc_error();
+				pp_assemblage_copy(pp_assemblage_ptr,
+								   cvode_pp_assemblage_save,
+								   pp_assemblage_ptr->n_user);
+			}
+			if (s_s_assemblage_ptr != NULL)
+			{
+				cvode_s_s_assemblage_save =
+					(struct s_s_assemblage *)
+					PHRQ_malloc(sizeof(struct s_s_assemblage));
+				if (cvode_s_s_assemblage_save == NULL)
+					malloc_error();
+				s_s_assemblage_copy(s_s_assemblage_ptr,
+									cvode_s_s_assemblage_save,
+									s_s_assemblage_ptr->n_user);
+			}
+
+			/* allocate space for CVODE */
+			kinetics_machEnv = M_EnvInit_Serial(n_reactions);
+#if defined(PHREEQC_CLASS)
+			kinetics_machEnv->phreeqc_ptr = this;
+#endif
+			kinetics_y = N_VNew(n_reactions, kinetics_machEnv);	/* Allocate y, abstol vectors */
+			if (kinetics_y == NULL)
+				malloc_error();
+			cvode_last_good_y = N_VNew(n_reactions, kinetics_machEnv);	/* Allocate y, abstol vectors */
+			if (cvode_last_good_y == NULL)
+				malloc_error();
+			cvode_prev_good_y = N_VNew(n_reactions, kinetics_machEnv);	/* Allocate y, abstol vectors */
+			if (cvode_prev_good_y == NULL)
+				malloc_error();
+			kinetics_abstol = N_VNew(n_reactions, kinetics_machEnv);
+			if (kinetics_abstol == NULL)
+				malloc_error();
+
+/*
+ *	Set y to 0.0
+ */
+			for (j = 0; j < n_reactions; j++)
+			{
+				kinetics_ptr->comps[j].moles = 0.0;
+				Ith(kinetics_y, j + 1) = 0.0;
+				Ith(kinetics_abstol, j + 1) = kinetics_ptr->comps[j].tol;
+				/*Ith(abstol,j+1) = 1e-8; */
+				/* m_temp[j] = kinetics_ptr->comps[j].m; */
+			}
+			reltol = 0.0;
+
+			/* Call CVodeMalloc to initialize CVODE:
+
+			   NEQ   is the problem size = number of equations
+			   f       is the user's right hand side function in y'=f(t,y)
+			   T0     is the initial time
+			   y       is the initial dependent variable vector
+			   BDF   specifies the Backward Differentiation Formula
+			   NEWTON  specifies a Newton iteration
+			   SV     specifies scalar relative and vector absolute tolerances
+			   &reltol is a pointer to the scalar relative tolerance
+			   abstol  is the absolute tolerance vector
+			   FALSE   indicates there are no optional inputs in iopt and ropt
+			   iopt is an array used to communicate optional integer input and output
+			   ropt is an array used to communicate optional real input and output
+
+			   A pointer to CVODE problem memory is returned and stored in cvode_mem. */
+			/* Don't know what this does */
+			/*
+			   iopt[SLDET] = TRUE;
+			   cvode_mem = CVodeMalloc(n_reactions, f, 0.0, y, BDF, NEWTON, SV, &reltol, abstol, NULL, NULL, TRUE, iopt, ropt, machEnv);
+			   cvode_mem = CVodeMalloc(n_reactions, f, 0.0, y, ADAMS, FUNCTIONAL, SV, &reltol, abstol, NULL, NULL, FALSE, iopt, ropt, machEnv);
+			   iopt[MXSTEP] is maximum number of steps that CVODE tries.
+			 */
+			iopt[MXSTEP] = kinetics_ptr->cvode_steps;
+			iopt[MAXORD] = kinetics_ptr->cvode_order;
+#if !defined(PHREEQC_CLASS)
+			kinetics_cvode_mem =
+				CVodeMalloc(n_reactions, f, 0.0, kinetics_y, BDF, NEWTON, SV,
+							&reltol, kinetics_abstol, NULL, NULL, TRUE, iopt,
+							ropt, kinetics_machEnv);
+#else
+			kinetics_cvode_mem =
+				CVodeMalloc(n_reactions, f, 0.0, kinetics_y, BDF, NEWTON, SV,
+							&reltol, kinetics_abstol, this, NULL, TRUE, iopt,
+							ropt, kinetics_machEnv);
+#endif
+			if (kinetics_cvode_mem == NULL)
+				malloc_error();
+
+			/* Call CVDense to specify the CVODE dense linear solver with the
+			   user-supplied Jacobian routine Jac. */
+#if !defined(PHREEQC_CLASS)
+			flag = CVDense(kinetics_cvode_mem, Jac, NULL);
+#else
+			flag = CVDense(kinetics_cvode_mem, Jac, this);
+#endif
+			if (flag != SUCCESS)
+			{
+				error_msg("CVDense failed.", STOP);
+			}
+			t = 0;
+			tout = kin_time;
+			/*ropt[HMAX] = tout/10.; */
+			/*ropt[HMIN] = 1e-17; */
+			use_save = use;
+			flag = CVode(kinetics_cvode_mem, tout, kinetics_y, &t, NORMAL);
+			rate_sim_time = rate_sim_time_start + t;
+			/*
+			   printf("At t = %0.4e   y =%14.6e  %14.6e  %14.6e\n",
+			   t, Ith(y,1), Ith(y,2), Ith(y,3));
+			 */
+			m_iter = 0;
+			sum_t = 0;
+		  RESTART:
+			while (flag != SUCCESS)
+			{
+				sum_t += cvode_last_good_time;
+				sprintf(error_string,
+						"CVode incomplete at cvode_steps %d. Cell: %d\tTime: %e\tCvode calls: %d, continuing...",
+						(int) iopt[NST], cell_no, (double) sum_t, m_iter + 1);
+				output_msg(OUTPUT_STDERR, "%s\n", error_string);
+				if (state == PHAST)
+					output_msg(OUTPUT_SEND_MESSAGE + 1, "%s\n", error_string);
+
+#ifdef DEBUG_KINETICS
+				if (m_iter > 5)
+					dump_kinetics_stderr(cell_no);
+#endif
+				// run with last good y, update reactants
+				cvode_update_reactants(i, nsaver, true);
+
+				cvode_last_good_time = 0;
+				if (++m_iter >= kinetics_ptr->bad_step_max)
+				{
+					m_temp = (LDBLE *) free_check_null(m_temp);
+					m_original = (LDBLE *) free_check_null(m_original);
+					error_msg("Repeated restart of integration.", STOP);
+				}
+				tout1 = tout - sum_t;
+				t = 0;
+				N_VScale(1.0, cvode_last_good_y, kinetics_y);
+				for (j = 0; j < OPT_SIZE; j++)
+				{
+					iopt[j] = 0;
+					ropt[j] = 0;
+				}
+				CVodeFree(kinetics_cvode_mem);	/* Free the CVODE problem memory */
+				iopt[MXSTEP] = kinetics_ptr->cvode_steps;
+				iopt[MAXORD] = kinetics_ptr->cvode_order;
+#if !defined(PHREEQC_CLASS)
+				kinetics_cvode_mem =
+					CVodeMalloc(n_reactions, f, 0.0, kinetics_y, BDF, NEWTON,
+								SV, &reltol, kinetics_abstol, NULL, NULL,
+								TRUE, iopt, ropt, kinetics_machEnv);
+#else
+				kinetics_cvode_mem =
+					CVodeMalloc(n_reactions, f, 0.0, kinetics_y, BDF, NEWTON,
+								SV, &reltol, kinetics_abstol, this, NULL,
+								TRUE, iopt, ropt, kinetics_machEnv);
+#endif
+				if (kinetics_cvode_mem == NULL)
+					malloc_error();
+
+				/* Call CVDense to specify the CVODE dense linear solver with the
+				   user-supplied Jacobian routine Jac. */
+#if !defined(PHREEQC_CLASS)
+				flag = CVDense(kinetics_cvode_mem, Jac, NULL);
+#else
+				flag = CVDense(kinetics_cvode_mem, Jac, this);
+#endif
+				if (flag != SUCCESS)
+				{
+					error_msg("CVDense failed.", STOP);
+				}
+				flag =
+					CVode(kinetics_cvode_mem, tout1, kinetics_y, &t, NORMAL);
+				/*
+				   sprintf(error_string, "CVode failed, flag=%d.\n", flag);
+				   error_msg(error_string, STOP);
+				 */
+			}
+			/*
+			   odeint(&ystart[-1], n_reactions, 0, kin_time, kinetics_ptr->comps[0].tol, kin_time/kinetics_ptr->step_divide, 0.0, &nok, &nbad, i, nsaver );
+			 */
+#ifdef SKIP
+			for (j = 0; j < n_reactions; j++)
+			{
+				kinetics_ptr->comps[j].moles = Ith(kinetics_y, j + 1);
+				kinetics_ptr->comps[j].m =
+					m_original[j] - kinetics_ptr->comps[j].moles;
+				if (kinetics_ptr->comps[j].m < 0)
+				{
+					kinetics_ptr->comps[j].moles = m_original[j];
+					kinetics_ptr->comps[j].m = 0.0;
+				}
+				/* output_msg(OUTPUT_MESSAGE,"%d y[%d] %g\n", i, j, ystart[j]); */
+			}
+			if (use.pp_assemblage_ptr != NULL)
+			{
+				pp_assemblage_free(use.pp_assemblage_ptr);
+				pp_assemblage_copy(cvode_pp_assemblage_save,
+								   use.pp_assemblage_ptr, i);
+			}
+			if (use.s_s_assemblage_ptr != NULL)
+			{
+				s_s_assemblage_free(use.s_s_assemblage_ptr);
+				s_s_assemblage_copy(cvode_s_s_assemblage_save,
+									use.s_s_assemblage_ptr, i);
+			}
+#endif
+			// put remaining kinetic reaction in last_good_y for update
+			N_VScale(1.0, kinetics_y, cvode_last_good_y);
+			if (!cvode_update_reactants(i, nsaver, false))
+			{
+				warning_msg("FAIL 2 after successful integration in CVode");
+				flag = -1;
+				goto RESTART;
+			}
+#ifdef SKIP
+			calc_final_kinetic_reaction(kinetics_ptr);
+			if (set_and_run_wrapper(i, NOMIX, TRUE, nsaver, 1.0) ==
+				MASS_BALANCE)
+			{
+				/*error_msg("FAIL 2 after successful integration in CVode", CONTINUE); */
+				warning_msg("FAIL 2 after successful integration in CVode");
+				flag = -1;
+				goto RESTART;
+			}
+			for (j = 0; j < kinetics_ptr->count_comps; j++)
+			{
+				kinetics_ptr->comps[j].m =
+					m_original[j] - kinetics_ptr->comps[j].moles;
+			}
+#endif
+/*
+ *  Restore solution i, if necessary
+ */
+			if (nsaver != i)
+			{
+				solution_duplicate(save_old, i);
+			}
+			free_cvode();
+			use.mix_in = use_save.mix_in;
+			use.mix_ptr = use_save.mix_ptr;
+		}
+
+		rate_sim_time = rate_sim_time_start + kin_time;
+		store_get_equi_reactants(i, TRUE);
+		pr.all = pr_all_save;
+#ifdef SKIP
+		kinetics_ptr = kinetics_bsearch(i, &n);
+		for (j = 0; j < kinetics_ptr->count_comps; j++)
+		{
+			kinetics_ptr->comps[j].moles =
+				m_original[j] - kinetics_ptr->comps[j].m;
+		}
+#else
+		//kinetics_ptr = Utilities::Rxn_find(Rxn_kinetics_map, i);
+		kinetics_ptr = kinetics_bsearch(i, &n);
+		//cxxKinetics *kinetics_original_ptr = Utilities::Rxn_find(Rxn_kinetics_map, use.Get_n_kinetics_user());
+		struct kinetics *kinetics_original_ptr = kinetics_bsearch(use.n_kinetics_user, &n);
+		//for (size_t j = 0; j < kinetics_ptr->Get_kinetics_comps().size(); j++)
+		for (j = 0; j < kinetics_ptr->count_comps; j++)
+		{
+			//cxxKineticsComp * kinetics_comp_ptr = &(kinetics_ptr->Get_kinetics_comps()[j]);	
+			//cxxKineticsComp * kinetics_original_comp_ptr = &(kinetics_original_ptr->Get_kinetics_comps()[j]);	
+			//kinetics_comp_ptr->Set_moles(kinetics_original_comp_ptr->Get_m() - kinetics_comp_ptr->Get_m());
+			kinetics_ptr->comps[j].moles = kinetics_original_ptr->comps[j].m - kinetics_ptr->comps[j].m;
+		}
+#endif
+		m_temp = (LDBLE *) free_check_null(m_temp);
+		m_original = (LDBLE *) free_check_null(m_original);
+	}
+	iterations = run_reactions_iterations;
+	if (cvode_pp_assemblage_save != NULL)
+	{
+		pp_assemblage_free(cvode_pp_assemblage_save);
+		cvode_pp_assemblage_save =
+			(struct pp_assemblage *)
+			free_check_null(cvode_pp_assemblage_save);
+	}
+	if (cvode_s_s_assemblage_save != NULL)
+	{
+		s_s_assemblage_free(cvode_s_s_assemblage_save);
+		cvode_s_s_assemblage_save =
+			(struct s_s_assemblage *)
+			free_check_null(cvode_s_s_assemblage_save);
+	}
+	return (OK);
+}
+#else
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
@@ -2603,7 +3054,7 @@ run_reactions(int i, LDBLE kin_time, int use_mix, LDBLE step_fraction)
 	}
 	return (OK);
 }
-
+#endif
 /* ---------------------------------------------------------------------- */
 int CLASS_QUALIFIER
 free_cvode(void)
@@ -3512,4 +3963,93 @@ cvode_init(void)
 	cvode_pp_assemblage_save = NULL;
 	cvode_s_s_assemblage_save = NULL;
 	return;
+}
+bool 
+cvode_update_reactants(int i, int nsaver, bool save_it)
+{
+	//cxxKinetics *kinetics_ptr = use.Get_kinetics_ptr();	
+	struct kinetics *kinetics_ptr = use.kinetics_ptr;
+	//int n_reactions = (int) kinetics_ptr->Get_kinetics_comps().size();
+	int n_reactions = kinetics_ptr->count_comps;
+
+	//for (size_t j = 0; j < kinetics_ptr->Get_kinetics_comps().size(); j++)
+	for (int j = 0; j < kinetics_ptr->count_comps; j++)
+	{
+		//cxxKineticsComp * kinetics_comp_ptr = &(kinetics_ptr->Get_kinetics_comps()[j]);
+
+		// Adds reaction defined by last_good_y	
+		//kinetics_comp_ptr->Set_moles(Ith(cvode_last_good_y, j + 1));
+		kinetics_ptr->comps[j].moles = Ith(cvode_last_good_y, j + 1);
+		// Reduces m
+		//kinetics_comp_ptr->Set_m(m_original[j] - kinetics_comp_ptr->Get_moles());
+		kinetics_ptr->comps[j].m = m_original[j] - kinetics_ptr->comps[j].moles;
+        // Don't update until after calc_final_reaction
+		//m_original[j] = kinetics_comp_ptr->Get_m();
+		//m_original[j] = kinetics_ptr->comps[j].m;
+		//m_temp[j] = kinetics_comp_ptr->Get_m();
+		//m_temp[j] = kinetics_ptr->comps[j].m;
+		//if (kinetics_comp_ptr->Get_m() < 0)
+		if (kinetics_ptr->comps[j].m < 0)
+		{
+			kinetics_ptr->comps[j].moles = m_original[j];
+			kinetics_ptr->comps[j].m = 0.0;
+		}
+	}
+	// calculates net reaction
+	calc_final_kinetic_reaction(kinetics_ptr);
+
+	if (use.pp_assemblage_ptr != NULL)
+	{
+		pp_assemblage_free(use.pp_assemblage_ptr);
+		pp_assemblage_copy(cvode_pp_assemblage_save, use.pp_assemblage_ptr,
+						   cvode_pp_assemblage_save->n_user);
+	}
+	if (use.s_s_assemblage_ptr != NULL)
+	{
+		s_s_assemblage_free(use.s_s_assemblage_ptr);
+		s_s_assemblage_copy(cvode_s_s_assemblage_save,
+							use.s_s_assemblage_ptr, cvode_s_s_assemblage_save->n_user);
+	}
+	// runs previous solution plus net reaction 
+	if (set_and_run_wrapper(i, NOMIX, TRUE, nsaver, 1.0) ==	MASS_BALANCE)
+	{
+		error_msg("CVODE step was bad", STOP);
+		return false;
+	}
+
+	// saves result to reactants defined by saver
+	if (save_it)
+	{
+		saver();
+
+		int n;
+		//cxxPPassemblage *pp_assemblage_ptr = Utilities::Rxn_find(Rxn_pp_assemblage_map, nsaver);
+		struct pp_assemblage *pp_assemblage_ptr = pp_assemblage_bsearch(nsaver, &n);
+		//cxxSSassemblage *ss_assemblage_ptr = Utilities::Rxn_find(Rxn_ss_assemblage_map, nsaver);
+		struct s_s_assemblage *s_s_assemblage_ptr = s_s_assemblage_bsearch(nsaver, &n);
+		if (cvode_pp_assemblage_save != NULL)
+		{
+			//delete cvode_pp_assemblage_save;
+			//cvode_pp_assemblage_save = new cxxPPassemblage(*pp_assemblage_ptr);
+			pp_assemblage_free(use.pp_assemblage_ptr);
+			pp_assemblage_copy(pp_assemblage_ptr, cvode_pp_assemblage_save, nsaver);
+		}
+		if (cvode_s_s_assemblage_save != NULL)
+		{
+			//delete cvode_ss_assemblage_save;
+			s_s_assemblage_free(cvode_s_s_assemblage_save);
+			//cvode_ss_assemblage_save = new cxxSSassemblage(*ss_assemblage_ptr);
+			s_s_assemblage_copy(s_s_assemblage_ptr,	cvode_s_s_assemblage_save, nsaver);
+		}
+
+		for (int j = 0; j < n_reactions; j++)
+		{
+			Ith(cvode_last_good_y, j + 1) = 0.0;
+			Ith(cvode_prev_good_y, j + 1) = 0.0;
+
+			m_original[j] = kinetics_ptr->comps[j].m;
+			m_temp[j] = kinetics_ptr->comps[j].m;
+		}
+	}
+	return true;
 }

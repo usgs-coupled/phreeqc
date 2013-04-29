@@ -115,7 +115,7 @@ static char const svnid[] = "$Id$";
 #define HLB_FACTOR RCONST(100.0)
 #define HUB_FACTOR RCONST(0.1)
 #define H_BIAS     HALF
-#define MAX_ITERS  4
+#define MAX_ITERS  40
 
 /* CVSet */
 
@@ -1701,6 +1701,7 @@ CVHin(CVodeMem cv_mem, realtype tout)
 	hlb = HLB_FACTOR * tround;
 	hub = CVUpperBoundH0(cv_mem, tdist);
 	hg = RSqrt(hlb * hub);
+	hnew = hg;
 	if (hub < hlb)
 	{
 		if (sign == -1)
@@ -1865,11 +1866,13 @@ CVStep(CVodeMem cv_mem)
 	/* Looping point for attempts to take a step */
 	loop
 	{
+		bool predict_fail = false;
 		CVMEM cvode_test = TRUE;
 		f(N, tn, y, ftemp, f_data);
 		CVMEM cvode_test = FALSE;
 		if (CVMEM cvode_error == TRUE)
 		{
+			predict_fail = true;
 #ifdef DEBUG_CVODE
 			CVMEM output_msg(OUTPUT_CVODE, "Before predict, y Fail, time %e\n", tn);
 #endif
@@ -1926,7 +1929,11 @@ CVStep(CVodeMem cv_mem)
 #endif
 		CVSet(cv_mem);
 
-		nflag = CVnls(cv_mem, nflag);
+		nflag = CVnls(cv_mem, nflag);		
+		if (CVMEM cvode_error == TRUE || predict_fail)
+		{
+			nflag = -1;
+		}
 #ifdef DEBUG_CVODE
 		cvode_test = TRUE;
 		f(N, tn, y, ftemp, f_data);
@@ -2770,6 +2777,10 @@ CVnlsNewton(CVodeMem cv_mem, int nflag)
 
 		/* Do the Newton iteration */
 		ier = CVNewtonIteration(cv_mem);
+		if (CVMEM cvode_error == TRUE)
+		{
+			return (CONV_FAIL);
+		}
 
 		CVMEM cvode_test = TRUE;
 		f(N, tn, y, ftemp, f_data);
