@@ -611,9 +611,14 @@ build_gas_phase(void)
 				{
 					master_ptr = rxn_ptr->s->secondary;
 				}
-				else
+				else if (rxn_ptr->s->primary != NULL && rxn_ptr->s->primary->in == TRUE)
 				{
 					master_ptr = rxn_ptr->s->primary;
+				}
+				else
+				{
+					master_ptr = master_bsearch_primary(rxn_ptr->s->name);
+					master_ptr->s->la = -999.0; 
 				}
 				if (master_ptr == NULL)
 				{
@@ -689,9 +694,15 @@ build_gas_phase(void)
 			{
 				master_ptr = rxn_ptr->s->secondary;
 			}
-			else
+			else if (rxn_ptr->s->primary != NULL && rxn_ptr->s->primary->in == TRUE)
 			{
 				master_ptr = rxn_ptr->s->primary;
+			}
+			else
+			{
+				master_ptr = master_bsearch_primary(rxn_ptr->s->name);
+				assert(master_ptr);
+				master_ptr->s->la = -999.0;
 			}
 			if (debug_prep == TRUE)
 			{
