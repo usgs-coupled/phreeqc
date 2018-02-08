@@ -1,0 +1,68 @@
+
+# /
+/sun
+
+# /COMManuscript/examples/advect/
+/COMManuscript/examples/advect/Debug
+/COMManuscript/examples/advect/DebugDll
+/COMManuscript/examples/advect/Release
+/COMManuscript/examples/advect/ReleaseDll
+/COMManuscript/examples/advect/advect.suo
+/COMManuscript/examples/advect/advect.u2d
+
+# /COMManuscript/examples/advect_c/
+/COMManuscript/examples/advect_c/Debug
+/COMManuscript/examples/advect_c/DebugDll
+/COMManuscript/examples/advect_c/Release
+/COMManuscript/examples/advect_c/ReleaseDll
+/COMManuscript/examples/advect_c/advect_c.ncb
+/COMManuscript/examples/advect_c/advect_c.suo
+
+# /bin/
+/bin/phreeqc
+/bin/phreeqc.sun
+/bin/phreeqc.exe
+
+# /build/
+/build/*.log
+/build/*.bz2
+/build/*.gz
+/build/phreeqc-*.sh
+/build/*.tstamp
+
+# /build/win32/
+/build/win32/Debug
+/build/win32/Release
+/build/win32/Test
+/build/win32/*.opt
+/build/win32/*.ncb
+/build/win32/*.plg
+/build/win32/*.dep
+/build/win32/*.mak
+/build/win32/*.aps
+/build/win32/*.user
+/build/win32/*.suo
+/build/win32/DebugMem
+
+# /examples/
+/examples/make.out
+/examples/*.log
+
+# /mytest/
+/mytest/make.out
+
+# /src/
+/src/ignore_files
+/src/phreeqc
+/src/phreeqc.dat
+/src/minteq.dat
+/src/wateq4f.dat
+/src/llnl.dat
+/src/*.out
+/src/*.sel
+/src/*.log
+/src/*.pqi
+/src/run2
+/src/val
+/src/.deps
+/src/.dirstamp
